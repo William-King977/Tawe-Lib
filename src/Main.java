@@ -6,8 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// Run the program
-		// System.out.println("Big Z");
-		// saaa
+		// System.out.println("Big Z")
 
 	}
 
