@@ -36,7 +36,7 @@ public class FileReader {
 	    ArrayList<User> users = new ArrayList<>();
 	    while(in.hasNextLine()) {
 	    	String username = in.next();
-	    	User user = new User(username);
+	    	User user = new User(username); // Change when expanding class!
 	    	users.add(user);
 	    }
 	    in.close();
@@ -67,7 +67,7 @@ public class FileReader {
 	    while(in.hasNextLine()) {
 	    	String username = in.next();
 	    	int staffID = in.nextInt();
-	    	Librarian librarian = new Librarian(username, staffID);
+	    	Librarian librarian = new Librarian(username, staffID); // Change when expanding class!
 	    	librarians.add(librarian);
 	    }
 	    in.close();

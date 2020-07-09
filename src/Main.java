@@ -25,7 +25,7 @@ public class Main extends Application {
 	 * @param args Takes a string of arguments.
 	 */
 	public static void main(String[] args) {
-		// Run the program
+		// Run the program.
 		launch(args);
 	}
 	
@@ -48,5 +48,4 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-
 }
