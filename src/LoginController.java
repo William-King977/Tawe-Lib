@@ -1,9 +1,9 @@
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -31,15 +31,24 @@ public class LoginController {
 	 * @param event Passes the event / action of a button press.
 	 */
 	public void handleLoginButtonAction(ActionEvent event) {
-		//System.out.println("Yes");
+		String username = (txtUsername.getText()).trim();
+		boolean userFound;
+		int userType;
 		
-		//Add this to isUser method.
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: User does not exist.");
-		alert.setHeaderText(null);
-		alert.setContentText("The username entered does not exist in the "
-				+ "system. Please try again.");	
-		alert.showAndWait();
+		if(cbStaff.isSelected()) {
+			userFound = isUserExist(username, 1);
+			userType = 1;
+		} else {
+			userFound = isUserExist(username, 2);
+			userType = 2;
+		}
+		
+		if(!userFound) {
+			Utility.userNotExist();
+		} else {
+			// Show dashboard.
+			showDashboard(userType);
+		}
 	}
 	
 	/**
@@ -49,9 +58,29 @@ public class LoginController {
 	 * 				   librarian or a regular user.
 	 * @return True if the user exists, otherwise false.
 	 */
-	private boolean isUser(String username, int userType) {
-		boolean userExists = false;
-		return userExists;
+	private boolean isUserExist(String username, int userType) {
+		switch(userType) {
+			// Create arrayList of users / librarians, then search it.
+			case 1:
+				// Search for librarian.
+				ArrayList<Librarian> librarians = FileReader.getLibrarians();
+				for(Librarian librarian : librarians) {
+					if(librarian.getUsername().equals(username)) {
+						return true;
+					}
+				}
+				break;
+			case 2:
+				// Search for user.
+				ArrayList<User> users = FileReader.getUsers();
+				for(User user : users) {
+					if(user.getUsername().equals(username)) {
+						return true;
+					}
+				}
+				break;
+		}
+		return false;
 	}
 	
 	/**
@@ -61,6 +90,6 @@ public class LoginController {
 	 * 				   user (librarian / user).
 	 */
 	private void showDashboard(int userType) {
-		
+		System.out.println("You reached the dashboard with userType: " + userType);
 	}
 }
