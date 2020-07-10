@@ -28,6 +28,8 @@ public class LoginController {
 	/** fxID for the login button */
 	@FXML private Button btnLogin;
 	
+	public static String username; // Delete once file implementation is done!
+	
 	/**
 	 * Handles a button event for the login button e.g. button press.
 	 * @param event Passes the event / action of a button press.
@@ -49,6 +51,7 @@ public class LoginController {
 			Utility.userNotExist();
 		} else {
 			// Show dashboard.
+			this.username = username;
 			showDashboard(userType);
 		}
 	}
@@ -65,7 +68,7 @@ public class LoginController {
 			// Create arrayList of users / librarians, then search it.
 			case 1:
 				// Search for librarian.
-				ArrayList<Librarian> librarians = FileReader.getLibrarians();
+				ArrayList<Librarian> librarians = FileHandling.getLibrarians();
 				for(Librarian librarian : librarians) {
 					if(librarian.getUsername().equals(username)) {
 						return true;
@@ -74,7 +77,7 @@ public class LoginController {
 				break;
 			case 2:
 				// Search for user.
-				ArrayList<User> users = FileReader.getUsers();
+				ArrayList<User> users = FileHandling.getUsers();
 				for(User user : users) {
 					if(user.getUsername().equals(username)) {
 						return true;

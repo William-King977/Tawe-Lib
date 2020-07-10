@@ -1,9 +1,14 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -90,8 +95,53 @@ public class UserDashboardController {
 	/**
 	 * Displays the user's profile where they can view 
 	 * and edit their details.
+	 * @throws IOException Throws an exception to be caught when the 
+	 *                     FXML file cannot be accessed.
 	 */
-	public void handleViewProfileButtonAction() {
+	public void handleViewProfileButtonAction() throws IOException {
+		//Constants set for the new window to be displayed.
+		final int EDIT_USER_HEIGHT = 420;
+		final int EDIT_USER_WIDTH = 715;
+
+        try {
+        	//Sets up a new FXML loader.
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+					.getResource("FXMLFiles/EditUser.fxml"));
+			
+			//Sets a new anchor pane.
+			AnchorPane editRoot = fxmlLoader.load();
+			
+			//Gets the controller for the FXML file loaded.
+			EditUserController editUser = fxmlLoader
+					.<EditUserController> getController();
+			
+			//The user is editing their own profile.
+			//Adjusts editable fields based on this.
+			editUser.setEditAnotherUser(false);
+			
+			//Gets array list of all users.
+			ArrayList<User> userList = FileHandling.getUsers();
+			
+			//Finds the logged in user in the user list.
+			for (User thisUser : userList) {
+				if (thisUser.getUsername().equals(LoginController.username)) {
+					editUser.setIsLibrarian(false);
+					editUser.editUser(thisUser); 
+				}
+			}	
+			
+            //Sets the scene incl, width and height
+            Scene editScene = new Scene(editRoot, EDIT_USER_WIDTH,
+            		EDIT_USER_HEIGHT); 
+            Stage editStage = new Stage();
+            editStage.setScene(editScene);
+            editStage.initModality(Modality.APPLICATION_MODAL);
+            editStage.showAndWait();
+        } catch (IOException ex) {
+                //Catches an IO exception such as that where the FXML
+                // file is not found.
+                ex.printStackTrace();
+        }
 	}
 	
 	/**
