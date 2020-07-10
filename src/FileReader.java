@@ -32,12 +32,24 @@ public class FileReader {
 			System.exit(0);
 		}
 	    
+	    in.useDelimiter(",");
 	    // Read each user and store them in an ArrayList.
 	    ArrayList<User> users = new ArrayList<>();
 	    while(in.hasNextLine()) {
 	    	String username = in.next();
-	    	User user = new User(username); // Change when expanding class!
+	    	String firstName = in.next();
+	    	String surname = in.next();
+	    	String mobileNumber = in.next();
+	    	String address1 = in.next();
+	    	String address2 = in.next();
+	    	String city = in.next();
+	    	String postcode = in.next();
+	    	String profilePicture = in.next();
+	    	double fine = in.nextDouble();
+	    	User user = new User(username, firstName, surname, mobileNumber,
+	    			address1, address2, city, postcode, profilePicture, fine); 
 	    	users.add(user);
+	    	in.nextLine(); // Needed if you change delimiter.
 	    }
 	    in.close();
 		return users;
@@ -62,13 +74,27 @@ public class FileReader {
 			System.exit(0);
 		}
 	    
+	    in.useDelimiter(",");
 	    // Read each librarian and store them in an ArrayList.
 	    ArrayList<Librarian> librarians = new ArrayList<>();
 	    while(in.hasNextLine()) {
 	    	String username = in.next();
+	    	String firstName = in.next();
+	    	String surname = in.next();
+	    	String mobileNumber = in.next();
+	    	String address1 = in.next();
+	    	String address2 = in.next();
+	    	String city = in.next();
+	    	String postcode = in.next();
+	    	String profilePicture = in.next();
+	    	double fine = in.nextDouble();
 	    	int staffID = in.nextInt();
-	    	Librarian librarian = new Librarian(username, staffID); // Change when expanding class!
+	    	String employmentDate = in.next();
+	    	Librarian librarian = new Librarian(username, firstName, surname, 
+	    			mobileNumber, address1, address2, city, postcode, 
+	    			profilePicture, fine, staffID, employmentDate); 
 	    	librarians.add(librarian);
+	    	in.nextLine(); // Needed if you change delimiter.
 	    }
 	    in.close();
 		return librarians;
