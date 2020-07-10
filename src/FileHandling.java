@@ -27,11 +27,9 @@ public class FileHandling {
 		Scanner in = null;
 	    try {
 	    	//Opens the file for reading
-			in = new Scanner (inputFile);	
-		}
-	    
-	    //Catch an exception if the file does not exist and exit the program
-		catch (FileNotFoundException e) {
+			in = new Scanner (inputFile);
+		// Catch an exception if the file does not exist and exit the program.
+		} catch(FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(0);
 		}
@@ -69,11 +67,10 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 	    try {
-	    	// Opens the file for reading
+	    	// Opens the file for reading.
 			in = new Scanner (inputFile);	
-		}
-	    // Catch an exception if the file does not exist and exit the program
-		catch (FileNotFoundException e) {
+		// Catch an exception if the file does not exist and exit the program.
+		} catch(FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(0);
 		}
@@ -131,9 +128,8 @@ public class FileHandling {
 		
 	    try {
 			reader = new BufferedReader(new FileReader(inputFile));
-		}
-	    // Catch an exception if the file does not exist and exit the program
-		catch (FileNotFoundException e) {
+		// Catch an exception if the file does not exist and exit the program.
+		} catch(FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(0);
 		}
@@ -163,5 +159,16 @@ public class FileHandling {
 				break;
 	    }
 	}
+	
+	/**
+     * Checks if an image file and its path already exist.
+     * @param fileName Takes the name of the file to test.
+     * @return Returns a boolean as to if the file is already in the system.
+     */
+    public static boolean checkImageExists(String fileName){
+    	File pathCheck = new File(DATA_FILE_PATH + 
+    			"ProfilePictures/" + fileName); //The path of the file.
+    	return  pathCheck.exists();
+    }
 }
 

@@ -61,8 +61,8 @@ public class Utility {
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Changes Saved Successfully.");
 		alert.setHeaderText(null);
-		alert.setContentText("The changes made to this user"
-				+ " has been saved successfully.");
+		alert.setContentText("The changes made to this user "
+				+ "has been saved successfully.");
 		alert.showAndWait();
 	}
 	
@@ -74,8 +74,48 @@ public class Utility {
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Changes Saved Successfully.");
 		alert.setHeaderText(null);
-		alert.setContentText("The changes made to this librarian"
-				+ " has been saved successfully.");
+		alert.setContentText("The changes made to this librarian "
+				+ "has been saved successfully.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that the file textbox
+	 * is empty.
+	 */
+	public static void fileNameEmpty() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: File Name Field is Empty.");
+		alert.setHeaderText(null);
+		alert.setContentText("You cannot save a file without "
+				+ "giving it a file name.");	
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that the file name
+	 * already exists.
+	 */
+	public static void fileNameExists() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: File Name Exists.");
+		alert.setHeaderText(null);
+		alert.setContentText("The file name you have chosen already "
+				+ "exists for an image. Please choose another.");	
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that their profile
+	 * picture has been saved.
+	 */
+	public static void profilePictureCreated() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Profile Picture Created.");
+		alert.setHeaderText(null);
+		alert.setContentText("The profile picture has been created "
+				+ "successfully. Select it from your profile "
+				+ "if you want to use it as your profile picture.");
 		alert.showAndWait();
 	}
 	
@@ -121,5 +161,4 @@ public class Utility {
 	    	return false;
 	    }
     }
-
 }

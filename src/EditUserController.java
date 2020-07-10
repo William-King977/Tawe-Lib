@@ -156,13 +156,32 @@ public class EditUserController {
     /**
      * Leads to a page where the user can create their own
      * profile picture.
+     * @throws IOException Throws an exception to be caught when the 
+	 *                     FXML file cannot be accessed.
      */
-    public void handleCreateProfilePictureButtonAction() {
+    public void handleCreateProfilePictureButtonAction() throws IOException {
+    	// Creates the new stage
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/CreateProfilePicture.fxml"));
+		// Gets the controller for the FXML file loaded.
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		
+		// Sets modality which prevents any other window being
+        // used (In the app) until this one is closed.
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
+        // Shows the window.
+        primaryStage.showAndWait();
+        
+        // Refreshes the page once the user exits.
+        initialize();  
     }
     
     /**
      * Validates the edited details of the user and saves any changes made.
-     * @throws IOException 
+     * @throws IOException Throws an exception to be caught when the 
+	 *                     FXML file cannot be accessed.
      */
     public void handleSaveButtonAction() throws IOException {
     	
