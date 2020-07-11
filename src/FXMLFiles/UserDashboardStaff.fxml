@@ -28,7 +28,7 @@
    <right>
       <VBox prefHeight="254.0" prefWidth="204.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnViewUsers" mnemonicParsing="false" onAction="#handleViewUsersButtonAction" prefWidth="185.0" text="User Settings" />
+            <Button fx:id="btnUserSettings" mnemonicParsing="false" onAction="#handleUserSettingsButtonAction" prefWidth="185.0" text="User Settings" />
             <Button fx:id="libarainPayUserFine" mnemonicParsing="false" onAction="#handlePayFineButtonAction" prefWidth="185.0" text="Pay User Fine" />
          </children>
          <BorderPane.margin>

@@ -39,7 +39,8 @@ public class LoginController {
 		boolean userFound;
 		int userType;
 		
-		if(cbStaff.isSelected()) {
+		// Check whether the username exists.
+		if (cbStaff.isSelected()) {
 			userFound = isUserExist(username, 1);
 			userType = 1;
 		} else {
@@ -47,7 +48,8 @@ public class LoginController {
 			userType = 2;
 		}
 		
-		if(!userFound) {
+		// Carryout appropriate actions based on username existence,
+		if (!userFound) {
 			Utility.userNotExist();
 		} else {
 			// Show dashboard.
@@ -64,7 +66,7 @@ public class LoginController {
 	 * @return True if the user exists, otherwise false.
 	 */
 	private boolean isUserExist(String username, int userType) {
-		switch(userType) {
+		switch (userType) {
 			// Create arrayList of users / librarians, then search it.
 			case 1:
 				// Search for librarian.
@@ -104,7 +106,7 @@ public class LoginController {
 		FXMLLoader fxmlLoader;
 		
 		try {
-			if(userType == 1) {
+			if (userType == 1) {
 				// Show staff dashboard.
 				Stage curStage = (Stage) btnLogin.getScene().getWindow(); // refers to current stage.
 				fxmlLoader = new FXMLLoader(getClass()
@@ -118,7 +120,7 @@ public class LoginController {
 			}
 	
 			// Creates a new boarder pane.
-    		BorderPane editRoot = (BorderPane)fxmlLoader.load();
+    		BorderPane editRoot = (BorderPane) fxmlLoader.load();
 
             // Sets the scene incl, width and height.
     		Scene editScene = new Scene(editRoot, DASHBOARD_WIDTH, 

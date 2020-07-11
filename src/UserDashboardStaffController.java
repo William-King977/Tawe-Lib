@@ -2,8 +2,12 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -28,8 +32,8 @@ public class UserDashboardStaffController {
 	/** A button that leads to the View Copies page. */
 	@FXML private Button btnViewCopies;
 	
-	/** A button that leads to the View Users page. */
-	@FXML private Button btnViewUsers;
+	/** A button that leads to the User Settings page. */
+	@FXML private Button btnUserSettings;
 	
 	/** A button that leads to librarian Pay User Fine page. */
 	@FXML private Button btnPayUserFine;
@@ -73,8 +77,19 @@ public class UserDashboardStaffController {
 	/**
 	 * Goes to a page where the librarian can view all users registered to
 	 * the library system.
+	 * @throws IOException Throws an exception to be caught when the 
+	 * 		   			   FXML file cannot be accessed.
 	 */
-	public void handleViewUsersButtonAction() {
+	public void handleUserSettingsButtonAction() throws IOException {
+		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
+		curStage.close(); //closes current stage.
+	    /*creates the new stage*/
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/UserSettings.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); //displays the new stage.
 	}
 	
 	/**

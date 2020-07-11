@@ -175,6 +175,7 @@ public class EditUserController {
         primaryStage.showAndWait();
         
         // Refreshes the page once the user exits.
+        // Mainly to update the profile picture menu.
         initialize();  
     }
     
@@ -218,7 +219,7 @@ public class EditUserController {
         boolean hasLetter = Utility.isAlpha(firstName, surname, city);
         
         // Shows appropriate alerts if validation has not been met.
-        if(!requiredFilled) { 
+        if (!requiredFilled) { 
         	Utility.missingFields();
         	return;
         } else if (!hasLetter) {

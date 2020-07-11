@@ -83,7 +83,7 @@ public class CreateProfilePictureController {
 			double yStart = e.getY();
 			canvas.setOnMouseReleased(a-> { // When released, the final x and y
 					    // coordinates are recorded and used.
-				if(line.isSelected()) { // if line is selected, then a line is drawn.
+				if (line.isSelected()) { // if line is selected, then a line is drawn.
 					gc.strokeLine(xStart, yStart, a.getX(), a.getY());
 					gc.closePath(); // Closes the path so following lines
 						            // don't link up from the previous line.
@@ -97,14 +97,14 @@ public class CreateProfilePictureController {
 			double initX = e.getX() - shapeSize / 2;
 			double initY = e.getY() - shapeSize / 2;
 			
-			if(circle.isSelected()) { // Draws a circle if the shape is selected.
+			if (circle.isSelected()) { // Draws a circle if the shape is selected.
 				gc.setFill(colourPicker.getValue());
 				gc.fillOval(initX, initY, shapeSize, shapeSize);
 				gc.strokeOval(initX, initY, shapeSize, shapeSize);
-			} else if(fill.isSelected()) { // Fills the canvas if selected.
+			} else if (fill.isSelected()) { // Fills the canvas if selected.
 				gc.setFill(colourPicker.getValue());
 				gc.fillRect(0, 0, 300, 300);
-			} else if(arc.isSelected()) { // Draws an arc if the shape is selected.
+			} else if (arc.isSelected()) { // Draws an arc if the shape is selected.
 				gc.setFill(colourPicker.getValue());
 				gc.fillArc(initX, initY, shapeSize, shapeSize, 380, 310, ArcType.ROUND);
 			}
@@ -116,7 +116,7 @@ public class CreateProfilePictureController {
 			double x = a.getX() - thickness / 2;
 			double y = a.getY() - thickness / 2;
 			
-			if(brush.isSelected()) { // When a brush is selected, a stream
+			if (brush.isSelected()) { // When a brush is selected, a stream
 				// of circles are displayed every drag.
 				gc.setFill(colourPicker.getValue());
 				gc.fillOval(x, y, thickness, thickness);
@@ -146,9 +146,9 @@ public class CreateProfilePictureController {
 		String fileName = ImageFilename.getText().trim() + ".png"; //setting a filename to
 													//the name in the text field,
 													//appended to the .png extension.
-		if(fileName.equals(".png")) { 
+		if (fileName.equals(".png")) { 
 			Utility.fileNameEmpty();
-		} else if(FileHandling.checkImageExists(fileName)) {
+		} else if (FileHandling.checkImageExists(fileName)) {
 			Utility.fileNameExists();
 		} else if (!FileHandling.checkImageExists(fileName)) { // Runs the following code if the file
 			                                                   // doesn't currently exist.
@@ -161,7 +161,7 @@ public class CreateProfilePictureController {
 			try { // Try's the code when writing to the file, handling any exceptions thrown.
 				ImageIO.write(SwingFXUtils.fromFXImage(snap, null), "png", file);
 				Utility.profilePictureCreated();
-			} catch(IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			

@@ -29,7 +29,7 @@ public class FileHandling {
 	    	//Opens the file for reading
 			in = new Scanner (inputFile);
 		// Catch an exception if the file does not exist and exit the program.
-		} catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(0);
 		}
@@ -37,7 +37,7 @@ public class FileHandling {
 	    in.useDelimiter(",");
 	    // Read each user and store them in an ArrayList.
 	    ArrayList<User> users = new ArrayList<>();
-	    while(in.hasNextLine()) {
+	    while (in.hasNextLine()) {
 	    	String username = in.next();
 	    	String firstName = in.next();
 	    	String surname = in.next();
@@ -70,7 +70,7 @@ public class FileHandling {
 	    	// Opens the file for reading.
 			in = new Scanner (inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
-		} catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(0);
 		}
@@ -78,7 +78,7 @@ public class FileHandling {
 	    in.useDelimiter(",");
 	    // Read each librarian and store them in an ArrayList.
 	    ArrayList<Librarian> librarians = new ArrayList<>();
-	    while(in.hasNextLine()) {
+	    while (in.hasNextLine()) {
 	    	String username = in.next();
 	    	String firstName = in.next();
 	    	String surname = in.next();
@@ -112,7 +112,7 @@ public class FileHandling {
 	public static void editProfile(String oldProfile, String newProfile, 
 			int userType) throws IOException {
 		String filePath = "";
-		switch(userType) {
+		switch (userType) {
 			case 1:
 				filePath = DATA_FILE_PATH + "Librarian.txt";
 				break;
@@ -129,7 +129,7 @@ public class FileHandling {
 	    try {
 			reader = new BufferedReader(new FileReader(inputFile));
 		// Catch an exception if the file does not exist and exit the program.
-		} catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(0);
 		}
@@ -150,7 +150,7 @@ public class FileHandling {
 	    writer.close();
 	    
 	    // Show appropriate message to indicate that the changes were saved.
-	    switch(userType) {
+	    switch (userType) {
 			case 1:
 				Utility.savedLibrarianChanges();
 				break;
