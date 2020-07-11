@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -136,7 +138,7 @@ public class Utility {
 	}
 	
 	/**
-	 * An alert pop-up that tells librarian that
+	 * An alert pop-up that tells the librarian that
 	 * they can't edit other librarian's profiles.
 	 */
 	public static void invalidStaffEdit() {
@@ -146,6 +148,32 @@ public class Utility {
 		alert.setContentText("You are not allowed to edit "
 				+ "other librarian's profiles. Only your own "
 				+ "profile or other regular users.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the librarian that
+	 * the username entered already exists in the system.
+	 */
+	public static void usernameExists() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: This Username Exists.");
+		alert.setHeaderText(null);
+		alert.setContentText("An existing user has the same "
+				+ "username, please enter a different one.");
+		alert.showAndWait();
+    	return;
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that the user has 
+	 * been created successfully.
+	 */
+	public static void userCreated() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("User Created Successfully.");
+		alert.setHeaderText(null);
+		alert.setContentText("The user has been created successfully.");
 		alert.showAndWait();
 	}
 	
@@ -190,5 +218,31 @@ public class Utility {
 	    } else {
 	    	return false;
 	    }
+    }
+    
+    /**
+     * Checks if the entered username is the same with any of the current 
+     * users registered in the system.
+     * @param userList The list of all registered users.
+     * @param librarianList The list of all registered librarians.
+     * @param username The username entered.
+     * @return Whether the username entered exists in the system or not.
+     */
+    public static boolean isUsernameExist(ArrayList<User> userList, 
+    		ArrayList<Librarian> librarianList, String username) {
+		//Checks if any of the librarians have the same username.
+        for (User thisLibrarian : librarianList) {
+        	if ((thisLibrarian.getUsername()).equals(username)) { 
+        		return true;
+        	}
+        }
+        //Checks if any of the members have the same username.
+        for (User thisUser : userList) {
+        	if ((thisUser.getUsername()).equals(username)) {
+        		return true;
+        	}
+        }
+        //The entered username doesn't exist in the system.
+        return false;
     }
 }

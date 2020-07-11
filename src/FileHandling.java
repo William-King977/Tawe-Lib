@@ -1,9 +1,11 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -38,6 +40,7 @@ public class FileHandling {
 	    // Read each user and store them in an ArrayList.
 	    ArrayList<User> users = new ArrayList<>();
 	    while (in.hasNextLine()) {
+	    	
 	    	String username = in.next();
 	    	String firstName = in.next();
 	    	String surname = in.next();
@@ -141,7 +144,7 @@ public class FileHandling {
 	        line = reader.readLine();
 	    }
 	    // Replace old profile with the new one within the old textfile.
-	    String newContent = oldContent.replace(oldProfile, newProfile);
+	    String newContent = oldContent.replaceAll(oldProfile, newProfile);
 	   
 	    writer = new FileWriter(filePath);
 	    writer.write(newContent);
@@ -158,6 +161,42 @@ public class FileHandling {
 				Utility.savedUserChanges();
 				break;
 	    }
+	}
+	
+	/**
+	 * A new user is created by adding their details at the end
+	 * of their respective textfile.
+	 * @param newUser Details of the new registered user.
+	 * @param userType Integer showing whether a user is staff or not.
+	 */
+	public static void createUser(String newUser, int userType) {
+		String filePath = "";
+		switch (userType) {
+			case 1:
+				filePath = DATA_FILE_PATH + "Librarian.txt";
+				break;
+			case 2:
+				filePath = DATA_FILE_PATH + "User.txt";
+				break;
+		}
+		
+		File file = null;
+		FileWriter fileWriter = null;
+		BufferedWriter buffWriter = null;
+		PrintWriter printWriter = null;
+		try { 
+			file = new File(filePath);
+			fileWriter = new FileWriter(file, true);
+			buffWriter = new BufferedWriter(fileWriter);
+			printWriter = new PrintWriter(buffWriter);
+			
+			printWriter.print(""); // Writes the user on the next line.
+			printWriter.println(newUser);
+			printWriter.close();
+        } 
+        catch (IOException e) { 
+            System.out.println("Cannot write to " + filePath); 
+        } 
 	}
 	
 	/**

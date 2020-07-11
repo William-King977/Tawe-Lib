@@ -186,6 +186,8 @@ public class EditUserController {
     	String firstName = txtFirstName.getText().trim();
         String surname = txtSurname.getText().trim();
         String mobileNumber = txtMobileNumber.getText().trim();
+        String city = txtCity.getText().trim();
+        String postcode = txtPostcode.getText().trim();
         String address1 = txtAddressLine1.getText().trim();
         String address2 = txtAddressLine2.getText().trim();
         
@@ -193,9 +195,6 @@ public class EditUserController {
         if (address2.isEmpty()) {
         	address2 = "N/A";
         }
-        
-        String city = txtCity.getText().trim();
-        String postcode = txtPostcode.getText().trim();
         
         // Gets the position of the selected profile picture.
 		int selectedIndex = cmbProfilePicture.getSelectionModel()
@@ -233,24 +232,24 @@ public class EditUserController {
     				"," + userBeingEdited.getCity() + "," + userBeingEdited.getPostcode() +
     				"," + userBeingEdited.getProfilePicture() + "," + userBeingEdited.getFine() + 
     				"," + ((Librarian) userBeingEdited).getStaffID() + 
-    				"," + ((Librarian) userBeingEdited).getEmploymentDate();
+    				"," + ((Librarian) userBeingEdited).getEmploymentDate() + ",";
     		
     		String newProfile = userBeingEdited.getUsername() + "," + firstName + 
     				"," + surname + "," + mobileNumber + "," + address1 + "," + address2 + 
     				"," + city + "," + postcode + "," + profilePicture + "," + userBeingEdited.getFine() + 
     				"," + ((Librarian) userBeingEdited).getStaffID() + 
-    				"," + ((Librarian) userBeingEdited).getEmploymentDate();
+    				"," + ((Librarian) userBeingEdited).getEmploymentDate() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 1);
         } else {
     		String oldProfile = userBeingEdited.getUsername() + "," + userBeingEdited.getFirstName() + 
     				"," + userBeingEdited.getSurname() + "," + userBeingEdited.getMobileNumber() +
     				"," + userBeingEdited.getAddress1() + "," + userBeingEdited.getAddress2() +
     				"," + userBeingEdited.getCity() + "," + userBeingEdited.getPostcode() +
-    				"," + userBeingEdited.getProfilePicture() + "," + userBeingEdited.getFine();
+    				"," + userBeingEdited.getProfilePicture() + "," + userBeingEdited.getFine() + ",";
     		
     		String newProfile = userBeingEdited.getUsername() + "," + firstName + 
     				"," + surname + "," + mobileNumber + "," + address1 + "," + address2 +
-    				"," + city + "," + postcode + "," + profilePicture + "," + userBeingEdited.getFine();
+    				"," + city + "," + postcode + "," + profilePicture + "," + userBeingEdited.getFine() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 2);
         }
     }

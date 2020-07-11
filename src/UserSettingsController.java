@@ -211,7 +211,16 @@ public class UserSettingsController {
 	/**
 	 * Displays a page where the librarian can create a new user.
 	 */
-	public void handleCreateNewUserButtonAction() {
+	public void handleCreateNewUserButtonAction() throws IOException {
+		// Closes the window.
+    	Stage stage = (Stage) btnBack.getScene().getWindow();
+		stage.close();
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/NewUser.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); // Displays the new stage.
 	}
 	
 	/**
