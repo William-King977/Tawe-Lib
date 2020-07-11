@@ -87,10 +87,7 @@ public class EditUserController {
      * used later on. This method runs automatically.
      */
     public void initialize() {
-    	//Fetches the array list of librarians.
         librarianList = FileHandling.getLibrarians();
-
-        //Then fetches the array list of users.
         userList = FileHandling.getUsers();
         
         //Creates an array of all profile pictures.
@@ -226,19 +223,36 @@ public class EditUserController {
         	Utility.nonAlphaError();
         	return;
         }
-		
-        // Create copies of the old and new profiles, then replace the old with new.
-		String oldProfile = userBeingEdited.getUsername() + "," + userBeingEdited.getFirstName() + 
-				"," + userBeingEdited.getSurname() + "," + userBeingEdited.getMobileNumber() +
-				"," + userBeingEdited.getAddress1() + "," + userBeingEdited.getAddress2() +
-				"," + userBeingEdited.getCity() + "," + userBeingEdited.getPostcode() +
-				"," + userBeingEdited.getProfilePicture() + "," + userBeingEdited.getFine();
-		
-		String newProfile = userBeingEdited.getUsername() + "," + firstName + 
-				"," + surname + "," + mobileNumber + "," + address1 + "," + address2 +
-				"," + city + "," + postcode + "," + profilePicture + "," + userBeingEdited.getFine();
-
-		FileHandling.editProfile(oldProfile, newProfile, 2);
+        
+        // Save profile.
+        if (isLibrarian()) {
+        	// Create copies of the old and new profiles, then replace the old with new.
+    		String oldProfile = userBeingEdited.getUsername() + "," + userBeingEdited.getFirstName() + 
+    				"," + userBeingEdited.getSurname() + "," + userBeingEdited.getMobileNumber() +
+    				"," + userBeingEdited.getAddress1() + "," + userBeingEdited.getAddress2() +
+    				"," + userBeingEdited.getCity() + "," + userBeingEdited.getPostcode() +
+    				"," + userBeingEdited.getProfilePicture() + "," + userBeingEdited.getFine() + 
+    				"," + ((Librarian) userBeingEdited).getStaffID() + 
+    				"," + ((Librarian) userBeingEdited).getEmploymentDate();
+    		
+    		String newProfile = userBeingEdited.getUsername() + "," + firstName + 
+    				"," + surname + "," + mobileNumber + "," + address1 + "," + address2 + 
+    				"," + city + "," + postcode + "," + profilePicture + "," + userBeingEdited.getFine() + 
+    				"," + ((Librarian) userBeingEdited).getStaffID() + 
+    				"," + ((Librarian) userBeingEdited).getEmploymentDate();
+    		FileHandling.editProfile(oldProfile, newProfile, 1);
+        } else {
+    		String oldProfile = userBeingEdited.getUsername() + "," + userBeingEdited.getFirstName() + 
+    				"," + userBeingEdited.getSurname() + "," + userBeingEdited.getMobileNumber() +
+    				"," + userBeingEdited.getAddress1() + "," + userBeingEdited.getAddress2() +
+    				"," + userBeingEdited.getCity() + "," + userBeingEdited.getPostcode() +
+    				"," + userBeingEdited.getProfilePicture() + "," + userBeingEdited.getFine();
+    		
+    		String newProfile = userBeingEdited.getUsername() + "," + firstName + 
+    				"," + surname + "," + mobileNumber + "," + address1 + "," + address2 +
+    				"," + city + "," + postcode + "," + profilePicture + "," + userBeingEdited.getFine();
+    		FileHandling.editProfile(oldProfile, newProfile, 2);
+        }
     }
     
     /**

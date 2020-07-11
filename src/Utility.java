@@ -120,6 +120,36 @@ public class Utility {
 	}
 	
 	/**
+	 * An alert pop-up that tells the user that they
+	 * haven't selected a user to edit.
+	 */
+	public static void userNotSelected() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Edit User.");
+		alert.setHeaderText(null);
+		alert.setContentText("Please click a "
+				+ "checkbox to display "
+				+ "the users you want to view / edit. "
+				+ "If you have, you must select a "
+				+ "user to edit their details.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells librarian that
+	 * they can't edit other librarian's profiles.
+	 */
+	public static void invalidStaffEdit() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Edit Librarian.");
+		alert.setHeaderText(null);
+		alert.setContentText("You are not allowed to edit "
+				+ "other librarian's profiles. Only your own "
+				+ "profile or other regular users.");
+		alert.showAndWait();
+	}
+	
+	/**
      * Checks if all the required fields have data in them.
      * @param firstName The entered first name.
      * @param surname The entered surname.

@@ -66,12 +66,82 @@ public class UserSettingsController {
 	 * a selected user.
 	 */
 	public void handleEditUserButtonAction() {	
-	}
-	
-	/**
-	 * Displays a page where the librarian can create a new user.
-	 */
-	public void handleCreateNewUserButtonAction() {
+		//Constants set for the new window to be displayed.
+		final String EDIT_USER_TITLE = "Edit User";
+		final int EDIT_USER_HEIGHT = 420;
+		final int EDIT_USER_WIDTH = 715;
+		
+		//Gets the position of the selected user on the UI.
+		int selectedIndex = listShowUsers.getSelectionModel().getSelectedIndex();
+		
+		try {
+			//Sets up a new FXML loader.
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+					.getResource("FXMLFiles/EditUser.fxml")); 
+			
+			//Sets a new anchor pane.
+			AnchorPane editRoot = fxmlLoader.load();
+			
+			//Gets the controller for the FXML file loaded.
+			EditUserController editUser = fxmlLoader
+					.<EditUserController> getController();
+			
+			// Sets variables to editUser based on user type being edited.
+			if (selectedIndex < 0) {
+				Utility.userNotSelected();
+				return;
+			} else if (cbLibrarian.isSelected()) {
+				// Uses the earlier index to find the librarian 
+				// in the librarianList arrayList.
+				Librarian selectedUser = librarianList.get(selectedIndex);
+				
+				// Librarian's can only edit their own profile (or regular users).
+				if ((selectedUser.getUsername())
+						.equals(LoginController.username)) {
+					// Sets if the edited user is a librarian or not
+					// and displays user info on the new window.
+					editUser.setIsLibrarian(true);
+					editUser.setEditAnotherUser(false);
+	    			editUser.editUser(selectedUser); 
+				} else {
+					Utility.invalidStaffEdit();
+					return;
+				}
+    		} else { // If editing another user.
+				User selectedUser = userList.get(selectedIndex);
+				editUser.setIsLibrarian(false);
+				editUser.setEditAnotherUser(true);
+				editUser.editUser(selectedUser); 
+    		}
+			
+			//Sets the scene incl, width and height
+            Scene editScene = new Scene(editRoot, EDIT_USER_WIDTH, 
+            		EDIT_USER_HEIGHT); 
+            //creates a new stage
+            Stage editStage = new Stage();
+            //sets the scene to the stage
+            editStage.setScene(editScene);
+            //sets the stage title
+            editStage.setTitle(EDIT_USER_TITLE);
+          
+            //Sets modality which prevents any other window being
+            // used (In the app) until this one is closed.
+            editStage.initModality(Modality.APPLICATION_MODAL);
+            //Shows the window.
+            editStage.showAndWait();
+            
+            //Refreshes the View Users page to load any
+            //changes made to a user, if any.
+            initialize();
+            cbLibrarian.setSelected(false);
+            cbMember.setSelected(false);
+            listShowUsers.getItems().clear();
+			
+		} catch (IOException ex) {
+            // Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
 	}
 	
 	/**
@@ -79,6 +149,69 @@ public class UserSettingsController {
 	 * is selected.
 	 */
 	public void handleDisplayUserButtonAction() {
+		//Constants set for the new window to be displayed.
+		final String DISPLAY_USER_TITLE = "Display User";
+		final int DISPLAY_USER_HEIGHT = 486;
+		final int DISPLAY_USER_WIDTH = 745;
+		
+		//Gets the position of the selected user on the UI.
+		int selectedIndex = listShowUsers.getSelectionModel().getSelectedIndex();
+		
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+					.getResource("FXMLFiles/DisplayUser.fxml")); 
+			
+			// Sets a new anchor pane.
+			AnchorPane editRoot = fxmlLoader.load();
+			
+			//Gets the controller for the FXML file loaded.
+			DisplayUserController viewUser = fxmlLoader
+					.<DisplayUserController> getController();
+			
+			// Sets variables to editUser based on user type being edited.
+			if (selectedIndex < 0) {
+				Utility.userNotSelected();
+				return;
+			} else if (cbLibrarian.isSelected()) {
+				// Uses the earlier index to find the librarian 
+				// in the librarianList arrayList.
+				Librarian selectedUser = librarianList.get(selectedIndex);
+				viewUser.setIsLibrarian(true);
+	    		viewUser.displayProfile(selectedUser); 
+				
+    		} else { // If editing another user.
+				User selectedUser = userList.get(selectedIndex);
+				viewUser.setIsLibrarian(false);
+				viewUser.displayProfile(selectedUser); 
+    		}
+			
+			// Sets the scene incl, width and height
+            Scene editScene = new Scene(editRoot, DISPLAY_USER_WIDTH, 
+            		DISPLAY_USER_HEIGHT); 
+            // Creates a new stage
+            Stage editStage = new Stage();
+            // Sets the scene to the stage
+            editStage.setScene(editScene);
+            // Sets the stage title
+            editStage.setTitle(DISPLAY_USER_TITLE);
+          
+            // Sets modality which prevents any other window being
+            // used (In the app) until this one is closed.
+            editStage.initModality(Modality.APPLICATION_MODAL);
+            //Shows the window.
+            editStage.showAndWait();
+			
+		} catch (IOException ex) {
+            // Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Displays a page where the librarian can create a new user.
+	 */
+	public void handleCreateNewUserButtonAction() {
 	}
 	
 	/**

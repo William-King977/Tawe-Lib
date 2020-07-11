@@ -73,7 +73,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <ImageView fx:id="imageProfilePicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <ImageView fx:id="imageProfilePicture" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <Button fx:id="btnCreateProfilePicture" mnemonicParsing="false" onAction="#handleCreateProfilePictureButtonAction" text="Create Profile Picture" GridPane.columnIndex="4" GridPane.rowIndex="8" />
           </children>
           <columnConstraints>
