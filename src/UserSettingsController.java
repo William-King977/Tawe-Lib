@@ -75,11 +75,9 @@ public class UserSettingsController {
 		int selectedIndex = listShowUsers.getSelectionModel().getSelectedIndex();
 		
 		try {
-			//Sets up a new FXML loader.
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource("FXMLFiles/EditUser.fxml")); 
-			
-			//Sets a new anchor pane.
+	
 			AnchorPane editRoot = fxmlLoader.load();
 			
 			//Gets the controller for the FXML file loaded.
@@ -91,13 +89,12 @@ public class UserSettingsController {
 				Utility.userNotSelected();
 				return;
 			} else if (cbLibrarian.isSelected()) {
-				// Uses the earlier index to find the librarian 
-				// in the librarianList arrayList.
+				// Uses the earlier index to find the librarian.
 				Librarian selectedUser = librarianList.get(selectedIndex);
 				
 				// Librarian's can only edit their own profile (or regular users).
 				if ((selectedUser.getUsername())
-						.equals(LoginController.username)) {
+						.equals(FileHandling.getCurrentUser())) {
 					// Sets if the edited user is a librarian or not
 					// and displays user info on the new window.
 					editUser.setIsLibrarian(true);
@@ -113,25 +110,20 @@ public class UserSettingsController {
 				editUser.setEditAnotherUser(true);
 				editUser.editUser(selectedUser); 
     		}
-			
-			//Sets the scene incl, width and height
+	
             Scene editScene = new Scene(editRoot, EDIT_USER_WIDTH, 
             		EDIT_USER_HEIGHT); 
-            //creates a new stage
             Stage editStage = new Stage();
-            //sets the scene to the stage
             editStage.setScene(editScene);
-            //sets the stage title
             editStage.setTitle(EDIT_USER_TITLE);
           
-            //Sets modality which prevents any other window being
+            // Sets modality which prevents any other window being
             // used (In the app) until this one is closed.
             editStage.initModality(Modality.APPLICATION_MODAL);
-            //Shows the window.
             editStage.showAndWait();
             
-            //Refreshes the View Users page to load any
-            //changes made to a user, if any.
+            // Refreshes the View Users page to load any
+            // changes made to a user, if any.
             initialize();
             cbLibrarian.setSelected(false);
             cbMember.setSelected(false);

@@ -20,10 +20,11 @@ public class Utility {
 	 */
 	public static void userNotExist() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: User does not exist.");
+		alert.setTitle("Error: User Does Not Exist.");
 		alert.setHeaderText(null);
 		alert.setContentText("The username entered does not exist in the "
-				+ "system. Please try again.");	
+				+ "system. Please try again. Remember to click the check "
+				+ "box if you are a librarian.");	
 		alert.showAndWait();
 	}
 	
@@ -33,7 +34,7 @@ public class Utility {
 	 */
 	public static void missingFields() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: Missing required fields.");
+		alert.setTitle("Error: Missing Required Fields.");
 		alert.setHeaderText(null);
 		alert.setContentText("Please fill in all the "
 				+ "required fields.");
@@ -46,8 +47,8 @@ public class Utility {
 	 */
 	public static void nonAlphaError() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: Non-alphabetic characters "
-				+ "detected in fields.");
+		alert.setTitle("Error: Non-Alphabetic Characters "
+				+ "Detected In Fields.");
 		alert.setHeaderText(null);
 		alert.setContentText("You cannot have non-alphabetic "
 				+ "characters in the "
@@ -87,10 +88,10 @@ public class Utility {
 	 */
 	public static void fileNameEmpty() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: File Name Field is Empty.");
+		alert.setTitle("Error: File Name Field Is Empty.");
 		alert.setHeaderText(null);
-		alert.setContentText("You cannot save a file without "
-				+ "giving it a file name.");	
+		alert.setContentText("Please enter a name for "
+				+ "your designed profile picture.");	
 		alert.showAndWait();
 	}
 	
@@ -103,7 +104,7 @@ public class Utility {
 		alert.setTitle("Error: File Name Exists.");
 		alert.setHeaderText(null);
 		alert.setContentText("The file name you have chosen already "
-				+ "exists for an image. Please choose another.");	
+				+ "exists for an image. Please enter another.");	
 		alert.showAndWait();
 	}
 	
@@ -190,7 +191,7 @@ public class Utility {
     public static boolean isFieldFilled(String firstName, String surname, 
     		String mobileNumber, String address1, String city, 
     		String postcode) {
-    	//If any of the required fields are empty. 
+    	// If any of the required fields are empty. 
         if (firstName.isEmpty() || surname.isEmpty() || 
         		mobileNumber.isEmpty() || address1.isEmpty() || 
         		city.isEmpty() || postcode.isEmpty()) {
@@ -209,12 +210,12 @@ public class Utility {
      *         dashes or not.
      */
     public static boolean isAlpha(String firstName, String surname, String city) {
-    	//If the selected fields has only letters or dashes.
+    	// If the selected fields has only letters or dashes.
 	    if (firstName.matches(alphabet) && surname.matches(alphabet) 
 	    		&& city.matches(alphabet)) {
 	    	return true;
-	    //If any of the fields that SHOULD NOT contain non-alphabetical
-		//have non-alphabetical characters
+	    // If any of the fields that SHOULD NOT contain non-alphabetical
+		// have non-alphabetical characters.
 	    } else {
 	    	return false;
 	    }
@@ -230,19 +231,19 @@ public class Utility {
      */
     public static boolean isUsernameExist(ArrayList<User> userList, 
     		ArrayList<Librarian> librarianList, String username) {
-		//Checks if any of the librarians have the same username.
+		// Checks if any of the librarians have the same username.
         for (User thisLibrarian : librarianList) {
         	if ((thisLibrarian.getUsername()).equals(username)) { 
         		return true;
         	}
         }
-        //Checks if any of the members have the same username.
+        // Checks if any of the members have the same username.
         for (User thisUser : userList) {
         	if ((thisUser.getUsername()).equals(username)) {
         		return true;
         	}
         }
-        //The entered username doesn't exist in the system.
+        // The entered username doesn't exist in the system.
         return false;
     }
 }

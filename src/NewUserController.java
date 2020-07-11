@@ -1,10 +1,6 @@
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -131,7 +127,7 @@ public class NewUserController {
      * @param address1 The entered address line 1.
      * @param address2 The entered address line 2.
      * @param city The entered city.
-     * @param postcode The entered postcode.
+     * @param postcode The entered post code.
      * @param profilePicture The default profile picture for the user.
      * @param fine The default fine set for the user.
      */

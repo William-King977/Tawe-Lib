@@ -101,9 +101,15 @@ public class UserDashboardStaffController {
 	/**
 	 * Goes back to the Login page when the button is clicked.
 	 */
-	public void handleLogoutButtonAction() {
-		//Closes the window.
+	public void handleLogoutButtonAction() throws IOException {
+		// Closes the window.
 		Stage stage = (Stage) btnLogout.getScene().getWindow();
 		stage.close();
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/Login.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); // Displays the new stage.
 	}	
 }

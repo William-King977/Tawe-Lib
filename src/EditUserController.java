@@ -223,33 +223,70 @@ public class EditUserController {
         	return;
         }
         
-        // Save profile.
+        saveUserEdits(firstName, surname, mobileNumber, address1, address2,
+        		city, postcode, profilePicture);
+    }
+    
+    /**
+     * Saves the edits made to the user.
+     * It's done by replacing the details of the old profile with the
+     * new edited profile.
+     * @param firstName The edited first name.
+     * @param surname The edited surname.
+     * @param mobileNumber The edited mobile number.
+     * @param address1 The edited address line 1.
+     * @param address2 The edited address line 2.
+     * @param city The edited city.
+     * @param postcode The edited postcode.
+     * @param profilePicture The changed profile picture file name.
+     * @throws IOException Throws an exception to be caught when the 
+	 *                     FXML file cannot be accessed.
+     */
+    public void saveUserEdits(String firstName, String surname, 
+    		String mobileNumber, String address1, String address2, String city, 
+    		String postcode, String profilePicture) throws IOException {
+    	// If the user is a librarian.
         if (isLibrarian()) {
         	// Create copies of the old and new profiles, then replace the old with new.
-    		String oldProfile = userBeingEdited.getUsername() + "," + userBeingEdited.getFirstName() + 
-    				"," + userBeingEdited.getSurname() + "," + userBeingEdited.getMobileNumber() +
-    				"," + userBeingEdited.getAddress1() + "," + userBeingEdited.getAddress2() +
-    				"," + userBeingEdited.getCity() + "," + userBeingEdited.getPostcode() +
-    				"," + userBeingEdited.getProfilePicture() + "," + userBeingEdited.getFine() + 
+    		String oldProfile = userBeingEdited.getUsername() + 
+    				"," + userBeingEdited.getFirstName() + 
+    				"," + userBeingEdited.getSurname() + 
+    				"," + userBeingEdited.getMobileNumber() +
+    				"," + userBeingEdited.getAddress1() + 
+    				"," + userBeingEdited.getAddress2() +
+    				"," + userBeingEdited.getCity() + 
+    				"," + userBeingEdited.getPostcode() +
+    				"," + userBeingEdited.getProfilePicture() + 
+    				"," + userBeingEdited.getFine() + 
     				"," + ((Librarian) userBeingEdited).getStaffID() + 
     				"," + ((Librarian) userBeingEdited).getEmploymentDate() + ",";
     		
-    		String newProfile = userBeingEdited.getUsername() + "," + firstName + 
-    				"," + surname + "," + mobileNumber + "," + address1 + "," + address2 + 
-    				"," + city + "," + postcode + "," + profilePicture + "," + userBeingEdited.getFine() + 
+    		String newProfile = userBeingEdited.getUsername() + 
+    				"," + firstName + "," + surname + "," + mobileNumber + 
+    				"," + address1 + "," + address2 + "," + city + 
+    				"," + postcode + "," + profilePicture + 
+    				"," + userBeingEdited.getFine() + 
     				"," + ((Librarian) userBeingEdited).getStaffID() + 
     				"," + ((Librarian) userBeingEdited).getEmploymentDate() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 1);
+    	// If the user is a member.
         } else {
-    		String oldProfile = userBeingEdited.getUsername() + "," + userBeingEdited.getFirstName() + 
-    				"," + userBeingEdited.getSurname() + "," + userBeingEdited.getMobileNumber() +
-    				"," + userBeingEdited.getAddress1() + "," + userBeingEdited.getAddress2() +
-    				"," + userBeingEdited.getCity() + "," + userBeingEdited.getPostcode() +
-    				"," + userBeingEdited.getProfilePicture() + "," + userBeingEdited.getFine() + ",";
+    		String oldProfile = userBeingEdited.getUsername() + 
+    				"," + userBeingEdited.getFirstName() + 
+    				"," + userBeingEdited.getSurname() + 
+    				"," + userBeingEdited.getMobileNumber() +
+    				"," + userBeingEdited.getAddress1() + 
+    				"," + userBeingEdited.getAddress2() +
+    				"," + userBeingEdited.getCity() + 
+    				"," + userBeingEdited.getPostcode() +
+    				"," + userBeingEdited.getProfilePicture() + 
+    				"," + userBeingEdited.getFine() + ",";
     		
-    		String newProfile = userBeingEdited.getUsername() + "," + firstName + 
-    				"," + surname + "," + mobileNumber + "," + address1 + "," + address2 +
-    				"," + city + "," + postcode + "," + profilePicture + "," + userBeingEdited.getFine() + ",";
+    		String newProfile = userBeingEdited.getUsername() + 
+    				"," + firstName + "," + surname + "," + mobileNumber + 
+    				"," + address1 + "," + address2 + "," + city + 
+    				"," + postcode + "," + profilePicture + 
+    				"," + userBeingEdited.getFine() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 2);
         }
     }

@@ -19,6 +19,44 @@ public class FileHandling {
 	private final static String DATA_FILE_PATH = "DataFiles/";
 	
 	/**
+	 * Saves the username of the currently logged in user to a text file.
+	 * @param currentUser Username of the current user.
+	 */
+	public static void setCurrentUser(String currentUser) {
+		String filePath = DATA_FILE_PATH + "CurrentUser.txt";
+		try {
+			FileWriter myWriter = new FileWriter(filePath);
+			myWriter.write(currentUser);
+		    myWriter.close();
+		} catch (IOException e) {
+		      System.out.println("Cannot write to " + filePath);
+		      System.exit(0);
+		}
+	}
+	
+	/**
+	 * Fetches the username of the currently logged in user.
+	 * @return The current user's username.
+	 */
+	public static String getCurrentUser() {
+		String currentUser = "";
+		
+		String filePath = DATA_FILE_PATH + "CurrentUser.txt";
+		File inputFile = new File(filePath);
+		Scanner in = null;
+	    try {
+	    	//Opens the file for reading
+			in = new Scanner (inputFile);
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    currentUser = in.next();
+		return currentUser;
+	}
+	
+	/**
 	 * Fetches all the current users in the system and stores
 	 * them in an ArrayList.
 	 * @return ArrayList of all users in the system.
@@ -144,7 +182,7 @@ public class FileHandling {
 	        line = reader.readLine();
 	    }
 	    // Replace old profile with the new one within the old textfile.
-	    String newContent = oldContent.replaceAll(oldProfile, newProfile);
+	    String newContent = oldContent.replace(oldProfile, newProfile);
 	   
 	    writer = new FileWriter(filePath);
 	    writer.write(newContent);
@@ -196,18 +234,20 @@ public class FileHandling {
         } 
         catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
+            System.exit(0);
         } 
 	}
 	
 	/**
      * Checks if an image file and its path already exist.
+     * Because of how Windows works, it's not case sensitive.
      * @param fileName Takes the name of the file to test.
      * @return Returns a boolean as to if the file is already in the system.
      */
     public static boolean checkImageExists(String fileName){
     	File pathCheck = new File(DATA_FILE_PATH + 
     			"ProfilePictures/" + fileName); //The path of the file.
-    	return  pathCheck.exists();
+    	return pathCheck.exists();
     }
 }
 

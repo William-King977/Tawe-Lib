@@ -51,7 +51,7 @@
             <Insets top="25.0" />
          </padding>
       </VBox>
-      <Canvas fx:id="canvas" height="300.0" layoutX="184.0" layoutY="26.0" onDragDetected="#draw" width="300.0" />
+      <Canvas fx:id="canvas" height="300.0" layoutX="184.0" layoutY="26.0" onMouseMoved="#draw" width="300.0" />
       <VBox layoutX="513.0" layoutY="33.0" prefHeight="292.0" prefWidth="129.0">
          <children>
             <ColorPicker fx:id="colourPicker" prefHeight="30.0" prefWidth="130.0" VBox.vgrow="NEVER" />

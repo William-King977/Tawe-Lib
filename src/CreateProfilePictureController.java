@@ -11,8 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -162,7 +160,8 @@ public class CreateProfilePictureController {
 				ImageIO.write(SwingFXUtils.fromFXImage(snap, null), "png", file);
 				Utility.profilePictureCreated();
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("Cannot save " + fileName);
+				System.exit(0);
 			}
 			
 		} 
