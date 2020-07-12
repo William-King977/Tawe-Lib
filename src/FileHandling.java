@@ -143,6 +143,136 @@ public class FileHandling {
 	}
 	
 	/**
+	 * Fetches all the books in the system and stores
+	 * them in an ArrayList.
+	 * @return ArrayList of all books in the system.
+	 */
+	public static ArrayList<Book> getBooks() {
+		String filePath = DATA_FILE_PATH + "Book.txt";
+		File inputFile = new File(filePath);
+		Scanner in = null;
+	    try {
+	    	// Opens the file for reading.
+			in = new Scanner (inputFile);	
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    in.useDelimiter(",");
+	    // Read each book and store them in an ArrayList.
+	    ArrayList<Book> books = new ArrayList<>();
+	    while (in.hasNextLine()) {
+	    	
+	    	int resourceID = in.nextInt();
+	    	String resourceTitle = in.next();
+	    	int year = in.nextInt();
+	    	String thumbnail = in.next();
+	    	int numberOfCopies = in.nextInt();
+	    	String genre = in.next();
+	    	String language = in.next();
+	    	
+	    	String author = in.next();
+	    	String publisher = in.next();
+	    	String ISBN = in.next();
+	    	
+	    	Book book = new Book(resourceID, resourceTitle, year, thumbnail,
+	    			numberOfCopies, genre, language, author, publisher, ISBN); 
+	    	books.add(book);
+	    	in.nextLine(); // Needed if you change delimiter.
+	    }
+	    in.close();
+		return books;
+	}
+	
+	/**
+	 * Fetches all the DVDs in the system and stores
+	 * them in an ArrayList.
+	 * @return ArrayList of all DVDs in the system.
+	 */
+	public static ArrayList<DVD> getDVDs() {
+		String filePath = DATA_FILE_PATH + "DVD.txt";
+		File inputFile = new File(filePath);
+		Scanner in = null;
+	    try {
+	    	// Opens the file for reading.
+			in = new Scanner (inputFile);	
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    in.useDelimiter(",");
+	    // Read each DVD and store them in an ArrayList.
+	    ArrayList<DVD> dvds = new ArrayList<>();
+	    while (in.hasNextLine()) {
+	    	
+	    	int resourceID = in.nextInt();
+	    	String resourceTitle = in.next();
+	    	int year = in.nextInt();
+	    	String thumbnail = in.next();
+	    	int numberOfCopies = in.nextInt();
+	    	String genre = in.next();
+	    	String language = in.next();
+	    	
+	    	String director = in.next();
+	    	double runtime= in.nextDouble();
+	    	String subLang = in.next();
+	    	 
+	    	DVD dvd = new DVD(resourceID, resourceTitle, year, thumbnail,
+	    			numberOfCopies, genre, language, director, runtime, subLang); 
+	    	dvds.add(dvd);
+	    	in.nextLine(); // Needed if you change delimiter.
+	    }
+	    in.close();
+		return dvds;
+	}
+	
+	/**
+	 * Fetches all the laptops in the system and stores
+	 * them in an ArrayList.
+	 * @return ArrayList of all laptops in the system.
+	 */
+	public static ArrayList<Laptop> getLaptops() {
+		String filePath = DATA_FILE_PATH + "Laptop.txt";
+		File inputFile = new File(filePath);
+		Scanner in = null;
+	    try {
+	    	// Opens the file for reading.
+			in = new Scanner (inputFile);	
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    in.useDelimiter(",");
+	    // Read each laptop and store them in an ArrayList.
+	    ArrayList<Laptop> laptops = new ArrayList<>();
+	    while (in.hasNextLine()) {
+	    	
+	    	int resourceID = in.nextInt();
+	    	String resourceTitle = in.next();
+	    	int year = in.nextInt();
+	    	String thumbnail = in.next();
+	    	int numberOfCopies = in.nextInt();
+	    	
+	    	String manufacturer = in.next();
+	    	String model = in.next();
+	    	String operatingSystem = in.next();
+	    	 
+	    	Laptop laptop = new Laptop(resourceID, resourceTitle, year, thumbnail,
+	    			numberOfCopies, manufacturer, model, operatingSystem); 
+	    	laptops.add(laptop);
+	    	in.nextLine(); // Needed if you change delimiter.
+	    }
+	    in.close();
+		return laptops;
+	}
+	
+	/**
 	 * A profile is edited by replacing the details of the previous profile
 	 * with the new one.
 	 * @param oldProfile The string holding details of the old profile.

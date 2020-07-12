@@ -21,7 +21,7 @@ public class Librarian extends User {
      * @param address1 An address line 1 of a user.
      * @param address2 An address line 2 of a user.
      * @param city A residing city of a user.
-     * @param postcode A postcode of a user.
+     * @param postcode A post code of a user.
      * @param profilePicture A string of a file path for a user profile 
      * 					     picture.
      * @param fine An amount fined for a user in GBP (£).
@@ -44,7 +44,7 @@ public class Librarian extends User {
      * @return Returns a unique staff ID for the staff member.
      */
     public int getStaffID() {
-            return staffID;
+    	return staffID;
     }
     
     /**
@@ -52,7 +52,7 @@ public class Librarian extends User {
      * @param staffID The ID of the staff member.
      */
     public void setStaffID(int staffID) {
-            this.staffID = staffID;
+    	this.staffID = staffID;
     }
 
     /**
@@ -60,14 +60,14 @@ public class Librarian extends User {
      * @return returns a starting date (YYYY-MM-DD).
      */
     public String getEmploymentDate() {
-            return employmentDate;
+    	return employmentDate;
     }
 
     /**
      * Sets the employment date of a staff member (YYYY-MM-DD).
      * @param employmentDate Takes a date as input (YYYY-MM-DD).
      */
-    private void setEmploymentDate(String employmentDate) {
-            this.employmentDate = employmentDate;
+    public void setEmploymentDate(String employmentDate) {
+    	this.employmentDate = employmentDate;
     }
 }

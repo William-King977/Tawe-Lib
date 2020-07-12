@@ -52,7 +52,7 @@
             <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#handleSearchesButtonAction" prefWidth="185.0" text="Searches" />
             <Button fx:id="btnViewLoans" mnemonicParsing="false" onAction="#handleViewLoansButtonAction" prefWidth="185.0" text="View Loans" />
             <Button fx:id="btnNewLoan" mnemonicParsing="false" onAction="#handleNewLoanButtonAction" prefWidth="185.0" text="Create New Loan" />
-            <Button fx:id="btnViewResources" mnemonicParsing="false" onAction="#handleViewResourcesButtonAction" prefWidth="185.0" text="Resource Settings" />
+            <Button fx:id="btnViewResources" mnemonicParsing="false" onAction="#handleResourceSettingsButtonAction" prefWidth="185.0" text="Resource Settings" />
             <Button fx:id="btnViewCopies" mnemonicParsing="false" onAction="#handleViewCopiesButtonAction" prefWidth="185.0" text="View Copies" />
          </children>
          <padding>
