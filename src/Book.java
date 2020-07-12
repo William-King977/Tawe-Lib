@@ -37,6 +37,17 @@ public class Book extends Property {
 	}
 	
 	/**
+	 * Gets a string of the book's details. Mainly for the resource search.
+	 * @return String of the book's details.
+	 */
+	public String toStringSearch() {
+		String bookString = resourceID + " " + resourceTitle + " " + year + 
+				" " + genre + " " + language + " " + author + 
+				" " + publisher;
+		return bookString.toLowerCase();
+	}
+	
+	/**
 	 * Gets the author who wrote the book.
 	 * @return Author of the book.
 	 */

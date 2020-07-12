@@ -28,6 +28,8 @@ public class ResourceSettingsController {
 	
 	/** A list to hold all the resources .*/
 	private ArrayList<Resource> resourceList = new ArrayList<Resource>();
+	/** A list to hold all the resources found in the search. */
+	private ArrayList<Resource> searchedList = new ArrayList<Resource>();
 	/** A list to hold all the books. */
 	private ArrayList<Book> bookList;	
 	/** A list to hold all the DVDs. */
@@ -37,6 +39,8 @@ public class ResourceSettingsController {
 	
 	/** The directory to the thumbnail images for the resources. */
 	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";	
+	/** Used to check if the resources have been searched via search box or not. */
+	private boolean isSearch = false;
 	
 	/** A list view to display the resources with their short descriptions. */
 	@FXML private ListView<String> listShowResource;
@@ -78,8 +82,8 @@ public class ResourceSettingsController {
 	@FXML private TextField txtDirector;
 	/** A text field used to display the DVD's runtime. */
 	@FXML private TextField txtRuntime;
-	/** A text field used to display the DVD's subtitle language. */
-	@FXML private TextField txtSubLang;
+	/** A list view used to display the DVD's subtitle languages. */
+	@FXML private ListView<String>  listSubLang;
 	
 	/** A text field used to display the laptop's manufacturer. */
 	@FXML private TextField txtManufacturer;
@@ -98,11 +102,17 @@ public class ResourceSettingsController {
 	 * to filter the resources to only display laptops. */
 	@FXML private CheckBox cbLaptop;
 	
+	/** A text field used to the user's input (partial info) for a resource. */
+	@FXML private TextField txtSearchResource;
+	
 	/**
 	 * Displays all the resources with a short description onto the screen.
 	 * The method will be called automatically.
 	 */
 	public void initialize() {
+		
+		listShowResource.getItems().clear();
+		resourceList.clear();
 		
 		// Gets an ArrayList for each resource.
 		bookList = FileHandling.getBooks();
@@ -112,13 +122,13 @@ public class ResourceSettingsController {
         // Displays all resources, then adds each resource to the 
         // resource ArrayList.
         for (Book thisBook : bookList) {
-        		listShowResource.getItems().add(thisBook.toString()); 	
-        		resourceList.add(thisBook);
+        	listShowResource.getItems().add(thisBook.toString()); 	
+        	resourceList.add(thisBook);
         }    
         
         for (DVD thisDVD : dvdList) {
-        		listShowResource.getItems().add(thisDVD.toString()); 	
-        		resourceList.add(thisDVD);
+        	listShowResource.getItems().add(thisDVD.toString()); 	
+        	resourceList.add(thisDVD);
         } 
         
         for (Laptop thisLaptop : laptopList) {
@@ -137,18 +147,41 @@ public class ResourceSettingsController {
 		// Checks if any of the check boxes are selected.
 		// Then passes down the selected resource.
 		if (cbBook.isSelected()) {
+			// Goes through appropriate ArrayLists based on whether the resources
+			// were searched or not.
+			if (isSearch) {
+				Book selectedBook = (Book) searchedList.get(selectedIndex);
+				displayBookDetails(selectedBook);
+			} else {
 				Book selectedBook = bookList.get(selectedIndex);
 				displayBookDetails(selectedBook);	
+			}
 		} else if (cbDVD.isSelected() == true) {
+			if (isSearch) {
+				DVD selectedDVD = (DVD) searchedList.get(selectedIndex);
+				displayDVDDetails(selectedDVD);
+			} else {
 				DVD selectedDVD = dvdList.get(selectedIndex);
 				displayDVDDetails(selectedDVD);
+			}
 		} else if (cbLaptop.isSelected() == true) {
+			if (isSearch) {
+				Laptop selectedLaptop = (Laptop) searchedList.get(selectedIndex);
+				displayLaptopDetails(selectedLaptop);
+			} else {
 				Laptop selectedLaptop = laptopList.get(selectedIndex);
 				displayLaptopDetails(selectedLaptop);
+			}
 		// If none of the check boxes are selected,
 		// check which resource it is.
 		} else {
-			Resource selectedResource = resourceList.get(selectedIndex);
+			Resource selectedResource;
+			if (isSearch) {
+				selectedResource = searchedList.get(selectedIndex);
+			} else {
+				selectedResource = resourceList.get(selectedIndex);
+			}
+			
 			// Checks if the selected resource is a Book
 			for (Book thisBook : bookList) {
 				if (thisBook.getResourceID() == 
@@ -204,7 +237,7 @@ public class ResourceSettingsController {
 		//resources to not applicable.
 		txtDirector.setText("N/A");
 		txtRuntime.setText("N/A");
-		txtSubLang.setText("N/A");
+		listSubLang.getItems().clear();
 		txtManufacturer.setText("N/A");
 		txtModel.setText("N/A");
 		txtOperatingSystem.setText("N/A");
@@ -233,10 +266,20 @@ public class ResourceSettingsController {
 		txtGenre.setText(selectedDVD.getGenre());
 		txtDirector.setText(selectedDVD.getDirector());
 		txtRuntime.setText(selectedDVD.getRuntime() + " minutes");
-		txtSubLang.setText(selectedDVD.getSubLang());
 		
-		//Set other text fields involving other 
-		//resources to not applicable.
+		String[] subLang = selectedDVD.getSubLang();
+		
+		// Displays appropriate text if there are no subtitles.
+		if (subLang.length == 0) {
+			listSubLang.getItems().add("None");
+		} else { // Show them if there are subtitle languages.
+			for (String lang : subLang) {
+				listSubLang.getItems().add(lang);
+			}
+		}
+		
+		// Set other text fields involving other 
+		// resources to not applicable.
 		txtAuthor.setText("N/A");
 		txtISBN.setText("N/A");
 		txtPublisher.setText("N/A");
@@ -269,8 +312,8 @@ public class ResourceSettingsController {
 		txtModel.setText(selectedLaptop.getModel());
 		txtOperatingSystem.setText(selectedLaptop.getOperatingSystem());	
 		
-		//Set other text fields involving other 
-		//resources to not applicable.
+		// Set other text fields involving other 
+		// resources to not applicable.
 		txtLanguage.setText("N/A");
 		txtGenre.setText("N/A");
 		txtAuthor.setText("N/A");
@@ -278,7 +321,7 @@ public class ResourceSettingsController {
 		txtPublisher.setText("N/A");
 		txtDirector.setText("N/A");
 		txtRuntime.setText("N/A");
-		txtSubLang.setText("N/A");
+		listSubLang.getItems().clear();
 	}
 	
 	/**
@@ -289,6 +332,7 @@ public class ResourceSettingsController {
     	// Clears other check boxes if selected.
 		cbDVD.setSelected(false);
 		cbLaptop.setSelected(false);
+		isSearch = false;
 		
 		// Clears the content of the resource list if any. 
 		listShowResource.getItems().clear();
@@ -315,6 +359,7 @@ public class ResourceSettingsController {
     	// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbLaptop.setSelected(false);
+		isSearch = false;
 		
 		// Clears the content of the resource list if any. 
 		listShowResource.getItems().clear();
@@ -341,6 +386,7 @@ public class ResourceSettingsController {
     	// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbDVD.setSelected(false);
+		isSearch = false;
 		
 		// Clears the content of the resource list if any. 
 		listShowResource.getItems().clear();
@@ -357,6 +403,54 @@ public class ResourceSettingsController {
 	    		cbLaptop.isSelected() == false) {
         	initialize();
 	    } 
+    }
+    
+    /**
+     * Searches through the resources using the key words entered
+     * in the search box, and displays the related resources.
+     */
+    public void handleSearchButtonAction() {
+    	String keywords = txtSearchResource.getText().trim().toLowerCase();
+    	isSearch = true;
+    	searchedList.clear(); // Clear ArrayList from previous search.
+    	listShowResource.getItems().clear();
+    	
+    	// Don't do anything if there's nothing in search.
+    	if (keywords.isEmpty()) {
+    		return;
+    	}
+    	
+    	// Search appropriate ArrayLists to fetch related resources.
+    	if (cbBook.isSelected()) {
+    		for (Book book : bookList) {
+    			if ((book.toStringSearch()).contains(keywords)) {
+    				searchedList.add(book);
+    			}
+    		}
+    	} else if (cbDVD.isSelected()) {
+    		for (DVD dvd : dvdList) {
+    			if ((dvd.toStringSearch()).contains(keywords)) {
+    				searchedList.add(dvd);
+    			}
+    		}
+    	} else if (cbLaptop.isSelected()) {
+    		for (Laptop laptop : laptopList) {
+    			if ((laptop.toStringSearch()).contains(keywords)) {
+    				searchedList.add(laptop);
+    			}
+    		}
+    	} else {
+    		for (Resource resource : resourceList) {
+    			if ((resource.toStringSearch()).contains(keywords)) {
+    				searchedList.add(resource);
+    			}
+    		}
+    	}
+    	
+    	// Display filtered items to the resource list view. 
+    	for (Resource thisResource : searchedList) {
+    		listShowResource.getItems().add(thisResource.toString());
+    	}
     }
     
     /**

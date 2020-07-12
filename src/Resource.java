@@ -42,6 +42,17 @@ abstract public class Resource {
         this.thumbnail = thumbnail;
         this.numberOfCopies = numberOfCopies;
 	}
+	
+	/**
+	 * Gets a string of the resources's details. Mainly for the resource search.
+	 * THIS METHOD SHOULD BE OVERRIDDEN.
+	 * @return String of the resources's details.
+	 */
+	protected String toStringSearch() {
+		String dvdString = " ";
+		System.out.println("You forgot to override toStringSearch method.");
+		return dvdString;
+	}
     
     /**
      * Gets the unique resource ID of the resource.
