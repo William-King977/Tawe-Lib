@@ -544,8 +544,8 @@ public class ResourceSettingsController {
 	 * @param selectedResource The resource to be edited.
 	 * @param editResource An instance of the edit resource controller.
 	 */
-	public void searchEditedResource(Resource selectedResource) { 
-			//EditResourceController editResource) { INCLUDE PARAMETER ONCE CLASS IS MADE.
+	public void searchEditedResource(Resource selectedResource, 
+			EditResourceController editResource) {
 	}
 	
 	/**

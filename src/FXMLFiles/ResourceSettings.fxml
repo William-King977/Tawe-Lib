@@ -150,7 +150,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="20.0" text="back" textAlignment="CENTER">
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="20.0" text="Back" textAlignment="CENTER">
                <HBox.margin>
                   <Insets top="20.0" />
                </HBox.margin>
