@@ -1,1 +1,3 @@
-2,Ip Man,2008,Ip Man.jpg,5,Action,,Wilson Yip,106,English;Chinese;French;German,
+2,Ip Man,2008,Ip Man.jpg,5,Action,Chinese,Wilson Yip,106,English;Chinese;French;German,
+5,Mobile Suit Gundam: Char's Counterattack,1988,MsG Char's Counterattack.jpg,5,Action,,Yoshiyuki Tomino,124,English;Japanese,
+6,Mobile Suit Gundam: F91,1991,MsG F91.jpg,5,,,Yoshiyuki Tomino,120,,

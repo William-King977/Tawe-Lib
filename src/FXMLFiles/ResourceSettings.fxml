@@ -35,26 +35,14 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <GridPane prefHeight="30.0" prefWidth="232.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="153.20001220703125" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="76.80001831054688" minWidth="0.0" prefWidth="12.000018310546864" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="87.19998168945312" minWidth="10.0" prefWidth="87.19998168945312" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <TextField fx:id="txtSearchResource" prefHeight="26.0" prefWidth="155.0" promptText="Search..." />
-                  <Button mnemonicParsing="false" onAction="#handleSearchButtonAction" prefHeight="26.0" prefWidth="75.0" text="Search" GridPane.columnIndex="2" />
-               </children>
+            <TextField fx:id="txtSearchResource" onKeyReleased="#handleResourceSearchAction" prefHeight="26.0" prefWidth="237.0" promptText="Search for resource...">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
-            </GridPane>
+            </TextField>
             <ListView fx:id="listShowResource" fixedCellSize="0.0" onMouseClicked="#displayResourceDetails" prefHeight="200.0" prefWidth="234.0">
                <VBox.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </VBox.margin></ListView>
             <Label text="Filter Resources By:">
                <font>
@@ -79,7 +67,10 @@
          </children>
          <BorderPane.margin>
             <Insets left="10.0" />
-         </BorderPane.margin></VBox>
+         </BorderPane.margin>
+         <padding>
+            <Insets right="10.0" />
+         </padding></VBox>
    </left>
    <center>
       <VBox prefHeight="533.0" prefWidth="668.0" BorderPane.alignment="CENTER">
@@ -115,15 +106,15 @@
                   <TextField fx:id="txtFinePerDay" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                   <TextField fx:id="txtMaxFine" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                   <TextField fx:id="txtGenre" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtAuthor" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtAuthor" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <TextField fx:id="txtLanguage" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                   <TextField fx:id="txtISBN" editable="false" prefHeight="26.0" prefWidth="161.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtPublisher" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <TextField fx:id="txtDirector" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtRuntime" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-                  <TextField fx:id="txtManufacturer" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="7" />
-                  <TextField fx:id="txtModel" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                  <TextField fx:id="txtOperatingSystem" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <TextField fx:id="txtPublisher" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtDirector" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtRuntime" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <TextField fx:id="txtManufacturer" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                  <TextField fx:id="txtModel" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtOperatingSystem" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="7" />
                   <Label text="Resource ID" GridPane.columnIndex="1" />
                   <Label text="Number Of Copies" GridPane.columnIndex="4" />
                   <Label text="Fine Per Day" GridPane.columnIndex="4" GridPane.rowIndex="1" />
@@ -131,16 +122,16 @@
                   <Label text="Resource Title" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Year" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Language" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Publisher" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Director" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <Label text="Publisher" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <Label text="Director" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label text="Subtitle Languages" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <Label text="Model" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="Model" GridPane.columnIndex="4" GridPane.rowIndex="6" />
                   <Label text="Genre" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                  <Label text="Author" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <Label text="Author" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="ISBN" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label text="Runtime" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-                  <Label text="Manufacturer" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-                  <Label text="Operating System" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label text="Runtime" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label text="Manufacturer" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <Label text="Operating System" GridPane.columnIndex="4" GridPane.rowIndex="7" />
                   <Label text="Image" GridPane.columnIndex="4" GridPane.rowIndex="10" />
                   <ListView fx:id="listSubLang" prefHeight="70.0" prefWidth="173.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
                </children>

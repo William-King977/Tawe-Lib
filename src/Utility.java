@@ -14,6 +14,29 @@ public class Utility {
 	 * upper case letters. */
     private static String alphabet = "[a-zA-Z-]+";
 	
+    /**
+     * Performs insertion sort on an ArrayList of resources by using
+     * the resourceID for the sort. This is only for aesthetic
+     * purposes on the list view (on resource pages).
+     * @param list The list of resources to be sorted.
+     */
+    public static void sortResources(ArrayList<Resource> list) {
+    	int n = list.size();
+        if (n > 1) {
+            for (int i = 1; i < n; i++) { 
+            	Resource key = list.get(i);
+            	int j = i - 1;
+            	
+            	while (j >= 0  && 
+            			(list.get(j).getResourceID() > key.getResourceID())) {
+            		list.set(j + 1, list.get(j));
+            		j--;
+                }
+            	list.set(j + 1, key);
+            }
+        }
+    }
+    
 	/**
 	 * An alert pop-up that tells the user that the username entered
 	 * does not exist in the system.

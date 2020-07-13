@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -119,22 +121,22 @@ public class ResourceSettingsController {
         dvdList = FileHandling.getDVDs();
         laptopList = FileHandling.getLaptops();
         
-        // Displays all resources, then adds each resource to the 
-        // resource ArrayList.
+        // Adds each resource to the resource ArrayList.
         for (Book thisBook : bookList) {
-        	listShowResource.getItems().add(thisBook.toString()); 	
         	resourceList.add(thisBook);
         }    
-        
         for (DVD thisDVD : dvdList) {
-        	listShowResource.getItems().add(thisDVD.toString()); 	
         	resourceList.add(thisDVD);
         } 
-        
-        for (Laptop thisLaptop : laptopList) {
-    		listShowResource.getItems().add(thisLaptop.toString()); 
+        for (Laptop thisLaptop : laptopList) { 
     		resourceList.add(thisLaptop);
         } 
+        
+        Utility.sortResources(resourceList); // Sorts resources on list view.
+        // Show the resources on list view.
+        for (Resource thisResource : resourceList) {
+        	listShowResource.getItems().add(thisResource.toString());
+        }  
 	}
 	
 	/**
@@ -143,6 +145,10 @@ public class ResourceSettingsController {
 	public void displayResourceDetails() {
 		int selectedIndex = listShowResource.getSelectionModel()
 				.getSelectedIndex();
+		// If nothing was selected i.e. clicking the list view.
+		if (selectedIndex < 0) {
+			return;
+		}
 		
 		// Checks if any of the check boxes are selected.
 		// Then passes down the selected resource.
@@ -227,17 +233,17 @@ public class ResourceSettingsController {
 		Image thumbnail = new Image(imageURL.toURI().toString());
 		imageThumbnail.setImage(thumbnail);
 		
-		txtLanguage.setText(selectedBook.getLanguage());
-		txtGenre.setText(selectedBook.getGenre());
 		txtAuthor.setText(selectedBook.getAuthor());
-		txtISBN.setText(selectedBook.getISBN());
 		txtPublisher.setText(selectedBook.getPublisher());
+		
+		setOptionalFields(selectedBook, "Book"); // Set values for optional fields.
 		
 		//Set other text fields involving other 
 		//resources to not applicable.
 		txtDirector.setText("N/A");
 		txtRuntime.setText("N/A");
 		listSubLang.getItems().clear();
+		listSubLang.getItems().add("N/A");
 		txtManufacturer.setText("N/A");
 		txtModel.setText("N/A");
 		txtOperatingSystem.setText("N/A");
@@ -262,21 +268,11 @@ public class ResourceSettingsController {
 		Image thumbnail = new Image(imageURL.toURI().toString());
 		imageThumbnail.setImage(thumbnail);
 		
-		txtLanguage.setText(selectedDVD.getLanguage());
-		txtGenre.setText(selectedDVD.getGenre());
 		txtDirector.setText(selectedDVD.getDirector());
 		txtRuntime.setText(selectedDVD.getRuntime() + " minutes");
 		
-		String[] subLang = selectedDVD.getSubLang();
-		
-		// Displays appropriate text if there are no subtitles.
-		if (subLang.length == 0) {
-			listSubLang.getItems().add("None");
-		} else { // Show them if there are subtitle languages.
-			for (String lang : subLang) {
-				listSubLang.getItems().add(lang);
-			}
-		}
+		listSubLang.getItems().clear();
+		setOptionalFields(selectedDVD, "DVD"); // Set values for optional fields.
 		
 		// Set other text fields involving other 
 		// resources to not applicable.
@@ -322,6 +318,71 @@ public class ResourceSettingsController {
 		txtDirector.setText("N/A");
 		txtRuntime.setText("N/A");
 		listSubLang.getItems().clear();
+		listSubLang.getItems().add("N/A");
+	}
+	
+	/**
+	 * Sets the values for the resources that have optional fields.
+	 * @param selectedResource The resource selected from the list view.
+	 * @param resourceType The type of resource to be shown.
+	 */
+	public void setOptionalFields(Resource selectedResource, 
+			String resourceType) {
+		if (resourceType.equals("DVD")) {
+			DVD selectedDVD = (DVD) selectedResource;
+			String genre = selectedDVD.getGenre();
+			String language = selectedDVD.getLanguage();
+			String[] subLang = selectedDVD.getSubLang();
+			
+			// Check genre.
+			if (genre.isEmpty()) {
+				txtGenre.setText("None");
+			} else {
+				txtGenre.setText(genre);
+			}
+			
+			// Check language.
+			if (language.isEmpty()) {
+				txtLanguage.setText("None");
+			} else {
+				txtLanguage.setText(language);
+			}
+			
+			// Check subtitle languages.
+			if (subLang.length == 0) {
+				listSubLang.getItems().add("None");
+			} else { // Show them if there are subtitle languages.
+				for (String lang : subLang) {
+					listSubLang.getItems().add(lang);
+				}
+			}
+		} else if (resourceType.equals("Book")) {
+			Book selectedBook = (Book) selectedResource;
+			String genre = selectedBook.getGenre();
+			String language = selectedBook.getLanguage();
+			String isbn = selectedBook.getISBN();
+			
+			// Check genre.
+			if (genre.isEmpty()) {
+				txtGenre.setText("None");
+			} else {
+				txtGenre.setText(genre);
+			}
+			
+			// Check language.
+			if (language.isEmpty()) {
+				txtLanguage.setText("None");
+			} else {
+				txtLanguage.setText(language);
+			}
+			
+			// Check ISBN.
+			if (isbn.isEmpty()) {
+				txtISBN.setText("None");
+			} else { // Show them if there are subtitle languages.
+				txtISBN.setText(isbn);
+			}
+		}
 	}
 	
 	/**
@@ -409,14 +470,31 @@ public class ResourceSettingsController {
      * Searches through the resources using the key words entered
      * in the search box, and displays the related resources.
      */
-    public void handleSearchButtonAction() {
+    public void handleResourceSearchAction() {
     	String keywords = txtSearchResource.getText().trim().toLowerCase();
     	isSearch = true;
     	searchedList.clear(); // Clear ArrayList from previous search.
     	listShowResource.getItems().clear();
     	
-    	// Don't do anything if there's nothing in search.
+    	// Show all of appropriate resources if there's nothing in 
+    	// the search bar.
     	if (keywords.isEmpty()) {
+    		isSearch = false;
+    		if (cbBook.isSelected()) {
+        		for (Book thisBook : bookList) {
+                	listShowResource.getItems().add(thisBook.toString());
+        		}
+    		} else if (cbDVD.isSelected()) {
+    			for (DVD thisDVD : dvdList) {
+                	listShowResource.getItems().add(thisDVD.toString());
+        		}
+    		} else if (cbLaptop.isSelected()) {
+    			for (Laptop thisLaptop : laptopList) {
+                	listShowResource.getItems().add(thisLaptop.toString());
+        		}
+    		} else {
+    			initialize(); // Shows all resources.
+    		}
     		return;
     	}
     	
@@ -439,6 +517,7 @@ public class ResourceSettingsController {
     				searchedList.add(laptop);
     			}
     		}
+    	// If the type of resource is unknown via checkbox.
     	} else {
     		for (Resource resource : resourceList) {
     			if ((resource.toStringSearch()).contains(keywords)) {
