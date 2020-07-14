@@ -379,6 +379,62 @@ public class FileHandling {
 	}
 	
 	/**
+	 * A resource is edited by replacing the details of the previous resource
+	 * with the new one.
+	 * @param oldResource The string description of the old resource.
+	 * @param newResource The string description of the edits made to the resource.
+	 * @param resourceType The type of resource edited.
+	 * @throws IOException Throws an exception when a file cannot be written.
+	 */
+	public static void editResource(String oldResource, String newResource, 
+			String resourceType) throws IOException {
+		String filePath = "";
+		
+		switch (resourceType) {
+			case "Book":
+				filePath = DATA_FILE_PATH + "Book.txt";
+				break;
+			case "DVD":
+				filePath = DATA_FILE_PATH + "DVD.txt";
+				break;
+			case "Laptop":
+				filePath = DATA_FILE_PATH + "Laptop.txt";
+				break;
+		}
+		
+		File inputFile = new File(filePath);
+		BufferedReader reader = null;
+		FileWriter writer = null;
+		String oldContent = "";
+		
+	    try {
+			reader = new BufferedReader(new FileReader(inputFile));
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    // Uses buffer to write old file contents to a string.
+	    String line = reader.readLine();
+	    while (line != null) {
+	    	oldContent = oldContent + line + System.lineSeparator();
+	        line = reader.readLine();
+	    }
+	    // Replace old resource with the new one within the old textfile.
+	    String newContent = oldContent.replace(oldResource, newResource);
+	    System.out.println(oldResource);
+	    System.out.println(newResource);
+	    writer = new FileWriter(filePath);
+	    writer.write(newContent);
+	    reader.close();
+	    writer.flush();
+	    writer.close();
+	    
+	    Utility.savedResourceChanges();
+	}
+	
+	/**
 	 * A new user is created by adding their details at the end
 	 * of their respective textfile.
 	 * @param newUser Details of the new registered user.

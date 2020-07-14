@@ -379,7 +379,7 @@ public class ResourceSettingsController {
 			// Check ISBN.
 			if (isbn.isEmpty()) {
 				txtISBN.setText("None");
-			} else { // Show them if there are subtitle languages.
+			} else { 
 				txtISBN.setText(isbn);
 			}
 		}
@@ -536,16 +536,86 @@ public class ResourceSettingsController {
 	 * Displays a page where the librarian can edit a selected resource.
 	 */
 	public void handleEditResourceButtonAction() {
-	}
-	
-	/**
-	 * Finds the type of resource that the resource to be edited is and 
-	 * prepares the edit resource controller based upon that.
-	 * @param selectedResource The resource to be edited.
-	 * @param editResource An instance of the edit resource controller.
-	 */
-	public void searchEditedResource(Resource selectedResource, 
-			EditResourceController editResource) {
+		//Constants set for the new window to be displayed.
+		final int EDIT_RESOURCE_HEIGHT = 682;
+		final int EDIT_RESOURCE_WIDTH = 746;
+		
+		//Gets the position of the selected resource on the UI.
+		int selectedIndex = listShowResource.getSelectionModel()
+				.getSelectedIndex();
+		
+		if (selectedIndex < 0) {
+			Utility.resourceNotSelected();
+			return;
+		}
+        
+        try {	
+	        //Sets up a new FXML loader.
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+					.getResource("FXMLFiles/EditResource.fxml"));
+				
+			//Sets a new border pane.
+			BorderPane editRoot = fxmlLoader.load();
+				
+			//Gets the controller for the FXML file loaded.
+			EditResourceController editResource = fxmlLoader
+					.<EditResourceController> getController();
+				
+			if (cbBook.isSelected()) {
+				Book selectedBook;
+				if (isSearch) {
+					selectedBook = (Book) searchedList.get(selectedIndex);
+				} else {
+					selectedBook = bookList.get(selectedIndex);
+				}
+				editResource.editResource(selectedBook); 
+    			
+			} else if (cbDVD.isSelected()){
+				DVD selectedDVD;
+				if (isSearch) {
+					selectedDVD = (DVD) searchedList.get(selectedIndex);
+				} else {
+					selectedDVD = dvdList.get(selectedIndex);
+				}
+				editResource.editResource(selectedDVD); 
+					
+			} else if (cbLaptop.isSelected()) {
+				Laptop selectedLaptop;
+				if (isSearch) {
+					selectedLaptop = (Laptop) searchedList.get(selectedIndex);
+				} else {
+					selectedLaptop = laptopList.get(selectedIndex);
+				}
+				editResource.editResource(selectedLaptop); 
+				
+			//If the resource list is not filtered.
+			} else {
+				Resource selectedResource;
+				if (isSearch) {
+					selectedResource = searchedList.get(selectedIndex);
+				} else {
+					selectedResource = resourceList.get(selectedIndex);
+				}
+				editResource.editResource(selectedResource); 
+			}
+			
+			//Closes the current window.
+			Stage stage = (Stage) btnEditResource.getScene().getWindow();
+			stage.close();
+	        //Sets the scene incl, width and height
+	        Scene editScene = new Scene(editRoot, EDIT_RESOURCE_WIDTH,
+	        		EDIT_RESOURCE_HEIGHT); 
+	        //creates a new stage
+	        Stage editStage = new Stage();
+	        //sets the scene to the stage
+	        editStage.setScene(editScene);
+	        editStage.showAndWait();
+        
+        } catch (IOException ex) {
+                //Catches an IO exception such as that where the fxml
+                // file is not found.
+                ex.printStackTrace();
+        }
 	}
 	
 	/**

@@ -96,9 +96,9 @@ public class NewUserController {
         double fine = 0.00;
         
         // Validation rules applied to certain fields.
-        boolean requiredFilled = Utility.isFieldFilled(firstName, surname, 
+        boolean requiredFilled = Utility.isFieldFilledUser(firstName, surname, 
         		mobileNumber, address1, city, postcode);
-        boolean hasLetter = Utility.isAlpha(firstName, surname, city);
+        boolean hasLetter = Utility.isAlphaUser(firstName, surname, city);
         boolean usernameExist = Utility.isUsernameExist(userList, 
         		librarianList, username);
         

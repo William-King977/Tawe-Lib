@@ -41,10 +41,24 @@ public class Book extends Property {
 	 * @return String of the book's details.
 	 */
 	public String toStringSearch() {
-		String bookString = resourceID + " " + resourceTitle + " " + year + 
-				" " + genre + " " + language + " " + author + 
-				" " + publisher;
+		String bookString = resourceID + "," + resourceTitle + "," + year + 
+				"," + genre + "," + language + "," + author + 
+				"," + publisher;
 		return bookString.toLowerCase();
+	}
+	
+	/**
+	 * Gets a string of the book's full details for file saving.
+	 * @return String of the book's full details.
+	 */
+	public String toStringDetail() {
+
+		String bookString = resourceID + "," + resourceTitle + "," + year + 
+				"," + thumbnail + "," + numberOfCopies + "," + genre + 
+				"," + language + "," + author + "," + publisher + 
+				"," + ISBN + ",";
+		
+		return bookString;
 	}
 	
 	/**

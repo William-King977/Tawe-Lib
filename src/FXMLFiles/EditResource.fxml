@@ -18,7 +18,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EditResourceController">
    <top>
-      <Text strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Resource" textAlignment="CENTER" wrappingWidth="247.60606384277344" BorderPane.alignment="CENTER">
+      <Text strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Resource" textAlignment="CENTER" wrappingWidth="247.60606384277344" BorderPane.alignment="CENTER">
          <font>
             <Font size="29.0" />
          </font>
@@ -57,19 +57,19 @@
               </rowConstraints>
                <children>
                   <ImageView fx:id="imageThumbnail" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="11" />
-                  <TextField fx:id="txtResourceTitle" editable="false" promptText="Required" GridPane.columnIndex="2" />
-                  <TextField fx:id="txtYear" editable="false" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtNumberOfCopies" editable="false" promptText="Required" GridPane.columnIndex="5" />
-                  <TextField fx:id="txtGenre" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtAuthor" editable="false" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <TextField fx:id="txtLanguage" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtISBN" editable="false" prefHeight="26.0" prefWidth="161.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                  <TextField fx:id="txtPublisher" editable="false" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtDirector" editable="false" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                  <TextField fx:id="txtRuntime" editable="false" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-                  <TextField fx:id="txtManufacturer" editable="false" promptText="Required" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-                  <TextField fx:id="txtModel" editable="false" promptText="Required" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtOperatingSystem" editable="false" promptText="Required" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtResourceTitle" promptText="Required" GridPane.columnIndex="2" />
+                  <TextField fx:id="txtYear" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtNumberOfCopies" promptText="Required" GridPane.columnIndex="5" />
+                  <TextField fx:id="txtGenre" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtAuthor" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtLanguage" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtISBN" prefHeight="26.0" prefWidth="161.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtPublisher" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <TextField fx:id="txtDirector" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <TextField fx:id="txtRuntime" promptText="Required" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                  <TextField fx:id="txtManufacturer" promptText="Required" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtModel" promptText="Required" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                  <TextField fx:id="txtOperatingSystem" promptText="Required" GridPane.columnIndex="5" GridPane.rowIndex="6" />
                   <Label text="Number Of Copies" GridPane.columnIndex="4" />
                   <Label text="Resource Title" GridPane.columnIndex="1" />
                   <Label text="Year" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -97,8 +97,8 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleAddLanguageButtonAction" prefHeight="26.0" prefWidth="117.0" text="Add " />
-                        <Button mnemonicParsing="false" onAction="#handleRemoveLanguageButtonAction" prefHeight="26.0" prefWidth="96.0" text="Remove" GridPane.columnIndex="2" />
+                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#handleAddLanguageButtonAction" prefHeight="26.0" prefWidth="117.0" text="Add " />
+                        <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#handleRemoveLanguageButtonAction" prefHeight="26.0" prefWidth="96.0" text="Remove" GridPane.columnIndex="2" />
                      </children>
                      <GridPane.margin>
                         <Insets top="10.0" />

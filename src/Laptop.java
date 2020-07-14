@@ -46,9 +46,22 @@ public class Laptop extends Resource {
 	 * @return String of the laptop's details.
 	 */
 	public String toStringSearch() {
-		String laptopString = resourceID + " " + resourceTitle + " " + year + 
-				" " + manufacturer + " " + model + " " + operatingSystem;
+		String laptopString = resourceID + "," + resourceTitle + "," + year + 
+				"," + manufacturer + "," + model + "," + operatingSystem;
 		return laptopString.toLowerCase();
+	}
+	
+	/**
+	 * Gets a string of the laptop's full details for file saving.
+	 * @return String of the laptop's full details.
+	 */
+	public String toStringDetail() {
+
+		String bookString = resourceID + "," + resourceTitle + "," + year + 
+				"," + thumbnail + "," + numberOfCopies + "," + manufacturer + 
+				"," + model + "," + operatingSystem + ",";
+		
+		return bookString;
 	}
 	
 	/**

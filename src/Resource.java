@@ -49,9 +49,20 @@ abstract public class Resource {
 	 * @return String of the resources's details.
 	 */
 	protected String toStringSearch() {
-		String dvdString = " ";
+		String strSearch = " ";
 		System.out.println("You forgot to override toStringSearch method.");
-		return dvdString;
+		return strSearch;
+	}
+	
+	/**
+	 * Gets a string of the resource's full details. Mainly for file saving.
+	 * THIS METHOD SHOULD BE OVERRIDDEN.
+	 * @return String of the resource's details.
+	 */
+	protected String toStringDetail() {
+		String strDetail = " ";
+		System.out.println("You forgot to override toStringDetail method.");
+		return strDetail;
 	}
     
     /**

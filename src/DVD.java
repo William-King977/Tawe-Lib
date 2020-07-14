@@ -41,9 +41,33 @@ public class DVD extends Property {
 	 * @return String of the DVD's details.
 	 */
 	public String toStringSearch() {
-		String dvdString = resourceID + " " + resourceTitle + " " + year + 
-				" " + genre + " " + language + " " + director;
+		String dvdString = resourceID + "," + resourceTitle + "," + year + 
+				"," + genre + "," + language + "," + director;
 		return dvdString.toLowerCase();
+	}
+	
+	/**
+	 * Gets a string of the DVD's full details for file saving.
+	 * @return String of the DVD's full details.
+	 */
+	public String toStringDetail() {
+		
+		// Ensures sub languages are in format of 'lang;lang;lang...'
+		String strSubLang = "";
+		for (int i = 0; i < subLang.length; i++) {
+			if (i == 0) {
+				strSubLang = subLang[0];
+			} else {
+				strSubLang = strSubLang + ";" + subLang[i];
+			}
+		}
+
+		String dvdString = resourceID + "," + resourceTitle + "," + year + 
+				"," + thumbnail + "," + numberOfCopies + "," + genre + 
+				"," + language + "," + director + "," + runtime + 
+				"," + strSubLang + ",";
+		
+		return dvdString;
 	}
 	
 	/**

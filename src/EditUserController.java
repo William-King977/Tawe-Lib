@@ -210,9 +210,9 @@ public class EditUserController {
 		}
 		
 		// Validation rules applied to certain fields.
-        boolean requiredFilled = Utility.isFieldFilled(firstName, surname, 
+        boolean requiredFilled = Utility.isFieldFilledUser(firstName, surname, 
         		mobileNumber, address1, city, postcode);
-        boolean hasLetter = Utility.isAlpha(firstName, surname, city);
+        boolean hasLetter = Utility.isAlphaUser(firstName, surname, city);
         
         // Shows appropriate alerts if validation has not been met.
         if (!requiredFilled) { 
