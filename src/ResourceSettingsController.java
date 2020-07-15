@@ -8,12 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -623,7 +621,16 @@ public class ResourceSettingsController {
 	 * @throws IOException Throws an exception to be caught when the 
 	 *         FXML file isn't available.
 	 */
-	public void handleCreateNewResourceButtonAction() {
+	public void handleCreateNewResourceButtonAction() throws IOException {
+		//Closes the window.
+		Stage stage = (Stage) btnCreateResource.getScene().getWindow();
+		stage.close();
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/NewResource.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); //displays the new stage.
 	}
 	
 	/**

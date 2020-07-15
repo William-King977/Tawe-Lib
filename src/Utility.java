@@ -114,14 +114,14 @@ public class Utility {
 	
 	/**
 	 * An alert pop-up that tells the user that the changes
-	 * made to the user has been saved.
+	 * made to the user have been saved.
 	 */
 	public static void savedUserChanges() {
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Changes Saved Successfully.");
 		alert.setHeaderText(null);
 		alert.setContentText("The changes made to this user "
-				+ "has been saved successfully.");
+				+ "have been saved successfully.");
 		alert.showAndWait();
 	}
 	
@@ -134,20 +134,20 @@ public class Utility {
 		alert.setTitle("Changes Saved Successfully.");
 		alert.setHeaderText(null);
 		alert.setContentText("The changes made to this librarian "
-				+ "has been saved successfully.");
+				+ "have been saved successfully.");
 		alert.showAndWait();
 	}
 	
 	/**
 	 * An alert pop-up that tells the user that the changes
-	 * made to the resource has been saved.
+	 * made to the resource have been saved.
 	 */
 	public static void savedResourceChanges() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Changes Saved Successfully.");
 		alert.setHeaderText(null);
 		alert.setContentText("The changes made to this resource "
-				+ "has been saved successfully.");
+				+ "have been saved successfully.");
 		alert.showAndWait();
 	}
 	
@@ -355,19 +355,16 @@ public class Utility {
 	 * Checks if the required fields for a book has data in them.
 	 * @param resourceTitle The title of the book.
 	 * @param strYear The year the book was released as a string.
-	 * @param strNumCopies The number of copies that the book has.
 	 * @param author The author who wrote the book.
 	 * @param publisher The publisher of the book.
 	 * @return Whether the required fields for the book has been 
 	 * 		   filled or not.
 	 */
 	public static boolean isBookFieldFilled(String resourceTitle, 
-			String strYear, String strNumCopies, String author, 
-			String publisher) {
+			String strYear, String author, String publisher) {
 		//If any of the required fields are empty. 
 	    if (resourceTitle.isEmpty() || strYear.isEmpty() || 
-	    		strNumCopies.isEmpty() || author.isEmpty() || 
-	    		publisher.isEmpty()) {
+	    		author.isEmpty() || publisher.isEmpty()) {
 	        return false;
 	    //If all required fields are filled.
 	    } else {
@@ -377,19 +374,16 @@ public class Utility {
 	 * Checks if the required fields for a DVD has data in them.
 	 * @param resourceTitle The title of the DVD.
 	 * @param strYear The year the book was released as a string.
-	 * @param strNumCopies The number of copies that the DVD has.
 	 * @param director The entered director of the DVD.
 	 * @param strRuntime The entered runtime of the DVD as a string.
 	 * @return Whether the required fields for the DVD has been 
 	 * 		   filled or not.
 	 */
 	public static boolean isDVDFieldFilled(String resourceTitle, 
-			String strYear, String strNumCopies, String director, 
-			String strRuntime) {
+			String strYear, String director, String strRuntime) {
 		//If any of the required fields are empty. 
         if (resourceTitle.isEmpty() || strYear.isEmpty() || 
-        		strNumCopies.isEmpty() || director.isEmpty() || 
-        		strRuntime.isEmpty()) {
+        		director.isEmpty() || strRuntime.isEmpty()) {
         	return false;
         //If all required fields are filled.
         } else {
@@ -401,7 +395,6 @@ public class Utility {
 	 * Checks if the required fields for a laptop has data in them.
 	 * @param resourceTitle The title of the laptop.
 	 * @param strYear The entered year.
-	 * @param strNumCopies The number of copies that the laptop has.
 	 * @param manufacturer The entered manufacturer.
 	 * @param model The entered model.
 	 * @param operatingSystem The entered operating system.
@@ -409,12 +402,12 @@ public class Utility {
 	 * 		   filled or not.
 	 */
 	public static boolean isLaptopFieldFilled(String resourceTitle, 
-			String strYear, String strNumCopies, String manufacturer,
-			String model, String operatingSystem) {
+			String strYear, String manufacturer, String model, 
+			String operatingSystem) {
 		//If any of the required fields are empty. 
         if (resourceTitle.isEmpty() || strYear.isEmpty() || 
-        		strNumCopies.isEmpty() || manufacturer.isEmpty() || 
-        		model.isEmpty() || operatingSystem.isEmpty()) {
+        		manufacturer.isEmpty() || model.isEmpty() || 
+        		operatingSystem.isEmpty()) {
         	return false;
         //If all required fields are filled.
         } else {
@@ -469,7 +462,6 @@ public class Utility {
 	 * with an already existing book in the library.
 	 * @param resourceTitle The entered book title.
 	 * @param year The entered year.
-	 * @param numberOfCopies The number of copies that the book has.
 	 * @param imageName The name of the thumbnail image.
 	 * @param author The author who wrote the book.
 	 * @param publisher The publisher of the book.
@@ -480,16 +472,14 @@ public class Utility {
 	 * 		   an already existing book in the library.
 	 */
 	public static boolean isBookExist(String resourceTitle, int year, 
-			int numberOfCopies, String imageName, String author, 
-			String publisher, String genre, String language, String isbn,
-			ArrayList<Book> bookList) {
+			String imageName, String author, String publisher, String genre,
+			String language, String isbn, ArrayList<Book> bookList) {
 				
 		boolean bookExist = false;
 		//Searches through all the existing books.
 		for (Book thisBook : bookList) {
 			if (thisBook.getResourceTitle().equals(resourceTitle) && 
 					thisBook.getYear() == year &&
-					thisBook.getNumberOfCopies() == numberOfCopies &&
 					thisBook.getAuthor().equals(author) &&
 					thisBook.getPublisher().equals(publisher) &&
 					thisBook.getGenre().equals(genre) &&
@@ -507,7 +497,6 @@ public class Utility {
 	 * with an already existing DVD in the library.
 	 * @param resourceTitle The title of the DVD.
 	 * @param year The entered year.
-	 * @param numberOfCopies The number of copies that the book has.
 	 * @param imageName The image name of the DVD's thumbnail.
 	 * @param director The entered director.
 	 * @param runtime The entered runtime.
@@ -518,9 +507,8 @@ public class Utility {
 	 * 		   an already existing DVD in the library.
 	 */
 	public static boolean isDVDExist(String resourceTitle, int year, 
-			int numberOfCopies, String imageName, String director, 
-			double runtime, String[] subLang, String genre, String language, 
-			ArrayList <DVD> dvdList) {
+			String imageName, String director, double runtime, String[] subLang, 
+			String genre, String language, ArrayList <DVD> dvdList) {
 		String strSubLang = Arrays.toString(subLang);
 		boolean dvdExist = false;
 		//Searches through all the existing DVDs.
@@ -528,7 +516,6 @@ public class Utility {
 			
 			if (thisDVD.getResourceTitle().equals(resourceTitle) &&
 					thisDVD.getYear() == year &&
-					thisDVD.getNumberOfCopies() == numberOfCopies &&
 					thisDVD.getDirector().equals(director) &&
 					thisDVD.getRuntime() == runtime &&
 					Arrays.toString(thisDVD.getSubLang()).equals(strSubLang) &&
@@ -546,7 +533,6 @@ public class Utility {
 	 * with an already existing laptop in the library.
 	 * @param resourceTitle The title of the laptop.
 	 * @param year The entered year.
-	 * @param numberOfCopies The number of copies that the book has.
 	 * @param imageName The image name of the laptop's thumbnail.
 	 * @param manufacturer The entered manufacturer.
 	 * @param model The entered model.
@@ -554,16 +540,15 @@ public class Utility {
 	 * @return Whether the laptop being created has the same details as
 	 * 		   an already existing laptop in the library.
 	 */
-	public static boolean isLaptopExist(String resourceTitle, int year, 
-			int numberOfCopies, String imageName, String manufacturer,
-			String model, String operatingSystem, ArrayList<Laptop> laptopList) {
+	public static boolean isLaptopExist(String resourceTitle, int year,
+			String imageName, String manufacturer, String model, 
+			String operatingSystem, ArrayList<Laptop> laptopList) {
 		
 		boolean laptopExist = false;
 		//Searches through all the existing laptops.
 		for (Laptop thisLaptop : laptopList) {
 			if (thisLaptop.getResourceTitle().equals(resourceTitle) &&
 					thisLaptop.getYear() == year &&
-					thisLaptop.getNumberOfCopies() == numberOfCopies &&
 					thisLaptop.getManufacturer().equals(manufacturer) &&
 					thisLaptop.getModel().equals(model) &&
 					thisLaptop.getOperatingSystem().equals(operatingSystem) &&
@@ -672,13 +657,12 @@ public class Utility {
 	}	
 	
 	/**
-	 * Checks if the entered year and number of copies only contains numbers.
+	 * Checks if the entered year only contains numbers.
 	 * @param strYear The entered year as a string.
-	 * @param strNumCopies The entered number of copies as a string.
-	 * @return Whether the entered year and number of copies is numeric or not.
+	 * @return Whether the entered year is numeric or not.
 	 */
-	public static boolean isIntResource(String strYear, String strNumCopies) {
-		if (strYear.matches(digits) && strNumCopies.matches(digits)) {
+	public static boolean isIntResource(String strYear) {
+		if (strYear.matches(digits)) {
 			return true;
 		} else {
 			return false;

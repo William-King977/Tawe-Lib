@@ -289,6 +289,7 @@ public class EditUserController {
     				"," + userBeingEdited.getFine() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 2);
         }
+        handleBackButtonAction(); // Closes the window.
     }
     
     /**

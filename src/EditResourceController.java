@@ -39,13 +39,6 @@ public class EditResourceController {
     /** Local storage of the resource being edited. */
     private Resource resourceBeingEdited;
     
-    /** Used to check if the edited resource is a book. */
-    private boolean isBook;
-    /** Used to check if the edited resource is a DVD. */
-    private boolean isDVD;
-    /** Used to check if the edited resource is a laptop. */
-    private boolean isLaptop;
-    
     /** A combo box used to select an image for a resource. */
 	@FXML private ComboBox<String> cmbResourceImage;
 	/** A list view used to display the DVD's subtitle languages. */
@@ -64,8 +57,6 @@ public class EditResourceController {
 	@FXML private TextField txtResourceTitle;
 	/** A text field used to hold the year the resource was released. */
 	@FXML private TextField txtYear;
-	/** A text field used to hold the number of copies that a resource has. */
-	@FXML private TextField txtNumberOfCopies;
 	/** A text field used to hold the genre of the book / DVD. */
 	@FXML private TextField txtGenre;
 	/** A text field used to hold the language of the book / DVD. */
@@ -125,7 +116,6 @@ public class EditResourceController {
 		// appropriate text fields.
     	txtResourceTitle.setText(editedResource.getResourceTitle());
     	txtYear.setText(editedResource.getYear() + "");
-    	txtNumberOfCopies.setText(editedResource.getNumberOfCopies() + "");
     	
     	File imageURL = new File(RESOURCE_IMAGE_PATH 
 				+ editedResource.getThumbnail());
@@ -212,7 +202,6 @@ public class EditResourceController {
     public void validateEditedBook() throws IOException {
     	String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim(); 
-    	String strNumCopies = txtNumberOfCopies.getText().trim();
     	String author = txtAuthor.getText().trim();
     	String publisher = txtPublisher.getText().trim();
     	String genre = txtGenre.getText().trim();
@@ -234,8 +223,8 @@ public class EditResourceController {
 		
 		//Validation applied to the inputed values.
     	boolean bookFieldsFilled = Utility.isBookFieldFilled(resourceTitle, 
-    			strYear, strNumCopies, author, publisher); 
-    	boolean isNum = Utility.isIntResource(strYear, strNumCopies);
+    			strYear, author, publisher); 
+    	boolean isNum = Utility.isIntResource(strYear);
     	boolean isAlpha = Utility.isAlphaBook(author, publisher, 
     			genre, language);
     	
@@ -250,12 +239,11 @@ public class EditResourceController {
 			return;
 		}
     	
-    	// It's assumed that year and number of copies are integers.
+    	// It's assumed that year is an integer.
 		int year = Integer.parseInt(strYear);
-		int numberOfCopies = Integer.parseInt(strNumCopies);
 		
-		boolean bookExists = Utility.isBookExist(resourceTitle, year, 
-				numberOfCopies, imageName, author, publisher, genre, 
+		boolean bookExists = Utility.isBookExist(resourceTitle, year,
+				imageName, author, publisher, genre, 
 				language, isbn, bookList);
 		
 		// Checks if the entered details match with an existing book.
@@ -268,10 +256,12 @@ public class EditResourceController {
 		String oldBook = editedBook.toStringDetail();
 		String newBook = resourceBeingEdited.getResourceID() + 
 				"," + resourceTitle + "," + year + "," + imageName+ 
-				"," + numberOfCopies + "," + genre + "," + language + 
-				"," + author + "," + publisher + "," + isbn + ",";
+				"," + resourceBeingEdited.getNumberOfCopies() + 
+				"," + genre + "," + language + "," + author + 
+				"," + publisher + "," + isbn + ",";
 		
 		FileHandling.editResource(oldBook, newBook, "Book");
+		handleBackButtonAction();
     }
     
     /**
@@ -281,7 +271,6 @@ public class EditResourceController {
     public void validateEditedDVD() throws IOException {
     	String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim(); 
-    	String strNumCopies = txtNumberOfCopies.getText().trim();
     	String[] subLang = currentLangList.toArray(
     			new String[currentLangList.size()]);
     	String director = txtDirector.getText().trim();
@@ -304,8 +293,8 @@ public class EditResourceController {
 		
 		//Validation applied to the inputed values.
     	boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
-    			strYear, strNumCopies, director, strRuntime);
-    	boolean isNum = Utility.isIntResource(strYear, strNumCopies);
+    			strYear, director, strRuntime);
+    	boolean isNum = Utility.isIntResource(strYear);
     	boolean isDouble = Utility.isDoubleResource(strRuntime);
     	boolean isAlpha = Utility.isAlphaDVD(director, genre, language);
     	
@@ -323,14 +312,12 @@ public class EditResourceController {
 			return;
 		}
     	
-    	// It's assumed that year and number of copies are integers and 
-    	// that runtime is a double.
+    	// It's assumed that year is an integer and that runtime is a double.
 		int year = Integer.parseInt(strYear);
 		double runtime = Double.parseDouble(strRuntime);
-		int numberOfCopies = Integer.parseInt(strNumCopies);
 		boolean dvdExists = Utility.isDVDExist(resourceTitle, year, 
-				numberOfCopies, imageName, director, runtime, subLang, 
-				genre, language, dvdList);
+				imageName, director, runtime, subLang, genre, language, 
+				dvdList);
 		
 		// Checks if the entered details match with an existing DVD.	
 		if (dvdExists) {
@@ -352,10 +339,12 @@ public class EditResourceController {
 		String oldDVD = editedDVD.toStringDetail();
 		String newDVD = resourceBeingEdited.getResourceID() + 
 				"," + resourceTitle + "," + year + "," + imageName + 
-				"," + numberOfCopies + "," + genre + "," + language + 
-				"," + director + "," + runtime + "," + strSubLang + ",";
+				"," + resourceBeingEdited.getNumberOfCopies() + 
+				"," + genre + "," + language + "," + director + 
+				"," + runtime + "," + strSubLang + ",";
 		
 		FileHandling.editResource(oldDVD, newDVD, "DVD");
+		handleBackButtonAction();
     }
     
     /**
@@ -365,7 +354,6 @@ public class EditResourceController {
     public void validateEditedLaptop() throws IOException {
     	String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim();
-    	String strNumCopies = txtNumberOfCopies.getText().trim();
     	String manufacturer = txtManufacturer.getText().trim();
     	String model = txtModel.getText().trim();
     	String operatingSystem = txtOperatingSystem.getText().trim();
@@ -385,8 +373,8 @@ public class EditResourceController {
 		
 		//Validation applied to the inputted values.
     	boolean laptopFieldsFilled = Utility.isLaptopFieldFilled(resourceTitle, 
-    			strYear, strNumCopies, manufacturer, model, operatingSystem);
-    	boolean isNum = Utility.isIntResource(strYear, strNumCopies);
+    			strYear, manufacturer, model, operatingSystem);
+    	boolean isNum = Utility.isIntResource(strYear);
     	boolean isAlpha = Utility.isAlphaLaptop(resourceTitle, manufacturer);
     	
     	if (!laptopFieldsFilled) {
@@ -400,13 +388,11 @@ public class EditResourceController {
 	    	return;
     	}
     	
-    	// It's assumed that year and number of copies are integers.
+    	// It's assumed that year is an integer.
     	int year = Integer.parseInt(strYear);
-   		int numberOfCopies = Integer.parseInt(strNumCopies);
    		
    		boolean laptopExists = Utility.isLaptopExist(resourceTitle, year, 
-				numberOfCopies, imageName, manufacturer, model, 
-				operatingSystem, laptopList);
+				imageName, manufacturer, model, operatingSystem, laptopList);
    		
    	    // Checks if the entered details match with an existing laptop.
    		if (laptopExists) {
@@ -418,10 +404,11 @@ public class EditResourceController {
 		String oldLaptop = editedLaptop.toStringDetail();
 		String newLaptop = resourceBeingEdited.getResourceID() + 
 				"," + resourceTitle + "," + year + "," + imageName + 
-				"," + numberOfCopies + "," + manufacturer + 
-				"," + model + "," + operatingSystem + ",";
+				"," + resourceBeingEdited.getNumberOfCopies() + 
+				"," + manufacturer + "," + model + "," + operatingSystem + ",";
 		
 		FileHandling.editResource(oldLaptop, newLaptop, "Laptop");
+		handleBackButtonAction();
     }
 	
 	/**
@@ -534,6 +521,7 @@ public class EditResourceController {
 	
 	/**
 	 * Goes back to the previous page when the button is clicked.
+	 * Also used to exit the page after an edit has been saved.
 	 * @throws IOException Throws an exception to be caught when the 
 	 *                     FXML file isn't available.
 	 */

@@ -423,8 +423,6 @@ public class FileHandling {
 	    }
 	    // Replace old resource with the new one within the old textfile.
 	    String newContent = oldContent.replace(oldResource, newResource);
-	    System.out.println(oldResource);
-	    System.out.println(newResource);
 	    writer = new FileWriter(filePath);
 	    writer.write(newContent);
 	    reader.close();
