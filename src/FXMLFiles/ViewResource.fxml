@@ -16,9 +16,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ResourceSettingsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewResourceController">
    <top>
-      <Text strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resource Settings" textAlignment="CENTER" wrappingWidth="247.60606384277344" BorderPane.alignment="CENTER">
+      <Text strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Resource" textAlignment="CENTER" wrappingWidth="247.60606384277344" BorderPane.alignment="CENTER">
          <font>
             <Font size="29.0" />
          </font>
@@ -73,9 +73,9 @@
          </padding></VBox>
    </left>
    <center>
-      <VBox prefHeight="533.0" prefWidth="668.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="502.0" prefWidth="698.0" BorderPane.alignment="CENTER">
          <children>
-            <GridPane prefHeight="466.0" prefWidth="679.0">
+            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="466.0" prefWidth="679.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="5.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.4000244140625" minWidth="10.0" prefWidth="128.0000244140625" />
@@ -145,22 +145,32 @@
    <bottom>
       <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnEditResource" mnemonicParsing="false" onAction="#handleEditResourceButtonAction" text="Edit Resource">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
             <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="20.0" text="Back" textAlignment="CENTER">
                <HBox.margin>
                   <Insets top="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnCreateResource" mnemonicParsing="false" onAction="#handleCreateNewResourceButtonAction" text="Create New Resource">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
          </children>
       </HBox>
    </bottom>
+   <right>
+      <VBox prefHeight="502.0" prefWidth="176.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Copies">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <ListView fx:id="listShowCopies" prefHeight="199.0" prefWidth="166.0">
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
+            </ListView>
+            <Button mnemonicParsing="false" onAction="#handleRequestButtonAction" prefHeight="26.0" prefWidth="120.0" text="Request Copy" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </right>
 </BorderPane>

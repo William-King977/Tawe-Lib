@@ -87,9 +87,19 @@ public class UserDashboardController {
     /**
 	 * Displays a list of all resources in the library and allows the user
 	 * to request to borrow resources when clicked.
+	 * @throws IOException Throws an exception to be caught when the
+	 *                     FXML file cannot be accessed.
 	 */
-	public void handleViewResourcesButtonAction() {
-	
+	public void handleViewResourcesButtonAction() throws IOException {
+		Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
+		curStage.close(); //closes that stage.
+	    /*creates the new stage*/
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/ViewResource.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); //displays the new stage.
 	}
 	
 	/**
