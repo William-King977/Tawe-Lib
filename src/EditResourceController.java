@@ -248,7 +248,7 @@ public class EditResourceController {
 		
 		// Checks if the entered details match with an existing book.
 		if (bookExists) {
-			Utility.resourceExists();
+			Utility.resourceExistsEdit();
 			return;
 		}
 		
@@ -321,7 +321,7 @@ public class EditResourceController {
 		
 		// Checks if the entered details match with an existing DVD.	
 		if (dvdExists) {
-			Utility.resourceExists();
+			Utility.resourceExistsEdit();
 			return;
 		}
 		
@@ -396,7 +396,7 @@ public class EditResourceController {
    		
    	    // Checks if the entered details match with an existing laptop.
    		if (laptopExists) {
-			Utility.resourceExists();
+			Utility.resourceExistsEdit();
 			return;
 		}
    		

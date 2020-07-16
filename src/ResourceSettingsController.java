@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -543,7 +542,7 @@ public class ResourceSettingsController {
 				.getSelectedIndex();
 		
 		if (selectedIndex < 0) {
-			Utility.resourceNotSelected();
+			Utility.resourceNotSelectedEdit();
 			return;
 		}
         

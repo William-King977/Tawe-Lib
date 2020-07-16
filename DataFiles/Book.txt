@@ -1,4 +1,5 @@
-1,Horrid Henry Robs the Bank,2008,Horrid Henry Robs The Bank.jpg,5,Childrens,Englishe,Francesca Simon,Orion,9781407227474,
+1,Horrid Henry Robs the Bank,2008,Horrid Henry Robs The Bank.jpg,5,Childrens,English,Francesca Simon,Orion,9781407227474,
 7,The Ultimate Book of Sharks,2018,The Ultimate Book Of Sharks.jpg,5,,English,Brian Skerry,National Geographic Kids,9781426330711,
 8,The Best Book of Sharks,1999,The Best Book Of Sharks.jpg,5,,,Claire Llewellyn,Kingfisher,,
 9,Fly Guy Presents: Sharks,2013,Fly Guy Presents Sharks.jpg,5,Animals,English,Tedd Arnold,Scholastic,9780545507714,
+12,Horrid Henry's Stinkbomb,2002,Horrid Henry's Stinkbomb.jpg,5,,English,Francesca Simon,Orion,9781842550663,

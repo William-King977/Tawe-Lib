@@ -320,6 +320,72 @@ public class FileHandling {
 	}
 	
 	/**
+	 * Fetches all the copies in the system and stores
+	 * them in an ArrayList.
+	 * @return ArrayList of all copies in the system.
+	 */
+	public static ArrayList<Copy> getCopies() {
+		String filePath = DATA_FILE_PATH + "Copy.txt";
+		File inputFile = new File(filePath);
+		Scanner in = null;
+	    try {
+	    	// Opens the file for reading.
+			in = new Scanner (inputFile);	
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    in.useDelimiter(",");
+	    // Read each copy and store them in an ArrayList.
+	    ArrayList<Copy> copies = new ArrayList<>();
+	    while (in.hasNextLine()) {
+	    	
+	    	int copyID = in.nextInt();
+	    	int resourceID = in.nextInt();
+	    	boolean isAvailable = in.nextBoolean();
+	    	String strType = in.next();
+	    	String strLoanDuration = in.next();
+	    	
+	    	ResourceType resourceType = null;
+	    	switch (strType) {
+	    		case "BOOK":
+	    			resourceType = ResourceType.BOOK;
+	    			break;
+	    		case "DVD":
+	    			resourceType = ResourceType.DVD;
+	    			break;
+	    		case "Laptop":
+	    			resourceType = ResourceType.LAPTOP;
+	    			break;
+	    	}
+	    	
+	    	LoanDuration duration = null;
+	    	switch (strLoanDuration) {
+	    		case "DAY":
+	    			duration = LoanDuration.DAY;
+	    			break;
+	    		case "WEEK":
+	    			duration = LoanDuration.WEEK;
+	    			break;
+	    		case "TWO_WEEK":
+	    			duration = LoanDuration.TWO_WEEK;
+	    			break;
+	    		case "FOUR_WEEK":
+	    			duration = LoanDuration.FOUR_WEEK;
+	    			break;
+	    	}
+	    
+	    	Copy copy = new Copy(copyID, resourceID, isAvailable, resourceType, duration); 
+	    	copies.add(copy);
+	    	in.nextLine(); // Needed if you change delimiter.
+	    }
+	    in.close();
+		return copies;
+	}
+	
+	/**
 	 * A profile is edited by replacing the details of the previous profile
 	 * with the new one.
 	 * @param oldProfile The string holding details of the old profile.
@@ -459,14 +525,81 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			printWriter.print(""); // Writes the user on the next line.
-			printWriter.println(newUser);
+			printWriter.println(""); // Writes the user on the next line.
+			printWriter.print(newUser);
 			printWriter.close();
         } 
         catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
             System.exit(0);
         } 
+	}
+	
+	/**
+	 * A new copy is created by adding their details at the end
+	 * of the textfile.
+	 * @param newCopy The details of the new copy.
+	 */
+	public static void createCopy(String newCopy) {
+		String filePath = DATA_FILE_PATH + "Copy.txt";
+		
+		File file = null;
+		FileWriter fileWriter = null;
+		BufferedWriter buffWriter = null;
+		PrintWriter printWriter = null;
+		try { 
+			file = new File(filePath);
+			fileWriter = new FileWriter(file, true);
+			buffWriter = new BufferedWriter(fileWriter);
+			printWriter = new PrintWriter(buffWriter);
+			
+			printWriter.println(""); // Writes the user on the next line.
+			printWriter.print(newCopy);
+			printWriter.close();
+        } 
+        catch (IOException e) { 
+            System.out.println("Cannot write to " + filePath); 
+            System.exit(0);
+        } 
+	}
+	
+	/**
+	 * A new resource is created by adding their details at the end
+	 * of the textfile.
+	 * @param newCopy The details of the new copy.
+	 */
+	public static void createResource(String newResource, 
+			ResourceType resourceType) {
+		String filePath = "";
+		switch (resourceType) {
+			case BOOK:
+				filePath = DATA_FILE_PATH + "Book.txt";
+				break;
+			case DVD:
+				filePath = DATA_FILE_PATH + "DVD.txt";
+				break;
+			case LAPTOP:
+				filePath = DATA_FILE_PATH + "Laptop.txt";
+		}
+		
+		File file = null;
+		FileWriter fileWriter = null;
+		BufferedWriter buffWriter = null;
+		PrintWriter printWriter = null;
+		try { 
+			file = new File(filePath);
+			fileWriter = new FileWriter(file, true);
+			buffWriter = new BufferedWriter(fileWriter);
+			printWriter = new PrintWriter(buffWriter);
+			
+			printWriter.println(""); // Writes the resource on the next line.
+			printWriter.print(newResource);
+			printWriter.close();
+        } 
+        catch (IOException e) { 
+            System.out.println("Cannot write to " + filePath); 
+            System.exit(0);
+        } 	
 	}
 	
 	/**

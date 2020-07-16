@@ -20,8 +20,7 @@ public class Utility {
 	
     /**
      * Performs insertion sort on an ArrayList of resources by using
-     * the resourceID for the sort. This is only for aesthetic
-     * purposes on the list view (on resource pages).
+     * the resourceID for the sort. 
      * @param list The list of resources to be sorted.
      */
     public static void sortResources(ArrayList<Resource> list) {
@@ -33,6 +32,28 @@ public class Utility {
             	
             	while (j >= 0  && 
             			(list.get(j).getResourceID() > key.getResourceID())) {
+            		list.set(j + 1, list.get(j));
+            		j--;
+                }
+            	list.set(j + 1, key);
+            }
+        }
+    }
+    
+    /**
+     * Performs insertion sort on an ArrayList of copies by using
+     * the copyID for the sort. 
+     * @param list The list of copies to be sorted.
+     */
+    public static void sortCopies(ArrayList<Copy> list) {
+    	int n = list.size();
+        if (n > 1) {
+            for (int i = 1; i < n; i++) { 
+            	Copy key = list.get(i);
+            	int j = i - 1;
+            	
+            	while (j >= 0  && 
+            			(list.get(j).getCopyID() > key.getCopyID())) {
             		list.set(j + 1, list.get(j));
             		j--;
                 }
@@ -240,13 +261,39 @@ public class Utility {
 	 * the changes made causes the resource to have matching
 	 * details with an existing resource.
 	 */
-	public static void resourceExists() {
+	public static void resourceExistsEdit() {
     	Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error: Cannot Save Changes.");
 		alert.setHeaderText(null);
 		alert.setContentText("The changes you have made to "
 				+ "this resource matches with the details of "
 				+ "an existing resource.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the librarian that 
+	 * the details for the resource matches with an existing resource.
+	 */
+	public static void resourceExistsCreate() {
+    	Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Create Resource.");
+		alert.setHeaderText(null);
+		alert.setContentText("The resource you have created "
+				+ "already exists in the system.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the librarian that 
+	 * they have not selected an image thumbnail for the resource.
+	 */
+	public static void imageNotSelected() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Create Resource.");
+		alert.setHeaderText(null);
+		alert.setContentText("Please select a thumbnail "
+				+ "image for the resource.");
 		alert.showAndWait();
 	}
 	
@@ -263,16 +310,43 @@ public class Utility {
 	}
 	
 	/**
+	 * An alert pop-up that tells the librarian that the resource has 
+	 * been created successfully.
+	 */
+	public static void resourceCreated() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Resource Created Successfully.");
+		alert.setHeaderText(null);
+		alert.setContentText("The resource has been created successfully.");
+		alert.showAndWait();
+	}
+	
+	/**
 	 * An alert pop-up that tells the user that they have not
 	 * selected a resource to edit when clicking on the edit resource button.
 	 */
-	public static void resourceNotSelected() {
+	public static void resourceNotSelectedEdit() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error: Cannot Edit Resource.");
 		alert.setHeaderText(null);
 		alert.setContentText("Please select the resource "
 				+ "that you want to edit.");
 		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that they have not selected
+	 * a resource to create when clicking on the create resource button.
+	 */
+	public static void resourceNotSelectedCreate() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Create Resource.");
+		alert.setHeaderText(null);
+		alert.setContentText("Please select a check box "
+				+ "to show which resource you want "
+				+ "to create.");
+		alert.showAndWait();
+		return;
 	}
 	
 	/**
