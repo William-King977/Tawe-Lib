@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,16 +10,14 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 /**
- * Controller for the Reserved Items page.
- * Users can view copies reserved for them which were previously
- * unavailable copies at the time of their request.
+ * Controller for the Requested Items page.
+ * Displays the user's requests for copies that are currently unavailable.
  * @author William King
  */
-public class ReservedItemsController {
+public class RequestedItemsController {
 	
-	/** A list view to display the requests for copies that 
-	 * are now available. */
-	@FXML private ListView<String> listShowReservedItems;
+	/** A list view to display the requests for unavailable copies. */
+	@FXML private ListView<String> listShowRequestedItems;
 	/** The back button for the page. */
 	@FXML private Button btnBack;
 
@@ -28,20 +27,20 @@ public class ReservedItemsController {
 	private String username;
 	
 	/**
-	 * Displays previously requested items, that are now available for 
-	 * the user i.e. are reserved for the user. 
+	 * Displays all the current requests that the user has made for
+     * copies that are currently unavailable. 
 	 * This method will run automatically.
 	 */
 	public void initialize() {
 		requestList = FileHandling.getRequests();
 		username = FileHandling.getCurrentUser();
 		
-		// Show the user's pending reserved requests.
+		// Get the user's pending requests.
 		for (Request request : requestList) {
 			if (username.equals(request.getUsername()) && 
-					!request.getRequestFilled() && request.isReserved()) {
-				listShowReservedItems.getItems().add(
-						request.getReservedDescription());
+					!request.getRequestFilled() && !request.isReserved()) {
+				listShowRequestedItems.getItems().add(
+						request.getDescription());
 			}
 		}
 	}
@@ -62,4 +61,5 @@ public class ReservedItemsController {
 		primaryStage.setScene(scene);
 		primaryStage.show(); //displays the new stage.
 	}
+
 }

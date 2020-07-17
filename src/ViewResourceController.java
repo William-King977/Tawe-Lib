@@ -214,16 +214,17 @@ public class ViewResourceController {
 		int minCopyID = currentCopiesList.get(0).getCopyID();
 		int maxCopyID = currentCopiesList.get(
 				currentCopiesList.size() - 1).getCopyID();
-		
+		boolean reserved = true; // Set to false if no available copies.
 		if (!isCopyFound) {
 			copyID = getNextLatestCopyID(resourceID, minCopyID, maxCopyID);
+			reserved = false;
 		}
 		
 		// Create request.
 		int requestID = getMaxRequestID() + 1;
 		LocalDate requestDate = LocalDate.now(); 
 		String newRequest = requestID + "," + copyID + "," + resourceID + 
-				"," + currentUsername + "," + requestDate + ",false,";
+				"," + currentUsername + "," + requestDate + ",false," + reserved + ",";
 		
 		FileHandling.makeRequest(newRequest);
 		setLoanDueDate(isCopyFound, copyID, duration); // Set due date if necessary.

@@ -413,9 +413,10 @@ public class FileHandling {
 	    	String username = in.next();
 	    	String requestDate = in.next();
 	    	boolean requestFilled = in.nextBoolean();
+	    	boolean reserved = in.nextBoolean();
 	    	 
 	    	Request request = new Request(requestID, copyID, resourceID, 
-	    			username, requestDate, requestFilled);
+	    			username, requestDate, requestFilled, reserved);
 	    	requests.add(request);
 	    	in.nextLine(); // Needed if you change delimiter.
 	    }

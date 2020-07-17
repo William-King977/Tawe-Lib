@@ -21,7 +21,10 @@ public class Request {
 	private String requestDate;
 	
 	/** A boolean to hold a value whether the request has been filled or not. */
-	private Boolean requestFilled;
+	private boolean requestFilled;
+	
+	/** A boolean to hold a value whether the copy is reserved or not. */
+	private boolean reserved;
 	
 	/**
 	 * Constructor for the Request class.
@@ -32,15 +35,18 @@ public class Request {
 	 * @param requestDate The date that the request was made.
 	 * @param requestFilled Whether the request copy has been given to
 	 *                      the user or not.
+	 * @param reserved Whether the requested copy was reserved for the
+	 *                   user or not.
 	 */
 	public Request(int requestID, int copyID, int resourceID, String username,
-			String requestDate, Boolean requestFilled) {
+			String requestDate, boolean requestFilled, boolean reserved) {
 		this.requestID = requestID;
 		this.requestDate = requestDate;
 		this.requestFilled = requestFilled;
 		this.resourceID = resourceID;
 		this.username = username;
 		this.copyID = copyID;
+		this.reserved = reserved;
 	}
 	
 	/**
@@ -93,6 +99,22 @@ public class Request {
 	}
 
 	/**
+	 * Sets whether the copy is reserved or not.
+	 * @param reserved Whether the copy is reserved ot not.
+	 */
+	public void setReserved(boolean reserved) {
+			this.reserved = reserved;
+	}
+	
+	/**
+	 * Gets whether the copy is reserved for the user or not.
+	 * @return Whether the request copy is reserved or not.
+	 */
+	public Boolean isReserved() {
+			return reserved;
+	}
+
+	/**
 	 * Sets whether the request has been fulfilled or not.
 	 * @param requestFilled Whether the request has been fulfilled or not.
 	 */
@@ -107,6 +129,17 @@ public class Request {
 	public String getReservedDescription() {
 		String requestDescription = "Request ID: " + requestID + " | Copy ID: "
 				+ copyID +  " | This copy is now available";
+		return requestDescription;
+	}
+	
+	/**
+	 * Displays a short description of the request.
+	 * @return A string showing the request's details.
+	 */
+	public String getDescription() {
+		String requestDescription = "Request ID: " + requestID + " | "
+				+ "Resource ID: " + resourceID + " | Request Date: " 
+				+ requestDate + " | Request Filled: " + requestFilled;
 		return requestDescription;
 	}
 }

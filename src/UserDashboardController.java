@@ -55,8 +55,19 @@ public class UserDashboardController {
 	/**
 	 * Displays items requested by the user that are not currently 
 	 * available when the button is clicked.
+	 * @throws IOException Throws an exception to be caught when the
+	 *                     FXML file cannot be accessed.
 	 */
-	public void handleRequestedItemsButtonAction() {
+	public void handleRequestedItemsButtonAction() throws IOException {
+		Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
+		curStage.close(); // Closes that stage.
+	    
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/RequestedItems.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); // Displays the new stage.
 	}
 	
 	/**
