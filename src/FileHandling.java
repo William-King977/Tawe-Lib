@@ -356,7 +356,7 @@ public class FileHandling {
 	    		case "DVD":
 	    			resourceType = ResourceType.DVD;
 	    			break;
-	    		case "Laptop":
+	    		case "LAPTOP":
 	    			resourceType = ResourceType.LAPTOP;
 	    			break;
 	    	}
@@ -383,6 +383,102 @@ public class FileHandling {
 	    }
 	    in.close();
 		return copies;
+	}
+	
+	/**
+	 * Fetches all the requests in the system and stores them in an ArrayList.
+	 * @return An ArrayList of all the requests.
+	 */
+	public static ArrayList<Request> getRequests() {
+		String filePath = DATA_FILE_PATH + "Request.txt";
+		File inputFile = new File(filePath);
+		Scanner in = null;
+	    try {
+	    	// Opens the file for reading.
+			in = new Scanner (inputFile);	
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    in.useDelimiter(",");
+	    // Read each request and store them in an ArrayList.
+	    ArrayList<Request> requests = new ArrayList<>();
+	    while (in.hasNextLine()) {
+	    	
+	    	int requestID = in.nextInt();
+	    	int copyID = in.nextInt();
+	    	int resourceID = in.nextInt();
+	    	String username = in.next();
+	    	String requestDate = in.next();
+	    	boolean requestFilled = in.nextBoolean();
+	    	 
+	    	Request request = new Request(requestID, copyID, resourceID, 
+	    			username, requestDate, requestFilled);
+	    	requests.add(request);
+	    	in.nextLine(); // Needed if you change delimiter.
+	    }
+	    in.close();
+		return requests;
+	}
+	
+	/**
+	 * Fetches all the loans in the system and stores them in an ArrayList.
+	 * @return An ArrayList of all the loans.
+	 */
+	public static ArrayList<Loan> getLoans() {
+		String filePath = DATA_FILE_PATH + "Loan.txt";
+		File inputFile = new File(filePath);
+		Scanner in = null;
+	    try {
+	    	// Opens the file for reading.
+			in = new Scanner (inputFile);	
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    in.useDelimiter(",");
+	    // Read each request and store them in an ArrayList.
+	    ArrayList<Loan> loans = new ArrayList<>();
+	    while (in.hasNextLine()) {
+	    	
+	    	int loanID = in.nextInt();
+	    	int copyID = in.nextInt();
+	    	int resourceID = in.nextInt();
+	    	String username = in.next();
+	    	int staffID = in.nextInt();
+	    	String checkoutDate = in.next();
+	    	String dueDate = in.next();
+	    	
+	    	boolean returned = in.nextBoolean();
+	    	String returnDate = in.next();
+	    	long daysOverdue = in.nextLong();
+	    	String strType = in.next();
+	    	
+	    	ResourceType resourceType = null;
+	    	switch (strType) {
+	    		case "BOOK":
+	    			resourceType = ResourceType.BOOK;
+	    			break;
+	    		case "DVD":
+	    			resourceType = ResourceType.DVD;
+	    			break;
+	    		case "Laptop":
+	    			resourceType = ResourceType.LAPTOP;
+	    			break;
+	    	}
+	    	 
+	    	Loan loan = new Loan(loanID, copyID, resourceID, username,
+	    			staffID, checkoutDate, dueDate, returned, returnDate, 
+	    			daysOverdue, resourceType);
+	    	loans.add(loan);
+	    	in.nextLine(); // Needed if you change delimiter.
+	    }
+	    in.close();
+	    return loans;
 	}
 	
 	/**
@@ -424,7 +520,7 @@ public class FileHandling {
 	    	oldContent = oldContent + line + System.lineSeparator();
 	        line = reader.readLine();
 	    }
-	    // Replace old profile with the new one within the old textfile.
+	    // Replace old profile with the new one within the textfile.
 	    String newContent = oldContent.replace(oldProfile, newProfile);
 	   
 	    writer = new FileWriter(filePath);
@@ -487,7 +583,7 @@ public class FileHandling {
 	    	oldContent = oldContent + line + System.lineSeparator();
 	        line = reader.readLine();
 	    }
-	    // Replace old resource with the new one within the old textfile.
+	    // Replace old resource with the new one within the textfile.
 	    String newContent = oldContent.replace(oldResource, newResource);
 	    writer = new FileWriter(filePath);
 	    writer.write(newContent);
@@ -496,6 +592,83 @@ public class FileHandling {
 	    writer.close();
 	    
 	    Utility.savedResourceChanges();
+	}
+	
+	/**
+	 * A copy is edited by replacing the details of the previous copy
+	 * with the new one.
+	 * @param oldCopy The string details of the old copy.
+	 * @param newCopy The string details of the edited copy.
+	 * @throws IOException Throws an exception when a file cannot be written.
+	 */
+	public static void editCopy(String oldCopy, String newCopy) throws IOException {
+		String filePath = DATA_FILE_PATH + "Copy.txt";
+		
+		File inputFile = new File(filePath);
+		BufferedReader reader = null;
+		FileWriter writer = null;
+		String oldContent = "";
+		
+	    try {
+			reader = new BufferedReader(new FileReader(inputFile));
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    // Uses buffer to write old file contents to a string.
+	    String line = reader.readLine();
+	    while (line != null) {
+	    	oldContent = oldContent + line + System.lineSeparator();
+	        line = reader.readLine();
+	    }
+	    // Replace old copy with the new one within the textfile.
+	    String newContent = oldContent.replace(oldCopy, newCopy);
+	    writer = new FileWriter(filePath);
+	    writer.write(newContent);
+	    reader.close();
+	    writer.flush();
+	    writer.close();
+	}
+	
+	/**
+	 * A loan is edited by replacing the details of the previous loan
+	 * with the new one.
+	 * @param oldLoan The string details of the old loan.
+	 * @param newLoan The string details of the edited loan.
+	 * @throws IOException Throws an exception when a file cannot be written.
+	 */
+	public static void editLoan(String oldLoan, String newLoan) 
+			throws IOException {
+		String filePath = DATA_FILE_PATH + "Loan.txt";
+		
+		File inputFile = new File(filePath);
+		BufferedReader reader = null;
+		FileWriter writer = null;
+		String oldContent = "";
+		
+	    try {
+			reader = new BufferedReader(new FileReader(inputFile));
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    // Uses buffer to write old file contents to a string.
+	    String line = reader.readLine();
+	    while (line != null) {
+	    	oldContent = oldContent + line + System.lineSeparator();
+	        line = reader.readLine();
+	    }
+	    // Replace old loan with the new one within the textfile.
+	    String newContent = oldContent.replace(oldLoan, newLoan);
+	    writer = new FileWriter(filePath);
+	    writer.write(newContent);
+	    reader.close();
+	    writer.flush();
+	    writer.close();
 	}
 	
 	/**
@@ -525,8 +698,9 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			printWriter.println(""); // Writes the user on the next line.
+			// Writes the resource on then adds a new line. 
 			printWriter.print(newUser);
+			printWriter.println("");
 			printWriter.close();
         } 
         catch (IOException e) { 
@@ -553,8 +727,9 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			printWriter.println(""); // Writes the user on the next line.
+			// Writes the resource on then adds a new line. 
 			printWriter.print(newCopy);
+			printWriter.println("");
 			printWriter.close();
         } 
         catch (IOException e) { 
@@ -564,7 +739,7 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A new resource is created by adding their details at the end
+	 * A new copy is created by adding their details at the end
 	 * of the textfile.
 	 * @param newCopy The details of the new copy.
 	 */
@@ -592,14 +767,46 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			printWriter.println(""); // Writes the resource on the next line.
+			// Writes the resource on then adds a new line.
 			printWriter.print(newResource);
+			printWriter.println("");
 			printWriter.close();
         } 
         catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
             System.exit(0);
         } 	
+	}
+	
+	/**
+	 * A new request is made by adding its details at the end
+	 * of the textfile.
+	 * @param newRequest The details of the request.
+	 */
+	public static void makeRequest(String newRequest) {
+		
+		String filePath = DATA_FILE_PATH + "Request.txt";
+		
+		File file = null;
+		FileWriter fileWriter = null;
+		BufferedWriter buffWriter = null;
+		PrintWriter printWriter = null;
+		try { 
+			file = new File(filePath);
+			fileWriter = new FileWriter(file, true);
+			buffWriter = new BufferedWriter(fileWriter);
+			printWriter = new PrintWriter(buffWriter);
+			
+			// Writes the resource on then adds a new line.
+			printWriter.print(newRequest);
+			printWriter.println("");
+			printWriter.close();
+        } 
+        catch (IOException e) { 
+            System.out.println("Cannot write to " + filePath); 
+            System.exit(0);
+        } 	
+		
 	}
 	
 	/**

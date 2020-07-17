@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays; 
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -54,6 +57,28 @@ public class Utility {
             	
             	while (j >= 0  && 
             			(list.get(j).getCopyID() > key.getCopyID())) {
+            		list.set(j + 1, list.get(j));
+            		j--;
+                }
+            	list.set(j + 1, key);
+            }
+        }
+    }
+    
+    /**
+     * Performs insertion sort on an ArrayList of requests by using
+     * the requestID for the sort. 
+     * @param list The list of requests to be sorted.
+     */
+    public static void sortRequests(ArrayList<Request> list) {
+    	int n = list.size();
+        if (n > 1) {
+            for (int i = 1; i < n; i++) { 
+            	Request key = list.get(i);
+            	int j = i - 1;
+            	
+            	while (j >= 0  && 
+            			(list.get(j).getRequestID() > key.getRequestID())) {
             		list.set(j + 1, list.get(j));
             		j--;
                 }
@@ -322,6 +347,34 @@ public class Utility {
 	}
 	
 	/**
+	 * An alert pop-up that tells the user that a request for the
+	 * selected resource has been made and is reserved for them.
+	 */
+	public static void requestCreatedReserved() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Request Made.");
+		alert.setHeaderText(null);
+		alert.setContentText("The request for a copy of the resource has been "
+				+ "made and has been reserved for you until a librarian has "
+				+ "issued a copy to you.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that a request for the
+	 * selected resource has been made and is added to the queue.
+	 */
+	public static void requestCreatedQueue() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Request Made.");
+		alert.setHeaderText(null);
+		alert.setContentText("There are no available copies for the resource. "
+				+ "However, the request for a copy of the resource has been "
+				+ "made and has been added to the request queue.");
+		alert.showAndWait();
+	}
+	
+	/**
 	 * An alert pop-up that tells the user that they have not
 	 * selected a resource to edit when clicking on the edit resource button.
 	 */
@@ -331,6 +384,19 @@ public class Utility {
 		alert.setHeaderText(null);
 		alert.setContentText("Please select the resource "
 				+ "that you want to edit.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that they have not 
+	 * selected the resource they want to request.
+	 */
+	public static void resourceNotSelectedCopy() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Request Resource.");
+		alert.setHeaderText(null);
+		alert.setContentText("Please select the resource "
+				+ "that you want to request the copy of.");
 		alert.showAndWait();
 	}
 	
@@ -345,6 +411,34 @@ public class Utility {
 		alert.setContentText("Please select a check box "
 				+ "to show which resource you want "
 				+ "to create.");
+		alert.showAndWait();
+		return;
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that they have outstanding fines
+	 * when requesting to borrow a resource.
+	 */
+	public static void outstandingFines() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Request Resource.");
+		alert.setHeaderText(null);
+		alert.setContentText("You have outstanding fines. Please "
+				+ "pay them before requesting to borrow a resource.");
+		alert.showAndWait();
+		return;
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that they have overdue copies
+	 * when requesting to borrow a resource.
+	 */
+	public static void overdueCopies() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Request Resource.");
+		alert.setHeaderText(null);
+		alert.setContentText("You have overdue copies. Please "
+				+ "return them before requesting to borrow a resource");
 		alert.showAndWait();
 		return;
 	}
@@ -757,5 +851,17 @@ public class Utility {
 			return false;
 		}	
 		return true;
+	}
+	
+	/**
+	 * Gets the number of days past since the entered date.
+	 * @param origionalDate The original date as a string (YYYY-MM-DD)
+	 * @return An integer of days past since the entered date.
+	 */
+	public static int daysPastDate(String originalDate) {
+        LocalDate today = LocalDate.now();
+        LocalDate thisDate = LocalDate.parse(originalDate);
+        int daysBetween = (int) DAYS.between(thisDate, today);
+        return daysBetween;
 	}
 }

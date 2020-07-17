@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
@@ -35,6 +36,14 @@ public class ViewResourceController {
 	private ArrayList<Laptop> laptopList;
 	/** A list to hold all the copies. */
 	private ArrayList<Copy> copyList;
+	/** A list to hold all the requests. */
+	ArrayList <Request> requestList;
+	/** A list to hold all the loans. */
+	ArrayList<Loan> loanList;
+	/** A list to hold all the copies for the selected resource. */
+	private ArrayList<Copy> currentCopiesList = new ArrayList<Copy>();
+	/** A list to hold all the users in the system. */
+	private ArrayList<User> userList;
 	
 	/** The directory to the thumbnail images for the resources. */
 	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";	
@@ -119,6 +128,8 @@ public class ViewResourceController {
         dvdList = FileHandling.getDVDs();
         laptopList = FileHandling.getLaptops();
         copyList = FileHandling.getCopies();
+        requestList = FileHandling.getRequests();
+        loanList = FileHandling.getLoans();
         
         // Adds each resource to the resource ArrayList.
         for (Book thisBook : bookList) {
@@ -140,8 +151,201 @@ public class ViewResourceController {
 	
 	/**
 	 * Adds a request of a selected copy to the request queue.
+	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
-	public void handleRequestButtonAction() {
+	public void handleRequestButtonAction() throws IOException {
+		
+		if (currentCopiesList.size() == 0) {
+			Utility.resourceNotSelectedCopy();
+			return;
+		}
+		
+		String currentUsername = FileHandling.getCurrentUser();
+		User currentUser = null;
+		userList = FileHandling.getUsers();
+		
+		// Find current user.
+		for (User thisUser : userList) {
+			if (thisUser.getUsername().equals(currentUsername)) {
+				currentUser = thisUser;
+				break;
+			}
+		}
+		
+		boolean isOverdue = getOverdue(currentUsername);
+		 
+		// Checks if the user has outstanding fines or overdue copies.
+		if (currentUser.getFine() > 0) {
+			Utility.outstandingFines();
+			return;
+		// Checks if the user has overdue (unreturned) copies.
+		} else if (isOverdue) { 
+			Utility.overdueCopies();
+			return;
+		}
+		
+		int copyID = 0;
+		int resourceID = 0;
+		int duration = 0;
+		Copy requestedCopy = null;
+		boolean isCopyFound = false;
+		
+		for (Copy thisCopy : currentCopiesList) {
+			// Needed anyway if no copies are available.
+			resourceID = thisCopy.getResourceID(); 
+			duration = thisCopy.getLoanDuration();
+			if (thisCopy.isAvailable()) {
+				copyID = thisCopy.getCopyID();
+				requestedCopy = thisCopy;
+				isCopyFound = true;
+				
+				// Set the copy to unavailable.
+				String oldCopy = requestedCopy.toStringDetail();
+				requestedCopy.setAvailable(false);
+				String newCopy = requestedCopy.toStringDetail();
+				FileHandling.editCopy(oldCopy, newCopy);
+				break;
+			}
+		}
+		
+		// Choose the copy to request if they're all unavailable.
+		int minCopyID = currentCopiesList.get(0).getCopyID();
+		int maxCopyID = currentCopiesList.get(
+				currentCopiesList.size() - 1).getCopyID();
+		if (!isCopyFound) {
+			copyID = getNextLatestCopyID(resourceID, minCopyID, maxCopyID);
+		}
+		
+		// Create request.
+		int requestID = getMaxRequestID() + 1;
+		LocalDate requestDate = LocalDate.now(); 
+		String newRequest = requestID + "," + copyID + "," + resourceID + 
+				"," + currentUsername + "," + requestDate + ",false,";
+		
+		FileHandling.makeRequest(newRequest);
+		
+		setLoanDueDate(isCopyFound, copyID, duration); // Set due date if necessary.
+	}
+	
+	/**
+	 * Fetches the maximum request ID of all current requests.
+	 * @return The current maximum request ID.
+	 */
+	public int getMaxRequestID() {
+		int maxID;
+		
+		if (requestList.size() == 0) {
+			maxID = 0;
+		} else {
+			Utility.sortRequests(requestList);
+			int maxIndex = requestList.size() - 1;
+			maxID = (requestList.get(maxIndex)).getRequestID();
+		}
+		return maxID;
+	}
+	
+	/**
+	 * Checks if the user has any unreturned overdue copies i.e.
+	 * past the due date.
+	 * @param currentUsername Username of the user.
+	 * @return Whether the user has any overdue copies or not.
+	 */
+	public boolean getOverdue(String currentUsername) {
+		ArrayList<Loan> userCurrentLoans = 
+				new ArrayList<Loan>(); // User's unreturned loans.
+		
+		// Fetch the user's active loans.
+		for (Loan loan : loanList) {
+			if (currentUsername.equals(loan.getUsername()) && 
+					!loan.isReturned()) {
+				userCurrentLoans.add(loan);
+			}
+		}
+		
+		// Check if there's a due date - due dates are set 
+		// when the copy is requested.
+		// If there is, check if it's past the due date.
+		for (Loan loan : userCurrentLoans) {
+			if ((loan.getDueDate()).isEmpty()) {
+				// Nothing happens...
+			} else {
+				int daysPastDueDate = Utility.daysPastDate(
+						loan.getDueDate());
+				// Will be negative if the due date is in the future.
+				if (daysPastDueDate > 0) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Fetches the copy ID of the most recently requested copy of the 
+	 * resource then calculates the next copy to be requested. 
+	 * Needed if all the copies are unavailable.
+	 * @param resourceID The ID of the requested resource.
+	 * @param minCopyID The smallest ID of the copy of the resource.
+	 * @param maxCopyID The highest ID of the copy of the resource.
+	 * @return The copy ID of the (next) most recently requested copy.
+	 */
+	public int getNextLatestCopyID(int resourceID, int minCopyID, 
+			int maxCopyID) {
+		ArrayList<Request> pendingRequests = new ArrayList<>();
+		
+		// Fetch pending requests for copies of the requested resource.
+		for (Request request : requestList) {
+			if (request.getResourceID() == resourceID && 
+					!request.getRequestFilled()) {
+				pendingRequests.add(request);
+			}
+		}
+		
+		// We know the requests are sorted already.
+		int maxIndex = pendingRequests.size() - 1;
+		int copyID = pendingRequests.get(maxIndex).getCopyID();
+		int requestCopyID; 
+		
+		// Checks if the copyID is at the maximum for the resource.
+		if (copyID == maxCopyID) {
+			 requestCopyID = minCopyID;
+		} else {
+			requestCopyID = copyID + 1;
+		}
+		return requestCopyID;
+	}
+	
+	/**
+	 * Sets the due date of the current loan for the copy if necessary
+	 * and displays the appropriate alert after creating a request.
+	 * @param isCopyFound If there was any available copies or not.
+	 * @param copyID The ID of the requested copy.
+	 * @param duration The loan duration of the requested copy.
+	 * @throws IOException Throws an exception when a file cannot be written.
+	 */
+	public void setLoanDueDate(boolean isCopyFound, int copyID, int duration) 
+			throws IOException {
+		// If there are available copies, add to 'reserved' (reserved for user).
+		if (isCopyFound) {
+			Utility.requestCreatedReserved();
+		// If no available copies.
+		} else {
+			// Set the due date to the current loan of the resource
+			// if it doesn't have one.
+			for (Loan loan : loanList) {
+				if (loan.getCopyID() == copyID && 
+						(loan.getDueDate()).isEmpty()) {
+					
+					Loan selectedLoan = loan;
+					String oldLoan = selectedLoan.toStringDetail();
+					selectedLoan.setDueDate(duration);
+					String newLoan = selectedLoan.toStringDetail();
+					FileHandling.editLoan(oldLoan, newLoan);
+					break;
+				}
+			}
+			Utility.requestCreatedQueue();
+		}
 	}
 	
 	/**
@@ -153,6 +357,7 @@ public class ViewResourceController {
 		for (Copy thisCopy : copyList) {
 			if (thisCopy.getResourceID() == resourceID) {
 				listShowCopies.getItems().add(thisCopy.getCopyDescription());
+				currentCopiesList.add(thisCopy);
 			}
 		}
 	}
@@ -171,6 +376,7 @@ public class ViewResourceController {
 		
 		// Clear copies list view.
 		listShowCopies.getItems().clear();
+		currentCopiesList.clear();
 		
 		// Checks if any of the check boxes are selected.
 		// Then passes down the selected resource.

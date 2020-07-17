@@ -39,6 +39,16 @@ public class Copy {
 	}
 	
 	/**
+	 * Gets the full details of the copy.
+	 * @return Full details of the copy as a string.
+	 */
+	public String toStringDetail() {
+		String strCopy = copyID + "," + resourceID + "," + isAvailable + 
+				"," + resourceType + "," + loanDuration;
+		return strCopy;
+	}
+	
+	/**
      * Gets the ID of the Copy.
      * @return The Copy's ID.
      */
@@ -116,7 +126,7 @@ public class Copy {
      * @return loanDuration The maximum duration of the loan of this 
      *                      copy(Days).
      */
-    public double getLoanDuration() {
+    public int getLoanDuration() {
     	int loanDurationDays = 0;
     	switch (loanDuration) {
     		case DAY:
