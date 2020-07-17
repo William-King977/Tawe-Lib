@@ -154,17 +154,15 @@ public class ViewResourceController {
 	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
 	public void handleRequestButtonAction() throws IOException {
-		
 		if (currentCopiesList.size() == 0) {
 			Utility.resourceNotSelectedCopy();
 			return;
 		}
 		
+		// Find current user.
 		String currentUsername = FileHandling.getCurrentUser();
 		User currentUser = null;
 		userList = FileHandling.getUsers();
-		
-		// Find current user.
 		for (User thisUser : userList) {
 			if (thisUser.getUsername().equals(currentUsername)) {
 				currentUser = thisUser;
@@ -172,9 +170,8 @@ public class ViewResourceController {
 			}
 		}
 		
-		boolean isOverdue = getOverdue(currentUsername);
-		 
 		// Checks if the user has outstanding fines or overdue copies.
+		boolean isOverdue = getOverdue(currentUsername);
 		if (currentUser.getFine() > 0) {
 			Utility.outstandingFines();
 			return;
@@ -194,7 +191,12 @@ public class ViewResourceController {
 			// Needed anyway if no copies are available.
 			resourceID = thisCopy.getResourceID(); 
 			duration = thisCopy.getLoanDuration();
-			if (thisCopy.isAvailable()) {
+			// Checks if the user has requested to borrow this resource already.
+			boolean requested = isAlreadyRequested(currentUsername, resourceID);
+			if (requested) {
+				Utility.alreadyRequested();
+				return;
+			} else if (thisCopy.isAvailable()) {
 				copyID = thisCopy.getCopyID();
 				requestedCopy = thisCopy;
 				isCopyFound = true;
@@ -212,6 +214,7 @@ public class ViewResourceController {
 		int minCopyID = currentCopiesList.get(0).getCopyID();
 		int maxCopyID = currentCopiesList.get(
 				currentCopiesList.size() - 1).getCopyID();
+		
 		if (!isCopyFound) {
 			copyID = getNextLatestCopyID(resourceID, minCopyID, maxCopyID);
 		}
@@ -223,8 +226,8 @@ public class ViewResourceController {
 				"," + currentUsername + "," + requestDate + ",false,";
 		
 		FileHandling.makeRequest(newRequest);
-		
 		setLoanDueDate(isCopyFound, copyID, duration); // Set due date if necessary.
+		displayCopies(resourceID); // Refresh copies.
 	}
 	
 	/**
@@ -275,6 +278,34 @@ public class ViewResourceController {
 				if (daysPastDueDate > 0) {
 					return true;
 				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks if the user has either already requested to borrow a copy of the 
+	 * resource or they are currently borrowing a copy of this resource.
+	 * @param username The username of the user who made the request.
+	 * @param resourceID The resource ID of the resource copy.
+	 * @return Whether the user has already requested to borrow the resource 
+	 *         already or not.
+	 */
+	public boolean isAlreadyRequested(String username, int resourceID) {
+		// Check requests.
+		for (Request request : requestList) {
+			if (username.equals(request.getUsername()) && 
+					resourceID == request.getResourceID() && 
+					!request.getRequestFilled()) {
+				return true;
+			}
+		}
+		// Check loans.
+		for (Loan loan : loanList) {
+			if (username.equals(loan.getUsername()) && 
+					resourceID == loan.getResourceID() && 
+					!loan.isReturned()) {
+				return true;
 			}
 		}
 		return false;
@@ -346,6 +377,8 @@ public class ViewResourceController {
 			}
 			Utility.requestCreatedQueue();
 		}
+		requestList = FileHandling.getRequests();
+        loanList = FileHandling.getLoans();
 	}
 	
 	/**
@@ -354,6 +387,8 @@ public class ViewResourceController {
 	 * @param resourceID The ID of the selected resource.
 	 */
 	public void displayCopies(int resourceID) {
+		listShowCopies.getItems().clear();
+		currentCopiesList.clear();
 		for (Copy thisCopy : copyList) {
 			if (thisCopy.getResourceID() == resourceID) {
 				listShowCopies.getItems().add(thisCopy.getCopyDescription());

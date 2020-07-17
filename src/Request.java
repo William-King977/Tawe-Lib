@@ -99,4 +99,14 @@ public class Request {
 	public void setRequestFilled(Boolean requestFilled) {
 			this.requestFilled = requestFilled;
 	}
+	
+	/**
+	 * Displays a short description of the request.
+	 * @return A string showing the request's details.
+	 */
+	public String getReservedDescription() {
+		String requestDescription = "Request ID: " + requestID + " | Copy ID: "
+				+ copyID +  " | This copy is now available";
+		return requestDescription;
+	}
 }

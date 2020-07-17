@@ -438,7 +438,22 @@ public class Utility {
 		alert.setTitle("Error: Cannot Request Resource.");
 		alert.setHeaderText(null);
 		alert.setContentText("You have overdue copies. Please "
-				+ "return them before requesting to borrow a resource");
+				+ "return them before requesting to borrow a resource.");
+		alert.showAndWait();
+		return;
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that they have already requested
+	 * for a copy of a resource or if they are currently borrowing a copy. 
+	 */
+	public static void alreadyRequested() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Request Resource.");
+		alert.setHeaderText(null);
+		alert.setContentText("You have either already requested to borrow a "
+				+ "copy of this resource or you are currently borrowing a "
+				+ "copy of this resource.");
 		alert.showAndWait();
 		return;
 	}
