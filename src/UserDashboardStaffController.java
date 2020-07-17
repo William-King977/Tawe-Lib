@@ -57,8 +57,19 @@ public class UserDashboardStaffController {
 	/**
 	 * Displays the New Loan page that allows the librarian to
 	 * issue a new loan when clicked.
+	 * @throws IOException Throws an exception to be caught when the
+	 *                     FXML file cannot be accessed.
 	 */
-	public void handleNewLoanButtonAction() {
+	public void handleNewLoanButtonAction() throws IOException {
+		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
+		curStage.close(); // Closes current stage.
+	    // Creates the new stage.
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/NewLoan.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); // Displays the new stage.
 	}
 	
 	/**
@@ -93,14 +104,14 @@ public class UserDashboardStaffController {
 	 */
 	public void handleUserSettingsButtonAction() throws IOException {
 		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
-		curStage.close(); //closes current stage.
-	    /*creates the new stage*/
+		curStage.close(); 
+		
 		Stage primaryStage = new Stage();
 		Parent root = FXMLLoader.load(getClass()
 				.getResource("FXMLFiles/UserSettings.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.show(); //displays the new stage.
+		primaryStage.show(); 
 	}
 	
 	/**

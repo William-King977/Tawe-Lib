@@ -61,5 +61,4 @@ public class RequestedItemsController {
 		primaryStage.setScene(scene);
 		primaryStage.show(); //displays the new stage.
 	}
-
 }
