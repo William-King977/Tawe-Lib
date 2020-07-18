@@ -269,6 +269,7 @@ public class EditUserController {
     				"," + ((Librarian) userBeingEdited).getStaffID() + 
     				"," + ((Librarian) userBeingEdited).getEmploymentDate() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 1);
+    		Utility.savedLibrarianChanges();
     	// If the user is a member.
         } else {
     		String oldProfile = userBeingEdited.getUsername() + 
@@ -288,6 +289,7 @@ public class EditUserController {
     				"," + postcode + "," + profilePicture + 
     				"," + userBeingEdited.getFine() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 2);
+    		Utility.savedUserChanges();
         }
         handleBackButtonAction(); // Closes the window.
     }

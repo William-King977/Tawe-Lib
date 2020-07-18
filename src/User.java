@@ -65,6 +65,18 @@ public class User {
 	}
 	
 	/**
+	 * Gets a string of the User's full details for file saving.
+	 * @return String of the User's full details.
+	 */
+	public String toStringDetail() {
+		String strUser = username + "," + firstName + "," + surname + 
+				"," + mobileNumber + "," + address1 + "," + address2 + 
+				"," + city + "," + postcode + "," + profilePicture + 
+				"," + fine + ",";
+		return strUser;
+	}
+	
+	/**
 	 * Gets the username of a user.
 	 * @return The user's username.
 	 */

@@ -1,3 +1,5 @@
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +30,7 @@ public class Loan {
 	private String returnDate;
 	
 	/** The number of days past the due date for the returned Loan. */
-	private long daysOverdue;
+	private int daysOverdue;
 	
 	/** The username of the user who the Loan was issued to. */
 	private String username;
@@ -64,7 +66,7 @@ public class Loan {
      */
     public Loan (int loanID, int copyID, int resourceID, String username, 
     		int staffID, String checkoutDate, String dueDate,
-            boolean returned, String returnDate, long daysOverdue,
+            boolean returned, String returnDate, int daysOverdue,
             ResourceType type) {
     	this.loanID = loanID;
     	this.copyID = copyID;
@@ -157,7 +159,7 @@ public class Loan {
 		int daysPastDueDate = Utility.daysPastDate(this.checkoutDate);
 		
 		// Past the loan duration.
-		if (daysPastDueDate > 0) {
+		if (daysPastDueDate > duration) {
 			LocalDate today = LocalDate.now();
 			LocalDate tomorrow = today.plusDays(1); 
 			this.dueDate = tomorrow.toString();
@@ -206,30 +208,27 @@ public class Loan {
 	 * Gets the number of days past the due date of the returned Loan.
 	 * @return The number of days past the due date of the returned Loan.
 	 */
-	public long getDaysOverdue() {
+	public int getDaysOverdue() {
 		return daysOverdue;
 	}
 	
 	/**
 	 * Calculates the number of days past the due date of the returned Loan.
-	 * @param dueDate The date the Loan needs to be returned.
-	 * @param returnDate The date the Loan was returned. 
+	 * Only happens if the loaned copy is requested or in the middle of a
+	 * request queue.
 	 */
-	public void setDaysOverdue(Date dueDate, Date returnDate) {
-		//Calculates it if the loan has been returned.
-		long daysOverdue;
-		if (returned) {
-			long diff = dueDate.getTime() - returnDate.getTime();
-			daysOverdue = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-			if (daysOverdue < 0) {
-				daysOverdue = 0;
-				this.daysOverdue = daysOverdue;
-			} else {
-				this.daysOverdue = daysOverdue;
-			}
+	public void setDaysOverdue() {
+		if (this.dueDate.isEmpty()) {
+			this.daysOverdue = 0;
 		} else {
-			daysOverdue = 0;
-			this.daysOverdue = daysOverdue;
+			LocalDate returnDateLoc = LocalDate.parse(returnDate);
+			LocalDate dueDateLoc = LocalDate.parse(dueDate);
+	        int days = (int) DAYS.between(dueDateLoc, returnDateLoc);
+	        if (days < 0) {
+	        	this.daysOverdue = 0;
+	        } else {
+	        	this.daysOverdue = days;
+	        }	
 		}
 	}
 
@@ -242,23 +241,18 @@ public class Loan {
     }
 
     /**
-	 * Gets a short description of an issued Loan,
-	 * that's suitable to display.
-	 * @return A short description of the issued Loan.
+	 * Gets a short description of a loan.
+	 * @return A short description of the Loan.
 	 */
-	public String getLoanBorrowedDescription() {
-		return "Username: " + username + " | Status: Borrowed | Date:"
-				+ " " + checkoutDate;
-	}
-	
-	/**
-	 * Gets a short description of a returned Loan,
-	 * that's suitable to display.
-	 * @return A short description of the returned Loan.
-	 */
-	public String getLoanReturnedDescription() {
-		return "Username: " + username + " | Status: Returned | Date:"
-				+ " " + returnDate;	
+	public String getDescription() {
+		String status = "Borrowed";
+		String date = checkoutDate;
+		if (returned) {
+			status = "Returned";
+			date = returnDate;
+		} 
+		return "Loan ID: " + loanID + " | Username: " + username + " | "
+				+ "Status: " + status + " | Date: " + date;
 	}
 	
 	/**

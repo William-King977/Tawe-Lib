@@ -456,7 +456,7 @@ public class FileHandling {
 	    	
 	    	boolean returned = in.nextBoolean();
 	    	String returnDate = in.next();
-	    	long daysOverdue = in.nextLong();
+	    	int daysOverdue = in.nextInt();
 	    	String strType = in.next();
 	    	
 	    	ResourceType resourceType = null;
@@ -529,16 +529,6 @@ public class FileHandling {
 	    reader.close();
 	    writer.flush();
 	    writer.close();
-	    
-	    // Show appropriate message to indicate that the changes were saved.
-	    switch (userType) {
-			case 1:
-				Utility.savedLibrarianChanges();
-				break;
-			case 2:
-				Utility.savedUserChanges();
-				break;
-	    }
 	}
 	
 	/**

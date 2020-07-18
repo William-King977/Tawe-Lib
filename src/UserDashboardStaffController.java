@@ -50,8 +50,19 @@ public class UserDashboardStaffController {
 	/**
 	 * Displays a list of all returned loans and a list of all
 	 * current loans in the system when clicked.
+	 * @throws IOException Throws an exception to be caught when the
+	 *                     FXML file cannot be accessed.
 	 */
-	public void handleViewLoansButtonAction() {
+	public void handleViewLoansButtonAction() throws IOException {
+		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
+		curStage.close(); // Closes current stage.
+	    // Creates the new stage.
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/ViewLoan.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); // Displays the new stage.
 	}
 	
 	/**

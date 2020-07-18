@@ -51,7 +51,6 @@ public class DVD extends Property {
 	 * @return String of the DVD's full details.
 	 */
 	public String toStringDetail() {
-		
 		// Ensures sub languages are in format of 'lang;lang;lang...'
 		String strSubLang = "";
 		for (int i = 0; i < subLang.length; i++) {

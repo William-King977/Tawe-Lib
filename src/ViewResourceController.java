@@ -38,12 +38,16 @@ public class ViewResourceController {
 	private ArrayList<Copy> copyList;
 	/** A list to hold all the requests. */
 	ArrayList <Request> requestList;
+	/** ArrayList to hold all the pending requests. */
+	ArrayList<Request> pendingRequests = new ArrayList<>();
 	/** A list to hold all the loans. */
 	ArrayList<Loan> loanList;
 	/** A list to hold all the copies for the selected resource. */
 	private ArrayList<Copy> currentCopiesList = new ArrayList<Copy>();
 	/** A list to hold all the users in the system. */
 	private ArrayList<User> userList;
+	/** ArrayList to hold all of the user's current loans. */
+	private ArrayList<Loan> userCurrentLoans = new ArrayList<>();
 	
 	/** The directory to the thumbnail images for the resources. */
 	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";	
@@ -102,13 +106,13 @@ public class ViewResourceController {
 	/** A text field used to display the laptop's operating system. */
 	@FXML private TextField txtOperatingSystem;
 	
-	/** A check box to indicate that the librarian wants 
+	/** A check box to indicate that the user wants 
 	 * to filter the resources to only display books. */
 	@FXML private CheckBox cbBook;
-	/** A check box to indicate that the librarian wants 
+	/** A check box to indicate that the user wants 
 	 * to filter the resources to only display DVDs. */
 	@FXML private CheckBox cbDVD;
-	/** A check box to indicate that the librarian wants 
+	/** A check box to indicate that the user wants 
 	 * to filter the resources to only display laptops. */
 	@FXML private CheckBox cbLaptop;
 	
@@ -255,9 +259,7 @@ public class ViewResourceController {
 	 * @return Whether the user has any overdue copies or not.
 	 */
 	public boolean getOverdue(String currentUsername) {
-		ArrayList<Loan> userCurrentLoans = 
-				new ArrayList<Loan>(); // User's unreturned loans.
-		
+	
 		// Fetch the user's active loans.
 		for (Loan loan : loanList) {
 			if (currentUsername.equals(loan.getUsername()) && 
@@ -323,8 +325,7 @@ public class ViewResourceController {
 	 */
 	public int getNextLatestCopyID(int resourceID, int minCopyID, 
 			int maxCopyID) {
-		ArrayList<Request> pendingRequests = new ArrayList<>();
-		
+	
 		// Fetch pending requests for copies of the requested resource.
 		for (Request request : requestList) {
 			if (request.getResourceID() == resourceID && 
@@ -335,14 +336,20 @@ public class ViewResourceController {
 		
 		// We know the requests are sorted already.
 		int maxIndex = pendingRequests.size() - 1;
-		int copyID = pendingRequests.get(maxIndex).getCopyID();
 		int requestCopyID; 
-		
-		// Checks if the copyID is at the maximum for the resource.
-		if (copyID == maxCopyID) {
-			 requestCopyID = minCopyID;
+		// If there's only one copy of the resource.
+		if (pendingRequests.size() == 0) {
+			requestCopyID = minCopyID;
 		} else {
-			requestCopyID = copyID + 1;
+			int copyID = pendingRequests.get(maxIndex).getCopyID();
+			
+			// Checks if the copyID is at the maximum for the resource.
+			if (copyID == maxCopyID) {
+				 requestCopyID = minCopyID;
+			} else {
+				requestCopyID = copyID + 1;
+			}
+			
 		}
 		return requestCopyID;
 	}

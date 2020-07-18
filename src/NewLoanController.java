@@ -20,12 +20,12 @@ public class NewLoanController {
 	
 	/** ArrayList to store requests. */
     private ArrayList<Request> requestList;
-    
     /** ArrayList to store all the loans. */
     private ArrayList<Loan> loanList;
-    
     /** ArrayList to store the pending (reserved) requests. */
     private ArrayList<Request> pendingRequests = new ArrayList<>();
+    /** ArrayList to store all the copies. */
+    private ArrayList<Copy> copies;
 
     /** Represents the list view and links it to the FXML file. */
     @FXML private ListView<String> lstRequests;
@@ -62,6 +62,7 @@ public class NewLoanController {
     	pendingRequests.clear();
     	
     	requestList = FileHandling.getRequests();
+    	copies = FileHandling.getCopies();
     	
     	for (Request request : requestList) {
     		if (!request.getRequestFilled() && request.isReserved()) {
@@ -111,14 +112,32 @@ public class NewLoanController {
     	int resourceID = Integer.parseInt(txtResourceID.getText().trim());
     	String username = txtUsername.getText().trim();
     	int staffID = getStaffID();
-    	LocalDate checkoutDate = LocalDate.now(); 
+    	LocalDate checkoutDate = LocalDate.now();
+    	String strCheckoutDate = checkoutDate.toString();
     	ResourceType type = getResourceType(copyID);
+    	int loanDuration = -1;
     	
-    	// Save loan.
-    	String newLoan = loanID + "," + copyID + "," + resourceID + 
-    			"," + username + "," + staffID + "," + checkoutDate + 
-    			",,false,,0," + type + ",";
-    	FileHandling.createLoan(newLoan);
+    	// Create loan object to set due date if necessary.
+    	Loan newLoan = new Loan(loanID, copyID, resourceID, username, staffID, 
+    			strCheckoutDate, "", false, "", 0, type);
+    	
+    	// Checks if there's any other requests for this copy.
+    	boolean othersRequested = checkReservedRequests(copyID, username);
+    	
+    	// If so, get the loan duration of the copy to set the due date.
+    	if (othersRequested) {
+        	for (Copy copy : copies) {
+        		if (copyID == copy.getCopyID()) {
+        			loanDuration = copy.getLoanDuration();
+        			newLoan.setDueDate(loanDuration);
+        			break;
+        		}
+        	}
+    	}
+    	
+    	// Save the loan.
+    	String strNewLoan = newLoan.toStringDetail();
+    	FileHandling.createLoan(strNewLoan);
     	
     	// Set request filled to true.    	
     	Request selectedRequest = pendingRequests.get(selectedIndex);
@@ -168,8 +187,6 @@ public class NewLoanController {
      * @return The type of resource.
      */
     public ResourceType getResourceType(int copyID) {
-    	ArrayList<Copy> copies = FileHandling.getCopies();
-    	
     	for (Copy copy : copies) {
     		if (copyID == copy.getCopyID()) {
     			return copy.getResourceType();
@@ -178,6 +195,28 @@ public class NewLoanController {
     	
     	// Shouldn't get to this point.
     	return null;
+    }
+    
+    /**
+     * Checks if there are any unfilled requests that are waiting
+     * to borrow this copy as well.
+     * @param copyID The copy of the borrowed resource.
+     * @param username The user's username.
+     * @return If there are any other requests for the resource.
+     */
+    public boolean checkReservedRequests(int copyID, String username) {
+   
+		boolean anyRequests = false;	
+		Utility.sortRequests(requestList);
+		
+		for (Request request : requestList) {
+			if (!request.getRequestFilled() && copyID == request.getCopyID() 
+					&& !username.equals(request.getUsername())) {
+				anyRequests = true;
+				break;
+			}
+		}
+		return anyRequests;
     }
     
     /**

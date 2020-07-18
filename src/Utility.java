@@ -220,6 +220,18 @@ public class Utility {
 	}
 	
 	/**
+	 * An alert pop-up that tells the librarian that the
+	 * loan has been returned.
+	 */
+	public static void loanReturned() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Loan Returned.");
+		alert.setHeaderText(null);
+		alert.setContentText("This loan has been returned.");
+		alert.showAndWait();
+	}
+	
+	/**
 	 * An alert pop-up that tells the user that the file textbox
 	 * is empty.
 	 */
@@ -283,7 +295,7 @@ public class Utility {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error: Cannot Create Loan.");
 		alert.setHeaderText(null);
-		alert.setContentText("Please select a request that you want "
+		alert.setContentText("Please select the request that you want "
 				+ "to create a loan for.");
 		alert.showAndWait();
 	}

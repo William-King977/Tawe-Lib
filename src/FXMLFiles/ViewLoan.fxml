@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewLoanController">
+   <top>
+      <Text strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Loans" textAlignment="CENTER" wrappingWidth="318.80600053071976" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="29.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="314.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+         <children>
+            <GridPane prefHeight="307.0" prefWidth="602.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.60003662109375" minWidth="10.0" prefWidth="65.9999755859375" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.199951171875" minWidth="0.1999748229978664" prefWidth="104.4000244140625" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="172.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.59996337890627" minWidth="10.0" prefWidth="65.00002441406252" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.5999755859375" minWidth="-Infinity" prefWidth="112.79995117187502" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.800048828125" minWidth="-Infinity" prefWidth="172.800048828125" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="txtUsername" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtCopyID" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtResourceID" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="Copy ID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Username" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="Resource ID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Loan ID" GridPane.columnIndex="1" />
+                  <TextField fx:id="txtLoanID" editable="false" GridPane.columnIndex="2" />
+                  <TextField fx:id="txtDueDate" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtDaysOverdue" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtCheckoutDate" editable="false" GridPane.columnIndex="5" />
+                  <TextField fx:id="txtReturned" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtStaffID" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtResourceType" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <Label text="Check Out Date" GridPane.columnIndex="4" />
+                  <Label text="Due Date" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <Label text="Returned Date" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <Label text="Days Overdue" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <Label text="Returned" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtReturnedDate" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <Label text="Resource Type" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label text="Staff ID" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+               </children>
+               <VBox.margin>
+                  <Insets right="20.0" />
+               </VBox.margin>
+            </GridPane>
+            <Button fx:id="btnReturnLoan" mnemonicParsing="false" onAction="#handleReturnLoanButtonAction" text="Return Loan" />
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="TOP_CENTER" prefHeight="65.0" prefWidth="894.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="20.0" text="Back" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+   <left>
+      <VBox prefHeight="290.0" prefWidth="272.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Loans">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ListView fx:id="lstShowLoans" onMouseClicked="#displayLoanDetails" prefHeight="230.0" prefWidth="217.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </ListView>
+            <CheckBox fx:id="cbPastLoans" mnemonicParsing="false" onAction="#setCBPastLoansStatus" text="Past Loans" />
+            <CheckBox fx:id="cbCurrentLoans" mnemonicParsing="false" onAction="#setCBCurrentLoansStatus" text="Current Loans" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+</BorderPane>
