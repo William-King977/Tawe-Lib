@@ -47,11 +47,11 @@
                   <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="txtRequestDate" GridPane.columnIndex="3" />
-                  <TextField fx:id="txtUsername" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtRequestID" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                  <TextField fx:id="txtCopyID" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtResourceID" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtRequestDate" editable="false" GridPane.columnIndex="3" />
+                  <TextField fx:id="txtUsername" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtRequestID" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtCopyID" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <TextField fx:id="txtResourceID" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                   <Label text="Request Date" GridPane.columnIndex="2" />
                   <Label text="Copy ID" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                   <Label text="Username" GridPane.columnIndex="2" GridPane.rowIndex="2" />
@@ -85,7 +85,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ListView prefHeight="230.0" prefWidth="217.0">
+            <ListView fx:id="lstRequests" onMouseClicked="#displayRequestDetails" prefHeight="230.0" prefWidth="217.0">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>

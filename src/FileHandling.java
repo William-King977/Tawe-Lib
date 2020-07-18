@@ -634,6 +634,45 @@ public class FileHandling {
 	}
 	
 	/**
+	 * A request is edited by replacing the details of the previous request
+	 * with the new one.
+	 * @param oldRequest The string details of the old request.
+	 * @param newRequest The string details of the edited request.
+	 * @throws IOException Throws an exception when a file cannot be written.
+	 */
+	public static void editRequest(String oldRequest, String newRequest) 
+			throws IOException {
+		String filePath = DATA_FILE_PATH + "Request.txt";
+		
+		File inputFile = new File(filePath);
+		BufferedReader reader = null;
+		FileWriter writer = null;
+		String oldContent = "";
+		
+	    try {
+			reader = new BufferedReader(new FileReader(inputFile));
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    // Uses buffer to write old file contents to a string.
+	    String line = reader.readLine();
+	    while (line != null) {
+	    	oldContent = oldContent + line + System.lineSeparator();
+	        line = reader.readLine();
+	    }
+	    // Replace old request with the new one within the textfile.
+	    String newContent = oldContent.replace(oldRequest, newRequest);
+	    writer = new FileWriter(filePath);
+	    writer.write(newContent);
+	    reader.close();
+	    writer.flush();
+	    writer.close();
+	}
+	
+	/**
 	 * A loan is edited by replacing the details of the previous loan
 	 * with the new one.
 	 * @param oldLoan The string details of the old loan.
@@ -768,7 +807,7 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			// Writes the resource on then adds a new line.
+			// Writes the copy on then adds a new line.
 			printWriter.print(newResource);
 			printWriter.println("");
 			printWriter.close();
@@ -798,7 +837,7 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			// Writes the resource on then adds a new line.
+			// Writes the request on then adds a new line.
 			printWriter.print(newRequest);
 			printWriter.println("");
 			printWriter.close();
@@ -807,7 +846,36 @@ public class FileHandling {
             System.out.println("Cannot write to " + filePath); 
             System.exit(0);
         } 	
+	}
+	
+	/**
+	 * A new loan is made by adding its details at the end
+	 * of the textfile.
+	 * @param newRequest The details of the loan.
+	 */
+	public static void createLoan(String newLoan) {
 		
+		String filePath = DATA_FILE_PATH + "Loan.txt";
+		
+		File file = null;
+		FileWriter fileWriter = null;
+		BufferedWriter buffWriter = null;
+		PrintWriter printWriter = null;
+		try { 
+			file = new File(filePath);
+			fileWriter = new FileWriter(file, true);
+			buffWriter = new BufferedWriter(fileWriter);
+			printWriter = new PrintWriter(buffWriter);
+			
+			// Writes the loan on then adds a new line.
+			printWriter.print(newLoan);
+			printWriter.println("");
+			printWriter.close();
+        } 
+        catch (IOException e) { 
+            System.out.println("Cannot write to " + filePath); 
+            System.exit(0);
+        } 	
 	}
 	
 	/**

@@ -50,6 +50,17 @@ public class Request {
 	}
 	
 	/**
+	 * Gets the full details of the request.
+	 * @return Full details of the request as a string.
+	 */
+    public String toStringDetail() {
+    	String strRequest = requestID + "," + copyID + "," + resourceID + 
+    			"," + username + "," + requestDate + "," + requestFilled + 
+    			"," + reserved + ",";
+    	return strRequest;
+    }
+	
+	/**
 	 * Gets the ID of the request.
 	 * @return The ID of the request.
 	 */

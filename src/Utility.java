@@ -87,6 +87,28 @@ public class Utility {
         }
     }
     
+    /**
+     * Performs insertion sort on an ArrayList of loans by using
+     * the loanID for the sort. 
+     * @param list The list of loans to be sorted.
+     */
+    public static void sortLoans(ArrayList<Loan> list) {
+    	int n = list.size();
+        if (n > 1) {
+            for (int i = 1; i < n; i++) { 
+            	Loan key = list.get(i);
+            	int j = i - 1;
+            	
+            	while (j >= 0  && 
+            			(list.get(j).getLoanID() > key.getLoanID())) {
+            		list.set(j + 1, list.get(j));
+            		j--;
+                }
+            	list.set(j + 1, key);
+            }
+        }
+    }
+    
 	/**
 	 * An alert pop-up that tells the user that the username entered
 	 * does not exist in the system.
@@ -254,6 +276,19 @@ public class Utility {
 	}
 	
 	/**
+	 * An alert pop-up that tells the user that they haven't
+	 * selected a request when clicking the new loan button.
+	 */
+	public static void requestNotSelected() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Create Loan.");
+		alert.setHeaderText(null);
+		alert.setContentText("Please select a request that you want "
+				+ "to create a loan for.");
+		alert.showAndWait();
+	}
+	
+	/**
 	 * An alert pop-up that tells the librarian that
 	 * they can't edit other librarian's profiles.
 	 */
@@ -371,6 +406,19 @@ public class Utility {
 		alert.setContentText("There are no available copies for the resource. "
 				+ "However, the request for a copy of the resource has been "
 				+ "made and has been added to the request queue.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the user that the loan for
+	 * a requested copy has been created.
+	 */
+	public static void loanCreated() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Loan Made.");
+		alert.setHeaderText(null);
+		alert.setContentText("The loan for this requested copy "
+				+ "has been created successfully.");
 		alert.showAndWait();
 	}
 	
