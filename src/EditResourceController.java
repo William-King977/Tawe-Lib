@@ -295,7 +295,7 @@ public class EditResourceController {
     	boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
     			strYear, director, strRuntime);
     	boolean isNum = Utility.isIntResource(strYear);
-    	boolean isDouble = Utility.isDoubleResource(strRuntime);
+    	boolean isDouble = Utility.isDouble(strRuntime);
     	boolean isAlpha = Utility.isAlphaDVD(director, genre, language);
     	
     	if (!dvdFieldsFilled) {

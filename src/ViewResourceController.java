@@ -259,7 +259,10 @@ public class ViewResourceController {
 	 * @return Whether the user has any overdue copies or not.
 	 */
 	public boolean getOverdue(String currentUsername) {
-	
+		// The same user can't request the same resource twice, but
+	    // have this just in case.
+		userCurrentLoans.clear();
+		
 		// Fetch the user's active loans.
 		for (Loan loan : loanList) {
 			if (currentUsername.equals(loan.getUsername()) && 
@@ -325,7 +328,10 @@ public class ViewResourceController {
 	 */
 	public int getNextLatestCopyID(int resourceID, int minCopyID, 
 			int maxCopyID) {
-	
+		// The same user can't request the same resource twice, but
+		// have this just in case.
+		pendingRequests.clear();
+		
 		// Fetch pending requests for copies of the requested resource.
 		for (Request request : requestList) {
 			if (request.getResourceID() == resourceID && 
@@ -664,26 +670,33 @@ public class ViewResourceController {
      * Sets the status of the Book check box and makes the 
      * appropriate changes to the resource list when selected.
      */
-    public void setCBBookStatus() {
+	public void setCBBookStatus() {
     	// Clears other check boxes if selected.
-    	cbDVD.setSelected(false);
+		cbDVD.setSelected(false);
 		cbLaptop.setSelected(false);
-		isSearch = false;
+		//isSearch = false;
 		
 		// Clears the content of the resource list if any. 
 		listShowResource.getItems().clear();
 		
 		if (cbBook.isSelected()) {
-    		for (Book thisBook : bookList) {
-            	listShowResource.getItems().add(thisBook.toString());
+			if (isSearch) {
+				handleResourceSearchAction();
+			} else {
+	    		for (Book thisBook : bookList) {
+	            	listShowResource.getItems().add(thisBook.toString());
+	    		}
     		}
     	// If you're clicking the Book check box to clear it. 
     	// Clears the whole list, then show all resources, if 
     	// the other check boxes are cleared as well.
-	    } else if (cbBook.isSelected() == false && 
-	    		cbDVD.isSelected() == false &&
-	    		cbLaptop.isSelected() == false) {
-	    	initialize();
+	    } else if (!cbBook.isSelected() && !cbDVD.isSelected() && 
+	    		!cbLaptop.isSelected()) {
+	    	if (isSearch) {
+	    		handleResourceSearchAction();
+	    	} else {
+	    		initialize();
+	    	}
 	    } 
     }
     
@@ -691,26 +704,33 @@ public class ViewResourceController {
      * Sets the status of the DVD check box and makes the 
      * appropriate changes to the resource list when selected.
      */
-    public void setCBDVDStatus() {
+	public void setCBDVDStatus() {
     	// Clears other check boxes if selected.
-    	cbBook.setSelected(false);
+		cbBook.setSelected(false);
 		cbLaptop.setSelected(false);
-		isSearch = false;
+		//isSearch = false;
 		
 		// Clears the content of the resource list if any. 
 		listShowResource.getItems().clear();
 		
-		if (cbDVD.isSelected() == true) {
-    		for (DVD thisDVD : dvdList) {
-            	listShowResource.getItems().add(thisDVD.toString());
-    		}
+		if (cbDVD.isSelected()) {
+			if (isSearch) {
+				handleResourceSearchAction();
+			} else {
+	    		for (DVD thisDVD : dvdList) {
+	            	listShowResource.getItems().add(thisDVD.toString());
+	    		}
+			}
     	// If you're clicking the DVD check box to clear it. 
     	// Clears the whole list, then show all resources, if 
     	// the other check boxes are cleared as well.
-	    } else if (cbBook.isSelected() == false && 
-	    		cbDVD.isSelected() == false &&
-	    		cbLaptop.isSelected() == false) {
-        	initialize();
+	    } else if (!cbBook.isSelected() && !cbDVD.isSelected() &&
+	    		!cbLaptop.isSelected()) {
+	    	if (isSearch) {
+	    		handleResourceSearchAction();
+	    	} else {
+	    		initialize();
+	    	}
 	    }
     }
     
@@ -718,26 +738,33 @@ public class ViewResourceController {
      * Sets the status of the Laptop check box and makes the 
      * appropriate changes to the resource list when selected.
      */
-    public void setCBLaptopStatus() {
+	public void setCBLaptopStatus() {
     	// Clears other check boxes if selected.
-    	cbBook.setSelected(false);
+		cbBook.setSelected(false);
 		cbDVD.setSelected(false);
-		isSearch = false;
+		//isSearch = false;
 		
 		// Clears the content of the resource list if any. 
 		listShowResource.getItems().clear();
 		
-		if (cbLaptop.isSelected() == true) {
-    		for (Laptop thisLaptop : laptopList) {
-    			listShowResource.getItems().add(thisLaptop.toString());
-    		}
+		if (cbLaptop.isSelected()) {
+			if (isSearch) {
+				handleResourceSearchAction();
+			} else {
+	    		for (Laptop thisLaptop : laptopList) {
+	    			listShowResource.getItems().add(thisLaptop.toString());
+	    		}
+			}
     	// If you're clicking the Laptop check box to clear it. 
     	// Clears the whole list, then show all resources, if 
     	// the other check boxes are cleared as well.
-	    } else if (cbBook.isSelected() == false && 
-	    		cbDVD.isSelected() == false &&
-	    		cbLaptop.isSelected() == false) {
-        	initialize();
+	    } else if (!cbBook.isSelected() && !cbDVD.isSelected() &&
+	    		!cbLaptop.isSelected()) {
+	    	if (isSearch) {
+	    		handleResourceSearchAction();
+	    	} else {
+	    		initialize();
+	    	}
 	    } 
     }
     

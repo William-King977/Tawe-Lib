@@ -389,8 +389,7 @@ public class NewResourceController {
     }
     
     /**
-     * Validates the entered information for the new DVD to be
-     * created.
+     * Validates the entered information for the new DVD to be created.
      * @throws IOException Throws an exception to be caught when a file
      *                     can't be written.
      */
@@ -420,7 +419,7 @@ public class NewResourceController {
     	boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
     			strYear, director, strRuntime);
     	boolean isNum = Utility.isIntResource(strYear);
-    	boolean isDouble = Utility.isDoubleResource(strRuntime);
+    	boolean isDouble = Utility.isDouble(strRuntime);
     	boolean isAlpha = Utility.isAlphaDVD(director, genre, language);
     	
     	if (!dvdFieldsFilled) {

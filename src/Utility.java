@@ -422,7 +422,7 @@ public class Utility {
 	}
 	
 	/**
-	 * An alert pop-up that tells the user that the loan for
+	 * An alert pop-up that tells the librarian that the loan for
 	 * a requested copy has been created.
 	 */
 	public static void loanCreated() {
@@ -431,6 +431,19 @@ public class Utility {
 		alert.setHeaderText(null);
 		alert.setContentText("The loan for this requested copy "
 				+ "has been created successfully.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the librarian the fine
+	 * payment has been successful.
+	 */
+	public static void paymentMade() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Payment Made.");
+		alert.setHeaderText(null);
+		alert.setContentText("The payment for this user has been processed "
+				+ "successfully.");
 		alert.showAndWait();
 	}
 	
@@ -567,6 +580,46 @@ public class Utility {
 		alert.setHeaderText(null);
 		alert.setContentText("The language you've entered "
 				+ "already exists for the DVD.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the librarian that they
+	 * have not entered a payment.
+	 */
+	public static void noEnteredPayment() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Make Payment.");
+		alert.setHeaderText(null);
+		alert.setContentText("Please enter the payment you "
+				+ "want to make for the user.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the librarian that the entered
+	 * payment is less than 1p.
+	 */
+	public static void paymentTooLow() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Make Payment.");
+		alert.setHeaderText(null);
+		alert.setContentText("The payment you entered is less than 1p, "
+				+ "please enter a payment of at least 0.01 (1p).");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * An alert pop-up that tells the librarian that the entered
+	 * payment is larger than the selected user's outstanding fine.
+	 */
+	public static void paymentTooHigh() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Cannot Make Payment.");
+		alert.setHeaderText(null);
+		alert.setContentText("The payment you entered is larger than "
+				+ "this user's fine. If you want to pay the whole fine, then "
+				+ "please enter the user's exact fine.");
 		alert.showAndWait();
 	}
 	
@@ -913,15 +966,15 @@ public class Utility {
 	}
 	
 	/**
-	 * Checks if the entered runtime is a parsable double.
-	 * @param strRuntime The entered runtime as a string.
-	 * @return Whether the entered runtime is a parsable double or not.
+	 * Checks if the entered value is a parsable double.
+	 * @param strRuntime The entered value as a string.
+	 * @return If the entered value is a parsable double or not.
 	 */
-	public static boolean isDoubleResource(String strRuntime) {
-		//Will catch a NumberFormatException if the entered 
-		//DVD runtime is not a double (by parsing it as a double).
+	public static boolean isDouble(String value) {
+		// Will catch a NumberFormatException if the entered 
+		// value is not a double (by parsing it as a double).
 		try {
-			double runtime = Double.parseDouble(strRuntime);
+			double runtime = Double.parseDouble(value);
 		} catch (Exception NumberFormatException) {
 			return false;
 		}	
