@@ -1,8 +1,5 @@
 import static java.time.temporal.ChronoUnit.DAYS;
-
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The Loan class models a loan of a copy in the system.
@@ -17,6 +14,9 @@ public class Loan {
 	/** The date the Loan was issued (YYYY-MM-DD). */
 	private String checkoutDate;
 	
+	/** The time the Loan was issued (HH:MM). */
+	private String checkoutTime;
+	
 	/** The date the Loan needs to be returned. It's set when the copy is 
 	 * requested and it's either the loan duration or the day after the 
 	 * request was made - (YYYY-MM-DD) - otherwise "".
@@ -28,6 +28,9 @@ public class Loan {
 	
 	/** The date that the Loan was returned (YYYY-MM-DD). */
 	private String returnDate;
+	
+	/** The time that the Loan was returned (HH:MM). */
+	private String returnTime;
 	
 	/** The number of days past the due date for the returned Loan. */
 	private int daysOverdue;
@@ -50,23 +53,25 @@ public class Loan {
     /**
      * Constructor for the Loan class.
      * @param loanID A unique ID for the Loan.
+     * @param copyID The ID of the loaned copy.
+     * @param resourceID The ID of the resource.
+     * @param username The username of the user who the Loan was issued to.
+	 * @param staffID The ID of the librarian who authorised the Loan.
      * @param checkoutDate The date the Loan was issued (YYYY-MM-DD).
+     * @param checkoutTime The time the loan was issued (HH:MM).
 	 * @param dueDate The date the Loan needs to be returned. It's set when 
 	 *                the copy is requested and it's either the loan duration 
 	 *                or the day after the request was made - (YYYY-MM-DD).
 	 * @param returned Whether the Loan has been returned or not.
-	 * @param returnDate The date that the Loan has been returned 
+	 * @param returnDate The date that the Loan was been returned 
 	 *                   (YYYY-MM-DD).
+	 * @param returnTime The time that the loan was returned (HH:MM). 
 	 * @param daysOverdue The amount of days overdue an item is;
-	 * @param username The username of the user who the Loan was issued to.
-	 * @param staffID The ID of the librarian who authorised the Loan.
-	 * @param resourceID The ID of the resource.
-	 * @param copyID The ID of the loaned copy.
      * @param type The type of resource of the loaned copy.
      */
     public Loan (int loanID, int copyID, int resourceID, String username, 
-    		int staffID, String checkoutDate, String dueDate,
-            boolean returned, String returnDate, int daysOverdue,
+    		int staffID, String checkoutDate, String checkoutTime, String dueDate,
+            boolean returned, String returnDate, String returnTime, int daysOverdue,
             ResourceType type) {
     	this.loanID = loanID;
     	this.copyID = copyID;
@@ -74,11 +79,13 @@ public class Loan {
     	this.username = username;
         this.staffID = staffID;
         this.checkoutDate = checkoutDate;
+        this.checkoutTime = checkoutTime;
         this.type = type;
         
         this.dueDate = dueDate;
         this.returned = returned;
         this.returnDate = returnDate;
+        this.returnTime = returnTime;
         this.daysOverdue = daysOverdue;
     }
     
@@ -89,8 +96,9 @@ public class Loan {
     public String toStringDetail() {
     	String strLoan = loanID + "," + copyID + "," + resourceID + 
     			"," + username + "," + staffID + "," + checkoutDate + 
-    			"," + dueDate + "," + returned + "," + returnDate + 
-    			"," + daysOverdue + "," + type + ",";
+    			"," + checkoutTime + "," + dueDate + "," + returned + 
+    			"," + returnDate + "," + returnTime + "," + daysOverdue + 
+    			"," + type + ",";
     	return strLoan;
     }
     
@@ -143,6 +151,14 @@ public class Loan {
 	}
 	
 	/**
+	 * Gets the time that the Loan was issued (HH:MM).
+	 * @return The time the Loan was issued (HH:MM).
+	 */
+	public String getCheckoutTime() {
+		return checkoutTime;
+	}
+	
+	/**
 	 * Gets the date that the Loan needs to be returned (YYYY-MM-DD).
 	 * @return The date the Loan needs to be returned (YYYY-MM-DD).
 	 */
@@ -189,8 +205,8 @@ public class Loan {
 	}
 	
 	/**
-     * Gets the date a user returned a loan.
-     * @return Returns a date.
+     * Gets the date a user returned a loan (YYYY-MM-DD).
+     * @return Returns a date (YYYY-MM-DD).
      */
     public String getReturnDate() {
     	return returnDate;
@@ -202,6 +218,22 @@ public class Loan {
 	 */
     public void setReturnDate(String returnDate) {
 		this.returnDate = returnDate;
+	}
+    
+    /**
+     * Gets the time a user returned a loan (HH:MM).
+     * @return Returns a time (HH:MM).
+     */
+    public String getReturnTime() {
+    	return returnTime;
+    }
+    
+    /**
+	 * Sets the time that the Loan was returned (HH:MM).
+	 * @param returnTime The time that the Loan was returned (HH:MM).
+	 */
+    public void setReturnTime(String returnTime) {
+		this.returnTime = returnTime;
 	}
 	
 	/**

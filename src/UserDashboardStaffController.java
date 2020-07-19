@@ -17,9 +17,6 @@ import javafx.stage.Stage;
  */
 public class UserDashboardStaffController {
 	
-	/** A button that leads to the User Search page. */
-	@FXML private Button btnSearch;
-	
 	/** A button that leads to the New Loan page. */
 	@FXML private Button btnNewLoan;
 	
@@ -40,12 +37,6 @@ public class UserDashboardStaffController {
 	
 	/** The log out button for the dashboard. */
 	@FXML private Button btnLogout;
-
-	/**
-	 * Closes the current page and navigates to the user search page.
-	 */
-	public void handleSearchesButtonAction() {
-	}
 	
 	/**
 	 * Displays a list of all returned loans and a list of all

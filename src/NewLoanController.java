@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
@@ -113,13 +114,15 @@ public class NewLoanController {
     	String username = txtUsername.getText().trim();
     	int staffID = getStaffID();
     	LocalDate checkoutDate = LocalDate.now();
+    	LocalTime checkoutTime = LocalTime.now().withSecond(0).withNano(0);
     	String strCheckoutDate = checkoutDate.toString();
+    	String strCheckoutTime = checkoutTime.toString();
     	ResourceType type = getResourceType(copyID);
-    	int loanDuration = -1;
+    	int loanDuration = -1; // Isn't actually used. Just initialising it.
     	
     	// Create loan object to set due date if necessary.
     	Loan newLoan = new Loan(loanID, copyID, resourceID, username, staffID, 
-    			strCheckoutDate, "", false, "", 0, type);
+    			strCheckoutDate, strCheckoutTime, "", false, "", "", 0, type);
     	
     	// Checks if there's any other requests for this copy.
     	boolean othersRequested = checkReservedRequests(copyID, username);
@@ -160,6 +163,11 @@ public class NewLoanController {
     	Utility.sortLoans(loanList); // Sorts loans by loan ID.
     	
     	int maxIndex = loanList.size() - 1;
+    	// If there are no loans (at all).
+    	if (loanList.size() == 0) {
+    		return 0;
+    	} 
+    	
     	int latestLoanID = loanList.get(maxIndex).getLoanID();
     	return latestLoanID;
     }

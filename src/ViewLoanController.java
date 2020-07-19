@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
@@ -210,7 +211,9 @@ public class ViewLoanController {
 		// Set returned to true.
 		String oldLoan = returnedLoan.toStringDetail();
 		LocalDate today = LocalDate.now();
+		LocalTime timeNow = LocalTime.now().withSecond(0).withNano(0);
 		returnedLoan.setReturnDate(today.toString());
+		returnedLoan.setReturnTime(timeNow.toString());
 		returnedLoan.setReturned(true);
 		
 		// Calculate days overdue and fines if necessary.

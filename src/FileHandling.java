@@ -452,10 +452,12 @@ public class FileHandling {
 	    	String username = in.next();
 	    	int staffID = in.nextInt();
 	    	String checkoutDate = in.next();
+	    	String checkoutTime = in.next();
 	    	String dueDate = in.next();
 	    	
 	    	boolean returned = in.nextBoolean();
 	    	String returnDate = in.next();
+	    	String returnTime = in.next();
 	    	int daysOverdue = in.nextInt();
 	    	String strType = in.next();
 	    	
@@ -473,8 +475,8 @@ public class FileHandling {
 	    	}
 	    	 
 	    	Loan loan = new Loan(loanID, copyID, resourceID, username,
-	    			staffID, checkoutDate, dueDate, returned, returnDate, 
-	    			daysOverdue, resourceType);
+	    			staffID, checkoutDate, checkoutTime, dueDate, returned, 
+	    			returnDate, returnTime, daysOverdue, resourceType);
 	    	loans.add(loan);
 	    	in.nextLine(); // Needed if you change delimiter.
 	    }
