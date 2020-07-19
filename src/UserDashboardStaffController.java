@@ -126,9 +126,20 @@ public class UserDashboardStaffController {
 	}
 	
 	/**
-	 * Goes to a page where the librarian can pay users' fine
+	 * Goes to a page where the librarian can pay users' fines.
+	 * @throws IOException Throws an exception to be caught when the 
+	 * 		   			   FXML file cannot be accessed.
 	 */
-	public void handlePayFineButtonAction() {
+	public void handlePayFineButtonAction() throws IOException {
+		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
+		curStage.close(); 
+		
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/PayUserFine.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 	
 	/**

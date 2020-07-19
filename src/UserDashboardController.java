@@ -102,8 +102,19 @@ public class UserDashboardController {
 	/**
      * Displays the current amount of fines for the user when the 
      * button is clicked.
+     * @throws IOException Throws an exception to be caught when the
+	 *                     FXML file cannot be accessed.
      */
-    public void handleCurrentBalanceButtonAction() {  
+    public void handleCurrentBalanceButtonAction() throws IOException { 
+    	Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
+		curStage.close(); 
+	  
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/CurrentBalance.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); // Displays the new stage.
 	}
     
     /**
