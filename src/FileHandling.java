@@ -467,7 +467,7 @@ public class FileHandling {
 	    		case "DVD":
 	    			resourceType = ResourceType.DVD;
 	    			break;
-	    		case "Laptop":
+	    		case "LAPTOP":
 	    			resourceType = ResourceType.LAPTOP;
 	    			break;
 	    	}

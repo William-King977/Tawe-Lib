@@ -48,8 +48,19 @@ public class UserDashboardController {
 	/**
 	 * Displays the currently borrowed items of the user when the button 
 	 * is clicked. This will show the due date of each item (if set). 
+	 * @throws IOException Throws an exception to be caught when the
+	 *                     FXML file cannot be accessed.
 	 */
-	public void handleBorrowedItemsButtonAction() {
+	public void handleBorrowedItemsButtonAction() throws IOException {
+		Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
+		curStage.close(); 
+	  
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/BorrowedItems.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); // Displays the new stage.
 	}
 	
 	/**
