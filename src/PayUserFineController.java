@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
@@ -19,6 +21,8 @@ public class PayUserFineController {
 	
 	/** ArrayList to hold all users. */
 	private ArrayList<User> userList;
+	/** ArrayList to hold all transactions. */
+	private ArrayList<Transaction> transactions;
 	/** ArrayList to hold users who currently have outstanding fines. */
 	private ArrayList<User> finedUsers = new ArrayList<>();
 	
@@ -120,6 +124,7 @@ public class PayUserFineController {
 		int selectedIndex = lstFinedUsers.getSelectionModel()
 				.getSelectedIndex();
 		User selectedUser = finedUsers.get(selectedIndex);
+		String username = selectedUser.getUsername();
 		
 		String oldUser = selectedUser.toStringDetail();
 		double previousFine = selectedUser.getFine();
@@ -127,8 +132,46 @@ public class PayUserFineController {
 		String newUser = selectedUser.toStringDetail();
 		
 		FileHandling.editProfile(oldUser, newUser, 2);
+		makePaymentTransaction(username, payment2DP);
 		Utility.paymentMade();
 		initialize();
+	}
+	
+	/**
+	 * Creates and saves the payment transaction to the user's fines.
+	 * @param username The username of the user who sent the payment.
+	 * @param payment The amount of money to be paid off.
+	 */
+	public void makePaymentTransaction(String username, double payment) {
+		int transactionID = getMaxTransactionID() + 1;
+		String today = LocalDate.now().toString();
+		String time = LocalTime.now().withSecond(0).withNano(0).toString();
+		ResourceType type = null;
+		boolean isFine = false;
+		
+		// Create payment, adds fake values in non-applicable fields.
+		Transaction paymentTransaction = new Transaction(transactionID, -1, 
+				username, payment, -1, today, time, type, isFine);
+		String strPaymentTransaction = paymentTransaction.toStringDetail();
+		FileHandling.makeTransaction(strPaymentTransaction);
+	}
+	
+	/**
+	 * Fetches the maximum transaction ID of all current transactions.
+	 * @return The current maximum transaction ID.
+	 */
+	public int getMaxTransactionID() {
+		transactions = FileHandling.getTransactions();
+		int maxID;
+		
+		if (transactions.size() == 0) {
+			maxID = 0;
+		} else {
+			Utility.sortTransactions(transactions);
+			int maxIndex = transactions.size() - 1;
+			maxID = (transactions.get(maxIndex)).getTransactionID();
+		}
+		return maxID;
 	}
 	
 	/**

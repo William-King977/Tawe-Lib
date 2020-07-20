@@ -442,7 +442,7 @@ public class FileHandling {
 		}
 	    
 	    in.useDelimiter(",");
-	    // Read each request and store them in an ArrayList.
+	    // Read each loan and store them in an ArrayList.
 	    ArrayList<Loan> loans = new ArrayList<>();
 	    while (in.hasNextLine()) {
 	    	
@@ -482,6 +482,63 @@ public class FileHandling {
 	    }
 	    in.close();
 	    return loans;
+	}
+	
+	/**
+	 * Fetches all the transactions in the system and stores 
+	 * them in an ArrayList.
+	 * @return An ArrayList of all the transaction.
+	 */
+	public static ArrayList<Transaction> getTransactions() {
+		String filePath = DATA_FILE_PATH + "Transaction.txt";
+		File inputFile = new File(filePath);
+		Scanner in = null;
+	    try {
+	    	// Opens the file for reading.
+			in = new Scanner (inputFile);	
+		// Catch an exception if the file does not exist and exit the program.
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot open " + filePath);
+			System.exit(0);
+		}
+	    
+	    in.useDelimiter(",");
+	    // Read each transaction and store them in an ArrayList.
+	    ArrayList<Transaction> transactions = new ArrayList<>();
+	    while (in.hasNextLine()) {
+	    	
+	    	int transactionID = in.nextInt();
+	    	int resourceID = in.nextInt();
+	    	String username = in.next();
+	    	double amount = in.nextDouble();
+	    	
+	    	int daysOverdue = in.nextInt();
+	    	String date = in.next();
+	    	String time = in.next();
+	    	String strType = in.next();
+	    	boolean isFine = in.nextBoolean();
+	    	
+	    	ResourceType resourceType = null;
+	    	switch (strType) {
+	    		case "BOOK":
+	    			resourceType = ResourceType.BOOK;
+	    			break;
+	    		case "DVD":
+	    			resourceType = ResourceType.DVD;
+	    			break;
+	    		case "LAPTOP":
+	    			resourceType = ResourceType.LAPTOP;
+	    			break;
+	    	}
+	    	 
+	    	Transaction transaction = new Transaction(transactionID, 
+	    			resourceID, username, amount, daysOverdue, date, time, 
+	    			resourceType, isFine);
+	    	transactions.add(transaction);
+	    	in.nextLine(); // Needed if you change delimiter.
+	    }
+	    in.close();
+	    return transactions;
 	}
 	
 	/**
@@ -730,7 +787,7 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			// Writes the resource on then adds a new line. 
+			// Writes the user then adds a new line. 
 			printWriter.print(newUser);
 			printWriter.println("");
 			printWriter.close();
@@ -759,7 +816,7 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			// Writes the resource on then adds a new line. 
+			// Writes the copy then adds a new line. 
 			printWriter.print(newCopy);
 			printWriter.println("");
 			printWriter.close();
@@ -771,7 +828,7 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A new copy is created by adding their details at the end
+	 * A new resource is created by adding their details at the end
 	 * of the textfile.
 	 * @param newCopy The details of the new copy.
 	 */
@@ -799,7 +856,7 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			// Writes the copy on then adds a new line.
+			// Writes the resource then adds a new line.
 			printWriter.print(newResource);
 			printWriter.println("");
 			printWriter.close();
@@ -829,7 +886,7 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			// Writes the request on then adds a new line.
+			// Writes the request then adds a new line.
 			printWriter.print(newRequest);
 			printWriter.println("");
 			printWriter.close();
@@ -859,8 +916,38 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			// Writes the loan on then adds a new line.
+			// Writes the loan then adds a new line.
 			printWriter.print(newLoan);
+			printWriter.println("");
+			printWriter.close();
+        } 
+        catch (IOException e) { 
+            System.out.println("Cannot write to " + filePath); 
+            System.exit(0);
+        } 	
+	}
+	
+	/**
+	 * A new transaction is made by adding its details at the end
+	 * of the textfile.
+	 * @param newRequest The details of the transaction.
+	 */
+	public static void makeTransaction(String newTransaction) {
+		
+		String filePath = DATA_FILE_PATH + "Transaction.txt";
+		
+		File file = null;
+		FileWriter fileWriter = null;
+		BufferedWriter buffWriter = null;
+		PrintWriter printWriter = null;
+		try { 
+			file = new File(filePath);
+			fileWriter = new FileWriter(file, true);
+			buffWriter = new BufferedWriter(fileWriter);
+			printWriter = new PrintWriter(buffWriter);
+			
+			// Writes the transaction then adds a new line.
+			printWriter.print(newTransaction);
 			printWriter.println("");
 			printWriter.close();
         } 

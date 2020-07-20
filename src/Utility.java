@@ -109,6 +109,28 @@ public class Utility {
         }
     }
     
+    /**
+     * Performs insertion sort on an ArrayList of transactions by using
+     * the transactionID for the sort. 
+     * @param list The list of transactions to be sorted.
+     */
+    public static void sortTransactions(ArrayList<Transaction> list) {
+    	int n = list.size();
+        if (n > 1) {
+            for (int i = 1; i < n; i++) { 
+            	Transaction key = list.get(i);
+            	int j = i - 1;
+            	
+            	while (j >= 0  && 
+            			(list.get(j).getTransactionID() > key.getTransactionID())) {
+            		list.set(j + 1, list.get(j));
+            		j--;
+                }
+            	list.set(j + 1, key);
+            }
+        }
+    }
+    
 	/**
 	 * An alert pop-up that tells the user that the username entered
 	 * does not exist in the system.

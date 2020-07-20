@@ -10,39 +10,38 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 /**
- * Controller for the Reserved Items page.
- * Users can view copies reserved for them which were previously
- * unavailable copies at the time of their request.
+ * Controller for the Transaction History page.
+ * The user can view a chronological list of their transactions.
+ * This is either a fine or a payment for a fine.
  * @author William King
  */
-public class ReservedItemsController {
+public class TransactionHistoryController {
 	
-	/** A list view to display the requests for copies that 
-	 * are now available. */
-	@FXML private ListView<String> listShowReservedItems;
+	/** A list view to display the transactions of the user. */
+	@FXML private ListView<String> lstShowTransactions;
 	/** The back button for the page. */
 	@FXML private Button btnBack;
 
-	/** Holds a list of all of the requests. */
-	private ArrayList<Request> requestList;
+	/** Holds a list of all of the transactions. */
+	private ArrayList<Transaction> transactions;
 	/** Holds the user's username. */
 	private String username;
 	
 	/**
-	 * Displays previously requested items, that are now available for 
-	 * the user i.e. are reserved for the user. 
+	 * Displays all of the user's transactions. 
 	 * This method will run automatically.
 	 */
 	public void initialize() {
-		requestList = FileHandling.getRequests();
+		transactions = FileHandling.getTransactions();
 		username = FileHandling.getCurrentUser();
 		
-		// Show the user's pending reserved requests.
-		for (Request request : requestList) {
-			if (username.equals(request.getUsername()) && 
-					!request.getRequestFilled() && request.isReserved()) {
-				listShowReservedItems.getItems().add(
-						request.getReservedDescription());
+		for (Transaction elem : transactions) {
+			// If it's a fine.
+			if (username.equals(elem.getUsername()) && elem.isFine()) {
+				lstShowTransactions.getItems().add(elem.getFineDescription());
+			// If it's a payment.
+			} else if (username.equals(elem.getUsername()) && !elem.isFine()) {
+				lstShowTransactions.getItems().add(elem.getPaymentDescription());
 			}
 		}
 	}
@@ -53,7 +52,7 @@ public class ReservedItemsController {
 	 *         FXML file isn't available.
 	 */
 	public void handleBackButtonAction() throws IOException {
-		//Closes the window.
+		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
 		Stage primaryStage = new Stage();
@@ -61,6 +60,6 @@ public class ReservedItemsController {
 				.getResource("FXMLFiles/UserDashboard.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.show(); //displays the new stage.
+		primaryStage.show(); // Displays the new stage.
 	}
 }

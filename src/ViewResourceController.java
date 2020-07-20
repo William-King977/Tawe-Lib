@@ -354,8 +354,7 @@ public class ViewResourceController {
 				 requestCopyID = minCopyID;
 			} else {
 				requestCopyID = copyID + 1;
-			}
-			
+			}	
 		}
 		return requestCopyID;
 	}

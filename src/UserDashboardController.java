@@ -39,9 +39,6 @@ public class UserDashboardController {
 	/** A button that leads to the user's profile. */
 	@FXML private Button btnViewProfile;
 	
-	/** A button that leads to the View Copies page. */
-	@FXML private Button btnViewCopies; 
-	
 	/** The log out button for the dashboard. */
 	@FXML private Button btnLogout;
 	
@@ -124,8 +121,19 @@ public class UserDashboardController {
      * amount, the item that caused the fine, and the number of days the 
      * item was overdue) or a payment (showing the date and time of 
      * payment and the amount).
+     * @throws IOException Throws an exception to be caught when the
+	 *                     FXML file cannot be accessed.
      */
-    public void handleTransactionHistoryButtonAction() {
+    public void handleTransactionHistoryButtonAction() throws IOException {
+    	Stage curStage = (Stage) btnTransactionHistory.getScene().getWindow();
+		curStage.close(); //closes that stage.
+	    /*creates the new stage*/
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/TransactionHistory.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); //displays the new stage.
     }
     
     /**

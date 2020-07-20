@@ -25,6 +25,8 @@ public class ViewLoanController {
     private ArrayList<Loan> loanList;
     /** ArrayList to hold all requests. */
     private ArrayList<Request> requests;
+    /** A list to hold all the transactions. */
+	ArrayList <Transaction> transactions;
     /**ArrayList to hold all users. */
     private ArrayList<User> users;
     /** ArrayList to hold all copies */
@@ -225,6 +227,7 @@ public class ViewLoanController {
 			double userFine = calculateUserFine(daysOverdue, type);
 			String user = returnedLoan.getUsername();
 			addUserFine(user, userFine); // Adds the fine to the user's balance.
+			makeFineTransaction(returnedLoan, userFine, today, timeNow); 
 		}
 		
 		// Check if there are any pending requests for the returned copy. 
@@ -302,6 +305,52 @@ public class ViewLoanController {
     }
     
     /**
+     * Creates and saves the transaction for the fine.
+     * @param returnedLoan The loan that was just returned.
+     * @param userFine The amount fined to the user.
+     * @param today Today's date.
+     * @param time The current time (when the loan was returned).
+     */
+    public void makeFineTransaction(Loan returnedLoan, double userFine, 
+    		LocalDate today, LocalTime time) {
+    	int transactionID = getMaxTransactionID() + 1;
+    	int resourceID = returnedLoan.getResourceID();
+    	String username = returnedLoan.getUsername();
+    	double amount = userFine;
+    	
+    	int daysOverdue = returnedLoan.getDaysOverdue();
+    	String date = today.toString();
+    	String timeNow = time.toString();
+    	ResourceType type = returnedLoan.getType();
+    	boolean isFine = true;
+    	
+    	Transaction fineTransaction = new Transaction(transactionID, 
+    			resourceID, username, amount, daysOverdue, date, timeNow, 
+    			type, isFine);
+    	
+    	String strFineTransaction = fineTransaction.toStringDetail();
+    	FileHandling.makeTransaction(strFineTransaction);
+    }
+    
+    /**
+	 * Fetches the maximum transaction ID of all current transactions.
+	 * @return The current maximum transaction ID.
+	 */
+	public int getMaxTransactionID() {
+		transactions = FileHandling.getTransactions();
+		int maxID;
+		
+		if (transactions.size() == 0) {
+			maxID = 0;
+		} else {
+			Utility.sortTransactions(transactions);
+			int maxIndex = transactions.size() - 1;
+			maxID = (transactions.get(maxIndex)).getTransactionID();
+		}
+		return maxID;
+	}
+    
+    /**
      * Checks if there are any unfilled requests that are waiting
      * to borrow this returned copy and makes appropriate changes
      * if there are.
@@ -354,8 +403,8 @@ public class ViewLoanController {
      * appropriate changes to the loan list when selected.
      */
     public void setCBPastLoansStatus() {
-    	
     	cbCurrentLoans.setSelected(false);
+    	btnReturnLoan.setDisable(true);
     	
     	// Clears the content of the resource list if any. 
     	lstShowLoans.getItems().clear();
@@ -367,6 +416,7 @@ public class ViewLoanController {
         // If you're clicking the check box to clear it. 
     	} else if (!cbPastLoans.isSelected() && !cbCurrentLoans.isSelected()) {
         	initialize();
+        	btnReturnLoan.setDisable(true);
 	    }
     }
     
@@ -375,8 +425,8 @@ public class ViewLoanController {
      * appropriate changes to the loan list when selected.
      */
     public void setCBCurrentLoansStatus() {
-    	
     	cbPastLoans.setSelected(false);
+    	btnReturnLoan.setDisable(true);
     	
     	// Clears the content of the resource list if any. 
     	lstShowLoans.getItems().clear();
@@ -388,6 +438,7 @@ public class ViewLoanController {
         // If you're clicking the check box to clear it. 
     	} else if (!cbPastLoans.isSelected() && !cbCurrentLoans.isSelected()) {
         	initialize();
+        	btnReturnLoan.setDisable(true);
 	    }
     }
     
