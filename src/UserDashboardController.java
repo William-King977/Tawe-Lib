@@ -52,7 +52,7 @@ public class UserDashboardController {
 	 *                     FXML file cannot be accessed.
 	 */
 	public void handleBorrowedItemsButtonAction() throws IOException {
-		Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
+		Stage curStage = (Stage) btnBorrowedItems.getScene().getWindow(); 
 		curStage.close(); 
 	  
 		Stage primaryStage = new Stage();
@@ -70,7 +70,7 @@ public class UserDashboardController {
 	 *                     FXML file cannot be accessed.
 	 */
 	public void handleRequestedItemsButtonAction() throws IOException {
-		Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
+		Stage curStage = (Stage) btnRequestedItems.getScene().getWindow(); 
 		curStage.close(); // Closes that stage.
 	    
 		Stage primaryStage = new Stage();
@@ -88,7 +88,7 @@ public class UserDashboardController {
 	 *                     FXML file cannot be accessed.
 	 */
 	public void handleReservedItemsButtonAction() throws IOException {
-		Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
+		Stage curStage = (Stage) btnReservedItems.getScene().getWindow(); 
 		curStage.close(); // Closes that stage.
 	    
 		Stage primaryStage = new Stage();
@@ -106,7 +106,7 @@ public class UserDashboardController {
 	 *                     FXML file cannot be accessed.
      */
     public void handleCurrentBalanceButtonAction() throws IOException { 
-    	Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
+    	Stage curStage = (Stage) btnCurrentBalance.getScene().getWindow(); 
 		curStage.close(); 
 	  
 		Stage primaryStage = new Stage();

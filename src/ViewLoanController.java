@@ -392,7 +392,7 @@ public class ViewLoanController {
     }
     
     /**
-     * Closes the current page, then navigates back to the User Dashboard 
+     * Closes the current page, then navigates back to the previous page
      * when the button is clicked.
 	 * @throws IOException Throws an exception to be caught when 
 	 *                     the FXML cannot be reached.

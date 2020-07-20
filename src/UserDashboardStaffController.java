@@ -23,11 +23,11 @@ public class UserDashboardStaffController {
 	/** A button that leads to the View Loans page. */
 	@FXML private Button btnViewLoans;
 	
-	/** A button that leads to the View Resources page. */
-	@FXML private Button btnViewResources;
+	/** A button that leads to the Resource Settings page. */
+	@FXML private Button btnResourceSettings;
 	
-	/** A button that leads to the View Copies page. */
-	@FXML private Button btnViewCopies;
+	/** A button that leads to the Copy Settings page. */
+	@FXML private Button btnCopySettings;
 	
 	/** A button that leads to the User Settings page. */
 	@FXML private Button btnUserSettings;
@@ -45,7 +45,7 @@ public class UserDashboardStaffController {
 	 *                     FXML file cannot be accessed.
 	 */
 	public void handleViewLoansButtonAction() throws IOException {
-		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
+		Stage curStage = (Stage) btnViewLoans.getScene().getWindow(); 
 		curStage.close(); // Closes current stage.
 	    // Creates the new stage.
 		Stage primaryStage = new Stage();
@@ -63,7 +63,7 @@ public class UserDashboardStaffController {
 	 *                     FXML file cannot be accessed.
 	 */
 	public void handleNewLoanButtonAction() throws IOException {
-		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
+		Stage curStage = (Stage) btnNewLoan.getScene().getWindow(); 
 		curStage.close(); // Closes current stage.
 	    // Creates the new stage.
 		Stage primaryStage = new Stage();
@@ -75,12 +75,14 @@ public class UserDashboardStaffController {
 	}
 	
 	/**
-	 * Displays a list of all resources in the library when clicked.
+	 * Displays a list of all resources in the library when clicked. Also allows
+	 * librarians to create a new resource or edit the details of an existing
+	 * resource.
 	 * @throws IOException Throws an exception to be caught when the
 	 *                     FXML file cannot be accessed.
 	 */
 	public void handleResourceSettingsButtonAction() throws IOException {
-		Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
+		Stage curStage = (Stage) btnResourceSettings.getScene().getWindow(); 
 		curStage.close(); //closes that stage.
 	    /*creates the new stage*/
 		Stage primaryStage = new Stage();
@@ -88,19 +90,32 @@ public class UserDashboardStaffController {
 				.getResource("FXMLFiles/ResourceSettings.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.show(); //displays the new stage.
+		primaryStage.show(); // Displays the new stage.
 	}
 	
 	/**
 	 * Displays a list of all copies of each resource in the library 
-	 * when clicked.
+	 * when clicked. Also, allows the viewing of overdue copies and 
+	 * a copy's borrow/return history.
+	 * @throws IOException Throws an exception to be caught when the 
+	 * 		   			   FXML file cannot be accessed.
 	 */
-	public void handleViewCopiesButtonAction() {
+	public void handleCopySettingsButtonAction() throws IOException {
+		Stage curStage = (Stage) btnCopySettings.getScene().getWindow(); 
+		curStage.close(); 
+		
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass()
+				.getResource("FXMLFiles/CopySettings.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show(); 
 	}
 	
 	/**
 	 * Goes to a page where the librarian can view all users registered to
-	 * the library system.
+	 * the library system as well as creating a new user or editing 
+	 * the details of an existing user. 
 	 * @throws IOException Throws an exception to be caught when the 
 	 * 		   			   FXML file cannot be accessed.
 	 */
@@ -122,7 +137,7 @@ public class UserDashboardStaffController {
 	 * 		   			   FXML file cannot be accessed.
 	 */
 	public void handlePayFineButtonAction() throws IOException {
-		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
+		Stage curStage = (Stage) btnPayUserFine.getScene().getWindow(); 
 		curStage.close(); 
 		
 		Stage primaryStage = new Stage();

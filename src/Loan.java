@@ -279,12 +279,15 @@ public class Loan {
 	public String getDescription() {
 		String status = "Borrowed";
 		String date = checkoutDate;
+		String time = checkoutTime;
 		if (returned) {
 			status = "Returned";
 			date = returnDate;
+			time = returnTime;
 		} 
 		return "Loan ID: " + loanID + " | Username: " + username + " | "
-				+ "Status: " + status + " | Date: " + date;
+				+ "Status: " + status + " | Date: " + date + " | "
+						+ "Time: " + time;
 	}
 	
 	/**
@@ -292,9 +295,30 @@ public class Loan {
 	 * that's suitable to display.
 	 * @return A short description of the an overdue Loan.
 	 */
-	public String getLoanOverdueDescription() {
+	public String getOverdueDescription() {
 		return "Copy ID: " + copyID + " | Days Overdue: " + daysOverdue + 
 				" | Username: " + username;
+	}
+	
+	/**
+	 * Gets a short description of an issued Loan,
+	 * that's suitable to display.
+	 * @return A short description of the issued Loan.
+	 */
+	public String getBorrowedDescription() {
+		return "Username: " + username + " | Status: Borrowed | "
+				+ "Date: " + checkoutDate + " | Time: " + checkoutTime;
+	}
+	
+	/**
+	 * Gets a short description of a returned Loan,
+	 * that's suitable to display.
+	 * @return A short description of the returned Loan.
+	 */
+	public String getReturnedDescription() {
+		return "Username: " + username + " | Status: Returned | "
+				+ "Date: " + returnDate + " | Time: " + returnTime;
+			
 	}
 }
 

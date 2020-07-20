@@ -28,9 +28,9 @@
    <right>
       <VBox prefHeight="254.0" prefWidth="204.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnViewResources" mnemonicParsing="false" onAction="#handleResourceSettingsButtonAction" prefWidth="185.0" text="Resource Settings" />
+            <Button fx:id="btnResourceSettings" mnemonicParsing="false" onAction="#handleResourceSettingsButtonAction" prefWidth="185.0" text="Resource Settings" />
             <Button fx:id="btnUserSettings" mnemonicParsing="false" onAction="#handleUserSettingsButtonAction" prefWidth="185.0" text="User Settings" />
-            <Button fx:id="libarainPayUserFine" mnemonicParsing="false" onAction="#handlePayFineButtonAction" prefWidth="185.0" text="Pay User Fine" />
+            <Button fx:id="btnPayUserFine" mnemonicParsing="false" onAction="#handlePayFineButtonAction" prefWidth="185.0" text="Pay User Fine" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -52,7 +52,7 @@
          <children>
             <Button fx:id="btnViewLoans" mnemonicParsing="false" onAction="#handleViewLoansButtonAction" prefWidth="185.0" text="View/Return Loans" />
             <Button fx:id="btnNewLoan" mnemonicParsing="false" onAction="#handleNewLoanButtonAction" prefWidth="185.0" text="Create New Loan" />
-            <Button fx:id="btnViewCopies" mnemonicParsing="false" onAction="#handleViewCopiesButtonAction" prefWidth="185.0" text="View Copies" />
+            <Button fx:id="btnCopySettings" mnemonicParsing="false" onAction="#handleCopySettingsButtonAction" prefWidth="185.0" text="Copy Settings" />
          </children>
          <padding>
             <Insets left="20.0" />
