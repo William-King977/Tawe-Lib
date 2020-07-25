@@ -224,7 +224,7 @@ public class EditResourceController {
 		//Validation applied to the inputed values.
     	boolean bookFieldsFilled = Utility.isBookFieldFilled(resourceTitle, 
     			strYear, author, publisher); 
-    	boolean isNum = Utility.isIntResource(strYear);
+    	boolean isNum = Utility.isInt(strYear) && Utility.isInt(isbn);
     	boolean isAlpha = Utility.isAlphaBook(author, publisher, 
     			genre, language);
     	
@@ -294,7 +294,7 @@ public class EditResourceController {
 		//Validation applied to the inputed values.
     	boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
     			strYear, director, strRuntime);
-    	boolean isNum = Utility.isIntResource(strYear);
+    	boolean isNum = Utility.isInt(strYear);
     	boolean isDouble = Utility.isDouble(strRuntime);
     	boolean isAlpha = Utility.isAlphaDVD(director, genre, language);
     	
@@ -374,8 +374,9 @@ public class EditResourceController {
 		//Validation applied to the inputted values.
     	boolean laptopFieldsFilled = Utility.isLaptopFieldFilled(resourceTitle, 
     			strYear, manufacturer, model, operatingSystem);
-    	boolean isNum = Utility.isIntResource(strYear);
-    	boolean isAlpha = Utility.isAlphaLaptop(resourceTitle, manufacturer);
+    	boolean isNum = Utility.isInt(strYear);
+    	boolean isAlpha = Utility.isAlphaLaptop(resourceTitle, operatingSystem, 
+    			model, manufacturer);
     	
     	if (!laptopFieldsFilled) {
     		Utility.missingFields();

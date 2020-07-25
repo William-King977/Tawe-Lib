@@ -16,120 +16,23 @@ public class Utility {
 	
 	/** A regular expression that holds a dash and, lower and 
 	 * upper case letters. */
-    private static String alphabet = "[a-zA-Z- ]+";
-    
+    private static String alphabet = "[a-zA-Z ]+";
     /** A regular expression that holds digits from 0-9. */
     private static String digits = "[0-9]+";
-	
-    /**
-     * Performs insertion sort on an ArrayList of resources by using
-     * the resourceID for the sort. 
-     * @param list The list of resources to be sorted.
-     */
-    public static void sortResources(ArrayList<Resource> list) {
-    	int n = list.size();
-        if (n > 1) {
-            for (int i = 1; i < n; i++) { 
-            	Resource key = list.get(i);
-            	int j = i - 1;
-            	
-            	while (j >= 0  && 
-            			(list.get(j).getResourceID() > key.getResourceID())) {
-            		list.set(j + 1, list.get(j));
-            		j--;
-                }
-            	list.set(j + 1, key);
-            }
-        }
-    }
     
-    /**
-     * Performs insertion sort on an ArrayList of copies by using
-     * the copyID for the sort. 
-     * @param list The list of copies to be sorted.
-     */
-    public static void sortCopies(ArrayList<Copy> list) {
-    	int n = list.size();
-        if (n > 1) {
-            for (int i = 1; i < n; i++) { 
-            	Copy key = list.get(i);
-            	int j = i - 1;
-            	
-            	while (j >= 0  && 
-            			(list.get(j).getCopyID() > key.getCopyID())) {
-            		list.set(j + 1, list.get(j));
-            		j--;
-                }
-            	list.set(j + 1, key);
-            }
-        }
-    }
+    /** A regular expression for someone's name and city. */
+    private static String nameRegex = "[a-zA-Z-' ]+";
+    /** A regular expression for an address. */
+    private static String addressRegex = "[0-9a-zA-Z-' ]+";
+    /** A regular expression for a postcode. */
+    private static String postcodeRegex = "[0-9A-Z ]+";
+    /** A regular expression for a mobile number. */
+    private static String phoneRegex = "[0-9+ ]+";
     
-    /**
-     * Performs insertion sort on an ArrayList of requests by using
-     * the requestID for the sort. 
-     * @param list The list of requests to be sorted.
-     */
-    public static void sortRequests(ArrayList<Request> list) {
-    	int n = list.size();
-        if (n > 1) {
-            for (int i = 1; i < n; i++) { 
-            	Request key = list.get(i);
-            	int j = i - 1;
-            	
-            	while (j >= 0  && 
-            			(list.get(j).getRequestID() > key.getRequestID())) {
-            		list.set(j + 1, list.get(j));
-            		j--;
-                }
-            	list.set(j + 1, key);
-            }
-        }
-    }
-    
-    /**
-     * Performs insertion sort on an ArrayList of loans by using
-     * the loanID for the sort. 
-     * @param list The list of loans to be sorted.
-     */
-    public static void sortLoans(ArrayList<Loan> list) {
-    	int n = list.size();
-        if (n > 1) {
-            for (int i = 1; i < n; i++) { 
-            	Loan key = list.get(i);
-            	int j = i - 1;
-            	
-            	while (j >= 0  && 
-            			(list.get(j).getLoanID() > key.getLoanID())) {
-            		list.set(j + 1, list.get(j));
-            		j--;
-                }
-            	list.set(j + 1, key);
-            }
-        }
-    }
-    
-    /**
-     * Performs insertion sort on an ArrayList of transactions by using
-     * the transactionID for the sort. 
-     * @param list The list of transactions to be sorted.
-     */
-    public static void sortTransactions(ArrayList<Transaction> list) {
-    	int n = list.size();
-        if (n > 1) {
-            for (int i = 1; i < n; i++) { 
-            	Transaction key = list.get(i);
-            	int j = i - 1;
-            	
-            	while (j >= 0  && 
-            			(list.get(j).getTransactionID() > key.getTransactionID())) {
-            		list.set(j + 1, list.get(j));
-            		j--;
-                }
-            	list.set(j + 1, key);
-            }
-        }
-    }
+    /** A regular expression for holding numbers and letters. */
+    private static String alphaNumRegex = "[0-9a-zA-Z ]+";
+    /** A regular expression for the laptop model. */
+    private static String modelRegex = "[0-9a-zA-Z- ]+";
     
 	/**
 	 * An alert pop-up that tells the user that the username entered
@@ -792,7 +695,6 @@ public class Utility {
 	public static boolean isBookExist(String resourceTitle, int year, 
 			String imageName, String author, String publisher, String genre,
 			String language, String isbn, ArrayList<Book> bookList) {
-				
 		boolean bookExist = false;
 		//Searches through all the existing books.
 		for (Book thisBook : bookList) {
@@ -831,7 +733,6 @@ public class Utility {
 		boolean dvdExist = false;
 		//Searches through all the existing DVDs.
 		for (DVD thisDVD : dvdList) {
-			
 			if (thisDVD.getResourceTitle().equals(resourceTitle) &&
 					thisDVD.getYear() == year &&
 					thisDVD.getDirector().equals(director) &&
@@ -861,7 +762,6 @@ public class Utility {
 	public static boolean isLaptopExist(String resourceTitle, int year,
 			String imageName, String manufacturer, String model, 
 			String operatingSystem, ArrayList<Laptop> laptopList) {
-		
 		boolean laptopExist = false;
 		//Searches through all the existing laptops.
 		for (Laptop thisLaptop : laptopList) {
@@ -878,17 +778,27 @@ public class Utility {
 	}
     
     /**
-     * Checks if the passed down fields only contain letters or dashes.
+     * Checks if the passed down fields matches with their respective regex for
+     * the user.
      * @param firstName The entered first name.
      * @param surname The entered surname.
+     * @param mobileNum The entered mobile number.
+     * @param address1 The entered address line 1.
+     * @param address2 The entered address line 2.
+     * @param city The entered city.
+     * @param postcode The entered postcode.
      * @return Whether the passed down fields have has only letters and 
      *         dashes or not.
      */
     public static boolean isAlphaUser(String firstName, String surname, 
-    		String city) {
+    		String mobileNum, String address1, String address2, String city, 
+    		String postcode) {
     	// If the selected fields has only letters or dashes.
-	    if (firstName.matches(alphabet) && surname.matches(alphabet) 
-	    		&& city.matches(alphabet)) {
+	    if (firstName.matches(nameRegex) && surname.matches(nameRegex) 
+	    		&& mobileNum.matches(phoneRegex) 
+	    		&& address1.matches(addressRegex) 
+	    		&& (address2.matches(addressRegex) || address2.equals("N/A")) 
+	    		&& city.matches(nameRegex) && postcode.matches(postcodeRegex)) {
 	    	return true;
 	    // If any of the fields that SHOULD NOT contain non-alphabetical
 		// have non-alphabetical characters.
@@ -912,8 +822,8 @@ public class Utility {
     }
     
     /**
-     * Checks if the passed down fields only contain letters, dashes
-	 * or spaces for the book.
+     * Checks if the passed down fields match their respective regex for the 
+     * book.
      * @param author The entered author.
      * @param publisher The entered publisher.
      * @param genre The entered genre.
@@ -923,7 +833,7 @@ public class Utility {
      */
 	public static boolean isAlphaBook(String author, String publisher, 
 			String genre, String language) {
-		if (author.matches(alphabet) && publisher.matches(alphabet) && 
+		if (author.matches(nameRegex) && publisher.matches(alphabet) && 
 				genre.matches(alphabet) && language.matches(alphabet)) {
 			return true;
 		//Allow optional fields to be empty.
@@ -935,8 +845,8 @@ public class Utility {
 	}
 	
 	/**
-	 * Checks if the passed down fields only contain letters, dashes
-	 * or spaces for the DVD.
+	 * Checks if the passed down fields match their respective regex for the
+	 * DVD.
 	 * @param director The entered director.
 	 * @param genre The entered genre.
 	 * @param language The entered language.
@@ -945,7 +855,7 @@ public class Utility {
 	 */
 	public static boolean isAlphaDVD(String director, String genre, 
 			String language) {
-		if (director.matches(alphabet) && genre.matches(alphabet) && 
+		if (director.matches(nameRegex) && genre.matches(alphabet) && 
 				language.matches(alphabet)) {
 			return true;
 		//Allow optional fields to be empty
@@ -957,16 +867,20 @@ public class Utility {
 	}
 	
 	/**
-	 * Checks if the passed down fields only contain letters, dashes
-	 * or spaces for the laptop.
+	 * Checks if the passed down fields match their respective regex for 
+	 * the laptop.
 	 * @param resourceTitle The entered resource title.
+	 * @param operatingSystem The entered operating system.
+	 * @param model The entered model.
 	 * @param manufacturer The entered manufacturer.
 	 * @return Whether the passed down fields for the laptop has
      * 		   alphabetical characters or not.
 	 */
 	public static boolean isAlphaLaptop(String resourceTitle, 
-			String manufacturer) {
-		if (resourceTitle.matches(alphabet) && 
+			String operatingSystem, String model, String manufacturer) {
+		if (resourceTitle.matches(alphaNumRegex) && 
+				operatingSystem.matches(alphaNumRegex) &&
+				model.matches(modelRegex ) &&
 				manufacturer.matches(alphabet)) {
 			return true;
 		} else {
@@ -975,12 +889,12 @@ public class Utility {
 	}	
 	
 	/**
-	 * Checks if the entered year only contains numbers.
-	 * @param strYear The entered year as a string.
+	 * Checks if the entered value only contains numbers.
+	 * @param value The entered value as a string.
 	 * @return Whether the entered year is numeric or not.
 	 */
-	public static boolean isIntResource(String strYear) {
-		if (strYear.matches(digits)) {
+	public static boolean isInt(String value) {
+		if (value.matches(digits)) {
 			return true;
 		} else {
 			return false;
@@ -989,7 +903,7 @@ public class Utility {
 	
 	/**
 	 * Checks if the entered value is a parsable double.
-	 * @param strRuntime The entered value as a string.
+	 * @param value The entered value as a string.
 	 * @return If the entered value is a parsable double or not.
 	 */
 	public static boolean isDouble(String value) {

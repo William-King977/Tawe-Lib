@@ -1,5 +1,6 @@
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.time.LocalDate;
+import java.util.Comparator;
 
 /**
  * The Loan class models a loan of a copy in the system.
@@ -321,5 +322,3 @@ public class Loan {
 			
 	}
 }
-
-

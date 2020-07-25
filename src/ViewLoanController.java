@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,50 +43,38 @@ public class ViewLoanController {
 	/** A check box to indicate that the librarian wants 
 	 * to filter to show the past loans. */
 	@FXML private CheckBox cbPastLoans;
-	
 	/** A check box to indicate that the librarian wants 
 	 * to filter to show the current loans. */
 	@FXML private CheckBox cbCurrentLoans;
 	
 	/** The return loan button for the page. */
     @FXML private Button btnReturnLoan;
-	
 	/** The back button for the page. */
     @FXML private Button btnBack;
     
     /** A text field used to display the selected loan's ID. */
     @FXML private TextField txtLoanID;
-    
     /** A text field used to display the selected loan's resource ID. */
     @FXML private TextField txtResourceID;
-    
     /** A text field used to display the loan's due date. */
     @FXML private TextField txtDueDate;
-    
     /** A text field used to display the loan's checkout date. */
     @FXML private TextField txtCheckoutDate;
-    
     /** A text field used to display the number of days the loan is 
      * overdue, for a returned loan. */
     @FXML private TextField txtDaysOverdue;
-    
     /** A text field used to display the loan's return date. */
     @FXML private TextField txtReturnedDate;
-    
     /** A text field used to display if the loan has been returned or not. */
     @FXML private TextField txtReturned;
-    
     /** A text field used to display the username of the user who the loan
      * was issued to. */
     @FXML private TextField txtUsername;
-    
     /** A text field used to display the ID of the librarian who 
      * authorised the loan. */
     @FXML private TextField txtStaffID;
-    
     /** A text field used to display the ID of the borrowed copy. */
     @FXML private TextField txtCopyID;
-    
     /** A text field used to display the borrowed copy's resource type. */
     @FXML private TextField txtResourceType;
     
@@ -343,7 +332,7 @@ public class ViewLoanController {
 		if (transactions.size() == 0) {
 			maxID = 0;
 		} else {
-			Utility.sortTransactions(transactions);
+			Collections.sort(transactions, new SortTransactionsAsc());
 			int maxIndex = transactions.size() - 1;
 			maxID = (transactions.get(maxIndex)).getTransactionID();
 		}
@@ -364,7 +353,7 @@ public class ViewLoanController {
 		boolean anyRequests = false;
 		Request nextRequest = null;
 		
-		Utility.sortRequests(requests);
+		Collections.sort(requests, new SortRequests());
 		for (Request request : requests) {
 			if (!request.getRequestFilled() && copyID == request.getCopyID() 
 					&& !username.equals(request.getUsername())) {

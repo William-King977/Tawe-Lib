@@ -24,10 +24,6 @@ public class NewUserController {
     /** A list of all the users. */
     private ArrayList<User> userList;
     
-	/** A regular expression that holds a dash and, 
-	 * lower and upper case letters. */
-    private String alphabet = "[a-zA-Z-]+";
-    
     /** Holds the file name of the default profile picture. */
     private final String DEFAULT_PROFILE_PICTURE =
     		"Default1.png";
@@ -98,7 +94,8 @@ public class NewUserController {
         // Validation rules applied to certain fields.
         boolean requiredFilled = Utility.isFieldFilledUser(firstName, surname, 
         		mobileNumber, address1, city, postcode);
-        boolean hasLetter = Utility.isAlphaUser(firstName, surname, city);
+        boolean hasLetter = Utility.isAlphaUser(firstName, surname, 
+        		mobileNumber, address1, address2, city, postcode); 
         boolean usernameExist = Utility.isUsernameExist(userList, 
         		librarianList, username);
         

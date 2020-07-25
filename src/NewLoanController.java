@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -160,9 +161,9 @@ public class NewLoanController {
      */
     public int getNextLatestLoanID() {
     	loanList = FileHandling.getLoans();
-    	Utility.sortLoans(loanList); // Sorts loans by loan ID.
-    	
+    	Collections.sort(loanList, new SortLoans());
     	int maxIndex = loanList.size() - 1;
+    	
     	// If there are no loans (at all).
     	if (loanList.size() == 0) {
     		return 0;
@@ -213,9 +214,8 @@ public class NewLoanController {
      * @return If there are any other requests for the resource.
      */
     public boolean checkReservedRequests(int copyID, String username) {
-   
-		boolean anyRequests = false;	
-		Utility.sortRequests(requestList);
+		boolean anyRequests = false;
+		Collections.sort(requestList, new SortRequests());
 		
 		for (Request request : requestList) {
 			if (!request.getRequestFilled() && copyID == request.getCopyID() 

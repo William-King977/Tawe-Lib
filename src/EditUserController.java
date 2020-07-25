@@ -25,7 +25,6 @@ public class EditUserController {
 	
 	/** Used to check if the user edited is a librarian or not. */
 	private boolean isLibrarian;
-	
 	/** Used to check if a librarian is editing another user's profile
 	  * or if a user is editing their own profile. */
 	private boolean editAnotherUser;
@@ -35,7 +34,6 @@ public class EditUserController {
     
     /** A list of all the librarians. */
     private ArrayList<Librarian> librarianList;
-    
     /** A list of all the users. */
     private ArrayList<User> userList;
     
@@ -47,25 +45,18 @@ public class EditUserController {
     
 	/** A text field to hold the user's username. */
 	@FXML private TextField txtUsername;
-	
 	/** A text field to hold the user's first name. */
 	@FXML private TextField txtFirstName;
-	
 	/** A text field to hold the user's surname. */
 	@FXML private TextField txtSurname;
-	
 	/** A text field to hold the user's address line 1. */
 	@FXML private TextField txtAddressLine1;
-	
 	/** A text field to hold the user's address line 2. */
 	@FXML private TextField txtAddressLine2;
-	
 	/** A text field to hold the residing city of the user. */
 	@FXML private TextField txtCity;
-	
 	/** A text field to hold the user's postcode. */
 	@FXML private TextField txtPostcode;
-	
 	/** A text field to hold the user's UK mobile number. */
 	@FXML private TextField txtMobileNumber;
 	
@@ -78,7 +69,6 @@ public class EditUserController {
 	/** A button that leads to a page where the user can create their
 	 * own profile picture. */
 	@FXML private Button btnCreateProfilePicture;
-	
 	/** The back button for the page. */
 	@FXML private Button btnBack;
 	
@@ -212,7 +202,8 @@ public class EditUserController {
 		// Validation rules applied to certain fields.
         boolean requiredFilled = Utility.isFieldFilledUser(firstName, surname, 
         		mobileNumber, address1, city, postcode);
-        boolean hasLetter = Utility.isAlphaUser(firstName, surname, city);
+        boolean hasLetter = Utility.isAlphaUser(firstName, surname, 
+        		mobileNumber, address1, address2, city, postcode);
         
         // Shows appropriate alerts if validation has not been met.
         if (!requiredFilled) { 
@@ -248,18 +239,7 @@ public class EditUserController {
     	// If the user is a librarian.
         if (isLibrarian()) {
         	// Create copies of the old and new profiles, then replace the old with new.
-    		String oldProfile = userBeingEdited.getUsername() + 
-    				"," + userBeingEdited.getFirstName() + 
-    				"," + userBeingEdited.getSurname() + 
-    				"," + userBeingEdited.getMobileNumber() +
-    				"," + userBeingEdited.getAddress1() + 
-    				"," + userBeingEdited.getAddress2() +
-    				"," + userBeingEdited.getCity() + 
-    				"," + userBeingEdited.getPostcode() +
-    				"," + userBeingEdited.getProfilePicture() + 
-    				"," + userBeingEdited.getFine() + 
-    				"," + ((Librarian) userBeingEdited).getStaffID() + 
-    				"," + ((Librarian) userBeingEdited).getEmploymentDate() + ",";
+    		String oldProfile = userBeingEdited.toStringDetail();
     		
     		String newProfile = userBeingEdited.getUsername() + 
     				"," + firstName + "," + surname + "," + mobileNumber + 
@@ -272,16 +252,7 @@ public class EditUserController {
     		Utility.savedLibrarianChanges();
     	// If the user is a member.
         } else {
-    		String oldProfile = userBeingEdited.getUsername() + 
-    				"," + userBeingEdited.getFirstName() + 
-    				"," + userBeingEdited.getSurname() + 
-    				"," + userBeingEdited.getMobileNumber() +
-    				"," + userBeingEdited.getAddress1() + 
-    				"," + userBeingEdited.getAddress2() +
-    				"," + userBeingEdited.getCity() + 
-    				"," + userBeingEdited.getPostcode() +
-    				"," + userBeingEdited.getProfilePicture() + 
-    				"," + userBeingEdited.getFine() + ",";
+    		String oldProfile = userBeingEdited.toStringDetail();
     		
     		String newProfile = userBeingEdited.getUsername() + 
     				"," + firstName + "," + surname + "," + mobileNumber + 

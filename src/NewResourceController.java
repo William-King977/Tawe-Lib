@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import javafx.fxml.FXML;
@@ -347,7 +348,7 @@ public class NewResourceController {
 		//Validation applied to the inputed values.
     	boolean bookFieldsFilled = Utility.isBookFieldFilled(resourceTitle, 
     			strYear, author, publisher); 
-    	boolean isNum = Utility.isIntResource(strYear);
+    	boolean isNum = Utility.isInt(strYear) && Utility.isInt(isbn);
     	boolean isAlpha = Utility.isAlphaBook(author, publisher, 
     			genre, language);
     	
@@ -418,7 +419,7 @@ public class NewResourceController {
 		//Validation applied to the inputed values.
     	boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
     			strYear, director, strRuntime);
-    	boolean isNum = Utility.isIntResource(strYear);
+    	boolean isNum = Utility.isInt(strYear);
     	boolean isDouble = Utility.isDouble(strRuntime);
     	boolean isAlpha = Utility.isAlphaDVD(director, genre, language);
     	
@@ -500,8 +501,9 @@ public class NewResourceController {
 		//Validation applied to the inputted values.
     	boolean laptopFieldsFilled = Utility.isLaptopFieldFilled(resourceTitle, 
     			strYear, manufacturer, model, operatingSystem);
-    	boolean isNum = Utility.isIntResource(strYear);
-    	boolean isAlpha = Utility.isAlphaLaptop(resourceTitle, manufacturer);
+    	boolean isNum = Utility.isInt(strYear);
+    	boolean isAlpha = Utility.isAlphaLaptop(resourceTitle, operatingSystem, 
+    			model, manufacturer);
     	
     	if (!laptopFieldsFilled) {
     		Utility.missingFields();
@@ -545,17 +547,11 @@ public class NewResourceController {
 	 */
 	public int getMaxResourceID() {
 		ArrayList<Resource> resourceList = new ArrayList<Resource>();
-		for (Book thisBook : bookList) {
-        	resourceList.add(thisBook);
-        }    
-        for (DVD thisDVD : dvdList) {
-        	resourceList.add(thisDVD);
-        } 
-        for (Laptop thisLaptop : laptopList) { 
-    		resourceList.add(thisLaptop);
-        } 
-        
-        Utility.sortResources(resourceList);
+		resourceList.addAll(bookList);
+		resourceList.addAll(dvdList);
+		resourceList.addAll(laptopList);
+  
+        Collections.sort(resourceList, new SortResources());
         int maxIndex = resourceList.size() - 1;
         int maxResourceID = resourceList.get(maxIndex).getResourceID();
 		return maxResourceID;
@@ -568,7 +564,7 @@ public class NewResourceController {
 	 */
 	public void addCopies(int resourceID, ResourceType resourceType) {
 		ArrayList<Copy> copyList = FileHandling.getCopies();
-		Utility.sortCopies(copyList);
+		Collections.sort(copyList, new SortCopies());
 	
 		int maxIndex = copyList.size() - 1;
 		int maxCopyID = (copyList.get(maxIndex)).getCopyID();

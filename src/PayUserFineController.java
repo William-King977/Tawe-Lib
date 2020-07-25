@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,7 +96,6 @@ public class PayUserFineController {
 	public void handlePayFineButtonAction() throws IOException {
 		
 		String strPayment = txtPayment.getText().trim();
-		// Works for a single value...
 		boolean isDouble = Utility.isDouble(strPayment); 
 		
 		if (strPayment.isEmpty()) {
@@ -119,7 +119,7 @@ public class PayUserFineController {
 			Utility.paymentTooHigh();
 			return;
 		}
-		
+
 		// Get the selected user and save the changes.
 		int selectedIndex = lstFinedUsers.getSelectionModel()
 				.getSelectedIndex();
@@ -128,7 +128,8 @@ public class PayUserFineController {
 		
 		String oldUser = selectedUser.toStringDetail();
 		double previousFine = selectedUser.getFine();
-		selectedUser.setFine(previousFine - payment2DP);
+		double newFine = Math.round((previousFine - payment2DP) * 100.0) / 100.0;
+		selectedUser.setFine(newFine);
 		String newUser = selectedUser.toStringDetail();
 		
 		FileHandling.editProfile(oldUser, newUser, 2);
@@ -167,7 +168,7 @@ public class PayUserFineController {
 		if (transactions.size() == 0) {
 			maxID = 0;
 		} else {
-			Utility.sortTransactions(transactions);
+			Collections.sort(transactions, new SortTransactionsAsc());
 			int maxIndex = transactions.size() - 1;
 			maxID = (transactions.get(maxIndex)).getTransactionID();
 		}

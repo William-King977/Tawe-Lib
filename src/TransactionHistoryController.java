@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +35,8 @@ public class TransactionHistoryController {
 	public void initialize() {
 		transactions = FileHandling.getTransactions();
 		username = FileHandling.getCurrentUser();
+		
+		Collections.sort(transactions, new SortTransactionsDesc());
 		
 		for (Transaction elem : transactions) {
 			// If it's a fine.

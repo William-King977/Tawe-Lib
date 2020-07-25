@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -119,17 +120,11 @@ public class ResourceSettingsController {
         laptopList = FileHandling.getLaptops();
         
         // Adds each resource to the resource ArrayList.
-        for (Book thisBook : bookList) {
-        	resourceList.add(thisBook);
-        }    
-        for (DVD thisDVD : dvdList) {
-        	resourceList.add(thisDVD);
-        } 
-        for (Laptop thisLaptop : laptopList) { 
-    		resourceList.add(thisLaptop);
-        } 
+        resourceList.addAll(bookList);
+        resourceList.addAll(dvdList);
+        resourceList.addAll(laptopList);
+        Collections.sort(resourceList, new SortResources()); 
         
-        Utility.sortResources(resourceList); // Sorts resources on list view.
         // Show the resources on list view.
         for (Resource thisResource : resourceList) {
         	listShowResource.getItems().add(thisResource.toString());

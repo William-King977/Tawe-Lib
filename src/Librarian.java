@@ -40,6 +40,18 @@ public class Librarian extends User {
 	}
 	
 	/**
+	 * Gets a string of the Librarian's full details for file saving.
+	 * @return String of the Librarian's full details.
+	 */
+	public String toStringDetail() {
+		String strUser = username + "," + firstName + "," + surname + 
+				"," + mobileNumber + "," + address1 + "," + address2 + 
+				"," + city + "," + postcode + "," + profilePicture + 
+				"," + fine + "," + staffID + "," + employmentDate + ",";
+		return strUser;
+	}
+	
+	/**
      * Gets the unique staffID of a staff member.
      * @return Returns a unique staff ID for the staff member.
      */

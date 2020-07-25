@@ -21,7 +21,7 @@ public class CopySettingsController {
 	/** A list that holds all the copies. */
 	private ArrayList<Copy> copyList;
 	/** A list that holds all the overdue copies (loans). */
-	private ArrayList<Loan> overdueCopyList = new ArrayList();
+	private ArrayList<Loan> overdueCopyList = new ArrayList<>();
 	/** A list that holds all the loans. */
 	private ArrayList<Loan> loanList;
 	

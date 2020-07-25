@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -136,17 +137,11 @@ public class ViewResourceController {
         loanList = FileHandling.getLoans();
         
         // Adds each resource to the resource ArrayList.
-        for (Book thisBook : bookList) {
-        	resourceList.add(thisBook);
-        }    
-        for (DVD thisDVD : dvdList) {
-        	resourceList.add(thisDVD);
-        } 
-        for (Laptop thisLaptop : laptopList) { 
-    		resourceList.add(thisLaptop);
-        } 
+        resourceList.addAll(bookList);
+        resourceList.addAll(dvdList);
+        resourceList.addAll(laptopList);
+        Collections.sort(resourceList, new SortResources());
         
-        Utility.sortResources(resourceList); // Sorts resources on list view.
         // Show the resources on list view.
         for (Resource thisResource : resourceList) {
         	listShowResource.getItems().add(thisResource.toString());
@@ -245,7 +240,7 @@ public class ViewResourceController {
 		if (requestList.size() == 0) {
 			maxID = 0;
 		} else {
-			Utility.sortRequests(requestList);
+			Collections.sort(requestList, new SortRequests());
 			int maxIndex = requestList.size() - 1;
 			maxID = (requestList.get(maxIndex)).getRequestID();
 		}

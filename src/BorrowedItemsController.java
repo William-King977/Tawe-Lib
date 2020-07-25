@@ -17,10 +17,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class BorrowedItemsController {
-	
 	/** Holds all the loans from the loans file for local storage. */
     private ArrayList<Loan> loanList;
-    
     /** Holds all the user's current loans. */
     private ArrayList<Loan> userLoans = new ArrayList<>();
     
@@ -35,23 +33,17 @@ public class BorrowedItemsController {
     
     /** A text field used to display the selected loan's ID. */
     @FXML private TextField txtLoanID;
-    
     /** A text field used to display the selected loan's resource ID. */
     @FXML private TextField txtResourceID;
-    
     /** A text field used to display the loan's due date. */
     @FXML private TextField txtDueDate;
-    
     /** A text field used to display the loan's checkout date. */
     @FXML private TextField txtCheckoutDate;
-    
     /** A text field used to display the ID of the librarian who 
      * authorised the loan. */
     @FXML private TextField txtStaffID;
-    
     /** A text field used to display the ID of the borrowed copy. */
     @FXML private TextField txtCopyID;
-    
     /** A text field used to display the borrowed copy's resource type. */
     @FXML private TextField txtResourceType;
     

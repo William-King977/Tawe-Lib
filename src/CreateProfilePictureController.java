@@ -48,16 +48,12 @@ public class CreateProfilePictureController {
 	
 	/** The fxID for the stright line checkbox. */
 	@FXML private CheckBox line;
-	
 	/** The fxID for the circle checkbox. */
 	@FXML private CheckBox circle;
-	
 	/** The fxID for the paintbrush checkbox. */
 	@FXML private CheckBox brush;
-	
 	/** The fxID for the fill canvas checkbox. */
 	@FXML private CheckBox fill;
-	
 	/** The fxID for the arc checkbox. */
 	@FXML private CheckBox arc;
 
