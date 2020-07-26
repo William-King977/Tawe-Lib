@@ -40,7 +40,7 @@
                   <Insets />
                </VBox.margin>
             </TextField>
-            <ListView fx:id="listShowResource" fixedCellSize="0.0" onMouseClicked="#displayResourceDetails" prefHeight="200.0" prefWidth="234.0">
+            <ListView fx:id="lstShowResource" fixedCellSize="0.0" onMouseClicked="#displayResourceDetails" prefHeight="200.0" prefWidth="234.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin></ListView>
@@ -133,7 +133,7 @@
                   <Label text="Manufacturer" GridPane.columnIndex="4" GridPane.rowIndex="5" />
                   <Label text="Operating System" GridPane.columnIndex="4" GridPane.rowIndex="7" />
                   <Label text="Image" GridPane.columnIndex="4" GridPane.rowIndex="10" />
-                  <ListView fx:id="listSubLang" prefHeight="70.0" prefWidth="173.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                  <ListView fx:id="lstSubLang" prefHeight="70.0" prefWidth="173.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
                </children>
                <VBox.margin>
                   <Insets right="20.0" />

@@ -32,16 +32,13 @@ public class PayUserFineController {
 
     /** Represents the textbox holding the fined user's username. */
     @FXML private TextField txtUsername;
-
     /** Represents the textbox holding the user's current fines. */
     @FXML private TextField txtCurrentFines;
-
     /** Represents the textbox holding the amount to pay off. */
     @FXML private TextField txtPayment;
     
     /** Models the pay fine button. */
     @FXML private Button btnPayFine;
-
     /** Models the back button. */
     @FXML private Button btnBack;
     

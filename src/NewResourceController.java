@@ -43,7 +43,7 @@ public class NewResourceController {
     /** A combo box used to select an image for a resource. */
 	@FXML private ComboBox<String> cmbResourceImage;
 	/** A list view used to display the DVD's subtitle languages. */
-	@FXML private ListView<String>  listSubLang;
+	@FXML private ListView<String>  lstSubLang;
 	/** The add button for the subtitle languages list view. */
 	@FXML private Button btnAdd;
 	/** The remove button for the subtitle languages list view.. */
@@ -148,7 +148,7 @@ public class NewResourceController {
 			txtDirector.setVisible(false);
 			txtRuntime.setVisible(false);
 			txtSubLang.setVisible(false);
-			listSubLang.setVisible(false);
+			lstSubLang.setVisible(false);
 			btnAdd.setVisible(false);
 			btnRemove.setVisible(false);
 			
@@ -160,7 +160,7 @@ public class NewResourceController {
 			txtDirector.setVisible(true);
 			txtRuntime.setVisible(true);
 			txtSubLang.setVisible(true);
-			listSubLang.setVisible(true);
+			lstSubLang.setVisible(true);
 			btnAdd.setVisible(true);
 			btnRemove.setVisible(true);
 			
@@ -191,7 +191,7 @@ public class NewResourceController {
 			txtDirector.setVisible(true);
 			txtRuntime.setVisible(true);
 			txtSubLang.setVisible(true);
-			listSubLang.setVisible(true);
+			lstSubLang.setVisible(true);
 			btnAdd.setVisible(true);
 			btnRemove.setVisible(true);
 			
@@ -231,7 +231,7 @@ public class NewResourceController {
 			txtDirector.setVisible(false);
 			txtRuntime.setVisible(false);
 			txtSubLang.setVisible(false);
-			listSubLang.setVisible(false);
+			lstSubLang.setVisible(false);
 			btnAdd.setVisible(false);
 			btnRemove.setVisible(false);
 			
@@ -250,7 +250,7 @@ public class NewResourceController {
 			txtDirector.setVisible(true);
 			txtRuntime.setVisible(true);
 			txtSubLang.setVisible(true);
-			listSubLang.setVisible(true);
+			lstSubLang.setVisible(true);
 			btnAdd.setVisible(true);
 			btnRemove.setVisible(true);
 		}
@@ -297,7 +297,7 @@ public class NewResourceController {
 			Utility.languageExists();
 			return;
 		}
-		listSubLang.getItems().add(language);
+		lstSubLang.getItems().add(language);
 		currentLangList.add(language);
 		txtSubLang.clear();
 	}
@@ -306,7 +306,7 @@ public class NewResourceController {
 	 * Removes a selected subtitle language from the list view.
 	 */
 	public void handleRemoveLanguageButtonAction() {
-		int selectedIndex = listSubLang.getSelectionModel().getSelectedIndex();
+		int selectedIndex = lstSubLang.getSelectionModel().getSelectedIndex();
 		
 		if (currentLangList.size() == 0) {
 			Utility.languageListEmpty();
@@ -315,7 +315,7 @@ public class NewResourceController {
 			Utility.languageNotSelected();
 			return;
 		}
-		listSubLang.getItems().remove(selectedIndex);
+		lstSubLang.getItems().remove(selectedIndex);
 		currentLangList.remove(selectedIndex);
 	}
 	
@@ -342,7 +342,6 @@ public class NewResourceController {
 			Utility.imageNotSelected();
 			return;
 		} 
-		
 		String imageName = resourceImageList[selectedIndex].getName();
 		
 		//Validation applied to the inputed values.
@@ -404,19 +403,18 @@ public class NewResourceController {
     	String genre = txtGenre.getText().trim();
     	String language = txtLanguage.getText().trim();
     	
-    	//Gets the position of the selected resource image.
+    	// Gets the position of the selected resource image.
     	int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
-		//Sets a new resource image if it has been selected.
+		// Sets a new resource image if it has been selected.
 		if (selectedIndex < 0) {
 			Utility.imageNotSelected();
 			return;
 		} 
-		
 		String imageName = resourceImageList[selectedIndex].getName();
 		
-		//Validation applied to the inputed values.
+		// Validation applied to the inputed values.
     	boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
     			strYear, director, strRuntime);
     	boolean isNum = Utility.isInt(strYear);
@@ -495,7 +493,6 @@ public class NewResourceController {
 			Utility.imageNotSelected();
 			return;
 		} 
-		
 		String imageName = resourceImageList[selectedIndex].getName();
 		
 		//Validation applied to the inputted values.

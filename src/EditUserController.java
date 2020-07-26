@@ -158,7 +158,6 @@ public class EditUserController {
 		// Sets modality which prevents any other window being
         // used (In the app) until this one is closed.
         primaryStage.initModality(Modality.APPLICATION_MODAL);
-        // Shows the window.
         primaryStage.showAndWait();
         
         // Refreshes the page once the user exits.

@@ -45,7 +45,7 @@
       </VBox>
    </top>
    <center>
-      <ListView fx:id="listShowUsers" maxWidth="586.0" minWidth="400.0" prefHeight="289.0" prefWidth="560.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="lstShowUsers" maxWidth="586.0" minWidth="400.0" prefHeight="289.0" prefWidth="560.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
       <HBox alignment="TOP_CENTER" prefHeight="73.0" prefWidth="714.0" spacing="20.0" BorderPane.alignment="CENTER">

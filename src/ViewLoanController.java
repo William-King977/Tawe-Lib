@@ -27,7 +27,7 @@ public class ViewLoanController {
     /** ArrayList to hold all requests. */
     private ArrayList<Request> requests;
     /** A list to hold all the transactions. */
-	ArrayList <Transaction> transactions;
+	private ArrayList <Transaction> transactions;
     /**ArrayList to hold all users. */
     private ArrayList<User> users;
     /** ArrayList to hold all copies */

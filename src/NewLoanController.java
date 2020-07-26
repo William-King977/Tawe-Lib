@@ -34,16 +34,12 @@ public class NewLoanController {
 
     /** Represents the textbox holding the requested date. */
     @FXML private TextField txtRequestDate;
-
     /** Represents the request ID text field. */
     @FXML private TextField txtRequestID;
-
     /** Represents the textbox for the assigned copy ID. */
     @FXML private TextField txtCopyID;
-    
     /** Represents the textbox that shows the resource ID. */
     @FXML private TextField txtResourceID;
-
     /** Models the Username textfield. */
     @FXML private TextField txtUsername;
 

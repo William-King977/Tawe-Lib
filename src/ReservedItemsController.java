@@ -19,7 +19,7 @@ public class ReservedItemsController {
 	
 	/** A list view to display the requests for copies that 
 	 * are now available. */
-	@FXML private ListView<String> listShowReservedItems;
+	@FXML private ListView<String> lstShowReservedItems;
 	/** The back button for the page. */
 	@FXML private Button btnBack;
 
@@ -41,7 +41,7 @@ public class ReservedItemsController {
 		for (Request request : requestList) {
 			if (username.equals(request.getUsername()) && 
 					!request.getRequestFilled() && request.isReserved()) {
-				listShowReservedItems.getItems().add(
+				lstShowReservedItems.getItems().add(
 						request.getReservedDescription());
 			}
 		}

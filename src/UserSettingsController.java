@@ -22,34 +22,29 @@ import javafx.stage.Stage;
  */
 public class UserSettingsController {
 	
+	/** A list of all the librarians. */
+    private ArrayList<Librarian> librarianList;
+    /** A list of all the users. */
+    private ArrayList<User> userList;
+	
 	/** A list view used to display the users. */
-	@FXML private ListView<String> listShowUsers;
+	@FXML private ListView<String> lstShowUsers;
 	
 	/** A check box to indicate that the librarian wants 
 	  * to view all users. */
 	@FXML private CheckBox cbMember;
-	
 	/** A check box to indicate that the librarian wants 
 	  * to view all librarians. */
 	@FXML private CheckBox cbLibrarian;
 	
 	/** The button that leads to the View User page. */
 	@FXML private Button btnViewUser;
-	
 	/** The button that leads to the Edit User page. */
 	@FXML private Button btnEditUser;
-	
 	/** The button that leads to the Create New User page. */
 	@FXML private Button btnCreateNewUser;
-	
 	/** The back button for the page. */
 	@FXML private Button btnBack;
-	
-	/** A list of all the librarians. */
-    private ArrayList<Librarian> librarianList;
-    
-    /** A list of all the users. */
-    private ArrayList<User> userList;
     
     /**
 	 * Sets up the array lists for the users to be displayed
@@ -68,11 +63,9 @@ public class UserSettingsController {
 	public void handleEditUserButtonAction() {	
 		//Constants set for the new window to be displayed.
 		final String EDIT_USER_TITLE = "Edit User";
-		final int EDIT_USER_HEIGHT = 420;
-		final int EDIT_USER_WIDTH = 715;
 		
 		//Gets the position of the selected user on the UI.
-		int selectedIndex = listShowUsers.getSelectionModel().getSelectedIndex();
+		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
 		
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
@@ -111,8 +104,7 @@ public class UserSettingsController {
 				editUser.editUser(selectedUser); 
     		}
 	
-            Scene editScene = new Scene(editRoot, EDIT_USER_WIDTH, 
-            		EDIT_USER_HEIGHT); 
+            Scene editScene = new Scene(editRoot); 
             Stage editStage = new Stage();
             editStage.setScene(editScene);
             editStage.setTitle(EDIT_USER_TITLE);
@@ -127,7 +119,7 @@ public class UserSettingsController {
             initialize();
             cbLibrarian.setSelected(false);
             cbMember.setSelected(false);
-            listShowUsers.getItems().clear();
+            lstShowUsers.getItems().clear();
 			
 		} catch (IOException ex) {
             // Catches an IO exception such as that where the FXML
@@ -143,11 +135,9 @@ public class UserSettingsController {
 	public void handleDisplayUserButtonAction() {
 		//Constants set for the new window to be displayed.
 		final String DISPLAY_USER_TITLE = "Display User";
-		final int DISPLAY_USER_HEIGHT = 486;
-		final int DISPLAY_USER_WIDTH = 745;
 		
 		//Gets the position of the selected user on the UI.
-		int selectedIndex = listShowUsers.getSelectionModel().getSelectedIndex();
+		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
 		
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
@@ -178,8 +168,7 @@ public class UserSettingsController {
     		}
 			
 			// Sets the scene incl, width and height
-            Scene editScene = new Scene(editRoot, DISPLAY_USER_WIDTH, 
-            		DISPLAY_USER_HEIGHT); 
+            Scene editScene = new Scene(editRoot); 
             // Creates a new stage
             Stage editStage = new Stage();
             // Sets the scene to the stage
@@ -226,20 +215,20 @@ public class UserSettingsController {
 		cbLibrarian.setSelected(false);
 		
 		// Clears the content of the current user list if any. 
-		listShowUsers.getItems().clear();
+		lstShowUsers.getItems().clear();
 		
 		// Shows all members with a short description of each member 
 		// when the member check box is selected.
 		if (cbMember.isSelected() == true) {
     		for (User thisUser: userList) {
-    			listShowUsers.getItems().add(thisUser.getUserDescription());
+    			lstShowUsers.getItems().add(thisUser.getUserDescription());
     			}
     	// If you're clicking the members check box to clear it. 
     	// Clears the whole list, assuming that librarian check
     	// box is cleared as well.
 	    } else if (cbLibrarian.isSelected() == false && 
 	    		cbMember.isSelected() == false) {
-	    	listShowUsers.getItems().clear();
+	    	lstShowUsers.getItems().clear();
 	    } 
     }
     
@@ -251,17 +240,17 @@ public class UserSettingsController {
     	// Clears member check box if previously selected. 
 		cbMember.setSelected(false);
 		//Clears the content of the current user list if any.
-		listShowUsers.getItems().clear();
+		lstShowUsers.getItems().clear();
 		
 		// Shows all librarians with a short description of each 
 		// librarian when the librarian check box is selected.
 		if (cbLibrarian.isSelected() == true) {
 			for (User thisLibrarian : librarianList) {
-				listShowUsers.getItems().add(thisLibrarian.getUserDescription());
+				lstShowUsers.getItems().add(thisLibrarian.getUserDescription());
                 }
 		} else if (cbLibrarian.isSelected() == false && 
 				cbMember.isSelected() == false) {
-			listShowUsers.getItems().clear();		
+			lstShowUsers.getItems().clear();		
 		}	
     }
     

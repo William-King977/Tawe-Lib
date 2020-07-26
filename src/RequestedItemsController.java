@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class RequestedItemsController {
 	
 	/** A list view to display the requests for unavailable copies. */
-	@FXML private ListView<String> listShowRequestedItems;
+	@FXML private ListView<String> lstShowRequestedItems;
 	/** The back button for the page. */
 	@FXML private Button btnBack;
 
@@ -39,7 +39,7 @@ public class RequestedItemsController {
 		for (Request request : requestList) {
 			if (username.equals(request.getUsername()) && 
 					!request.getRequestFilled() && !request.isReserved()) {
-				listShowRequestedItems.getItems().add(
+				lstShowRequestedItems.getItems().add(
 						request.getDescription());
 			}
 		}

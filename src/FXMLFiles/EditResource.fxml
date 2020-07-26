@@ -83,7 +83,7 @@
                   <Label text="Manufacturer" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                   <Label text="Operating System" GridPane.columnIndex="4" GridPane.rowIndex="6" />
                   <Label text="Image" GridPane.columnIndex="4" GridPane.rowIndex="11" />
-                  <ListView fx:id="listSubLang" prefHeight="98.0" prefWidth="189.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                  <ListView fx:id="lstSubLang" prefHeight="98.0" prefWidth="189.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
                   <Button mnemonicParsing="false" onAction="#handleSaveButtonAction" text="Save Changes" GridPane.columnIndex="5" GridPane.rowIndex="13" />
                   <GridPane GridPane.columnIndex="2" GridPane.rowIndex="13">
                     <columnConstraints>

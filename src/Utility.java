@@ -834,10 +834,8 @@ public class Utility {
 	public static boolean isAlphaBook(String author, String publisher, 
 			String genre, String language) {
 		if (author.matches(nameRegex) && publisher.matches(alphabet) && 
-				genre.matches(alphabet) && language.matches(alphabet)) {
-			return true;
-		//Allow optional fields to be empty.
-		} else if (genre.isEmpty() || language.isEmpty()) {
+				(genre.matches(alphabet) || genre.isEmpty())  && 
+				(language.matches(alphabet) || language.isEmpty())) {
 			return true;
 		} else {
 			return false;
@@ -855,11 +853,9 @@ public class Utility {
 	 */
 	public static boolean isAlphaDVD(String director, String genre, 
 			String language) {
-		if (director.matches(nameRegex) && genre.matches(alphabet) && 
-				language.matches(alphabet)) {
-			return true;
-		//Allow optional fields to be empty
-		} else if (genre.isEmpty() || language.isEmpty()) {
+		if (director.matches(nameRegex) && 
+				(genre.matches(alphabet) || genre.isEmpty()) && 
+				(language.matches(alphabet) || language.isEmpty())) {
 			return true;
 		} else {
 			return false;
@@ -880,7 +876,7 @@ public class Utility {
 			String operatingSystem, String model, String manufacturer) {
 		if (resourceTitle.matches(alphaNumRegex) && 
 				operatingSystem.matches(alphaNumRegex) &&
-				model.matches(modelRegex ) &&
+				model.matches(modelRegex) &&
 				manufacturer.matches(alphabet)) {
 			return true;
 		} else {

@@ -1,4 +1,3 @@
 3,HP Pavilion,2019,HP Pavilion.jpg,5,HP,14-ce3610sa,Windows 10,
 4,DELL Inspiron,2020,DELL Inspiron.jpg,5,DELL,13 7391,Windows 10,
 11,ACER Aspire,2020,ACER Aspire.jpg,5,ACER,A514-52,Windows 10,
-13,MA2,1,DELL Inspiron.jpg,5,ma,ma,ma,

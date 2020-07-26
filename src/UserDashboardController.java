@@ -27,9 +27,6 @@ public class UserDashboardController {
 	/** A button that leads to the Reserved Items page. */
 	@FXML private Button btnReservedItems;
 	
-	/** A button that leads to the Current Balance page. */
-	@FXML private Button btnCurrentBalance;
-	
 	/** A button that leads to the Transaction History page. */
 	@FXML private Button btnTransactionHistory; 
 	
@@ -95,24 +92,6 @@ public class UserDashboardController {
 		primaryStage.setScene(scene);
 		primaryStage.show(); // Displays the new stage.
 	}
-	
-	/**
-     * Displays the current amount of fines for the user when the 
-     * button is clicked.
-     * @throws IOException Throws an exception to be caught when the
-	 *                     FXML file cannot be accessed.
-     */
-    public void handleCurrentBalanceButtonAction() throws IOException { 
-    	Stage curStage = (Stage) btnCurrentBalance.getScene().getWindow(); 
-		curStage.close(); 
-	  
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/CurrentBalance.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
-	}
     
     /**
      * Displays a chronologically ordered list showing each transaction 
@@ -161,40 +140,34 @@ public class UserDashboardController {
 	 *                     FXML file cannot be accessed.
 	 */
 	public void handleViewProfileButtonAction() throws IOException {
-		//Constants set for the new window to be displayed.
-		final int EDIT_USER_HEIGHT = 420;
-		final int EDIT_USER_WIDTH = 715;
-
         try {
         	//Sets up a new FXML loader.
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-					.getResource("FXMLFiles/EditUser.fxml"));
+					.getResource("FXMLFiles/DisplayUser.fxml"));
 			
-			//Sets a new anchor pane.
+			// Sets a new anchor pane.
 			AnchorPane editRoot = fxmlLoader.load();
 			
-			//Gets the controller for the FXML file loaded.
-			EditUserController editUser = fxmlLoader
-					.<EditUserController> getController();
+			// Gets the controller for the FXML file loaded.
+			DisplayUserController viewUser = fxmlLoader
+					.<DisplayUserController> getController();
 			
-			//The user is editing their own profile.
-			//Adjusts editable fields based on this.
-			editUser.setEditAnotherUser(false);
-			
-			//Gets array list of all users.
+			// Gets array list of all users.
 			ArrayList<User> userList = FileHandling.getUsers();
+			String currentUser = FileHandling.getCurrentUser();
 			
-			//Finds the logged in user in the user list.
+			// Finds the logged in user in the user list.
 			for (User thisUser : userList) {
-				if (thisUser.getUsername().equals(FileHandling.getCurrentUser())) {
-					editUser.setIsLibrarian(false);
-					editUser.editUser(thisUser); 
+				if (thisUser.getUsername().equals(currentUser)) {
+					viewUser.setIsLibrarian(false);
+					viewUser.displayProfile(thisUser); 
+					break;
 				}
 			}	
+			viewUser.setEditProfileVisibility(true);
 			
             //Sets the scene incl, width and height
-            Scene editScene = new Scene(editRoot, EDIT_USER_WIDTH,
-            		EDIT_USER_HEIGHT); 
+            Scene editScene = new Scene(editRoot); 
             Stage editStage = new Stage();
             editStage.setScene(editScene);
             editStage.initModality(Modality.APPLICATION_MODAL);
