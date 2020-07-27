@@ -19,22 +19,16 @@ public class UserDashboardStaffController {
 	
 	/** A button that leads to the New Loan page. */
 	@FXML private Button btnNewLoan;
-	
 	/** A button that leads to the View Loans page. */
 	@FXML private Button btnViewLoans;
-	
 	/** A button that leads to the Resource Settings page. */
 	@FXML private Button btnResourceSettings;
-	
 	/** A button that leads to the Copy Settings page. */
 	@FXML private Button btnCopySettings;
-	
 	/** A button that leads to the User Settings page. */
 	@FXML private Button btnUserSettings;
-	
 	/** A button that leads to librarian Pay User Fine page. */
 	@FXML private Button btnPayUserFine;
-	
 	/** The log out button for the dashboard. */
 	@FXML private Button btnLogout;
 	

@@ -45,17 +45,17 @@
       </VBox>
    </top>
    <center>
-      <ListView fx:id="lstShowUsers" maxWidth="586.0" minWidth="400.0" prefHeight="289.0" prefWidth="560.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="lstShowUsers" maxWidth="586.0" minWidth="400.0" onMouseClicked="#handleUserSelectAction" prefHeight="289.0" prefWidth="560.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
       <HBox alignment="TOP_CENTER" prefHeight="73.0" prefWidth="714.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnEditUser" mnemonicParsing="false" onAction="#handleEditUserButtonAction" text="Edit User">
+            <Button fx:id="btnEditUser" disable="true" mnemonicParsing="false" onAction="#handleEditUserButtonAction" text="Edit User">
                <HBox.margin>
                   <Insets top="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnViewUser" mnemonicParsing="false" onAction="#handleDisplayUserButtonAction" text="View Full Details">
+            <Button fx:id="btnViewUser" disable="true" mnemonicParsing="false" onAction="#handleDisplayUserButtonAction" text="View Full Details">
                <HBox.margin>
                   <Insets top="20.0" />
                </HBox.margin>

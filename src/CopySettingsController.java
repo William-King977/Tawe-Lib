@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +58,9 @@ public class CopySettingsController {
 				overdueCopyList.add(loan); 
 			}
 		}
+		
+		// Sort the loans.
+		Collections.sort(loanList, new SortLoansDesc());
 	}
 	
 	/**
@@ -70,11 +74,6 @@ public class CopySettingsController {
 		int selectedIndex = lstShowCopies.getSelectionModel()
 				.getSelectedIndex();
 		
-		//If no copy is selected.
-		if (selectedIndex < 0) {
-			// POSSIIBLY HAVE IT DIRECTLY EMBEDDED IN THE LIST VIEW.
-			return;
-		}
 		// Show the history from overdue copies from PAST loans. 
 		if (cbOverdueCopies.isSelected()) {
 			Loan selectedLoan = overdueCopyList.get(selectedIndex);
@@ -99,8 +98,8 @@ public class CopySettingsController {
 				lstShowCopyHistory.getItems().add(loan.getBorrowedDescription());
 			// If it's returned, show when it was borrowed as well.
 			} else if (loan.getCopyID() == copyID && loan.isReturned()) {
-				lstShowCopyHistory.getItems().add(loan.getBorrowedDescription());
 				lstShowCopyHistory.getItems().add(loan.getReturnedDescription());
+				lstShowCopyHistory.getItems().add(loan.getBorrowedDescription());
 			}
 		}
 	}
@@ -118,8 +117,8 @@ public class CopySettingsController {
 				lstShowCopyHistory.getItems().add(loan.getBorrowedDescription());
 			// If it's returned, show when it was borrowed as well.
 			} else if (loan.getCopyID() == copyID && loan.isReturned()) {
-				lstShowCopyHistory.getItems().add(loan.getBorrowedDescription());
 				lstShowCopyHistory.getItems().add(loan.getReturnedDescription());
+				lstShowCopyHistory.getItems().add(loan.getBorrowedDescription());
 			}
 		}
 	}

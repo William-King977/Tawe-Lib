@@ -24,8 +24,13 @@ public class UserSettingsController {
 	
 	/** A list of all the librarians. */
     private ArrayList<Librarian> librarianList;
-    /** A list of all the users. */
+    /** A list of all the members. */
     private ArrayList<User> userList;
+    /** An array list of all of the users. */
+    private ArrayList<User> allUsers = new ArrayList<>();
+    
+    /** Stores the currently logged in librarian's username. */
+    private String currentUser = FileHandling.getCurrentUser();
 	
 	/** A list view used to display the users. */
 	@FXML private ListView<String> lstShowUsers;
@@ -45,16 +50,69 @@ public class UserSettingsController {
 	@FXML private Button btnCreateNewUser;
 	/** The back button for the page. */
 	@FXML private Button btnBack;
-    
+	
     /**
 	 * Sets up the array lists for the users to be displayed
 	 * later, depending on which check boxes are ticked.
 	 * This method will run automatically.
 	 */
 	public void initialize() { 
+		lstShowUsers.getItems().clear();
+		allUsers.clear();
+		
+		btnViewUser.setDisable(true);
+		btnEditUser.setDisable(true);
+        cbLibrarian.setSelected(false);
+        cbMember.setSelected(false);
+		
 		librarianList = FileHandling.getLibrarians();
 		userList = FileHandling.getUsers();
+		
+		allUsers.addAll(userList);
+		allUsers.addAll(librarianList);
+		
+		for (User user : allUsers) {
+			lstShowUsers.getItems().add(user.getUserDescription());
+		}
     }
+	
+	/**
+	 * Handles the actions when the librarian selected a user.
+	 * This determines when the Edit/Display User buttons can be selected.
+	 */
+	public void handleUserSelectAction() {
+		//Gets the position of the selected user on the UI.
+		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
+		if (selectedIndex < 0) {
+			return;
+		} 
+		
+		btnViewUser.setDisable(false); // You can view their profile.
+		
+		if (cbLibrarian.isSelected()) {
+			User selectedUser = librarianList.get(selectedIndex);
+			if (!currentUser.equals(selectedUser.getUsername())) {
+				btnEditUser.setDisable(true); // Disable it.
+				return;
+			}
+		// If the users are not filtered.
+		} else {
+			User selectedUser = allUsers.get(selectedIndex);
+			String userType = selectedUser.getClass().getTypeName();
+			switch (userType) {
+				case "User":
+					break;
+				case "Librarian":
+					if (!currentUser.equals(selectedUser.getUsername())) {
+						btnEditUser.setDisable(true); // Disable it.
+						return;
+					}
+		    		break;
+			}
+		}
+		// Librarian's can only edit their own profile (or regular users).
+		btnEditUser.setDisable(false); 
+	}
 	
 	/**
 	 * Displays a page where the librarian can edit the details of
@@ -77,49 +135,45 @@ public class UserSettingsController {
 			EditUserController editUser = fxmlLoader
 					.<EditUserController> getController();
 			
+			String currentUser = FileHandling.getCurrentUser();
+			
 			// Sets variables to editUser based on user type being edited.
-			if (selectedIndex < 0) {
-				Utility.userNotSelected();
-				return;
-			} else if (cbLibrarian.isSelected()) {
+			if (cbLibrarian.isSelected()) {
 				// Uses the earlier index to find the librarian.
 				Librarian selectedUser = librarianList.get(selectedIndex);
-				
-				// Librarian's can only edit their own profile (or regular users).
-				if ((selectedUser.getUsername())
-						.equals(FileHandling.getCurrentUser())) {
-					// Sets if the edited user is a librarian or not
-					// and displays user info on the new window.
-					editUser.setIsLibrarian(true);
-					editUser.setEditAnotherUser(false);
-	    			editUser.editUser(selectedUser); 
-				} else {
-					Utility.invalidStaffEdit();
-					return;
-				}
-    		} else { // If editing another user.
+				editUser.setIsLibrarian(true);
+				editUser.setEditAnotherUser(false);
+    			editUser.editUser(selectedUser);		
+    		} else if (cbMember.isSelected()){ // If editing another user.
 				User selectedUser = userList.get(selectedIndex);
 				editUser.setIsLibrarian(false);
 				editUser.setEditAnotherUser(true);
-				editUser.editUser(selectedUser); 
+				editUser.editUser(selectedUser);
+			// If the user was selected from every user (not filtered).
+    		} else {
+    			User selectedUser = allUsers.get(selectedIndex);
+    			String userType = selectedUser.getClass().getTypeName();
+    			switch (userType) {
+    				case "User":
+    					editUser.setIsLibrarian(false);
+    					editUser.setEditAnotherUser(true);
+    					editUser.editUser(selectedUser); 
+    					break;
+    				case "Librarian":
+    					editUser.setIsLibrarian(true);
+						editUser.setEditAnotherUser(false);
+		    			editUser.editUser(selectedUser); 
+    		    		break;
+    			}
     		}
 	
             Scene editScene = new Scene(editRoot); 
             Stage editStage = new Stage();
             editStage.setScene(editScene);
             editStage.setTitle(EDIT_USER_TITLE);
-          
-            // Sets modality which prevents any other window being
-            // used (In the app) until this one is closed.
             editStage.initModality(Modality.APPLICATION_MODAL);
             editStage.showAndWait();
-            
-            // Refreshes the View Users page to load any
-            // changes made to a user, if any.
-            initialize();
-            cbLibrarian.setSelected(false);
-            cbMember.setSelected(false);
-            lstShowUsers.getItems().clear();
+            initialize(); // Loads any changes to the users.
 			
 		} catch (IOException ex) {
             // Catches an IO exception such as that where the FXML
@@ -151,23 +205,33 @@ public class UserSettingsController {
 					.<DisplayUserController> getController();
 			
 			// Sets variables to editUser based on user type being edited.
-			if (selectedIndex < 0) {
-				Utility.userNotSelected();
-				return;
-			} else if (cbLibrarian.isSelected()) {
+			if (cbLibrarian.isSelected()) {
 				// Uses the earlier index to find the librarian 
 				// in the librarianList arrayList.
 				Librarian selectedUser = librarianList.get(selectedIndex);
 				viewUser.setIsLibrarian(true);
-	    		viewUser.displayProfile(selectedUser); 
-				
-    		} else { // If editing another user.
+	    		viewUser.displayProfile(selectedUser); 	
+    		} else if (cbMember.isSelected()){ // If editing another user.
 				User selectedUser = userList.get(selectedIndex);
 				viewUser.setIsLibrarian(false);
 				viewUser.displayProfile(selectedUser); 
+			// If no checkboxes were selected.
+    		} else {
+    			User selectedUser = allUsers.get(selectedIndex);
+    			String userType = selectedUser.getClass().getTypeName();
+    			switch (userType) {
+    				case "User":
+    					viewUser.setIsLibrarian(false);
+    					viewUser.displayProfile(selectedUser); 
+    					break;
+    				case "Librarian":
+    					viewUser.setIsLibrarian(true);
+    		    		viewUser.displayProfile((Librarian) selectedUser); 
+    		    		break;
+    			}
     		}
 			
-			// Sets the scene incl, width and height
+			// Sets the scene.
             Scene editScene = new Scene(editRoot); 
             // Creates a new stage
             Stage editStage = new Stage();
@@ -213,22 +277,24 @@ public class UserSettingsController {
 		// Only one can be selected at a time (or none).
 		// NOTE: If one box is selected, it will clear the other one.
 		cbLibrarian.setSelected(false);
+		btnViewUser.setDisable(true);
+		btnEditUser.setDisable(true);
 		
 		// Clears the content of the current user list if any. 
 		lstShowUsers.getItems().clear();
 		
 		// Shows all members with a short description of each member 
 		// when the member check box is selected.
-		if (cbMember.isSelected() == true) {
+		if (cbMember.isSelected()) {
     		for (User thisUser: userList) {
     			lstShowUsers.getItems().add(thisUser.getUserDescription());
-    			}
+    		}
     	// If you're clicking the members check box to clear it. 
-    	// Clears the whole list, assuming that librarian check
-    	// box is cleared as well.
-	    } else if (cbLibrarian.isSelected() == false && 
-	    		cbMember.isSelected() == false) {
-	    	lstShowUsers.getItems().clear();
+    	// Clears the whole list, then shows every user.
+	    } else if (!cbLibrarian.isSelected() && !cbMember.isSelected()) {
+	    	for (User user : allUsers) {
+				lstShowUsers.getItems().add(user.getUserDescription());
+			}
 	    } 
     }
     
@@ -239,18 +305,22 @@ public class UserSettingsController {
     public void setCBLibrarianStatus() {
     	// Clears member check box if previously selected. 
 		cbMember.setSelected(false);
+		btnViewUser.setDisable(true);
+		btnEditUser.setDisable(true);
+		
 		//Clears the content of the current user list if any.
 		lstShowUsers.getItems().clear();
 		
 		// Shows all librarians with a short description of each 
 		// librarian when the librarian check box is selected.
-		if (cbLibrarian.isSelected() == true) {
+		if (cbLibrarian.isSelected()) {
 			for (User thisLibrarian : librarianList) {
 				lstShowUsers.getItems().add(thisLibrarian.getUserDescription());
-                }
-		} else if (cbLibrarian.isSelected() == false && 
-				cbMember.isSelected() == false) {
-			lstShowUsers.getItems().clear();		
+			}
+		} else if (!cbLibrarian.isSelected() && !cbMember.isSelected()) {
+			for (User user : allUsers) {
+				lstShowUsers.getItems().add(user.getUserDescription());
+			}		
 		}	
     }
     

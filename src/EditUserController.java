@@ -22,6 +22,10 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class EditUserController {
+	/** A list of all the librarians. */
+    private ArrayList<Librarian> librarianList;
+    /** A list of all the users. */
+    private ArrayList<User> userList;
 	
 	/** Used to check if the user edited is a librarian or not. */
 	private boolean isLibrarian;
@@ -31,11 +35,6 @@ public class EditUserController {
 	
 	/** Local storage of the user being edited. */
     private User userBeingEdited;
-    
-    /** A list of all the librarians. */
-    private ArrayList<Librarian> librarianList;
-    /** A list of all the users. */
-    private ArrayList<User> userList;
     
     /** Holds the files of all profile pictures. */
     private File[] profilePictureList;
@@ -239,7 +238,6 @@ public class EditUserController {
         if (isLibrarian()) {
         	// Create copies of the old and new profiles, then replace the old with new.
     		String oldProfile = userBeingEdited.toStringDetail();
-    		
     		String newProfile = userBeingEdited.getUsername() + 
     				"," + firstName + "," + surname + "," + mobileNumber + 
     				"," + address1 + "," + address2 + "," + city + 
@@ -248,18 +246,17 @@ public class EditUserController {
     				"," + ((Librarian) userBeingEdited).getStaffID() + 
     				"," + ((Librarian) userBeingEdited).getEmploymentDate() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 1);
-    		Utility.savedLibrarianChanges();
+    		Utility.savedUserChanges("librarian");
     	// If the user is a member.
         } else {
     		String oldProfile = userBeingEdited.toStringDetail();
-    		
     		String newProfile = userBeingEdited.getUsername() + 
     				"," + firstName + "," + surname + "," + mobileNumber + 
     				"," + address1 + "," + address2 + "," + city + 
     				"," + postcode + "," + profilePicture + 
     				"," + userBeingEdited.getFine() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 2);
-    		Utility.savedUserChanges();
+    		Utility.savedUserChanges("user");
         }
         handleBackButtonAction(); // Closes the window.
     }

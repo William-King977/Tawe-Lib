@@ -20,7 +20,6 @@ public class NewUserController {
 	
 	/** A list of all the librarians. */
     private ArrayList<Librarian> librarianList;
-    
     /** A list of all the users. */
     private ArrayList<User> userList;
     
@@ -30,32 +29,24 @@ public class NewUserController {
     
 	/** A text field to hold the user's username. */
 	@FXML private TextField txtUsername;
-	
 	/** A text field to hold the user's first name. */
 	@FXML private TextField txtFirstName;
-	
 	/** A text field to hold the user's surname. */
 	@FXML private TextField txtSurname;
-	
 	/** A text field to hold the user's address line 1. */
 	@FXML private TextField txtAddressLine1;
-	
 	/** A text field to hold the user's address line 2. */
 	@FXML private TextField txtAddressLine2;
-	
 	/** A text field to hold the residing city of the user. */
 	@FXML private TextField txtCity;
-	
 	/** A text field to hold the user's postcode. */
 	@FXML private TextField txtPostcode;
-	
 	/** A text field to hold the user's UK mobile number. */
 	@FXML private TextField txtMobileNumber;
 	
 	/** A check box to see if the newly created user is a librarian or a 
 	 * member. */
 	@FXML private CheckBox cbStaff;
-	
 	/** The back button for the page. */
 	@FXML private Button btnBack;
 	

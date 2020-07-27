@@ -37,9 +37,20 @@ class SortCopies implements Comparator<Copy> {
  * in ascending order.
  * @author William King
  */
-class SortLoans implements Comparator<Loan> {
+class SortLoansAsc implements Comparator<Loan> {
     public int compare(Loan a, Loan b) { 
         return a.getLoanID() - b.getLoanID(); 
+    } 
+}
+
+/**
+ * A Comparator class used to sort an array list of loans 
+ * in descending order.
+ * @author William King
+ */
+class SortLoansDesc implements Comparator<Loan> {
+    public int compare(Loan a, Loan b) { 
+        return b.getLoanID() - a.getLoanID(); 
     } 
 }
 

@@ -42,7 +42,9 @@ public class NewLoanController {
     @FXML private TextField txtResourceID;
     /** Models the Username textfield. */
     @FXML private TextField txtUsername;
-
+    
+    /** The create loan button. */
+    @FXML private Button btnCreateLoan;
     /** Models the back button. */
     @FXML private Button btnBack;
     
@@ -58,6 +60,7 @@ public class NewLoanController {
         txtResourceID.clear();
     	lstRequests.getItems().clear();
     	pendingRequests.clear();
+    	btnCreateLoan.setDisable(true);
     	
     	requestList = FileHandling.getRequests();
     	copies = FileHandling.getCopies();
@@ -80,6 +83,7 @@ public class NewLoanController {
 		if (selectedIndex < 0) {
 			return;
 		}
+		btnCreateLoan.setDisable(false);
 		
 		// Get selected request and show its details.
 		Request selectedRequest = pendingRequests.get(selectedIndex);
@@ -99,10 +103,6 @@ public class NewLoanController {
     	// A request should be selected.
     	int selectedIndex = lstRequests.getSelectionModel()
 				.getSelectedIndex();
-		if (selectedIndex < 0) {
-			Utility.requestNotSelected();
-			return;
-		}
     	
 		// Fetch the details from the textfields.
     	int loanID = getNextLatestLoanID() + 1;
@@ -157,7 +157,7 @@ public class NewLoanController {
      */
     public int getNextLatestLoanID() {
     	loanList = FileHandling.getLoans();
-    	Collections.sort(loanList, new SortLoans());
+    	Collections.sort(loanList, new SortLoansAsc());
     	int maxIndex = loanList.size() - 1;
     	
     	// If there are no loans (at all).

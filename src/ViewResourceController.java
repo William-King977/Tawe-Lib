@@ -60,12 +60,10 @@ public class ViewResourceController {
 	/** A list view to display the copies with their short descriptions. */
 	@FXML private ListView<String> lstShowCopies;
 	
+	/** A button that allows the user to request a copy. */
+	@FXML private Button btnRequestCopy;
 	/** The back button for the page. */
 	@FXML private Button btnBack;
-	/** A button that leads to the Edit Resource page. */
-	@FXML private Button btnEditResource;
-	/** A button that leads to the Create New Resource page. */
-	@FXML private Button btnCreateResource;
 	
 	/** A text field used to display the resource's unique ID. */
 	@FXML private TextField txtResourceID;
@@ -126,8 +124,6 @@ public class ViewResourceController {
 	 * The method will be called automatically.
 	 */
 	public void initialize() {
-		lstShowResource.getItems().clear();
-		resourceList.clear();
 		
 		// Gets an ArrayList for each resource and their copies.
 		bookList = FileHandling.getBooks();
@@ -154,11 +150,6 @@ public class ViewResourceController {
 	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
 	public void handleRequestButtonAction() throws IOException {
-		if (currentCopiesList.size() == 0) {
-			Utility.resourceNotSelectedCopy();
-			return;
-		}
-		
 		// Find current user.
 		String currentUsername = FileHandling.getCurrentUser();
 		User currentUser = null;
@@ -367,7 +358,7 @@ public class ViewResourceController {
 			throws IOException {
 		// If there are available copies, add to 'reserved' (reserved for user).
 		if (isCopyFound) {
-			Utility.requestCreatedReserved();
+			Utility.requestCreated("Reserved");
 		// If no available copies.
 		} else {
 			// Set the due date to the current loan of the resource
@@ -384,7 +375,7 @@ public class ViewResourceController {
 					break;
 				}
 			}
-			Utility.requestCreatedQueue();
+			Utility.requestCreated("Queue");
 		}
 		requestList = FileHandling.getRequests();
         loanList = FileHandling.getLoans();
@@ -404,6 +395,7 @@ public class ViewResourceController {
 				currentCopiesList.add(thisCopy);
 			}
 		}
+		btnRequestCopy.setDisable(false); // Enable the button.
 	}
 	
 	/**
@@ -654,10 +646,12 @@ public class ViewResourceController {
     	// Clears other check boxes if selected.
 		cbDVD.setSelected(false);
 		cbLaptop.setSelected(false);
-		//isSearch = false;
+		btnRequestCopy.setDisable(true);
 		
-		// Clears the content of the resource list if any. 
+		// Clears the content of the resource and copy list. 
 		lstShowResource.getItems().clear();
+		lstShowCopies.getItems().clear();
+		currentCopiesList.clear();
 		
 		if (cbBook.isSelected()) {
 			if (isSearch) {
@@ -675,7 +669,9 @@ public class ViewResourceController {
 	    	if (isSearch) {
 	    		handleResourceSearchAction();
 	    	} else {
-	    		initialize();
+	            for (Resource thisResource : resourceList) {
+	            	lstShowResource.getItems().add(thisResource.toString());
+	            }  
 	    	}
 	    } 
     }
@@ -688,10 +684,12 @@ public class ViewResourceController {
     	// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbLaptop.setSelected(false);
-		//isSearch = false;
+		btnRequestCopy.setDisable(true);
 		
-		// Clears the content of the resource list if any. 
+		// Clears the content of the resource and copy list. 
 		lstShowResource.getItems().clear();
+		lstShowCopies.getItems().clear();
+		currentCopiesList.clear();
 		
 		if (cbDVD.isSelected()) {
 			if (isSearch) {
@@ -709,7 +707,10 @@ public class ViewResourceController {
 	    	if (isSearch) {
 	    		handleResourceSearchAction();
 	    	} else {
-	    		initialize();
+	    		// Show the resources on list view.
+	            for (Resource thisResource : resourceList) {
+	            	lstShowResource.getItems().add(thisResource.toString());
+	            }  
 	    	}
 	    }
     }
@@ -722,10 +723,12 @@ public class ViewResourceController {
     	// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbDVD.setSelected(false);
-		//isSearch = false;
+		btnRequestCopy.setDisable(true);
 		
-		// Clears the content of the resource list if any. 
+		// Clears the content of the resource and copy list. 
 		lstShowResource.getItems().clear();
+		lstShowCopies.getItems().clear();
+		currentCopiesList.clear();
 		
 		if (cbLaptop.isSelected()) {
 			if (isSearch) {
@@ -743,7 +746,10 @@ public class ViewResourceController {
 	    	if (isSearch) {
 	    		handleResourceSearchAction();
 	    	} else {
-	    		initialize();
+	    		// Show the resources on list view.
+	            for (Resource thisResource : resourceList) {
+	            	lstShowResource.getItems().add(thisResource.toString());
+	            }  
 	    	}
 	    } 
     }
@@ -757,6 +763,9 @@ public class ViewResourceController {
     	isSearch = true;
     	searchedList.clear(); // Clear ArrayList from previous search.
     	lstShowResource.getItems().clear();
+		lstShowCopies.getItems().clear();
+		currentCopiesList.clear();
+		btnRequestCopy.setDisable(true);
     	
     	// Show all of appropriate resources if there's nothing in 
     	// the search bar.
@@ -769,7 +778,10 @@ public class ViewResourceController {
     		} else if (cbLaptop.isSelected()) {
     			setCBLaptopStatus();
     		} else {
-    			initialize(); // Shows all resources.
+    			// Show the resources on list view.
+    	        for (Resource thisResource : resourceList) {
+    	        	lstShowResource.getItems().add(thisResource.toString());
+    	        }  
     		}
     	} else if (cbBook.isSelected()) {
     		for (Book book : bookList) {

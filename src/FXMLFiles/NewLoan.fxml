@@ -57,7 +57,7 @@
                   <Label text="Username" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Label text="Request ID" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <Label text="Resource ID" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                  <Button mnemonicParsing="false" onAction="#handleNewLoanButtonAction" text="Create Loan" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                  <Button fx:id="btnCreateLoan" disable="true" mnemonicParsing="false" onAction="#handleNewLoanButtonAction" text="Create Loan" GridPane.columnIndex="3" GridPane.rowIndex="8" />
                </children>
                <VBox.margin>
                   <Insets right="20.0" />

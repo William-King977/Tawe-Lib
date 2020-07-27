@@ -20,22 +20,16 @@ public class UserDashboardController {
 	
 	/** A button that leads to the Borrowed Items page. */
 	@FXML private Button btnBorrowedItems;
-	
 	/** A button that leads to the Requested Items page. */
 	@FXML private Button btnRequestedItems;
-	
 	/** A button that leads to the Reserved Items page. */
 	@FXML private Button btnReservedItems;
-	
 	/** A button that leads to the Transaction History page. */
 	@FXML private Button btnTransactionHistory; 
-	
 	/** A button that leads to the View Resources page. */
 	@FXML private Button btnViewResources;
-	
 	/** A button that leads to the user's profile. */
 	@FXML private Button btnViewProfile;
-	
 	/** The log out button for the dashboard. */
 	@FXML private Button btnLogout;
 	

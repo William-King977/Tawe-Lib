@@ -145,7 +145,7 @@
    <bottom>
       <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnEditResource" mnemonicParsing="false" onAction="#handleEditResourceButtonAction" text="Edit Resource">
+            <Button fx:id="btnEditResource" disable="true" mnemonicParsing="false" onAction="#handleEditResourceButtonAction" text="Edit Resource">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>

@@ -32,7 +32,7 @@ public class LoginController {
 	 * @param event Passes the event / action of a button press.
 	 */
 	public void handleLoginButtonAction(ActionEvent event) throws IOException {
-		String username = (txtUsername.getText()).trim();
+		String username = txtUsername.getText().trim();
 		boolean userFound;
 		int userType;
 		
@@ -47,7 +47,7 @@ public class LoginController {
 		
 		// Carryout appropriate actions based on username existence,
 		if (!userFound) {
-			Utility.userNotExist();
+			Utility.userNotExist(username);
 		} else {
 			// Show dashboard and stores current user.
 			FileHandling.setCurrentUser(username);

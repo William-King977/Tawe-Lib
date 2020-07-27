@@ -110,6 +110,9 @@ public class DisplayUserController {
 	 * Displays a page where the user can edit their profile.
 	 */
 	public void handleEditProfileButtonAction() {	
+		//Constants set for the new window to be displayed.
+		final String EDIT_USER_TITLE = "Edit Profile";
+				
         try {
         	// Sets up a new FXML loader.
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
@@ -133,6 +136,7 @@ public class DisplayUserController {
             Scene editScene = new Scene(editRoot); 
             Stage editStage = new Stage();
             editStage.setScene(editScene);
+            editStage.setTitle(EDIT_USER_TITLE);
             editStage.initModality(Modality.APPLICATION_MODAL);
             editStage.showAndWait();
             refreshProfile(); // Update profile details on the page.

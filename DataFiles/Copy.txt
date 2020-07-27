@@ -1,9 +1,9 @@
-1,1,true,BOOK,DAY,
+1,1,false,BOOK,DAY,
 2,1,true,BOOK,WEEK,
 3,1,true,BOOK,WEEK,
 4,1,true,BOOK,TWO_WEEK,
 5,1,true,BOOK,FOUR_WEEK,
-6,2,true,DVD,DAY,
+6,2,false,DVD,DAY,
 7,2,true,DVD,WEEK,
 8,2,true,DVD,WEEK,
 9,2,true,DVD,TWO_WEEK,
@@ -58,4 +58,3 @@
 58,12,true,BOOK,FOUR_WEEK,
 59,12,true,BOOK,WEEK,
 60,12,true,BOOK,WEEK,
-

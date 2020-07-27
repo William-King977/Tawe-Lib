@@ -166,7 +166,7 @@
                   <Insets right="10.0" />
                </VBox.margin>
             </ListView>
-            <Button mnemonicParsing="false" onAction="#handleRequestButtonAction" prefHeight="26.0" prefWidth="120.0" text="Request Copy" />
+            <Button fx:id="btnRequestCopy" disable="true" mnemonicParsing="false" onAction="#handleRequestButtonAction" prefHeight="26.0" prefWidth="120.0" text="Request Copy" />
          </children>
          <opaqueInsets>
             <Insets />

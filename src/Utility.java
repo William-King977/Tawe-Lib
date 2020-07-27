@@ -37,14 +37,15 @@ public class Utility {
 	/**
 	 * An alert pop-up that tells the user that the username entered
 	 * does not exist in the system.
+	 * @param username The entered username which doesn't exist in the system.
 	 */
-	public static void userNotExist() {
+	public static void userNotExist(String username) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error: User Does Not Exist.");
 		alert.setHeaderText(null);
-		alert.setContentText("The username entered does not exist in the "
-				+ "system. Please try again. Remember to click the check "
-				+ "box if you are a librarian.");	
+		alert.setContentText("The username '" + username + "' does not exist "
+				+ "in the system. Please try again. Remember to click the "
+				+ "check box if you are a librarian.");	
 		alert.showAndWait();
 	}
 	
@@ -108,26 +109,14 @@ public class Utility {
 	/**
 	 * An alert pop-up that tells the user that the changes
 	 * made to the user have been saved.
+	 * @param userType The type of user being edited.
 	 */
-	public static void savedUserChanges() {
+	public static void savedUserChanges(String userType) {
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Changes Saved Successfully.");
 		alert.setHeaderText(null);
-		alert.setContentText("The changes made to this user "
-				+ "have been saved successfully.");
-		alert.showAndWait();
-	}
-	
-	/**
-	 * An alert pop-up that tells the user / staff that the changes
-	 * made to the librarian has been saved.
-	 */
-	public static void savedLibrarianChanges() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Changes Saved Successfully.");
-		alert.setHeaderText(null);
-		alert.setContentText("The changes made to this librarian "
-				+ "have been saved successfully.");
+		alert.setContentText("The changes made to this " + userType
+				+ " have been saved successfully.");
 		alert.showAndWait();
 	}
 	
@@ -193,49 +182,6 @@ public class Utility {
 		alert.setContentText("The profile picture has been created "
 				+ "successfully. Select it from your profile "
 				+ "if you want to use it as your profile picture.");
-		alert.showAndWait();
-	}
-	
-	/**
-	 * An alert pop-up that tells the user that they
-	 * haven't selected a user to edit.
-	 */
-	public static void userNotSelected() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: Cannot Edit User.");
-		alert.setHeaderText(null);
-		alert.setContentText("Please click a "
-				+ "checkbox to display "
-				+ "the users you want to view / edit. "
-				+ "If you have, you must select a "
-				+ "user to edit their details.");
-		alert.showAndWait();
-	}
-	
-	/**
-	 * An alert pop-up that tells the user that they haven't
-	 * selected a request when clicking the new loan button.
-	 */
-	public static void requestNotSelected() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: Cannot Create Loan.");
-		alert.setHeaderText(null);
-		alert.setContentText("Please select the request that you want "
-				+ "to create a loan for.");
-		alert.showAndWait();
-	}
-	
-	/**
-	 * An alert pop-up that tells the librarian that
-	 * they can't edit other librarian's profiles.
-	 */
-	public static void invalidStaffEdit() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: Cannot Edit Librarian.");
-		alert.setHeaderText(null);
-		alert.setContentText("You are not allowed to edit "
-				+ "other librarian's profiles. Only your own "
-				+ "profile or other regular users.");
 		alert.showAndWait();
 	}
 	
@@ -320,29 +266,28 @@ public class Utility {
 	
 	/**
 	 * An alert pop-up that tells the user that a request for the
-	 * selected resource has been made and is reserved for them.
+	 * selected resource has been made and shows the appropriate
+	 * follow-up message.
+	 * @param requestType The type of request made (reserved/queue).
 	 */
-	public static void requestCreatedReserved() {
+	public static void requestCreated(String requestType) {
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Request Made.");
 		alert.setHeaderText(null);
-		alert.setContentText("The request for a copy of the resource has been "
-				+ "made and has been reserved for you until a librarian has "
-				+ "issued a copy to you.");
-		alert.showAndWait();
-	}
-	
-	/**
-	 * An alert pop-up that tells the user that a request for the
-	 * selected resource has been made and is added to the queue.
-	 */
-	public static void requestCreatedQueue() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Request Made.");
-		alert.setHeaderText(null);
-		alert.setContentText("There are no available copies for the resource. "
-				+ "However, the request for a copy of the resource has been "
-				+ "made and has been added to the request queue.");
+		
+		switch (requestType) {
+			case "Reserved":
+				alert.setContentText("The request for a copy of the resource "
+						+ "has been made and has been reserved for you until "
+						+ "a librarian has issued a copy to you.");
+				break;
+			case "Queue":
+				alert.setContentText("There are no available copies for the "
+						+ "resource. However, the request for a copy of the "
+						+ "resource has been made and has been added to the "
+						+ "request queue.");
+				break;
+		}
 		alert.showAndWait();
 	}
 	
@@ -369,32 +314,6 @@ public class Utility {
 		alert.setHeaderText(null);
 		alert.setContentText("The payment for this user has been processed "
 				+ "successfully.");
-		alert.showAndWait();
-	}
-	
-	/**
-	 * An alert pop-up that tells the user that they have not
-	 * selected a resource to edit when clicking on the edit resource button.
-	 */
-	public static void resourceNotSelectedEdit() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: Cannot Edit Resource.");
-		alert.setHeaderText(null);
-		alert.setContentText("Please select the resource "
-				+ "that you want to edit.");
-		alert.showAndWait();
-	}
-	
-	/**
-	 * An alert pop-up that tells the user that they have not 
-	 * selected the resource they want to request.
-	 */
-	public static void resourceNotSelectedCopy() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: Cannot Request Resource.");
-		alert.setHeaderText(null);
-		alert.setContentText("Please select the resource "
-				+ "that you want to request the copy of.");
 		alert.showAndWait();
 	}
 	
@@ -806,7 +725,7 @@ public class Utility {
 	    	return false;
 	    }
     }
-    
+ 
     /**
      * Checks if the entered language has non-alphabetic characters.
      * @param lang The entered language.

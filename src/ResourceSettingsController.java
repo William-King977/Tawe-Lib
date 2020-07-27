@@ -111,9 +111,6 @@ public class ResourceSettingsController {
 	 */
 	public void initialize() {
 		
-		lstShowResource.getItems().clear();
-		resourceList.clear();
-		
 		// Gets an ArrayList for each resource.
 		bookList = FileHandling.getBooks();
         dvdList = FileHandling.getDVDs();
@@ -141,6 +138,8 @@ public class ResourceSettingsController {
 		if (selectedIndex < 0) {
 			return;
 		}
+		
+		btnEditResource.setDisable(false); // Allow editing of the resource.
 		
 		// If it was found by search.
 		// You're looking in the same list (searchedList).
@@ -371,7 +370,7 @@ public class ResourceSettingsController {
     	// Clears other check boxes if selected.
 		cbDVD.setSelected(false);
 		cbLaptop.setSelected(false);
-		//isSearch = false;
+		btnEditResource.setDisable(true);
 		
 		// Clears the content of the resource list if any. 
 		lstShowResource.getItems().clear();
@@ -392,7 +391,10 @@ public class ResourceSettingsController {
 	    	if (isSearch) {
 	    		handleResourceSearchAction();
 	    	} else {
-	    		initialize();
+	    		// Show the resources on list view.
+	            for (Resource thisResource : resourceList) {
+	            	lstShowResource.getItems().add(thisResource.toString());
+	            } 
 	    	}
 	    } 
     }
@@ -405,7 +407,7 @@ public class ResourceSettingsController {
     	// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbLaptop.setSelected(false);
-		//isSearch = false;
+		btnEditResource.setDisable(true);
 		
 		// Clears the content of the resource list if any. 
 		lstShowResource.getItems().clear();
@@ -426,7 +428,10 @@ public class ResourceSettingsController {
 	    	if (isSearch) {
 	    		handleResourceSearchAction();
 	    	} else {
-	    		initialize();
+	    		// Show the resources on list view.
+	            for (Resource thisResource : resourceList) {
+	            	lstShowResource.getItems().add(thisResource.toString());
+	            } 
 	    	}
 	    }
     }
@@ -439,7 +444,7 @@ public class ResourceSettingsController {
     	// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbDVD.setSelected(false);
-		//isSearch = false;
+		btnEditResource.setDisable(true);
 		
 		// Clears the content of the resource list if any. 
 		lstShowResource.getItems().clear();
@@ -460,7 +465,10 @@ public class ResourceSettingsController {
 	    	if (isSearch) {
 	    		handleResourceSearchAction();
 	    	} else {
-	    		initialize();
+	    		// Show the resources on list view.
+	            for (Resource thisResource : resourceList) {
+	            	lstShowResource.getItems().add(thisResource.toString());
+	            } 
 	    	}
 	    } 
     }
@@ -474,6 +482,7 @@ public class ResourceSettingsController {
     	isSearch = true;
     	searchedList.clear(); // Clear ArrayList from previous search.
     	lstShowResource.getItems().clear();
+    	btnEditResource.setDisable(true);
     	
     	// Show all of appropriate resources if there's nothing in 
     	// the search bar.
@@ -486,7 +495,10 @@ public class ResourceSettingsController {
     		} else if (cbLaptop.isSelected()) {
     			setCBLaptopStatus();
     		} else {
-    			initialize(); // Shows all resources.
+    			// Show the resources on list view.
+    	        for (Resource thisResource : resourceList) {
+    	        	lstShowResource.getItems().add(thisResource.toString());
+    	        } 
     		}
     	} else if (cbBook.isSelected()) {
     		for (Book book : bookList) {
@@ -525,21 +537,11 @@ public class ResourceSettingsController {
 	 * Displays a page where the librarian can edit a selected resource.
 	 */
 	public void handleEditResourceButtonAction() {
-		//Constants set for the new window to be displayed.
-		final int EDIT_RESOURCE_HEIGHT = 682;
-		final int EDIT_RESOURCE_WIDTH = 746;
-		
 		//Gets the position of the selected resource on the UI.
 		int selectedIndex = lstShowResource.getSelectionModel()
 				.getSelectedIndex();
-		
-		if (selectedIndex < 0) {
-			Utility.resourceNotSelectedEdit();
-			return;
-		}
         
         try {	
-	        //Sets up a new FXML loader.
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource("FXMLFiles/EditResource.fxml"));
 				
@@ -549,51 +551,33 @@ public class ResourceSettingsController {
 			//Gets the controller for the FXML file loaded.
 			EditResourceController editResource = fxmlLoader
 					.<EditResourceController> getController();
-				
-			if (cbBook.isSelected()) {
-				Book selectedBook;
-				if (isSearch) {
-					selectedBook = (Book) searchedList.get(selectedIndex);
-				} else {
-					selectedBook = bookList.get(selectedIndex);
-				}
-				editResource.editResource(selectedBook); 
-    			
-			} else if (cbDVD.isSelected()){
-				DVD selectedDVD;
-				if (isSearch) {
-					selectedDVD = (DVD) searchedList.get(selectedIndex);
-				} else {
-					selectedDVD = dvdList.get(selectedIndex);
-				}
-				editResource.editResource(selectedDVD); 
-					
-			} else if (cbLaptop.isSelected()) {
-				Laptop selectedLaptop;
-				if (isSearch) {
-					selectedLaptop = (Laptop) searchedList.get(selectedIndex);
-				} else {
-					selectedLaptop = laptopList.get(selectedIndex);
-				}
-				editResource.editResource(selectedLaptop); 
-				
-			//If the resource list is not filtered.
-			} else {
-				Resource selectedResource;
-				if (isSearch) {
-					selectedResource = searchedList.get(selectedIndex);
-				} else {
-					selectedResource = resourceList.get(selectedIndex);
-				}
+			
+			// Looks at the same list (searchedList).
+			if (isSearch) {
+				Resource selectedResource = searchedList.get(selectedIndex);
 				editResource.editResource(selectedResource); 
+			// Not found by search.
+			} else {
+				if (cbBook.isSelected()) {
+					Book selectedBook = bookList.get(selectedIndex);
+					editResource.editResource(selectedBook); 
+				} else if (cbDVD.isSelected()) {
+					DVD selectedDVD = dvdList.get(selectedIndex);
+					editResource.editResource(selectedDVD); 
+				} else if (cbLaptop.isSelected()) {
+					Laptop selectedLaptop = laptopList.get(selectedIndex);
+					editResource.editResource(selectedLaptop); 
+				} else {
+					Resource selectedResource = resourceList.get(selectedIndex);
+					editResource.editResource(selectedResource); 	
+				}
 			}
 			
 			//Closes the current window.
 			Stage stage = (Stage) btnEditResource.getScene().getWindow();
 			stage.close();
-	        //Sets the scene incl, width and height
-	        Scene editScene = new Scene(editRoot, EDIT_RESOURCE_WIDTH,
-	        		EDIT_RESOURCE_HEIGHT); 
+	        //Sets the scene.
+	        Scene editScene = new Scene(editRoot); 
 	        //creates a new stage
 	        Stage editStage = new Stage();
 	        //sets the scene to the stage

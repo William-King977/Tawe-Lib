@@ -355,7 +355,7 @@ public class ViewLoanController {
 		
 		Collections.sort(requests, new SortRequests());
 		for (Request request : requests) {
-			if (!request.getRequestFilled() && copyID == request.getCopyID() 
+			if (!request.getRequestFilled() && (copyID == request.getCopyID()) 
 					&& !username.equals(request.getUsername())) {
 				nextRequest = request;
 				anyRequests = true;
