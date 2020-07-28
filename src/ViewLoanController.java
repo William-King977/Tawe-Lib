@@ -21,7 +21,6 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class ViewLoanController {
-	
 	/** Holds all the loans from the loans file for local storage. */
     private ArrayList<Loan> loanList;
     /** ArrayList to hold all requests. */
@@ -104,6 +103,9 @@ public class ViewLoanController {
 		pastLoans.clear();
 		currentLoans.clear();
 		loanList = FileHandling.getLoans();
+		
+		// Order to show the most recent loans first.
+		Collections.sort(loanList, new SortLoansDesc()); 
 		
 		for (Loan loan : loanList) {
 			// Doesn't completely reset everything i.e. when returning a loan.
@@ -189,7 +191,7 @@ public class ViewLoanController {
     	int selectedIndex = lstShowLoans.getSelectionModel()
 				.getSelectedIndex();
 		
-    	// Get returned loan.
+    	// Get the returned loan.
     	Loan returnedLoan;
 		if (cbPastLoans.isSelected()) {
 			returnedLoan = pastLoans.get(selectedIndex);
@@ -242,7 +244,7 @@ public class ViewLoanController {
     	double maxFine = 0;
     	switch (type) {
     		case BOOK:
-    			// Construct fake resource, we only need the fines.
+    			// Construct a fake resource, we only need the fines.
     			Book book = new Book(-1, "", -1, "", -1, "", "", "", "", "");
     			finePerDay = book.getFinePerDay();
     			maxFine = book.getMaxFine();
@@ -405,7 +407,6 @@ public class ViewLoanController {
         // If you're clicking the check box to clear it. 
     	} else if (!cbPastLoans.isSelected() && !cbCurrentLoans.isSelected()) {
         	initialize();
-        	btnReturnLoan.setDisable(true);
 	    }
     }
     
@@ -427,7 +428,6 @@ public class ViewLoanController {
         // If you're clicking the check box to clear it. 
     	} else if (!cbPastLoans.isSelected() && !cbCurrentLoans.isSelected()) {
         	initialize();
-        	btnReturnLoan.setDisable(true);
 	    }
     }
     

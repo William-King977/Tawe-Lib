@@ -170,7 +170,6 @@ public class EditUserController {
 	 *                     FXML file cannot be accessed.
      */
     public void handleSaveButtonAction() throws IOException {
-    	
     	String firstName = txtFirstName.getText().trim();
         String surname = txtSurname.getText().trim();
         String mobileNumber = txtMobileNumber.getText().trim();
@@ -201,7 +200,8 @@ public class EditUserController {
         boolean requiredFilled = Utility.isFieldFilledUser(firstName, surname, 
         		mobileNumber, address1, city, postcode);
         boolean hasLetter = Utility.isAlphaUser(firstName, surname, 
-        		mobileNumber, address1, address2, city, postcode);
+        		mobileNumber, address1, address2, city);
+        boolean validPostcode = Utility.isPostcodeValid(postcode);
         
         // Shows appropriate alerts if validation has not been met.
         if (!requiredFilled) { 
@@ -209,6 +209,9 @@ public class EditUserController {
         	return;
         } else if (!hasLetter) {
         	Utility.nonAlphaError();
+        	return;
+        } else if (!validPostcode) {
+        	Utility.invalidPostcode();
         	return;
         }
         

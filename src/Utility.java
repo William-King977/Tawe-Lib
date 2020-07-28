@@ -78,6 +78,20 @@ public class Utility {
 	}
 	
 	/**
+	 * An alert pop-up that tells the user that the postcode
+	 * field has invalid characters.
+	 */
+	public static void invalidPostcode() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error: Invalid Postcode.");
+		alert.setHeaderText(null);
+		alert.setContentText("Invalid characters has been detected in the "
+				+ "postcode field. There should only be capital letters and "
+				+ "numbers.");	
+		alert.showAndWait();
+	}
+	
+	/**
 	 * An alert pop-up that tells the user that some fields
 	 * have non-integer characters in them (when they shouldn't).
 	 */
@@ -705,25 +719,35 @@ public class Utility {
      * @param address1 The entered address line 1.
      * @param address2 The entered address line 2.
      * @param city The entered city.
-     * @param postcode The entered postcode.
-     * @return Whether the passed down fields have has only letters and 
-     *         dashes or not.
+     * @return If the passed down fields matches with their regex or not.
      */
     public static boolean isAlphaUser(String firstName, String surname, 
-    		String mobileNum, String address1, String address2, String city, 
-    		String postcode) {
+    		String mobileNum, String address1, String address2, String city) {
     	// If the selected fields has only letters or dashes.
 	    if (firstName.matches(nameRegex) && surname.matches(nameRegex) 
 	    		&& mobileNum.matches(phoneRegex) 
 	    		&& address1.matches(addressRegex) 
 	    		&& (address2.matches(addressRegex) || address2.equals("N/A")) 
-	    		&& city.matches(nameRegex) && postcode.matches(postcodeRegex)) {
+	    		&& city.matches(nameRegex)) {
 	    	return true;
 	    // If any of the fields that SHOULD NOT contain non-alphabetical
 		// have non-alphabetical characters.
 	    } else {
 	    	return false;
 	    }
+    }
+    
+    /**
+     * Checks if the entered postcode for a user has valid characters.
+     * @param postcode The entered postcode.
+     * @return If the postcode has valid characters or not.
+     */
+    public static boolean isPostcodeValid(String postcode) {
+    	if (postcode.matches(postcodeRegex)) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
  
     /**

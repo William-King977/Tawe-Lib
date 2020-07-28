@@ -86,7 +86,8 @@ public class NewUserController {
         boolean requiredFilled = Utility.isFieldFilledUser(firstName, surname, 
         		mobileNumber, address1, city, postcode);
         boolean hasLetter = Utility.isAlphaUser(firstName, surname, 
-        		mobileNumber, address1, address2, city, postcode); 
+        		mobileNumber, address1, address2, city); 
+        boolean validPostcode = Utility.isPostcodeValid(postcode);
         boolean usernameExist = Utility.isUsernameExist(userList, 
         		librarianList, username);
         
@@ -97,6 +98,9 @@ public class NewUserController {
         } else if (!hasLetter) {
         	Utility.nonAlphaError();
         	return;
+        } else if (!validPostcode) {
+            Utility.invalidPostcode();
+            return;
         } else if (usernameExist) {
         	Utility.usernameExists();
         	return;

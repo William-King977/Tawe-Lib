@@ -29,7 +29,7 @@ public class TransactionHistoryController {
 	private String username;
 	
 	/**
-	 * Displays all of the user's transactions. 
+	 * Displays all of the user's transactions in descending order. 
 	 * This method will run automatically.
 	 */
 	public void initialize() {

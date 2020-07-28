@@ -581,60 +581,63 @@ public class ViewResourceController {
 	 */
 	public void setOptionalFields(Resource selectedResource, 
 			String resourceType) {
-		if (resourceType.equals("DVD")) {
-			DVD selectedDVD = (DVD) selectedResource;
-			String genre = selectedDVD.getGenre();
-			String language = selectedDVD.getLanguage();
-			String[] subLang = selectedDVD.getSubLang();
-			
-			// Check genre.
-			if (genre.isEmpty()) {
-				txtGenre.setText("None");
-			} else {
-				txtGenre.setText(genre);
-			}
-			
-			// Check language.
-			if (language.isEmpty()) {
-				txtLanguage.setText("None");
-			} else {
-				txtLanguage.setText(language);
-			}
-			
-			// Check subtitle languages.
-			if (subLang.length == 0) {
-				lstSubLang.getItems().add("None");
-			} else { // Show them if there are subtitle languages.
-				for (String lang : subLang) {
-					lstSubLang.getItems().add(lang);
+		switch (resourceType) {
+			case "Book":
+				Book selectedBook = (Book) selectedResource;
+				String genre = selectedBook.getGenre();
+				String language = selectedBook.getLanguage();
+				String isbn = selectedBook.getISBN();
+				
+				// Check genre.
+				if (genre.isEmpty()) {
+					txtGenre.setText("None");
+				} else {
+					txtGenre.setText(genre);
 				}
-			}
-		} else if (resourceType.equals("Book")) {
-			Book selectedBook = (Book) selectedResource;
-			String genre = selectedBook.getGenre();
-			String language = selectedBook.getLanguage();
-			String isbn = selectedBook.getISBN();
-			
-			// Check genre.
-			if (genre.isEmpty()) {
-				txtGenre.setText("None");
-			} else {
-				txtGenre.setText(genre);
-			}
-			
-			// Check language.
-			if (language.isEmpty()) {
-				txtLanguage.setText("None");
-			} else {
-				txtLanguage.setText(language);
-			}
-			
-			// Check ISBN.
-			if (isbn.isEmpty()) {
-				txtISBN.setText("None");
-			} else { 
-				txtISBN.setText(isbn);
-			}
+				
+				// Check language.
+				if (language.isEmpty()) {
+					txtLanguage.setText("None");
+				} else {
+					txtLanguage.setText(language);
+				}
+				
+				// Check ISBN.
+				if (isbn.isEmpty()) {
+					txtISBN.setText("None");
+				} else { 
+					txtISBN.setText(isbn);
+				}
+				break;
+			case "DVD":
+				DVD selectedDVD = (DVD) selectedResource;
+				String genre = selectedDVD.getGenre();
+				String language = selectedDVD.getLanguage();
+				String[] subLang = selectedDVD.getSubLang();
+				
+				// Check genre.
+				if (genre.isEmpty()) {
+					txtGenre.setText("None");
+				} else {
+					txtGenre.setText(genre);
+				}
+				
+				// Check language.
+				if (language.isEmpty()) {
+					txtLanguage.setText("None");
+				} else {
+					txtLanguage.setText(language);
+				}
+				
+				// Check subtitle languages.
+				if (subLang.length == 0) {
+					lstSubLang.getItems().add("None");
+				} else { // Show them if there are subtitle languages.
+					for (String lang : subLang) {
+						lstSubLang.getItems().add(lang);
+					}
+				}
+				break;
 		}
 	}
 	
