@@ -36,55 +36,67 @@ public class UserDashboardController {
 	/**
 	 * Displays the currently borrowed items of the user when the button 
 	 * is clicked. This will show the due date of each item (if set). 
-	 * @throws IOException Throws an exception to be caught when the
-	 *                     FXML file cannot be accessed.
 	 */
-	public void handleBorrowedItemsButtonAction() throws IOException {
+	public void handleBorrowedItemsButtonAction() {
 		Stage curStage = (Stage) btnBorrowedItems.getScene().getWindow(); 
 		curStage.close(); 
-	  
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/BorrowedItems.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
+		
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/BorrowedItems.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Displays items requested by the user that are not currently 
 	 * available when the button is clicked.
-	 * @throws IOException Throws an exception to be caught when the
-	 *                     FXML file cannot be accessed.
 	 */
-	public void handleRequestedItemsButtonAction() throws IOException {
+	public void handleRequestedItemsButtonAction() {
 		Stage curStage = (Stage) btnRequestedItems.getScene().getWindow(); 
 		curStage.close(); // Closes that stage.
 	    
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/RequestedItems.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/RequestedItems.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Displays previously requested items that are now available when the 
 	 * button is clicked (reserved for the user).
-	 * @throws IOException Throws an exception to be caught when the
-	 *                     FXML file cannot be accessed.
 	 */
-	public void handleReservedItemsButtonAction() throws IOException {
+	public void handleReservedItemsButtonAction() {
 		Stage curStage = (Stage) btnReservedItems.getScene().getWindow(); 
 		curStage.close(); // Closes that stage.
 	    
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/ReservedItems.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/ReservedItems.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
 	}
     
     /**
@@ -94,48 +106,54 @@ public class UserDashboardController {
      * amount, the item that caused the fine, and the number of days the 
      * item was overdue) or a payment (showing the date and time of 
      * payment and the amount).
-     * @throws IOException Throws an exception to be caught when the
-	 *                     FXML file cannot be accessed.
      */
-    public void handleTransactionHistoryButtonAction() throws IOException {
+    public void handleTransactionHistoryButtonAction() {
     	Stage curStage = (Stage) btnTransactionHistory.getScene().getWindow();
-		curStage.close(); //closes that stage.
-	    /*creates the new stage*/
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/TransactionHistory.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); //displays the new stage.
+		curStage.close(); 
+		
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/TransactionHistory.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
     }
     
     /**
 	 * Displays a list of all resources in the library and allows the user
 	 * to request to borrow resources when clicked.
-	 * @throws IOException Throws an exception to be caught when the
-	 *                     FXML file cannot be accessed.
 	 */
-	public void handleViewResourcesButtonAction() throws IOException {
+	public void handleViewResourcesButtonAction() {
 		Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
-		curStage.close(); //closes that stage.
-	    /*creates the new stage*/
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/ViewResource.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); //displays the new stage.
+		curStage.close(); 
+		
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/ViewResource.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Displays the user's profile where they can view 
 	 * and edit their details.
-	 * @throws IOException Throws an exception to be caught when the 
-	 *                     FXML file cannot be accessed.
 	 */
-	public void handleViewProfileButtonAction() throws IOException {
+	public void handleViewProfileButtonAction() {
         try {
-        	//Sets up a new FXML loader.
+        	// Sets up a new FXML loader.
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource("FXMLFiles/DisplayUser.fxml"));
 			
@@ -160,14 +178,14 @@ public class UserDashboardController {
 			}	
 			viewUser.setEditProfileVisibility(true);
 			
-            //Sets the scene incl, width and height
+            // Sets the scene incl, width and height
             Scene editScene = new Scene(editRoot); 
             Stage editStage = new Stage();
             editStage.setScene(editScene);
             editStage.initModality(Modality.APPLICATION_MODAL);
             editStage.showAndWait();
         } catch (IOException ex) {
-        	//Catches an IO exception such as that where the FXML
+        	// Catches an IO exception such as that where the FXML
             // file is not found.
             ex.printStackTrace();
         }
@@ -176,15 +194,22 @@ public class UserDashboardController {
 	/**
 	 * Goes back to the Log in page when the button is clicked.
 	 */
-	public void handleLogoutButtonAction() throws IOException {
+	public void handleLogoutButtonAction() {
 		// Closes the window.
 		Stage stage = (Stage) btnLogout.getScene().getWindow();
 		stage.close();
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/Login.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
+		
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/Login.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
 	}
 }
