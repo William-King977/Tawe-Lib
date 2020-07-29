@@ -57,8 +57,6 @@ public class EditResourceController {
 	@FXML private TextField txtResourceTitle;
 	/** A text field used to hold the year the resource was released. */
 	@FXML private TextField txtYear;
-	/** A text field used to hold the genre of the book / DVD. */
-	@FXML private TextField txtGenre;
 	/** A text field used to hold the language of the book / DVD. */
 	@FXML private TextField txtLanguage;
 	
@@ -66,6 +64,8 @@ public class EditResourceController {
 	@FXML private TextField txtAuthor;
 	/** A text field used to hold the book's publisher. */
 	@FXML private TextField txtPublisher;
+	/** A text field used to hold the genre of the book. */
+	@FXML private TextField txtGenre;
 	/**  A text field used to hold the book's ISBN. */
 	@FXML private TextField txtISBN;
 	
@@ -122,16 +122,16 @@ public class EditResourceController {
         Image resourceImage = new Image(imageURL.toURI().toString());
 		imageThumbnail.setImage(resourceImage);
     	
-    	if (resourceType.equals("Book")) {
-    		Book editedBook = (Book) editedResource;
-    		setBookFields(editedBook);
-    	} else if (resourceType.equals("DVD")) {
-    		DVD editedDVD = (DVD) editedResource;
-    		setDVDFields(editedDVD);
-    	} else if (resourceType.equals("Laptop")) {
-			Laptop editedLaptop = (Laptop) editedResource;
-			setLaptopFields(editedLaptop);
-    	}	
+		switch (resourceType) {
+			case "Book":
+	    		setBookFields((Book) editedResource);
+	    		break;
+			case "DVD":
+	    		setDVDFields((DVD) editedResource);
+	    		break;
+			case "Laptop":
+				setLaptopFields((Laptop) editedResource);
+		}
 	}
 	
 	/**
@@ -141,12 +141,16 @@ public class EditResourceController {
 	 */
 	public void handleSaveButtonAction() throws IOException {
 		String resourceType = resourceBeingEdited.getClass().getTypeName();
-		if (resourceType.equals("Book")) {
-			validateEditedBook();
-		} else if (resourceType.equals("DVD")) {
-			validateEditedDVD();
-		} else if (resourceType.equals("Laptop")) {
-			validateEditedLaptop();
+		switch (resourceType) {
+			case "Book":
+				validateEditedBook();
+				break;
+			case "DVD":
+				validateEditedDVD();
+				break;
+			case "Laptop":
+				validateEditedLaptop();
+				break;
 		}
 	}
 	
@@ -257,8 +261,8 @@ public class EditResourceController {
 		String newBook = resourceBeingEdited.getResourceID() + 
 				"," + resourceTitle + "," + year + "," + imageName+ 
 				"," + resourceBeingEdited.getNumberOfCopies() + 
-				"," + genre + "," + language + "," + author + 
-				"," + publisher + "," + isbn + ",";
+				"," + author + "," + publisher + "," + genre + 
+				"," + isbn + "," + language + ",";
 		
 		FileHandling.editResource(oldBook, newBook, "Book");
 		handleBackButtonAction();
@@ -275,7 +279,6 @@ public class EditResourceController {
     			new String[currentLangList.size()]);
     	String director = txtDirector.getText().trim();
     	String strRuntime = txtRuntime.getText().trim();
-    	String genre = txtGenre.getText().trim();
     	String language = txtLanguage.getText().trim();
     	String imageName;
     	
@@ -296,7 +299,7 @@ public class EditResourceController {
     			strYear, director, strRuntime);
     	boolean isNum = Utility.isInt(strYear);
     	boolean isDouble = Utility.isDouble(strRuntime);
-    	boolean isAlpha = Utility.isAlphaDVD(director, genre, language);
+    	boolean isAlpha = Utility.isAlphaDVD(director, language);
     	
     	if (!dvdFieldsFilled) {
 			Utility.missingFields();
@@ -316,7 +319,7 @@ public class EditResourceController {
 		int year = Integer.parseInt(strYear);
 		double runtime = Double.parseDouble(strRuntime);
 		boolean dvdExists = Utility.isDVDExist(resourceTitle, year, 
-				imageName, director, runtime, subLang, genre, language, 
+				imageName, director, runtime, subLang, language, 
 				dvdList);
 		
 		// Checks if the entered details match with an existing DVD.	
@@ -340,8 +343,8 @@ public class EditResourceController {
 		String newDVD = resourceBeingEdited.getResourceID() + 
 				"," + resourceTitle + "," + year + "," + imageName + 
 				"," + resourceBeingEdited.getNumberOfCopies() + 
-				"," + genre + "," + language + "," + director + 
-				"," + runtime + "," + strSubLang + ",";
+				"," + director + "," + runtime + "," + language + 
+				"," + strSubLang + ",";
 		
 		FileHandling.editResource(oldDVD, newDVD, "DVD");
 		handleBackButtonAction();
@@ -430,12 +433,11 @@ public class EditResourceController {
      * Sets the text fields for the edited book.
      */
     public void setBookFields(Book editedBook) {
-		
-    	txtGenre.setVisible(true);
 		txtLanguage.setVisible(true);
 		
 		txtAuthor.setVisible(true);
 		txtPublisher.setVisible(true);
+		txtGenre.setVisible(true);
 		txtISBN.setVisible(true);
 		
 		txtDirector.setVisible(false);
@@ -461,11 +463,11 @@ public class EditResourceController {
      * Sets the text fields for the edited DVD.
      */
     public void setDVDFields(DVD editedDVD) {
-    	txtGenre.setVisible(true);
 		txtLanguage.setVisible(true);
 		
 		txtAuthor.setVisible(false);
 		txtPublisher.setVisible(false);
+		txtGenre.setVisible(false);
 		txtISBN.setVisible(false);
 		
 		txtDirector.setVisible(true);
@@ -482,7 +484,6 @@ public class EditResourceController {
 		txtDirector.setText(editedDVD.getDirector());
 		txtRuntime.setText(editedDVD.getRuntime() + "");
 		txtLanguage.setText(editedDVD.getLanguage());
-		txtGenre.setText(editedDVD.getGenre());
 		lstSubLang.getItems().clear();
 		
 		String[] subLang = editedDVD.getSubLang();
@@ -496,12 +497,11 @@ public class EditResourceController {
      * Sets the text fields for the edited laptop.
      */
     public void setLaptopFields(Laptop editedLaptop) {
-    	
-    	txtGenre.setVisible(false);
 		txtLanguage.setVisible(false);
 		
 		txtAuthor.setVisible(false);
 		txtPublisher.setVisible(false);
+		txtGenre.setVisible(false);
 		txtISBN.setVisible(false);
 		
 		txtDirector.setVisible(false);

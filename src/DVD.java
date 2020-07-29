@@ -2,7 +2,7 @@
  * The DVD class models a DVD in the system.
  * @author William King
  */
-public class DVD extends Property {
+public class DVD extends Resource {
 	
 	/** The director who directed the DVD content. */
 	private String director;
@@ -10,28 +10,30 @@ public class DVD extends Property {
 	/** The runtime of the DVD. */
 	private double runtime;
 	
+	/** The main language of the DVD. */
+	private String language;
+	
 	/** List of subtitle languages the DVD has. */
 	private String[] subLang;
 	
 	/**
 	 * Constructor for the DVD class.
-	 * resourceID A unique resource ID.
+	 * @param resourceID A unique resource ID.
      * @param resourceTitle A resource's title i.e book title.
      * @param year The year that the resource was released.
      * @param thumbnail A string path to the thumbnail for a resource.
      * @param numberOfCopies The total number of copies of a resource.
-     * @param genre A genre of a resource.
-     * @param language A language of a resource.
 	 * @param director The director who directed the DVD content.
 	 * @param runtime The runtime of the DVD.
+	 * @param language The main language of the DVD.
 	 * @param subLang The subtitle languages the DVD provides.
 	 */
 	public DVD(int resourceID, String resourceTitle, int year, String thumbnail,
-			   int numberOfCopies, String genre, String language, 
-			   String director, double runtime, String[] subLang) {
-		super(resourceID, resourceTitle, year, thumbnail, numberOfCopies, 
-				genre, language);
+			   int numberOfCopies, String director, double runtime, 
+			   String language, String[] subLang) {
+		super(resourceID, resourceTitle, year, thumbnail, numberOfCopies);
 		this.director = director;
+		this.language = language;
 		this.runtime = runtime;
 		this.subLang = subLang;
 	}
@@ -42,7 +44,7 @@ public class DVD extends Property {
 	 */
 	public String toStringSearch() {
 		String dvdString = resourceID + "," + resourceTitle + "," + year + 
-				"," + genre + "," + language + "," + director;
+				"," + language + "," + director;
 		return dvdString.toLowerCase();
 	}
 	
@@ -62,9 +64,8 @@ public class DVD extends Property {
 		}
 
 		String dvdString = resourceID + "," + resourceTitle + "," + year + 
-				"," + thumbnail + "," + numberOfCopies + "," + genre + 
-				"," + language + "," + director + "," + runtime + 
-				"," + strSubLang + ",";
+				"," + thumbnail + "," + numberOfCopies + ","  + director + 
+				"," + runtime + "," + language + "," + strSubLang + ",";
 		
 		return dvdString;
 	}
@@ -84,10 +85,26 @@ public class DVD extends Property {
 	public double getRuntime(){
 		return runtime;
 	}
+	
+	/**
+     * Returns the main language of the DVD.
+     * @return language Returns the language of the DVD.
+     */
+	public String getLanguage() {
+		return language;
+	}
+
+	/**
+	 * Sets the language for the DVD.
+	 * @param language Takes a language as a string.
+	 */
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
 	/**
 	 * Gets the subtitle languages of the DVD.
-	 * @return This subtitle languages of the DVD.
+	 * @return The subtitle languages of the DVD.
 	 */
 	public String[] getSubLang(){
 		return subLang;

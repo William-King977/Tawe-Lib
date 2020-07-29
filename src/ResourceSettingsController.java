@@ -110,7 +110,6 @@ public class ResourceSettingsController {
 	 * The method will be called automatically.
 	 */
 	public void initialize() {
-		
 		// Gets an ArrayList for each resource.
 		bookList = FileHandling.getBooks();
         dvdList = FileHandling.getDVDs();
@@ -254,6 +253,7 @@ public class ResourceSettingsController {
 		// Set other text fields involving other 
 		// resources to not applicable.
 		txtAuthor.setText("N/A");
+		txtGenre.setText("N/A");
 		txtISBN.setText("N/A");
 		txtPublisher.setText("N/A");
 		
@@ -335,16 +335,8 @@ public class ResourceSettingsController {
 				break;
 			case "DVD":
 				DVD selectedDVD = (DVD) selectedResource;
-				String genre = selectedDVD.getGenre();
-				String language = selectedDVD.getLanguage();
+				language = selectedDVD.getLanguage();
 				String[] subLang = selectedDVD.getSubLang();
-				
-				// Check genre.
-				if (genre.isEmpty()) {
-					txtGenre.setText("None");
-				} else {
-					txtGenre.setText(genre);
-				}
 				
 				// Check language.
 				if (language.isEmpty()) {
@@ -378,28 +370,21 @@ public class ResourceSettingsController {
 		// Clears the content of the resource list if any. 
 		lstShowResource.getItems().clear();
 		
-		if (cbBook.isSelected()) {
-			if (isSearch) {
-				handleResourceSearchAction();
-			} else {
-	    		for (Book thisBook : bookList) {
+		if (isSearch) {
+			handleResourceSearchAction();
+		} else {
+			if (cbBook.isSelected()) {
+				for (Book thisBook : bookList) {
 	            	lstShowResource.getItems().add(thisBook.toString());
 	    		}
-    		}
-    	// If you're clicking the Book check box to clear it. 
-    	// Clears the whole list, then show all resources, if 
-    	// the other check boxes are cleared as well.
-	    } else if (!cbBook.isSelected() && !cbDVD.isSelected() && 
-	    		!cbLaptop.isSelected()) {
-	    	if (isSearch) {
-	    		handleResourceSearchAction();
-	    	} else {
-	    		// Show the resources on list view.
+			// If you're clicking the check box to clear it.
+			} else {
+				// Show the resources on list view.
 	            for (Resource thisResource : resourceList) {
 	            	lstShowResource.getItems().add(thisResource.toString());
-	            } 
-	    	}
-	    } 
+	            } 	
+			}
+		}
     }
     
     /**
@@ -415,28 +400,21 @@ public class ResourceSettingsController {
 		// Clears the content of the resource list if any. 
 		lstShowResource.getItems().clear();
 		
-		if (cbDVD.isSelected()) {
-			if (isSearch) {
-				handleResourceSearchAction();
-			} else {
-	    		for (DVD thisDVD : dvdList) {
+		if (isSearch) {
+			handleResourceSearchAction();
+		} else {
+			if (cbDVD.isSelected()) {
+				for (DVD thisDVD : dvdList) {
 	            	lstShowResource.getItems().add(thisDVD.toString());
 	    		}
-			}
-    	// If you're clicking the DVD check box to clear it. 
-    	// Clears the whole list, then show all resources, if 
-    	// the other check boxes are cleared as well.
-	    } else if (!cbBook.isSelected() && !cbDVD.isSelected() &&
-	    		!cbLaptop.isSelected()) {
-	    	if (isSearch) {
-	    		handleResourceSearchAction();
-	    	} else {
-	    		// Show the resources on list view.
+			// If you're clicking the check box to clear it.
+			} else {
+				// Show the resources on list view.
 	            for (Resource thisResource : resourceList) {
 	            	lstShowResource.getItems().add(thisResource.toString());
 	            } 
-	    	}
-	    }
+			}
+		}
     }
     
     /**
@@ -452,28 +430,21 @@ public class ResourceSettingsController {
 		// Clears the content of the resource list if any. 
 		lstShowResource.getItems().clear();
 		
-		if (cbLaptop.isSelected()) {
-			if (isSearch) {
-				handleResourceSearchAction();
-			} else {
-	    		for (Laptop thisLaptop : laptopList) {
+		if (isSearch) {
+			handleResourceSearchAction();
+		} else {
+			if (cbLaptop.isSelected()) {
+				for (Laptop thisLaptop : laptopList) {
 	    			lstShowResource.getItems().add(thisLaptop.toString());
 	    		}
-			}
-    	// If you're clicking the Laptop check box to clear it. 
-    	// Clears the whole list, then show all resources, if 
-    	// the other check boxes are cleared as well.
-	    } else if (!cbBook.isSelected() && !cbDVD.isSelected() &&
-	    		!cbLaptop.isSelected()) {
-	    	if (isSearch) {
-	    		handleResourceSearchAction();
-	    	} else {
-	    		// Show the resources on list view.
+			// If you're clicking the check box to clear it.
+			} else {
+				// Show the resources on list view.
 	            for (Resource thisResource : resourceList) {
 	            	lstShowResource.getItems().add(thisResource.toString());
 	            } 
-	    	}
-	    } 
+			}
+		}
     }
     
     /**

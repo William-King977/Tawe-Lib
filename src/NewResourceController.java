@@ -60,8 +60,6 @@ public class NewResourceController {
 	@FXML private TextField txtYear;	
 	/** A text field used to hold the number of copies that a resource has. */
 	@FXML private TextField txtNumberOfCopies;
-	/** A text field used to hold the genre of the book / DVD. */
-	@FXML private TextField txtGenre;
 	/** A text field used to hold the language of the book / DVD. */
 	@FXML private TextField txtLanguage;
 	
@@ -69,6 +67,8 @@ public class NewResourceController {
 	@FXML private TextField txtAuthor;
 	/** A text field used to hold the book's publisher. */
 	@FXML private TextField txtPublisher;
+	/** A text field used to hold the genre of the book. */
+	@FXML private TextField txtGenre;
 	/** A text field used to hold the book's ISBN. */
 	@FXML private TextField txtISBN;
 	
@@ -138,11 +138,11 @@ public class NewResourceController {
 		
 		// Only show appropriate fields.
 		if (cbBook.isSelected()) {
-			txtGenre.setVisible(true);
 			txtLanguage.setVisible(true);
 			
 			txtAuthor.setVisible(true);
 			txtPublisher.setVisible(true);
+			txtGenre.setVisible(true);
 			txtISBN.setVisible(true);
 			
 			txtDirector.setVisible(false);
@@ -181,11 +181,11 @@ public class NewResourceController {
 		
 		// Only show appropriate fields.
 		if (cbDVD.isSelected()) {
-			txtGenre.setVisible(true);
 			txtLanguage.setVisible(true);
 			
 			txtAuthor.setVisible(false);
 			txtPublisher.setVisible(false);
+			txtGenre.setVisible(false);
 			txtISBN.setVisible(false);
 			
 			txtDirector.setVisible(true);
@@ -202,6 +202,7 @@ public class NewResourceController {
 		} else {			
 			txtAuthor.setVisible(true);
 			txtPublisher.setVisible(true);
+			txtGenre.setVisible(true);
 			txtISBN.setVisible(true);
 			
 			txtManufacturer.setVisible(true);
@@ -221,11 +222,11 @@ public class NewResourceController {
 		
 		// Only show appropriate fields.
 		if (cbLaptop.isSelected()) {
-			txtGenre.setVisible(false);
 			txtLanguage.setVisible(false);
 			
 			txtAuthor.setVisible(false);
 			txtPublisher.setVisible(false);
+			txtGenre.setVisible(false);
 			txtISBN.setVisible(false);
 			
 			txtDirector.setVisible(false);
@@ -240,11 +241,11 @@ public class NewResourceController {
 			txtOperatingSystem.setVisible(true);
 		// If you're selecting the check box to clear it.	
 		} else {
-			txtGenre.setVisible(true);
 			txtLanguage.setVisible(true);
 			
 			txtAuthor.setVisible(true);
 			txtPublisher.setVisible(true);
+			txtGenre.setVisible(true);
 			txtISBN.setVisible(true);
 			
 			txtDirector.setVisible(true);
@@ -378,9 +379,9 @@ public class NewResourceController {
 		int resourceID = getMaxResourceID() + 1;
 		
 		String newBook = resourceID + "," + resourceTitle + "," + year + 
-				"," + imageName + "," + NUMBER_OF_COPIES + "," + genre + 
-				"," + language + "," + author + "," + publisher + 
-				"," + isbn + ",";
+				"," + imageName + "," + NUMBER_OF_COPIES + "," + author + 
+				"," + publisher + "," + genre + "," + isbn + 
+				"," + language + ",";
 		
 		addCopies(resourceID, ResourceType.BOOK);
 		FileHandling.createResource(newBook, ResourceType.BOOK);
@@ -400,7 +401,6 @@ public class NewResourceController {
     			new String[currentLangList.size()]);
     	String director = txtDirector.getText().trim();
     	String strRuntime = txtRuntime.getText().trim();
-    	String genre = txtGenre.getText().trim();
     	String language = txtLanguage.getText().trim();
     	
     	// Gets the position of the selected resource image.
@@ -419,7 +419,7 @@ public class NewResourceController {
     			strYear, director, strRuntime);
     	boolean isNum = Utility.isInt(strYear);
     	boolean isDouble = Utility.isDouble(strRuntime);
-    	boolean isAlpha = Utility.isAlphaDVD(director, genre, language);
+    	boolean isAlpha = Utility.isAlphaDVD(director, language);
     	
     	if (!dvdFieldsFilled) {
 			Utility.missingFields();
@@ -439,8 +439,7 @@ public class NewResourceController {
 		int year = Integer.parseInt(strYear);
 		double runtime = Double.parseDouble(strRuntime);
 		boolean dvdExists = Utility.isDVDExist(resourceTitle, year, 
-				imageName, director, runtime, subLang, genre, language, 
-				dvdList);
+				imageName, director, runtime, subLang, language, dvdList);
 		
 		// Checks if the entered details match with an existing DVD.	
 		if (dvdExists) {
@@ -461,9 +460,8 @@ public class NewResourceController {
 		int resourceID = getMaxResourceID() + 1;
 		
 		String newDVD = resourceID + "," + resourceTitle + "," + year + 
-				"," + imageName + "," + NUMBER_OF_COPIES + "," + genre + 
-				"," + language + "," + director + 
-				"," + runtime + "," + strSubLang + ",";
+				"," + imageName + "," + NUMBER_OF_COPIES + "," + director + 
+				"," + runtime + "," + language + "," + strSubLang + ",";
 		
 		addCopies(resourceID, ResourceType.DVD);
 		FileHandling.createResource(newDVD, ResourceType.DVD);

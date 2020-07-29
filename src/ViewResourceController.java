@@ -80,8 +80,6 @@ public class ViewResourceController {
 	/** An image view used to display the thumbnail image of the resource. */
 	@FXML private ImageView imageThumbnail;
 	
-	/** A text field used to display the genre of the book / DVD. */
-	@FXML private TextField txtGenre;
 	/** A text field used to display the language of the book / DVD. */
 	@FXML private TextField txtLanguage;
 	
@@ -89,6 +87,8 @@ public class ViewResourceController {
 	@FXML private TextField txtAuthor;
 	/** A text field used to display the book's publisher. */
 	@FXML private TextField txtPublisher;
+	/** A text field used to display the genre of the book. */
+	@FXML private TextField txtGenre;
 	/** A text field used to display the book's ISBN. */
 	@FXML private TextField txtISBN;
 	
@@ -528,6 +528,7 @@ public class ViewResourceController {
 		// Set other text fields involving other 
 		// resources to not applicable.
 		txtAuthor.setText("N/A");
+		txtGenre.setText("N/A");
 		txtISBN.setText("N/A");
 		txtPublisher.setText("N/A");
 		
@@ -611,16 +612,8 @@ public class ViewResourceController {
 				break;
 			case "DVD":
 				DVD selectedDVD = (DVD) selectedResource;
-				String genre = selectedDVD.getGenre();
-				String language = selectedDVD.getLanguage();
+				language = selectedDVD.getLanguage();
 				String[] subLang = selectedDVD.getSubLang();
-				
-				// Check genre.
-				if (genre.isEmpty()) {
-					txtGenre.setText("None");
-				} else {
-					txtGenre.setText(genre);
-				}
 				
 				// Check language.
 				if (language.isEmpty()) {
@@ -656,27 +649,21 @@ public class ViewResourceController {
 		lstShowCopies.getItems().clear();
 		currentCopiesList.clear();
 		
-		if (cbBook.isSelected()) {
-			if (isSearch) {
-				handleResourceSearchAction();
-			} else {
-	    		for (Book thisBook : bookList) {
+		if (isSearch) {
+			handleResourceSearchAction();
+		} else {
+			if (cbBook.isSelected()) {
+				for (Book thisBook : bookList) {
 	            	lstShowResource.getItems().add(thisBook.toString());
 	    		}
-    		}
-    	// If you're clicking the Book check box to clear it. 
-    	// Clears the whole list, then show all resources, if 
-    	// the other check boxes are cleared as well.
-	    } else if (!cbBook.isSelected() && !cbDVD.isSelected() && 
-	    		!cbLaptop.isSelected()) {
-	    	if (isSearch) {
-	    		handleResourceSearchAction();
-	    	} else {
+			// If you're clicking the check box to clear it.
+			} else {
+				// Show the resources on list view.
 	            for (Resource thisResource : resourceList) {
 	            	lstShowResource.getItems().add(thisResource.toString());
-	            }  
-	    	}
-	    } 
+	            } 
+			}
+		}
     }
     
     /**
@@ -694,28 +681,21 @@ public class ViewResourceController {
 		lstShowCopies.getItems().clear();
 		currentCopiesList.clear();
 		
-		if (cbDVD.isSelected()) {
-			if (isSearch) {
-				handleResourceSearchAction();
-			} else {
-	    		for (DVD thisDVD : dvdList) {
+		if (isSearch) {
+			handleResourceSearchAction();
+		} else {
+			if (cbDVD.isSelected()) {
+				for (DVD thisDVD : dvdList) {
 	            	lstShowResource.getItems().add(thisDVD.toString());
 	    		}
-			}
-    	// If you're clicking the DVD check box to clear it. 
-    	// Clears the whole list, then show all resources, if 
-    	// the other check boxes are cleared as well.
-	    } else if (!cbBook.isSelected() && !cbDVD.isSelected() &&
-	    		!cbLaptop.isSelected()) {
-	    	if (isSearch) {
-	    		handleResourceSearchAction();
-	    	} else {
-	    		// Show the resources on list view.
+			// If you're clicking the check box to clear it.
+			} else {
+				// Show the resources on list view.
 	            for (Resource thisResource : resourceList) {
 	            	lstShowResource.getItems().add(thisResource.toString());
-	            }  
-	    	}
-	    }
+	            } 
+			}
+		}
     }
     
     /**
@@ -733,28 +713,21 @@ public class ViewResourceController {
 		lstShowCopies.getItems().clear();
 		currentCopiesList.clear();
 		
-		if (cbLaptop.isSelected()) {
-			if (isSearch) {
-				handleResourceSearchAction();
-			} else {
-	    		for (Laptop thisLaptop : laptopList) {
+		if (isSearch) {
+			handleResourceSearchAction();
+		} else {
+			if (cbLaptop.isSelected()) {
+				for (Laptop thisLaptop : laptopList) {
 	    			lstShowResource.getItems().add(thisLaptop.toString());
 	    		}
-			}
-    	// If you're clicking the Laptop check box to clear it. 
-    	// Clears the whole list, then show all resources, if 
-    	// the other check boxes are cleared as well.
-	    } else if (!cbBook.isSelected() && !cbDVD.isSelected() &&
-	    		!cbLaptop.isSelected()) {
-	    	if (isSearch) {
-	    		handleResourceSearchAction();
-	    	} else {
-	    		// Show the resources on list view.
+			// If you're clicking the check box to clear it.
+			} else {
+				// Show the resources on list view.
 	            for (Resource thisResource : resourceList) {
 	            	lstShowResource.getItems().add(thisResource.toString());
-	            }  
-	    	}
-	    } 
+	            } 
+			}
+		}
     }
     
     /**

@@ -101,7 +101,7 @@ public class Utility {
 				+ "Detected In Fields.");
 		alert.setHeaderText(null);
 		alert.setContentText("Non-integer characters have been detected in "
-				+ "the input fields, when they shouldn't be there");	
+				+ "the input fields, when they shouldn't be there.");	
 		alert.showAndWait();
 	}
 	
@@ -116,7 +116,7 @@ public class Utility {
 				+ "Detected In Fields.");
 		alert.setHeaderText(null);
 		alert.setContentText("Non-double characters have been detected in "
-				+ "the input fields, when they shouldn't be there");
+				+ "the input fields, when they shouldn't be there.");
 		alert.showAndWait();
 	}
 	
@@ -654,14 +654,13 @@ public class Utility {
 	 * @param director The entered director.
 	 * @param runtime The entered runtime.
 	 * @param subLang The entered subtitle language.
-	 * @param genre The entered genre.
 	 * @param language The entered language.
 	 * @return Whether the DVD being created has the same details as
 	 * 		   an already existing DVD in the library.
 	 */
 	public static boolean isDVDExist(String resourceTitle, int year, 
 			String imageName, String director, double runtime, String[] subLang, 
-			String genre, String language, ArrayList <DVD> dvdList) {
+			String language, ArrayList <DVD> dvdList) {
 		String strSubLang = Arrays.toString(subLang);
 		boolean dvdExist = false;
 		//Searches through all the existing DVDs.
@@ -671,7 +670,6 @@ public class Utility {
 					thisDVD.getDirector().equals(director) &&
 					thisDVD.getRuntime() == runtime &&
 					Arrays.toString(thisDVD.getSubLang()).equals(strSubLang) &&
-					thisDVD.getGenre().equals(genre) &&
 					thisDVD.getLanguage().equals(language) &&
 					thisDVD.getThumbnail().equals(imageName)) {
 				dvdExist = true;
@@ -789,15 +787,12 @@ public class Utility {
 	 * Checks if the passed down fields match their respective regex for the
 	 * DVD.
 	 * @param director The entered director.
-	 * @param genre The entered genre.
 	 * @param language The entered language.
 	 * @return Whether the passed down fields for the DVD has
      * 		   alphabetical characters or not.
 	 */
-	public static boolean isAlphaDVD(String director, String genre, 
-			String language) {
+	public static boolean isAlphaDVD(String director, String language) {
 		if (director.matches(nameRegex) && 
-				(genre.matches(alphabet) || genre.isEmpty()) && 
 				(language.matches(alphabet) || language.isEmpty())) {
 			return true;
 		} else {
@@ -833,7 +828,8 @@ public class Utility {
 	 * @return Whether the entered year is numeric or not.
 	 */
 	public static boolean isInt(String value) {
-		if (value.matches(digits)) {
+		// If it's an optional field, allow it to be empty.
+		if (value.matches(digits) || value.isEmpty()) {
 			return true;
 		} else {
 			return false;

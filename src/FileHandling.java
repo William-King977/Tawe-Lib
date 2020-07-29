@@ -170,15 +170,15 @@ public class FileHandling {
 	    	int year = in.nextInt();
 	    	String thumbnail = in.next();
 	    	int numberOfCopies = in.nextInt();
-	    	String genre = in.next();
-	    	String language = in.next();
 	    	
 	    	String author = in.next();
 	    	String publisher = in.next();
+	    	String genre = in.next();
 	    	String ISBN = in.next();
+	    	String language = in.next();
 	    	
 	    	Book book = new Book(resourceID, resourceTitle, year, thumbnail,
-	    			numberOfCopies, genre, language, author, publisher, ISBN); 
+	    			numberOfCopies, author, publisher, genre, ISBN, language); 
 	    	books.add(book);
 	    	in.nextLine(); // Needed if you change delimiter.
 	    }
@@ -214,11 +214,10 @@ public class FileHandling {
 	    	int year = in.nextInt();
 	    	String thumbnail = in.next();
 	    	int numberOfCopies = in.nextInt();
-	    	String genre = in.next();
-	    	String language = in.next();
 	    	
 	    	String director = in.next();
 	    	double runtime= in.nextDouble();
+	    	String language = in.next();
 	    	String[] subLang = {};
 	    	
 	    	// Checks if the DVD has any subtitle language options.
@@ -228,7 +227,7 @@ public class FileHandling {
 			}
 				
 	    	DVD dvd = new DVD(resourceID, resourceTitle, year, thumbnail,
-	    			numberOfCopies, genre, language, director, runtime, subLang); 
+	    			numberOfCopies, director, runtime, language, subLang); 
 	    	dvds.add(dvd);
 	    	in.nextLine(); // Needed if you change delimiter.
 	    }
