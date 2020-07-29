@@ -29,9 +29,8 @@ public class LoginController {
 	
 	/**
 	 * Handles a button event for the login button e.g. button press.
-	 * @param event Passes the event / action of a button press.
 	 */
-	public void handleLoginButtonAction(ActionEvent event) throws IOException {
+	public void handleLoginButtonAction() {
 		String username = txtUsername.getText().trim();
 		boolean userFound;
 		int userType;
@@ -94,6 +93,7 @@ public class LoginController {
 	 * 				   user (librarian / user).
 	 */
 	private void showDashboard(int userType) {
+		final String DASHBOARD_TITLE;
 		// Closes the window.
 		Stage stage = (Stage) btnLogin.getScene().getWindow();
 		stage.close();
@@ -107,14 +107,17 @@ public class LoginController {
 				// Show staff dashboard.
 				root = FXMLLoader.load(getClass()
 						.getResource("FXMLFiles/UserDashboardStaff.fxml"));
+				DASHBOARD_TITLE = "Staff Dashboard";
 					
 			} else {
 				// Show user dashboard.	
 				root = FXMLLoader.load(getClass()
 						.getResource("FXMLFiles/UserDashboard.fxml"));
+				DASHBOARD_TITLE = "User Dashboard";
 			}
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle(DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException ex) {
 			//Catches an IO exception such as that where the FXML

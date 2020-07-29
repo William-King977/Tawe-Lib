@@ -511,6 +511,7 @@ public class ResourceSettingsController {
 	 * Displays a page where the librarian can edit a selected resource.
 	 */
 	public void handleEditResourceButtonAction() {
+		final String EDIT_RESOURCE_TITLE = "Edit Resource";
 		// Gets the position of the selected resource on the UI.
 		int selectedIndex = lstShowResource.getSelectionModel()
 				.getSelectedIndex();
@@ -556,6 +557,7 @@ public class ResourceSettingsController {
 	        Stage editStage = new Stage();
 	        // Sets the scene to the stage.
 	        editStage.setScene(editScene);
+	        editStage.setTitle(EDIT_RESOURCE_TITLE);
 	        editStage.showAndWait();
         
         } catch (IOException ex) {
@@ -569,6 +571,7 @@ public class ResourceSettingsController {
 	 * Displays a page where the librarian can create a new resource.
 	 */
 	public void handleCreateNewResourceButtonAction() {
+		final String CREATE_RESOURCE_TITLE = "Create New Resource";
 		// Closes the window.
 		Stage stage = (Stage) btnCreateResource.getScene().getWindow();
 		stage.close();
@@ -579,6 +582,7 @@ public class ResourceSettingsController {
 					.getResource("FXMLFiles/NewResource.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle(CREATE_RESOURCE_TITLE);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException ex) {
 			// Catches an IO exception such as that where the FXML
@@ -588,9 +592,10 @@ public class ResourceSettingsController {
 	}
 	
 	/**
-	 * Goes back to the User Dashboard when the button is clicked.
+	 * Goes back to the Staff Dashboard when the button is clicked.
 	 */
 	public void handleBackButtonAction() {
+		final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -601,6 +606,7 @@ public class ResourceSettingsController {
 					.getResource("FXMLFiles/UserDashboardStaff.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle(STAFF_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException ex) {
 			// Catches an IO exception such as that where the FXML

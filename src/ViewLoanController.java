@@ -238,7 +238,6 @@ public class ViewLoanController {
      * @return The total fine for the loan.
      */
     public double calculateUserFine(int daysOverdue, ResourceType type) {
-    	
     	double finePerDay = 0;
     	double maxFine = 0;
     	switch (type) {
@@ -250,7 +249,7 @@ public class ViewLoanController {
     			break;
     		case DVD:
     			String[] list = new String[4];
-    			DVD dvd = new DVD(-1, "", -1, "", -1, "", "", "", -1, list);
+    			DVD dvd = new DVD(-1, "", -1, "", -1, "", -1, "", list);
     			finePerDay = dvd.getFinePerDay();
     			maxFine = dvd.getMaxFine();
     			break;
@@ -433,6 +432,7 @@ public class ViewLoanController {
      * when the button is clicked.
      */
     public void handleBackButtonAction() {
+    	final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
 		
@@ -442,6 +442,7 @@ public class ViewLoanController {
 					.getResource("FXMLFiles/UserDashboardStaff.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle(STAFF_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException ex) {
 			// Catches an IO exception such as that where the FXML

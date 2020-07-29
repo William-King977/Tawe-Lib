@@ -174,6 +174,7 @@ public class PayUserFineController {
 	 * Goes back to the previous page when the button is clicked.
 	 */
 	public void handleBackButtonAction() {
+		final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -184,6 +185,7 @@ public class PayUserFineController {
 					.getResource("FXMLFiles/UserDashboardStaff.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle(STAFF_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException ex) {
 			// Catches an IO exception such as that where the FXML

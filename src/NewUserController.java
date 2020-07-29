@@ -163,9 +163,9 @@ public class NewUserController {
      * Goes back to the previous page when the button is clicked.
      */
     public void handleBackButtonAction() {
-    	// Closes the window.
-    	Stage stage = (Stage) btnBack.getScene().getWindow();
-		stage.close();
+    	final String USER_SETTINGS_TITLE = "User Settings";
+		Stage curStage = (Stage) btnBack.getScene().getWindow(); 
+		curStage.close(); 
 		
 		try {
 			Stage primaryStage = new Stage();
@@ -173,7 +173,8 @@ public class NewUserController {
 					.getResource("FXMLFiles/UserSettings.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.show(); // Displays the new stage.
+			primaryStage.setTitle(USER_SETTINGS_TITLE);
+			primaryStage.show(); 
 		} catch (IOException ex) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.

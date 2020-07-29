@@ -89,6 +89,7 @@ public class UserSettingsController {
 		
 		btnViewUser.setDisable(false); // You can view their profile.
 		
+		// Members don't need to be considered for this.
 		if (cbLibrarian.isSelected()) {
 			User selectedUser = librarianList.get(selectedIndex);
 			if (!currentUser.equals(selectedUser.getUsername())) {
@@ -100,8 +101,6 @@ public class UserSettingsController {
 			User selectedUser = allUsers.get(selectedIndex);
 			String userType = selectedUser.getClass().getTypeName();
 			switch (userType) {
-				case "User":
-					break;
 				case "Librarian":
 					if (!currentUser.equals(selectedUser.getUsername())) {
 						btnEditUser.setDisable(true); // Disable it.
@@ -256,16 +255,25 @@ public class UserSettingsController {
 	/**
 	 * Displays a page where the librarian can create a new user.
 	 */
-	public void handleCreateNewUserButtonAction() throws IOException {
+	public void handleCreateNewUserButtonAction() {
+		final String CREATE_USER_TITLE = "Create New User";
 		// Closes the window.
     	Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/NewUser.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
+		
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/NewUser.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.setTitle(CREATE_USER_TITLE);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
 	}
 	
 	/**
@@ -328,6 +336,7 @@ public class UserSettingsController {
      * Goes back to the Staff Dashboard when the button is clicked.
      */
     public void handleBackButtonAction() {
+    	final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
     	// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -338,6 +347,7 @@ public class UserSettingsController {
 					.getResource("FXMLFiles/UserDashboardStaff.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle(STAFF_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException ex) {
 			// Catches an IO exception such as that where the FXML

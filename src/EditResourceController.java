@@ -519,9 +519,9 @@ public class EditResourceController {
 	 * Also used to exit the page after an edit has been saved.
 	 */
 	public void handleBackButtonAction() {
-		//Closes the window.
-		Stage stage = (Stage) btnBack.getScene().getWindow();
-		stage.close();
+		final String RESOURCE_SETTINGS_TITLE = "Resource Settings";
+		Stage curStage = (Stage) btnBack.getScene().getWindow(); 
+		curStage.close(); 
 		
 		try {
 			Stage primaryStage = new Stage();
@@ -529,6 +529,7 @@ public class EditResourceController {
 					.getResource("FXMLFiles/ResourceSettings.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle(RESOURCE_SETTINGS_TITLE);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException ex) {
 			// Catches an IO exception such as that where the FXML
