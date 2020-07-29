@@ -582,8 +582,6 @@ public class NewResourceController {
 	
 	/**
 	 * Goes back to the previous page when the button is clicked.
-	 * @throws IOException Throws an exception to be caught when the 
-	 *                     FXML file isn't available.
 	 */
 	public void handleBackButtonAction() {
 		// Closes the window.
@@ -598,8 +596,9 @@ public class NewResourceController {
 			primaryStage.setScene(scene);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException ex) {
-			// Throws an exception if the FXML file can't be found. 
-			ex.printStackTrace();
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
 		}
 	}
 

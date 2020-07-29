@@ -147,18 +147,22 @@ public class CopySettingsController {
     /**
      * Closes the current page, then navigates back to the previous page
      * when the button is clicked.
-	 * @throws IOException Throws an exception to be caught when 
-	 *                     the FXML cannot be reached.
      */
-    public void handleBackButtonAction() throws IOException {
+    public void handleBackButtonAction() {
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
 		
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/UserDashboardStaff.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/UserDashboardStaff.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
     }
 }

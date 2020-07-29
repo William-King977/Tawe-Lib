@@ -531,8 +531,9 @@ public class EditResourceController {
 			primaryStage.setScene(scene);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException ex) {
-			// Catches an exception if the FXML file can't be found.
-			ex.printStackTrace();
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
 		}
 	}
 }

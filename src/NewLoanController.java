@@ -224,18 +224,23 @@ public class NewLoanController {
     
     /**
 	 * Goes back to the previous page when the button is clicked.
-	 * @throws IOException Throws an exception to be caught when the 
-	 *         FXML file isn't available.
 	 */
-	public void handleBackButtonAction() throws IOException {
-		//Closes the window.
+	public void handleBackButtonAction() {
+		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/UserDashboardStaff.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); //displays the new stage.
+		
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/UserDashboardStaff.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
 	}
 }

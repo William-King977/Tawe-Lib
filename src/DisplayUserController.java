@@ -151,9 +151,9 @@ public class DisplayUserController {
      * Goes back to the previous page when the button is clicked.
      */
     public void handleBackButtonAction() {
-    		//Closes the window.
-    		Stage stage = (Stage) btnBack.getScene().getWindow();
-    		stage.close();
+    	//Closes the window.
+    	Stage stage = (Stage) btnBack.getScene().getWindow();
+    	stage.close();
     }
 	
 	/**
