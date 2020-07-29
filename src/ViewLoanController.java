@@ -184,9 +184,8 @@ public class ViewLoanController {
 	
 	/**
      * Allows a librarian to return a selected loan.
-     * @throws IOException Throws an exception when a file cannot be written.
      */
-    public void handleReturnLoanButtonAction() throws IOException {
+    public void handleReturnLoanButtonAction() {
     	// A loan is selected (button enabled if so...).
     	int selectedIndex = lstShowLoans.getSelectionModel()
 				.getSelectedIndex();
@@ -274,9 +273,8 @@ public class ViewLoanController {
      * Adds the fine for the loan to the user's total balance.
      * @param user User being fined.
      * @param fine The amount of money fined for the loan.
-     * @throws IOException Throws an exception when a file cannot be written.
      */
-    public void addUserFine(String user, double fine) throws IOException {
+    public void addUserFine(String user, double fine) {
     	users = FileHandling.getUsers();
     	
     	User finedUser = null;
@@ -346,9 +344,8 @@ public class ViewLoanController {
      * to borrow this returned copy and makes appropriate changes
      * if there are.
      * @param returnedLoan The returned loan.
-     * @throws IOException Throws an exception when a file cannot be written.
      */
-    public void checkReservedRequests(Loan returnedLoan) throws IOException {
+    public void checkReservedRequests(Loan returnedLoan) {
     	requests = FileHandling.getRequests();
 		int copyID = returnedLoan.getCopyID();
 		String username = returnedLoan.getUsername();

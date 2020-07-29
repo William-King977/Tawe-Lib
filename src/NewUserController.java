@@ -156,40 +156,28 @@ public class NewUserController {
     	}
     	FileHandling.createUser(newUser, userType);
     	Utility.userCreated();
-    	refresh();
+    	handleBackButtonAction();
     }	
-    
-    /**
-     * Refreshes the Create New User page once a new user has been saved.
-     */
-    private void refresh() {
-    	//Clears all text boxes and the tick box.
-    	txtUsername.clear();
-		txtFirstName.clear();
-		txtSurname.clear();
-		txtAddressLine1.clear();
-		txtAddressLine2.clear();
-		txtCity.clear();
-		txtPostcode.clear();
-		txtMobileNumber.clear();
-    	cbStaff.setSelected(false);	
-    	
-    	// Update the arrayLists.
-    	initialize();
-    }
 	
 	/**
      * Goes back to the previous page when the button is clicked.
      */
-    public void handleBackButtonAction() throws IOException {
+    public void handleBackButtonAction() {
     	// Closes the window.
     	Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/UserSettings.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
+		
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/UserSettings.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
+		}
     }
 }

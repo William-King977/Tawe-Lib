@@ -87,10 +87,8 @@ public class PayUserFineController {
 	
 	/**
 	 * Pays off the user's fine based on the amount entered.
-	 * @throws IOException Throws an exception to be caught when a file
-     *                     can't be written.
 	 */
-	public void handlePayFineButtonAction() throws IOException {
+	public void handlePayFineButtonAction() {
 		
 		String strPayment = txtPayment.getText().trim();
 		boolean isDouble = Utility.isDouble(strPayment); 

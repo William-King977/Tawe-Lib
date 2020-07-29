@@ -45,7 +45,7 @@ public class LoginController {
 			userType = 2;
 		}
 		
-		// Carryout appropriate actions based on username existence,
+		// Carry out appropriate actions based on username existence,
 		if (!userFound) {
 			Utility.userNotExist(username);
 		} else {
@@ -93,26 +93,33 @@ public class LoginController {
 	 * @param userType Integer value indicating the type of 
 	 * 				   user (librarian / user).
 	 */
-	private void showDashboard(int userType) throws IOException {
+	private void showDashboard(int userType) {
 		// Closes the window.
 		Stage stage = (Stage) btnLogin.getScene().getWindow();
 		stage.close();
-		Stage primaryStage = new Stage();
-		Parent root;
 		
-		// Show appropriate dashboard based on the user type.
-		if (userType == 1) {
-			// Show staff dashboard.
-			root = FXMLLoader.load(getClass()
-					.getResource("FXMLFiles/UserDashboardStaff.fxml"));
-				
-		} else {
-			// Show user dashboard.	
-			root = FXMLLoader.load(getClass()
-					.getResource("FXMLFiles/UserDashboard.fxml"));
+		try {
+			Stage primaryStage = new Stage();
+			Parent root;
+			
+			// Show appropriate dashboard based on the user type.
+			if (userType == 1) {
+				// Show staff dashboard.
+				root = FXMLLoader.load(getClass()
+						.getResource("FXMLFiles/UserDashboardStaff.fxml"));
+					
+			} else {
+				// Show user dashboard.	
+				root = FXMLLoader.load(getClass()
+						.getResource("FXMLFiles/UserDashboard.fxml"));
+			}
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			//Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
 		}
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
 	}
 }

@@ -147,9 +147,8 @@ public class ViewResourceController {
 	
 	/**
 	 * Adds a request of a selected copy to the request queue.
-	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
-	public void handleRequestButtonAction() throws IOException {
+	public void handleRequestButtonAction() {
 		// Find current user.
 		String currentUsername = FileHandling.getCurrentUser();
 		User currentUser = null;
@@ -352,10 +351,8 @@ public class ViewResourceController {
 	 * @param isCopyFound If there was any available copies or not.
 	 * @param copyID The ID of the requested copy.
 	 * @param duration The loan duration of the requested copy.
-	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
-	public void setLoanDueDate(boolean isCopyFound, int copyID, int duration) 
-			throws IOException {
+	public void setLoanDueDate(boolean isCopyFound, int copyID, int duration) {
 		// If there are available copies, add to 'reserved' (reserved for user).
 		if (isCopyFound) {
 			Utility.requestCreated("Reserved");
@@ -798,7 +795,7 @@ public class ViewResourceController {
 	 *         FXML file isn't available.
 	 */
 	public void handleBackButtonAction() throws IOException {
-		//Closes the window.
+		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
 		Stage primaryStage = new Stage();
@@ -806,6 +803,6 @@ public class ViewResourceController {
 				.getResource("FXMLFiles/UserDashboard.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.show(); //displays the new stage.
+		primaryStage.show(); // Displays the new stage.
 	}
 }

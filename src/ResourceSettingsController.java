@@ -511,7 +511,7 @@ public class ResourceSettingsController {
 	 * Displays a page where the librarian can edit a selected resource.
 	 */
 	public void handleEditResourceButtonAction() {
-		//Gets the position of the selected resource on the UI.
+		// Gets the position of the selected resource on the UI.
 		int selectedIndex = lstShowResource.getSelectionModel()
 				.getSelectedIndex();
         
@@ -519,10 +519,10 @@ public class ResourceSettingsController {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource("FXMLFiles/EditResource.fxml"));
 				
-			//Sets a new border pane.
+			// Sets a new border pane.
 			BorderPane editRoot = fxmlLoader.load();
 				
-			//Gets the controller for the FXML file loaded.
+			// Gets the controller for the FXML file loaded.
 			EditResourceController editResource = fxmlLoader
 					.<EditResourceController> getController();
 			
@@ -547,19 +547,19 @@ public class ResourceSettingsController {
 				}
 			}
 			
-			//Closes the current window.
+			// Closes the current window.
 			Stage stage = (Stage) btnEditResource.getScene().getWindow();
 			stage.close();
-	        //Sets the scene.
+	        // Sets the scene.
 	        Scene editScene = new Scene(editRoot); 
-	        //creates a new stage
+	        // Creates a new stage.
 	        Stage editStage = new Stage();
-	        //sets the scene to the stage
+	        // Sets the scene to the stage.
 	        editStage.setScene(editScene);
 	        editStage.showAndWait();
         
         } catch (IOException ex) {
-                //Catches an IO exception such as that where the fxml
+                // Catches an IO exception such as that where the fxml
                 // file is not found.
                 ex.printStackTrace();
         }
@@ -571,7 +571,7 @@ public class ResourceSettingsController {
 	 *         FXML file isn't available.
 	 */
 	public void handleCreateNewResourceButtonAction() throws IOException {
-		//Closes the window.
+		// Closes the window.
 		Stage stage = (Stage) btnCreateResource.getScene().getWindow();
 		stage.close();
 		Stage primaryStage = new Stage();
@@ -579,7 +579,7 @@ public class ResourceSettingsController {
 				.getResource("FXMLFiles/NewResource.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.show(); //displays the new stage.
+		primaryStage.show(); // Displays the new stage.
 	}
 	
 	/**
@@ -588,7 +588,7 @@ public class ResourceSettingsController {
 	 *         FXML file isn't available.
 	 */
 	public void handleBackButtonAction() throws IOException {
-		//Closes the window.
+		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
 		Stage primaryStage = new Stage();
@@ -596,6 +596,6 @@ public class ResourceSettingsController {
 				.getResource("FXMLFiles/UserDashboardStaff.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.show(); //displays the new stage.
+		primaryStage.show(); // Displays the new stage.
 	}
 }

@@ -167,9 +167,9 @@ public class UserDashboardController {
             editStage.initModality(Modality.APPLICATION_MODAL);
             editStage.showAndWait();
         } catch (IOException ex) {
-                //Catches an IO exception such as that where the FXML
-                // file is not found.
-                ex.printStackTrace();
+        	//Catches an IO exception such as that where the FXML
+            // file is not found.
+            ex.printStackTrace();
         }
 	}
 	

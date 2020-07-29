@@ -546,10 +546,9 @@ public class FileHandling {
 	 * @param oldProfile The string holding details of the old profile.
 	 * @param newProfile The string holding details of the new profile.
 	 * @param userType Integer showing whether a user is staff or not.
-	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
 	public static void editProfile(String oldProfile, String newProfile, 
-			int userType) throws IOException {
+			int userType) {
 		String filePath = "";
 		switch (userType) {
 			case 1:
@@ -573,20 +572,26 @@ public class FileHandling {
 			System.exit(0);
 		}
 	    
-	    // Uses buffer to write old file contents to a string.
-	    String line = reader.readLine();
-	    while (line != null) {
-	    	oldContent = oldContent + line + System.lineSeparator();
-	        line = reader.readLine();
+	    try {
+		    // Uses buffer to write old file contents to a string.
+		    String line = reader.readLine();
+		    while (line != null) {
+		    	oldContent = oldContent + line + System.lineSeparator();
+		        line = reader.readLine();
+		    }
+		    // Replace old profile with the new one within the textfile.
+		    String newContent = oldContent.replace(oldProfile, newProfile);
+		   
+		    writer = new FileWriter(filePath);
+		    writer.write(newContent);
+		    reader.close();
+		    writer.flush();
+		    writer.close();
+	    } catch (IOException ex) {
+	    	// Catches an IO exception when the file can't 
+	    	// be written.
+            ex.printStackTrace();
 	    }
-	    // Replace old profile with the new one within the textfile.
-	    String newContent = oldContent.replace(oldProfile, newProfile);
-	   
-	    writer = new FileWriter(filePath);
-	    writer.write(newContent);
-	    reader.close();
-	    writer.flush();
-	    writer.close();
 	}
 	
 	/**
@@ -595,10 +600,9 @@ public class FileHandling {
 	 * @param oldResource The string description of the old resource.
 	 * @param newResource The string description of the edits made to the resource.
 	 * @param resourceType The type of resource edited.
-	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
 	public static void editResource(String oldResource, String newResource, 
-			String resourceType) throws IOException {
+			String resourceType) {
 		String filePath = "";
 		
 		switch (resourceType) {
@@ -626,19 +630,25 @@ public class FileHandling {
 			System.exit(0);
 		}
 	    
-	    // Uses buffer to write old file contents to a string.
-	    String line = reader.readLine();
-	    while (line != null) {
-	    	oldContent = oldContent + line + System.lineSeparator();
-	        line = reader.readLine();
+	    try {
+		    // Uses buffer to write old file contents to a string.
+		    String line = reader.readLine();
+		    while (line != null) {
+		    	oldContent = oldContent + line + System.lineSeparator();
+		        line = reader.readLine();
+		    }
+		    // Replace old resource with the new one within the textfile.
+		    String newContent = oldContent.replace(oldResource, newResource);
+		    writer = new FileWriter(filePath);
+		    writer.write(newContent);
+		    reader.close();
+		    writer.flush();
+		    writer.close();
+	    } catch (IOException ex) {
+	    	// Catches an IO exception when the file can't 
+	    	// be written.
+            ex.printStackTrace();
 	    }
-	    // Replace old resource with the new one within the textfile.
-	    String newContent = oldContent.replace(oldResource, newResource);
-	    writer = new FileWriter(filePath);
-	    writer.write(newContent);
-	    reader.close();
-	    writer.flush();
-	    writer.close();
 	    
 	    Utility.savedResourceChanges();
 	}
@@ -648,9 +658,8 @@ public class FileHandling {
 	 * with the new one.
 	 * @param oldCopy The string details of the old copy.
 	 * @param newCopy The string details of the edited copy.
-	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
-	public static void editCopy(String oldCopy, String newCopy) throws IOException {
+	public static void editCopy(String oldCopy, String newCopy) {
 		String filePath = DATA_FILE_PATH + "Copy.txt";
 		
 		File inputFile = new File(filePath);
@@ -666,19 +675,25 @@ public class FileHandling {
 			System.exit(0);
 		}
 	    
-	    // Uses buffer to write old file contents to a string.
-	    String line = reader.readLine();
-	    while (line != null) {
-	    	oldContent = oldContent + line + System.lineSeparator();
-	        line = reader.readLine();
+	    try {
+		    // Uses buffer to write old file contents to a string.
+		    String line = reader.readLine();
+		    while (line != null) {
+		    	oldContent = oldContent + line + System.lineSeparator();
+		        line = reader.readLine();
+		    }
+		    // Replace old copy with the new one within the textfile.
+		    String newContent = oldContent.replace(oldCopy, newCopy);
+		    writer = new FileWriter(filePath);
+		    writer.write(newContent);
+		    reader.close();
+		    writer.flush();
+		    writer.close();
+	    } catch (IOException ex) {
+	    	// Catches an IO exception when the file can't 
+	    	// be written.
+            ex.printStackTrace();
 	    }
-	    // Replace old copy with the new one within the textfile.
-	    String newContent = oldContent.replace(oldCopy, newCopy);
-	    writer = new FileWriter(filePath);
-	    writer.write(newContent);
-	    reader.close();
-	    writer.flush();
-	    writer.close();
 	}
 	
 	/**
@@ -686,10 +701,8 @@ public class FileHandling {
 	 * with the new one.
 	 * @param oldRequest The string details of the old request.
 	 * @param newRequest The string details of the edited request.
-	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
-	public static void editRequest(String oldRequest, String newRequest) 
-			throws IOException {
+	public static void editRequest(String oldRequest, String newRequest) {
 		String filePath = DATA_FILE_PATH + "Request.txt";
 		
 		File inputFile = new File(filePath);
@@ -705,19 +718,25 @@ public class FileHandling {
 			System.exit(0);
 		}
 	    
-	    // Uses buffer to write old file contents to a string.
-	    String line = reader.readLine();
-	    while (line != null) {
-	    	oldContent = oldContent + line + System.lineSeparator();
-	        line = reader.readLine();
+	    try {
+		    // Uses buffer to write old file contents to a string.
+		    String line = reader.readLine();
+		    while (line != null) {
+		    	oldContent = oldContent + line + System.lineSeparator();
+		        line = reader.readLine();
+		    }
+		    // Replace old request with the new one within the textfile.
+		    String newContent = oldContent.replace(oldRequest, newRequest);
+		    writer = new FileWriter(filePath);
+		    writer.write(newContent);
+		    reader.close();
+		    writer.flush();
+		    writer.close();
+	    } catch (IOException ex) {
+	    	// Catches an IO exception when the file can't 
+	    	// be written.
+            ex.printStackTrace();
 	    }
-	    // Replace old request with the new one within the textfile.
-	    String newContent = oldContent.replace(oldRequest, newRequest);
-	    writer = new FileWriter(filePath);
-	    writer.write(newContent);
-	    reader.close();
-	    writer.flush();
-	    writer.close();
 	}
 	
 	/**
@@ -725,10 +744,8 @@ public class FileHandling {
 	 * with the new one.
 	 * @param oldLoan The string details of the old loan.
 	 * @param newLoan The string details of the edited loan.
-	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
-	public static void editLoan(String oldLoan, String newLoan) 
-			throws IOException {
+	public static void editLoan(String oldLoan, String newLoan) {
 		String filePath = DATA_FILE_PATH + "Loan.txt";
 		
 		File inputFile = new File(filePath);
@@ -744,19 +761,25 @@ public class FileHandling {
 			System.exit(0);
 		}
 	    
-	    // Uses buffer to write old file contents to a string.
-	    String line = reader.readLine();
-	    while (line != null) {
-	    	oldContent = oldContent + line + System.lineSeparator();
-	        line = reader.readLine();
+	    try {
+		    // Uses buffer to write old file contents to a string.
+		    String line = reader.readLine();
+		    while (line != null) {
+		    	oldContent = oldContent + line + System.lineSeparator();
+		        line = reader.readLine();
+		    }
+		    // Replace old loan with the new one within the textfile.
+		    String newContent = oldContent.replace(oldLoan, newLoan);
+		    writer = new FileWriter(filePath);
+		    writer.write(newContent);
+		    reader.close();
+		    writer.flush();
+		    writer.close();
+	    } catch (IOException ex) {
+	    	// Catches an IO exception when the file can't 
+	    	// be written.
+            ex.printStackTrace();
 	    }
-	    // Replace old loan with the new one within the textfile.
-	    String newContent = oldContent.replace(oldLoan, newLoan);
-	    writer = new FileWriter(filePath);
-	    writer.write(newContent);
-	    reader.close();
-	    writer.flush();
-	    writer.close();
 	}
 	
 	/**

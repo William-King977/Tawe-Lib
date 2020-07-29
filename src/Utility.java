@@ -596,22 +596,6 @@ public class Utility {
     }
     
     /**
-     * Checks if the entered language is already in the list view.
-     * @param language The subtitle language entered.
-     * @param subLang List view of subtitle languages.
-     * @return Whether the entered language is in the list view or not.
-     */
-    public static boolean isLanguageExist(String language, 
-    		ArrayList<String> subLang) {
-    	for (String lang : subLang) {
-    		if (lang.equals(language)) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-    
-    /**
 	 * Checks if the changes to the book causes it to match 
 	 * with an already existing book in the library.
 	 * @param resourceTitle The entered book title.

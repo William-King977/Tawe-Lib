@@ -159,9 +159,17 @@ public class EditUserController {
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.showAndWait();
         
-        // Refreshes the page once the user exits.
-        // Mainly to update the profile picture menu.
-        initialize();  
+        // Updates the profile pictures.
+        File folder = new File(PROFILE_PICTURE_PATH);
+        profilePictureList = folder.listFiles();
+        
+        cmbProfilePicture.getItems().clear();
+        
+        for (File file : profilePictureList) {
+        	if (file.isFile()) {
+        		cmbProfilePicture.getItems().add(file.getName());
+        	}
+        }
     }
     
     /**

@@ -97,9 +97,8 @@ public class NewLoanController {
     
     /**
      * Handles the method to create a new loan when the button is pressed.
-     * @throws IOException Throws an exception when a file cannot be written.
      */
-    public void handleNewLoanButtonAction() throws IOException {
+    public void handleNewLoanButtonAction() {
     	// A request should be selected.
     	int selectedIndex = lstRequests.getSelectionModel()
 				.getSelectedIndex();

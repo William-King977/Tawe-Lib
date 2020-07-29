@@ -137,9 +137,8 @@ public class EditResourceController {
 	/**
 	 * Validates the changes made to the edited resource and saves them
 	 * if they are valid.
-	 * @throws IOException Throws an exception when a file cannot be written.
 	 */
-	public void handleSaveButtonAction() throws IOException {
+	public void handleSaveButtonAction() {
 		String resourceType = resourceBeingEdited.getClass().getTypeName();
 		switch (resourceType) {
 			case "Book":
@@ -152,6 +151,7 @@ public class EditResourceController {
 				validateEditedLaptop();
 				break;
 		}
+		handleBackButtonAction();
 	}
 	
 	/**
@@ -172,7 +172,7 @@ public class EditResourceController {
 			return;
 		}
 
-		languageExist = Utility.isLanguageExist(language, currentLangList);
+		languageExist = currentLangList.contains(language);
 		if (languageExist) {
 			Utility.languageExists();
 			return;
@@ -201,9 +201,8 @@ public class EditResourceController {
 	
 	/**
      * Validates the changes made to the edited book.
-     * @throws IOException Throws an exception when a file cannot be written.
      */
-    public void validateEditedBook() throws IOException {
+    public void validateEditedBook() {
     	String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim(); 
     	String author = txtAuthor.getText().trim();
@@ -265,14 +264,12 @@ public class EditResourceController {
 				"," + isbn + "," + language + ",";
 		
 		FileHandling.editResource(oldBook, newBook, "Book");
-		handleBackButtonAction();
     }
     
     /**
      * Validates the changes made to the edited DVD.
-     * @throws IOException Throws an exception when a file cannot be written.
      */
-    public void validateEditedDVD() throws IOException {
+    public void validateEditedDVD() {
     	String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim(); 
     	String[] subLang = currentLangList.toArray(
@@ -347,14 +344,12 @@ public class EditResourceController {
 				"," + strSubLang + ",";
 		
 		FileHandling.editResource(oldDVD, newDVD, "DVD");
-		handleBackButtonAction();
     }
     
     /**
      * Validates the changes made to the edited laptop.
-     * @throws IOException Throws an exception when a file cannot be written.
      */
-    public void validateEditedLaptop() throws IOException {
+    public void validateEditedLaptop() {
     	String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim();
     	String manufacturer = txtManufacturer.getText().trim();
@@ -412,7 +407,6 @@ public class EditResourceController {
 				"," + manufacturer + "," + model + "," + operatingSystem + ",";
 		
 		FileHandling.editResource(oldLaptop, newLaptop, "Laptop");
-		handleBackButtonAction();
     }
 	
 	/**
@@ -523,18 +517,22 @@ public class EditResourceController {
 	/**
 	 * Goes back to the previous page when the button is clicked.
 	 * Also used to exit the page after an edit has been saved.
-	 * @throws IOException Throws an exception to be caught when the 
-	 *                     FXML file isn't available.
 	 */
-	public void handleBackButtonAction() throws IOException {
+	public void handleBackButtonAction() {
 		//Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/ResourceSettings.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
+		
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/ResourceSettings.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Catches an exception if the FXML file can't be found.
+			ex.printStackTrace();
+		}
 	}
 }

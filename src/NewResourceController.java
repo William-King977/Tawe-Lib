@@ -259,10 +259,8 @@ public class NewResourceController {
 	
 	/**
      * Creates a new resource based on the information typed in.
-     * @throws IOException Throws an exception to be caught when a file
-     *                     can't be written.
      */
-    public void handleCreateResourceButtonAction() throws IOException {
+    public void handleCreateResourceButtonAction() {
     	if (cbBook.isSelected()) {
 			validateNewBook();
 		} else if (cbDVD.isSelected()) {
@@ -293,7 +291,7 @@ public class NewResourceController {
 			return;
 		}
 
-		languageExist = Utility.isLanguageExist(language, currentLangList);
+		languageExist = currentLangList.contains(language);
 		if (languageExist) {
 			Utility.languageExists();
 			return;
@@ -322,10 +320,8 @@ public class NewResourceController {
 	
 	/**
      * Validates the entered information for the new book to be created.
-     * @throws IOException Throws an exception to be caught when a file
-     *                     can't be written.
      */
-    public void validateNewBook() throws IOException {
+    public void validateNewBook() {
     	String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim(); 
     	String author = txtAuthor.getText().trim();
@@ -391,10 +387,8 @@ public class NewResourceController {
     
     /**
      * Validates the entered information for the new DVD to be created.
-     * @throws IOException Throws an exception to be caught when a file
-     *                     can't be written.
      */
-    public void validateNewDVD() throws IOException {
+    public void validateNewDVD() {
     	String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim(); 
     	String[] subLang = currentLangList.toArray(
@@ -472,10 +466,8 @@ public class NewResourceController {
     /**
      * Validates the entered information for the new laptop to be
      * created.
-     * @throws IOException Throws an exception to be caught when a file
-     *                     can't be written.
      */
-	public void validateNewLaptop() throws IOException {
+	public void validateNewLaptop() {
 		String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim();
     	String manufacturer = txtManufacturer.getText().trim();
@@ -593,16 +585,22 @@ public class NewResourceController {
 	 * @throws IOException Throws an exception to be caught when the 
 	 *                     FXML file isn't available.
 	 */
-	public void handleBackButtonAction() throws IOException {
-		//Closes the window.
+	public void handleBackButtonAction() {
+		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/ResourceSettings.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show(); // Displays the new stage.
+		
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass()
+					.getResource("FXMLFiles/ResourceSettings.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Displays the new stage.
+		} catch (IOException ex) {
+			// Throws an exception if the FXML file can't be found. 
+			ex.printStackTrace();
+		}
 	}
 
 }
