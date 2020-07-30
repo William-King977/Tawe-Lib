@@ -74,33 +74,33 @@ public class DisplayUserController {
 	 * @param viewUser The selected user in the library system.
 	 */
 	public void displayProfile(User viewUser) {
-		txtUsername.setText(viewUser.getUsername());
-		txtFirstName.setText(viewUser.getFirstName());
-		txtSurname.setText(viewUser.getSurname());
-		txtAddressLine1.setText(viewUser.getAddress1());
-		txtAddressLine2.setText(viewUser.getAddress2());
-		txtCity.setText(viewUser.getCity());
-		txtPostcode.setText(viewUser.getPostcode());
-		txtMobileNumber.setText(viewUser.getMobileNumber());
+		thisUser = viewUser; // Stores the user locally.
+		
+		txtUsername.setText(thisUser.getUsername());
+		txtFirstName.setText(thisUser.getFirstName());
+		txtSurname.setText(thisUser.getSurname());
+		txtAddressLine1.setText(thisUser.getAddress1());
+		txtAddressLine2.setText(thisUser.getAddress2());
+		txtCity.setText(thisUser.getCity());
+		txtPostcode.setText(thisUser.getPostcode());
+		txtMobileNumber.setText(thisUser.getMobileNumber());
 
 		if (isLibrarian()) {
 			//Librarians can't get fined, so not applicable.
 			txtCurrentFine.setText("N/A");
-			txtStaffID.setText(((Librarian) viewUser).getStaffID() + "");
-			txtEmploymentDate.setText(((Librarian) viewUser).getEmploymentDate() + "");
+			txtStaffID.setText(((Librarian) thisUser).getStaffID() + "");
+			txtEmploymentDate.setText(((Librarian) thisUser).getEmploymentDate() + "");
 		} else {
-			txtCurrentFine.setText("£ " + viewUser.getFine()); // Show fine.
+			txtCurrentFine.setText("£ " + thisUser.getFine()); // Show fine.
 			// Hide librarian related details (we are viewing a member).
 			lblStaffID.setVisible(false);
 			lblEmploymentDate.setVisible(false);
 			txtStaffID.setVisible(false);
 			txtEmploymentDate.setVisible(false);
-			thisUser = viewUser; // Stores the user locally.
 		}
 		
 		//Changes image URL to a file, then converts that to an image.
-		File imageURL = new File(PROFILE_PICTURE_PATH + 
-				viewUser.getProfilePicture());
+		File imageURL = new File(PROFILE_PICTURE_PATH + thisUser.getProfilePicture());
         Image profilePicture = new Image(imageURL.toURI().toString());
 		imageProfilePicture.setImage(profilePicture);
 	}
@@ -123,10 +123,8 @@ public class DisplayUserController {
 			
 			// The user is editing their own profile.
 			// Adjusts editable fields based on this.
-			editUser.setEditAnotherUser(false);
-			
-			// Pass down the user's details.
-			editUser.editUser(thisUser); 
+			editUser.setEditAnotherUser(false);        
+			editUser.editUser(thisUser); // Pass down the user's details. 
 			
             // Sets the scene.
             Scene editScene = new Scene(editRoot); 
@@ -143,15 +141,6 @@ public class DisplayUserController {
         	System.exit(-1);
         }
 	}
-	
-	/**
-     * Goes back to the previous page when the button is clicked.
-     */
-    public void handleBackButtonAction() {
-    	//Closes the window.
-    	Stage stage = (Stage) btnBack.getScene().getWindow();
-    	stage.close();
-    }
 	
 	/**
      * Checks if the selected user is a librarian or a member.
@@ -182,14 +171,17 @@ public class DisplayUserController {
 	 * changes have been made (if any).
 	 */
 	public void refreshProfile() {
-		String username = thisUser.getUsername();
-		userList = FileHandling.getUsers();
-		
-		for (User user : userList) {
-			if (username.equals(user.getUsername())) {
-				thisUser = user;
-			}
-		}
+		// Changes are made locally as well (in Edit User).
+		// This removes the need of searching the user array list.
 		displayProfile(thisUser);
 	}
+	
+	/**
+     * Goes back to the previous page when the button is clicked.
+     */
+    public void handleBackButtonAction() {
+    	//Closes the window.
+    	Stage stage = (Stage) btnBack.getScene().getWindow();
+    	stage.close();
+    }
 }

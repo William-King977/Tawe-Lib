@@ -239,33 +239,30 @@ public class EditUserController {
      * @param city The edited city.
      * @param postcode The edited postcode.
      * @param profilePicture The changed profile picture file name.
-     * @throws IOException Throws an exception to be caught when the 
-	 *                     FXML file cannot be accessed.
      */
     public void saveUserEdits(String firstName, String surname, 
     		String mobileNumber, String address1, String address2, String city, 
-    		String postcode, String profilePicture) throws IOException {
+    		String postcode, String profilePicture) {
+    	// Create copies of the old and new profiles, then replace the old with new.
+    	String oldProfile = userBeingEdited.toStringDetail();
+    	
+    	userBeingEdited.setFirstName(firstName);
+    	userBeingEdited.setSurname(surname);
+    	userBeingEdited.setMobileNumber(mobileNumber);
+    	userBeingEdited.setAddress1(address1);
+    	userBeingEdited.setAddress2(address2);
+    	userBeingEdited.setCity(city);
+    	userBeingEdited.setPostcode(postcode);
+    	userBeingEdited.setProfilePicture(profilePicture);
+    	
+		String newProfile = userBeingEdited.toStringDetail();
+		
     	// If the user is a librarian.
         if (isLibrarian()) {
-        	// Create copies of the old and new profiles, then replace the old with new.
-    		String oldProfile = userBeingEdited.toStringDetail();
-    		String newProfile = userBeingEdited.getUsername() + 
-    				"," + firstName + "," + surname + "," + mobileNumber + 
-    				"," + address1 + "," + address2 + "," + city + 
-    				"," + postcode + "," + profilePicture + 
-    				"," + userBeingEdited.getFine() + 
-    				"," + ((Librarian) userBeingEdited).getStaffID() + 
-    				"," + ((Librarian) userBeingEdited).getEmploymentDate() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 1);
     		Utility.savedUserChanges("librarian");
     	// If the user is a member.
         } else {
-    		String oldProfile = userBeingEdited.toStringDetail();
-    		String newProfile = userBeingEdited.getUsername() + 
-    				"," + firstName + "," + surname + "," + mobileNumber + 
-    				"," + address1 + "," + address2 + "," + city + 
-    				"," + postcode + "," + profilePicture + 
-    				"," + userBeingEdited.getFine() + ",";
     		FileHandling.editProfile(oldProfile, newProfile, 2);
     		Utility.savedUserChanges("user");
         }
