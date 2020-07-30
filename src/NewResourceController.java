@@ -23,7 +23,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class NewResourceController {
-	
+	/** Title for the Resource Settings page. */
+	private final String RESOURCE_SETTINGS_TITLE = "Resource Settings";
 	/** The directory to the thumbnail images for the resources. */
 	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";
 	/** The number of copies a resource has. */
@@ -584,7 +585,6 @@ public class NewResourceController {
 	 * Goes back to the previous page when the button is clicked.
 	 */
 	public void handleBackButtonAction() {
-		final String RESOURCE_SETTINGS_TITLE = "Resource Settings";
 		Stage curStage = (Stage) btnBack.getScene().getWindow(); 
 		curStage.close(); 
 		
@@ -596,10 +596,11 @@ public class NewResourceController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(RESOURCE_SETTINGS_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 

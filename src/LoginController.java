@@ -17,13 +17,10 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class LoginController {
-	
 	/** fxID for the username test field */
 	@FXML private TextField txtUsername;
-	
 	/** fxID for the staff check box */
 	@FXML private CheckBox cbStaff;
-	
 	/** fxID for the login button */
 	@FXML private Button btnLogin;
 	
@@ -119,10 +116,11 @@ public class LoginController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			//Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 }

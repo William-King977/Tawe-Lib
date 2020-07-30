@@ -20,18 +20,17 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class DisplayUserController {
+	/** Title for the Edit User page. */
+	private final String EDIT_USER_TITLE = "Edit Profile";
+	/** The file location of the profile pictures. */
+    private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
 	
 	/** Used to check if the profile is a librarian or not. */
 	private boolean isLibrarian;
-	
 	/** Local storage of the user (that you're viewing). */
 	private User thisUser;
-	
 	/** An ArrayList holding all the users. */
 	private ArrayList<User> userList;
-	
-	/** The file location of the profile pictures. */
-    private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
     
     /** A text field to hold the librarian's username. */
 	@FXML private TextField txtUsername;
@@ -109,10 +108,7 @@ public class DisplayUserController {
 	/**
 	 * Displays a page where the user can edit their profile.
 	 */
-	public void handleEditProfileButtonAction() {	
-		//Constants set for the new window to be displayed.
-		final String EDIT_USER_TITLE = "Edit Profile";
-				
+	public void handleEditProfileButtonAction() {			
         try {
         	// Sets up a new FXML loader.
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
@@ -132,7 +128,7 @@ public class DisplayUserController {
 			// Pass down the user's details.
 			editUser.editUser(thisUser); 
 			
-            // Sets the scene incl, width and height
+            // Sets the scene.
             Scene editScene = new Scene(editRoot); 
             Stage editStage = new Stage();
             editStage.setScene(editScene);
@@ -140,10 +136,11 @@ public class DisplayUserController {
             editStage.initModality(Modality.APPLICATION_MODAL);
             editStage.showAndWait();
             refreshProfile(); // Update profile details on the page.
-        } catch (IOException ex) {
-                // Catches an IO exception such as that where the FXML
-                // file is not found.
-                ex.printStackTrace();
+        } catch (IOException e) {
+        	// Catches an IO exception such as that where the FXML
+            // file is not found.
+        	e.printStackTrace();
+        	System.exit(-1);
         }
 	}
 	

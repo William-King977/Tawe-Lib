@@ -16,6 +16,20 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class UserDashboardStaffController {
+	/** Title for the View Loans page. */
+	private final String VIEW_LOANS_TITLE = "View Loans";
+	/** Title for the New Loan page. */
+	private final String NEW_LOAN_TITLE = "New Loan";
+	/** Title for the Resource Settings page. */
+	private final String RESOURCE_SETTINGS_TITLE = "Resource Settings";
+	/** Title for the Copy Settings page. */
+	private final String COPY_SETTINGS_TITLE = "Copy Settings";
+	/** Title for the User Settings page. */
+	private final String USER_SETTINGS_TITLE = "User Settings";
+	/** Title for the Pay User Fine page. */
+	private final String PAY_FINE_TITLE = "Pay User Fine";
+	/** Title for the Login page. */
+	private final String LOGIN_TITLE = "TaweLib: Library System";
 	
 	/** A button that leads to the New Loan page. */
 	@FXML private Button btnNewLoan;
@@ -37,7 +51,6 @@ public class UserDashboardStaffController {
 	 * current loans in the system when clicked.
 	 */
 	public void handleViewLoansButtonAction() {
-		final String VIEW_LOANS_TITLE = "View Loans";
 		Stage curStage = (Stage) btnViewLoans.getScene().getWindow(); 
 		curStage.close(); // Closes current stage.
 		
@@ -50,10 +63,11 @@ public class UserDashboardStaffController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(VIEW_LOANS_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -62,7 +76,6 @@ public class UserDashboardStaffController {
 	 * issue a new loan when clicked.
 	 */
 	public void handleNewLoanButtonAction() {
-		final String NEW_LOAN_TITLE = "New Loan";
 		Stage curStage = (Stage) btnNewLoan.getScene().getWindow(); 
 		curStage.close(); // Closes current stage.
 		
@@ -75,10 +88,11 @@ public class UserDashboardStaffController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(NEW_LOAN_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -88,7 +102,6 @@ public class UserDashboardStaffController {
 	 * resource.
 	 */
 	public void handleResourceSettingsButtonAction() {
-		final String RESOURCE_SETTINGS_TITLE = "Resource Settings";
 		Stage curStage = (Stage) btnResourceSettings.getScene().getWindow(); 
 		curStage.close(); 
 		
@@ -100,10 +113,11 @@ public class UserDashboardStaffController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(RESOURCE_SETTINGS_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -113,7 +127,6 @@ public class UserDashboardStaffController {
 	 * a copy's borrow/return history.
 	 */
 	public void handleCopySettingsButtonAction() {
-		final String COPY_SETTINGS_TITLE = "Copy Settings";
 		Stage curStage = (Stage) btnCopySettings.getScene().getWindow(); 
 		curStage.close(); 
 		
@@ -125,10 +138,11 @@ public class UserDashboardStaffController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(COPY_SETTINGS_TITLE);
 			primaryStage.show(); 
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -138,7 +152,6 @@ public class UserDashboardStaffController {
 	 * the details of an existing user. 
 	 */
 	public void handleUserSettingsButtonAction() {
-		final String USER_SETTINGS_TITLE = "User Settings";
 		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
 		curStage.close(); 
 		
@@ -150,10 +163,11 @@ public class UserDashboardStaffController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(USER_SETTINGS_TITLE);
 			primaryStage.show(); 
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -161,7 +175,6 @@ public class UserDashboardStaffController {
 	 * Goes to a page where the librarian can pay users' fines.
 	 */
 	public void handlePayFineButtonAction() throws IOException {
-		final String PAY_FINE_TITLE = "Pay User Fine";
 		Stage curStage = (Stage) btnPayUserFine.getScene().getWindow(); 
 		curStage.close(); 
 		
@@ -173,10 +186,11 @@ public class UserDashboardStaffController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(PAY_FINE_TITLE);
 			primaryStage.show();
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -184,7 +198,6 @@ public class UserDashboardStaffController {
 	 * Goes back to the Login page when the button is clicked.
 	 */
 	public void handleLogoutButtonAction() {
-		final String LOGIN_TITLE = "TaweLib: Library System";
 		// Closes the window.
 		Stage stage = (Stage) btnLogout.getScene().getWindow();
 		stage.close();
@@ -197,10 +210,11 @@ public class UserDashboardStaffController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(LOGIN_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}	
 }

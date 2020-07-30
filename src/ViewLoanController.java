@@ -21,6 +21,9 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class ViewLoanController {
+	/** Title for the Staff Dashboard page. */
+	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
+	
 	/** Holds all the loans from the loans file for local storage. */
     private ArrayList<Loan> loanList;
     /** ArrayList to hold all requests. */
@@ -45,11 +48,6 @@ public class ViewLoanController {
 	/** A check box to indicate that the librarian wants 
 	 * to filter to show the current loans. */
 	@FXML private CheckBox cbCurrentLoans;
-	
-	/** The return loan button for the page. */
-    @FXML private Button btnReturnLoan;
-	/** The back button for the page. */
-    @FXML private Button btnBack;
     
     /** A text field used to display the selected loan's ID. */
     @FXML private TextField txtLoanID;
@@ -76,6 +74,11 @@ public class ViewLoanController {
     @FXML private TextField txtCopyID;
     /** A text field used to display the borrowed copy's resource type. */
     @FXML private TextField txtResourceType;
+    
+    /** The return loan button for the page. */
+    @FXML private Button btnReturnLoan;
+	/** The back button for the page. */
+    @FXML private Button btnBack;
     
     /**
 	 * Sets up the array lists for the Loans and displays them.
@@ -432,7 +435,6 @@ public class ViewLoanController {
      * when the button is clicked.
      */
     public void handleBackButtonAction() {
-    	final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
 		
@@ -444,10 +446,11 @@ public class ViewLoanController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(STAFF_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
     }           
 }

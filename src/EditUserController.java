@@ -22,6 +22,9 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class EditUserController {
+	/** The file location of the profile pictures. */
+    private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
+	
 	/** A list of all the librarians. */
     private ArrayList<Librarian> librarianList;
     /** A list of all the users. */
@@ -38,9 +41,6 @@ public class EditUserController {
     
     /** Holds the files of all profile pictures. */
     private File[] profilePictureList;
-    
-    /** The file location of the profile pictures. */
-    private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
     
 	/** A text field to hold the user's username. */
 	@FXML private TextField txtUsername;

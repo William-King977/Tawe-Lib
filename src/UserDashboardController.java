@@ -17,6 +17,20 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class UserDashboardController {
+	/** Title for the Borrowed Items page. */
+	private final String BORROWED_ITEMS_TITLE = "Borrowed Items";
+	/** Title for the Requested Items page. */
+	private final String REQUESTED_ITEMS_TITLE = "Requested Items";
+	/** Title for the Reserved Items page. */
+	private final String RESERVED_ITEMS_TITLE = "Reserved Items";
+	/** Title for the Transaction History page. */
+	private final String TRANSACTION_HISTORY_TITLE = "Transaction History";
+	/** Title for the View Resources page. */
+	private final String VIEW_RESOURCES_TITLE = "View Resources";
+	/** Title for the View Profile page. */
+	private final String VIEW_PROFILE_TITLE = "View Profile";
+	/** Title for the Login page. */
+	private final String LOGIN_TITLE = "TaweLib: Library System";
 	
 	/** A button that leads to the Borrowed Items page. */
 	@FXML private Button btnBorrowedItems;
@@ -38,7 +52,6 @@ public class UserDashboardController {
 	 * is clicked. This will show the due date of each item (if set). 
 	 */
 	public void handleBorrowedItemsButtonAction() {
-		final String BORROWED_ITEMS_TITLE = "Borrowed Items";
 		Stage curStage = (Stage) btnBorrowedItems.getScene().getWindow(); 
 		curStage.close(); 
 		
@@ -50,10 +63,11 @@ public class UserDashboardController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(BORROWED_ITEMS_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -62,7 +76,6 @@ public class UserDashboardController {
 	 * available when the button is clicked.
 	 */
 	public void handleRequestedItemsButtonAction() {
-		final String REQUESTED_ITEMS_TITLE = "Requested Items";
 		Stage curStage = (Stage) btnRequestedItems.getScene().getWindow(); 
 		curStage.close(); // Closes that stage.
 	    
@@ -74,10 +87,11 @@ public class UserDashboardController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(REQUESTED_ITEMS_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -86,7 +100,6 @@ public class UserDashboardController {
 	 * button is clicked (reserved for the user).
 	 */
 	public void handleReservedItemsButtonAction() {
-		final String RESERVED_ITEMS_TITLE = "Reserved Items";
 		Stage curStage = (Stage) btnReservedItems.getScene().getWindow(); 
 		curStage.close(); // Closes that stage.
 	    
@@ -98,10 +111,11 @@ public class UserDashboardController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(RESERVED_ITEMS_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
     
@@ -114,7 +128,6 @@ public class UserDashboardController {
      * payment and the amount).
      */
     public void handleTransactionHistoryButtonAction() {
-    	final String TRANSACTION_HISTORY_TITLE = "Transaction History";
     	Stage curStage = (Stage) btnTransactionHistory.getScene().getWindow();
 		curStage.close(); 
 		
@@ -126,10 +139,11 @@ public class UserDashboardController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(TRANSACTION_HISTORY_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
     }
     
@@ -138,7 +152,6 @@ public class UserDashboardController {
 	 * to request to borrow resources when clicked.
 	 */
 	public void handleViewResourcesButtonAction() {
-		final String VIEW_RESOURCES_TITLE = "View Resources";
 		Stage curStage = (Stage) btnViewResources.getScene().getWindow(); 
 		curStage.close(); 
 		
@@ -150,10 +163,11 @@ public class UserDashboardController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(VIEW_RESOURCES_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -162,7 +176,6 @@ public class UserDashboardController {
 	 * and edit their details.
 	 */
 	public void handleViewProfileButtonAction() {
-		final String VIEW_PROFILE_TITLE = "View Profile";
         try {
         	// Sets up a new FXML loader.
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
@@ -189,17 +202,18 @@ public class UserDashboardController {
 			}	
 			viewUser.setEditProfileVisibility(true);
 			
-            // Sets the scene incl, width and height
+            // Sets the scene.
             Scene editScene = new Scene(editRoot); 
             Stage editStage = new Stage();
             editStage.setScene(editScene);
             editStage.setTitle(VIEW_PROFILE_TITLE);
             editStage.initModality(Modality.APPLICATION_MODAL);
             editStage.showAndWait();
-        } catch (IOException ex) {
+        } catch (IOException e) {
         	// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
         }
 	}
 	
@@ -207,7 +221,6 @@ public class UserDashboardController {
 	 * Goes back to the Log in page when the button is clicked.
 	 */
 	public void handleLogoutButtonAction() {
-		final String LOGIN_TITLE = "TaweLib: Library System";
 		// Closes the window.
 		Stage stage = (Stage) btnLogout.getScene().getWindow();
 		stage.close();
@@ -220,10 +233,11 @@ public class UserDashboardController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(LOGIN_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 }

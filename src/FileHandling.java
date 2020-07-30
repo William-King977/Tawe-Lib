@@ -30,7 +30,7 @@ public class FileHandling {
 		    myWriter.close();
 		} catch (IOException e) {
 		      System.out.println("Cannot write to " + filePath);
-		      System.exit(0);
+		      System.exit(-1);
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    currentUser = in.next();
 		return currentUser;
@@ -71,7 +71,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    in.useDelimiter(",");
@@ -113,7 +113,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    in.useDelimiter(",");
@@ -157,7 +157,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    in.useDelimiter(",");
@@ -201,7 +201,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    in.useDelimiter(",");
@@ -291,7 +291,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    in.useDelimiter(",");
@@ -333,7 +333,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    in.useDelimiter(",");
@@ -398,7 +398,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    in.useDelimiter(",");
@@ -437,7 +437,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    in.useDelimiter(",");
@@ -498,7 +498,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    in.useDelimiter(",");
@@ -569,7 +569,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    try {
@@ -587,10 +587,11 @@ public class FileHandling {
 		    reader.close();
 		    writer.flush();
 		    writer.close();
-	    } catch (IOException ex) {
+	    } catch (IOException e) {
 	    	// Catches an IO exception when the file can't 
 	    	// be written.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 	    }
 	}
 	
@@ -627,7 +628,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    try {
@@ -644,12 +645,12 @@ public class FileHandling {
 		    reader.close();
 		    writer.flush();
 		    writer.close();
-	    } catch (IOException ex) {
+	    } catch (IOException e) {
 	    	// Catches an IO exception when the file can't 
 	    	// be written.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 	    }
-	    
 	    Utility.savedResourceChanges();
 	}
 	
@@ -672,7 +673,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    try {
@@ -689,10 +690,11 @@ public class FileHandling {
 		    reader.close();
 		    writer.flush();
 		    writer.close();
-	    } catch (IOException ex) {
+	    } catch (IOException e) {
 	    	// Catches an IO exception when the file can't 
 	    	// be written.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 	    }
 	}
 	
@@ -715,7 +717,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    try {
@@ -732,10 +734,11 @@ public class FileHandling {
 		    reader.close();
 		    writer.flush();
 		    writer.close();
-	    } catch (IOException ex) {
+	    } catch (IOException e) {
 	    	// Catches an IO exception when the file can't 
 	    	// be written.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 	    }
 	}
 	
@@ -758,7 +761,7 @@ public class FileHandling {
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
-			System.exit(0);
+			System.exit(-1);
 		}
 	    
 	    try {
@@ -775,10 +778,11 @@ public class FileHandling {
 		    reader.close();
 		    writer.flush();
 		    writer.close();
-	    } catch (IOException ex) {
+	    } catch (IOException e) {
 	    	// Catches an IO exception when the file can't 
 	    	// be written.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 	    }
 	}
 	
@@ -816,7 +820,7 @@ public class FileHandling {
         } 
         catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
-            System.exit(0);
+            System.exit(-1);
         } 
 	}
 	
@@ -845,7 +849,7 @@ public class FileHandling {
         } 
         catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
-            System.exit(0);
+            System.exit(-1);
         } 
 	}
 	
@@ -885,7 +889,7 @@ public class FileHandling {
         } 
         catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
-            System.exit(0);
+            System.exit(-1);
         } 	
 	}
 	
@@ -915,7 +919,7 @@ public class FileHandling {
         } 
         catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
-            System.exit(0);
+            System.exit(-1);
         } 	
 	}
 	
@@ -945,7 +949,7 @@ public class FileHandling {
         } 
         catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
-            System.exit(0);
+            System.exit(-1);
         } 	
 	}
 	
@@ -975,7 +979,7 @@ public class FileHandling {
         } 
         catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
-            System.exit(0);
+            System.exit(-1);
         } 	
 	}
 	

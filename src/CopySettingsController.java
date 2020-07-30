@@ -18,6 +18,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class CopySettingsController {
+	/** Title for the Staff Dashboard page. */
+	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 	
 	/** A list that holds all the copies. */
 	private ArrayList<Copy> copyList;
@@ -33,6 +35,7 @@ public class CopySettingsController {
 	/** A check box used to indicate that the librarian wants to view 
 	 * only overdue copies. */
 	@FXML private CheckBox cbOverdueCopies;
+	
 	/** The back button for the page. */
 	@FXML private Button btnBack;
 	/** The button to initiate the display of the 
@@ -149,7 +152,6 @@ public class CopySettingsController {
      * when the button is clicked.
      */
     public void handleBackButtonAction() {
-    	final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -162,10 +164,11 @@ public class CopySettingsController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(STAFF_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
     }
 }

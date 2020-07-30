@@ -25,6 +25,14 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class ResourceSettingsController {
+	/** Title for the Staff Dashboard page. */
+	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
+	/** Title for the Edit Resource page. */
+	private final String EDIT_RESOURCE_TITLE = "Edit Resource";
+	/** Title for the Create New Resource page. */
+	private final String CREATE_RESOURCE_TITLE = "Create New Resource";
+	/** The directory to the thumbnail images for the resources. */
+	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";
 	
 	/** A list to hold all the resources .*/
 	private ArrayList<Resource> resourceList = new ArrayList<Resource>();
@@ -36,9 +44,7 @@ public class ResourceSettingsController {
 	private ArrayList<DVD> dvdList;
 	/** A list to hold all the laptops. */
 	private ArrayList<Laptop> laptopList;
-	
-	/** The directory to the thumbnail images for the resources. */
-	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";	
+		
 	/** Used to check if the resources have been searched via search box or not. */
 	private boolean isSearch = false;
 	
@@ -511,7 +517,6 @@ public class ResourceSettingsController {
 	 * Displays a page where the librarian can edit a selected resource.
 	 */
 	public void handleEditResourceButtonAction() {
-		final String EDIT_RESOURCE_TITLE = "Edit Resource";
 		// Gets the position of the selected resource on the UI.
 		int selectedIndex = lstShowResource.getSelectionModel()
 				.getSelectedIndex();
@@ -560,10 +565,11 @@ public class ResourceSettingsController {
 	        editStage.setTitle(EDIT_RESOURCE_TITLE);
 	        editStage.showAndWait();
         
-        } catch (IOException ex) {
-                // Catches an IO exception such as that where the fxml
-                // file is not found.
-                ex.printStackTrace();
+        } catch (IOException e) {
+        	// Catches an IO exception such as that where the fxml
+            // file is not found.
+            e.printStackTrace();
+            System.exit(-1);
         }
 	}
 	
@@ -571,7 +577,6 @@ public class ResourceSettingsController {
 	 * Displays a page where the librarian can create a new resource.
 	 */
 	public void handleCreateNewResourceButtonAction() {
-		final String CREATE_RESOURCE_TITLE = "Create New Resource";
 		// Closes the window.
 		Stage stage = (Stage) btnCreateResource.getScene().getWindow();
 		stage.close();
@@ -584,10 +589,11 @@ public class ResourceSettingsController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(CREATE_RESOURCE_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -595,7 +601,6 @@ public class ResourceSettingsController {
 	 * Goes back to the Staff Dashboard when the button is clicked.
 	 */
 	public void handleBackButtonAction() {
-		final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -608,10 +613,11 @@ public class ResourceSettingsController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(STAFF_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 }

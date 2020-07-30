@@ -17,15 +17,15 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class NewUserController {
+	/** Title for the User Settings page. */
+	private final String USER_SETTINGS_TITLE = "User Settings";
+	/** Holds the file name of the default profile picture. */
+    private final String DEFAULT_PROFILE_PICTURE = "Default1.png";
 	
 	/** A list of all the librarians. */
     private ArrayList<Librarian> librarianList;
     /** A list of all the users. */
     private ArrayList<User> userList;
-    
-    /** Holds the file name of the default profile picture. */
-    private final String DEFAULT_PROFILE_PICTURE =
-    		"Default1.png";
     
 	/** A text field to hold the user's username. */
 	@FXML private TextField txtUsername;
@@ -163,7 +163,6 @@ public class NewUserController {
      * Goes back to the previous page when the button is clicked.
      */
     public void handleBackButtonAction() {
-    	final String USER_SETTINGS_TITLE = "User Settings";
 		Stage curStage = (Stage) btnBack.getScene().getWindow(); 
 		curStage.close(); 
 		
@@ -175,10 +174,11 @@ public class NewUserController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(USER_SETTINGS_TITLE);
 			primaryStage.show(); 
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
     }
 }

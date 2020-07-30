@@ -19,6 +19,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class PayUserFineController {
+	/** Title for the Staff Dashboard page. */
+	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 	
 	/** ArrayList to hold all users. */
 	private ArrayList<User> userList;
@@ -174,7 +176,6 @@ public class PayUserFineController {
 	 * Goes back to the previous page when the button is clicked.
 	 */
 	public void handleBackButtonAction() {
-		final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -187,10 +188,11 @@ public class PayUserFineController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(STAFF_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 }

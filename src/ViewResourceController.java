@@ -24,6 +24,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class ViewResourceController {
+	/** Title for the User Dashboard page.*/
+	private final String USER_DASHBOARD_TITLE = "User Dashboard";
 	
 	/** A list to hold all the resources .*/
 	private ArrayList<Resource> resourceList = new ArrayList<Resource>();
@@ -60,11 +62,8 @@ public class ViewResourceController {
 	/** A list view to display the copies with their short descriptions. */
 	@FXML private ListView<String> lstShowCopies;
 	
-	/** A button that allows the user to request a copy. */
-	@FXML private Button btnRequestCopy;
-	/** The back button for the page. */
-	@FXML private Button btnBack;
-	
+	/** A text field used to the user's input (partial info) for a resource. */
+	@FXML private TextField txtSearchResource;
 	/** A text field used to display the resource's unique ID. */
 	@FXML private TextField txtResourceID;
 	/** A text field used to display the resource's title. */
@@ -116,8 +115,10 @@ public class ViewResourceController {
 	 * to filter the resources to only display laptops. */
 	@FXML private CheckBox cbLaptop;
 	
-	/** A text field used to the user's input (partial info) for a resource. */
-	@FXML private TextField txtSearchResource;
+	/** A button that allows the user to request a copy. */
+	@FXML private Button btnRequestCopy;
+	/** The back button for the page. */
+	@FXML private Button btnBack;
 	
 	/**
 	 * Displays all the resources with a short description onto the screen.
@@ -793,7 +794,6 @@ public class ViewResourceController {
 	 * Goes back to the User Dashboard when the button is clicked.
 	 */
 	public void handleBackButtonAction() {
-		final String USER_DASHBOARD_TITLE = "User Dashboard";
 		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -806,10 +806,11 @@ public class ViewResourceController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(USER_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 }

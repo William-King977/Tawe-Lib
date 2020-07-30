@@ -20,6 +20,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class EditResourceController {
+	/** Title for the Resource Settings page. */
+	private final String RESOURCE_SETTINGS_TITLE = "Resource Settings";
 	/** The directory to the thumbnail images for the resources. */
 	private final String RESOURCE_IMAGE_PATH = 
 			"DataFiles/ResourceThumbnails/";
@@ -519,7 +521,6 @@ public class EditResourceController {
 	 * Also used to exit the page after an edit has been saved.
 	 */
 	public void handleBackButtonAction() {
-		final String RESOURCE_SETTINGS_TITLE = "Resource Settings";
 		Stage curStage = (Stage) btnBack.getScene().getWindow(); 
 		curStage.close(); 
 		
@@ -531,10 +532,11 @@ public class EditResourceController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(RESOURCE_SETTINGS_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 }

@@ -15,6 +15,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class RequestedItemsController {
+	/** Title for the User Dashboard page. */
+	private final String USER_DASHBOARD_TITLE = "User Dashboard";
 	
 	/** A list view to display the requests for unavailable copies. */
 	@FXML private ListView<String> lstShowRequestedItems;
@@ -49,7 +51,6 @@ public class RequestedItemsController {
 	 * Goes back to the User Dashboard when the button is clicked.
 	 */
 	public void handleBackButtonAction() {
-		final String USER_DASHBOARD_TITLE = "User Dashboard";
 		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -62,10 +63,11 @@ public class RequestedItemsController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(USER_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 }

@@ -17,6 +17,9 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class BorrowedItemsController {
+	/** Title for the User Dashboard page. */
+	private final String USER_DASHBOARD_TITLE = "User Dashboard";
+	
 	/** Holds all the loans from the loans file for local storage. */
     private ArrayList<Loan> loanList;
     /** Holds all the user's current loans. */
@@ -27,9 +30,6 @@ public class BorrowedItemsController {
     
 	/** A list view used to display all of the loans. */
 	@FXML private ListView<String> lstShowLoans;
-	
-	/** The back button for the page. */
-    @FXML private Button btnBack;
     
     /** A text field used to display the selected loan's ID. */
     @FXML private TextField txtLoanID;
@@ -46,6 +46,9 @@ public class BorrowedItemsController {
     @FXML private TextField txtCopyID;
     /** A text field used to display the borrowed copy's resource type. */
     @FXML private TextField txtResourceType;
+    
+    /** The back button for the page. */
+    @FXML private Button btnBack;
     
     /**
 	 * Sets up the array lists for the Loans and display 
@@ -84,7 +87,6 @@ public class BorrowedItemsController {
 		txtCopyID.setText(selectedLoan.getCopyID() + "");
 		txtResourceID.setText(selectedLoan.getResourceID() + "");
 		txtResourceType.setText(selectedLoan.getType() + "");
-		
 		txtCheckoutDate.setText(selectedLoan.getCheckoutDate());
 		
 		if (selectedLoan.getDueDate().isEmpty()) {
@@ -100,7 +102,6 @@ public class BorrowedItemsController {
 	 * Goes back to the previous page when the button is clicked.
 	 */
 	public void handleBackButtonAction() {
-		final String USER_DASHBOARD_TITLE = "User Dashboard";
 		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -113,10 +114,11 @@ public class BorrowedItemsController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(USER_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 }

@@ -21,6 +21,14 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class UserSettingsController {
+	/** Title for the Edit User page. */
+	private final String EDIT_USER_TITLE = "Edit User";
+	/** Title for the Display User page. */
+	private final String DISPLAY_USER_TITLE = "Display User";
+	/** Title for the Create New User page. */
+	private final String CREATE_USER_TITLE = "Create New User";
+	/** Title for the Staff Dashboard page. */
+	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 	
 	/** A list of all the librarians. */
     private ArrayList<Librarian> librarianList;
@@ -118,9 +126,6 @@ public class UserSettingsController {
 	 * a selected user.
 	 */
 	public void handleEditUserButtonAction() {	
-		//Constants set for the new window to be displayed.
-		final String EDIT_USER_TITLE = "Edit User";
-		
 		//Gets the position of the selected user on the UI.
 		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
 		
@@ -174,10 +179,11 @@ public class UserSettingsController {
             editStage.showAndWait();
             initialize(); // Loads any changes to the users.
 			
-		} catch (IOException ex) {
+		} catch (IOException e) {
             // Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -186,9 +192,6 @@ public class UserSettingsController {
 	 * is selected.
 	 */
 	public void handleDisplayUserButtonAction() {
-		//Constants set for the new window to be displayed.
-		final String DISPLAY_USER_TITLE = "Display User";
-		
 		//Gets the position of the selected user on the UI.
 		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
 		
@@ -244,11 +247,11 @@ public class UserSettingsController {
             editStage.initModality(Modality.APPLICATION_MODAL);
             //Shows the window.
             editStage.showAndWait();
-			
-		} catch (IOException ex) {
+		} catch (IOException e) {
             // Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -256,7 +259,6 @@ public class UserSettingsController {
 	 * Displays a page where the librarian can create a new user.
 	 */
 	public void handleCreateNewUserButtonAction() {
-		final String CREATE_USER_TITLE = "Create New User";
 		// Closes the window.
     	Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -269,10 +271,11 @@ public class UserSettingsController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(CREATE_USER_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
 	}
 	
@@ -336,7 +339,6 @@ public class UserSettingsController {
      * Goes back to the Staff Dashboard when the button is clicked.
      */
     public void handleBackButtonAction() {
-    	final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
     	// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -349,10 +351,11 @@ public class UserSettingsController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(STAFF_DASHBOARD_TITLE);
 			primaryStage.show(); // Displays the new stage.
-		} catch (IOException ex) {
+		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
-            ex.printStackTrace();
+            e.printStackTrace();
+            System.exit(-1);
 		}
     }
 }

@@ -30,6 +30,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class CreateProfilePictureController {
+	/** The file path for the profile pictures. */
+	private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
 	
 	/** The fxID for the colour picker. */
 	@FXML private ColorPicker colourPicker;
@@ -58,7 +60,7 @@ public class CreateProfilePictureController {
 	@FXML private CheckBox arc;
 
 	/** The variable used to manipulate all of the graphics context libraries. */
-	GraphicsContext gc;
+	private GraphicsContext gc;
 	
 	/**
 	 * This method allows you to draw the shapes currently selected on the window.
@@ -131,25 +133,25 @@ public class CreateProfilePictureController {
 	 * a .png file.
 	 */
 	public void saveImage() {
-		/* Creates the snapchot object, setting the background of the image transparent. */
+		// Creates the snapchot object, setting the background of the image transparent. 
 		SnapshotParameters snapParameter = new SnapshotParameters();
 		snapParameter.setFill(Color.TRANSPARENT);
 		
-		/* Creating a writable image object which is of 300x300. */
+		// Creating a writable image object which is of 300x300. 
 		WritableImage customImage = new WritableImage(300,300);
-		String fileName = ImageFilename.getText().trim() + ".png"; //setting a filename to
-													//the name in the text field,
-													//appended to the .png extension.
+		String fileName = ImageFilename.getText().trim() + ".png"; // Setting a filename to
+													// the name in the text field,
+													// appended to the .png extension.
 		if (fileName.equals(".png")) { 
 			Utility.fileNameEmpty();
 		} else if (FileHandling.checkImageExists(fileName)) {
 			Utility.fileNameExists();
 		} else if (!FileHandling.checkImageExists(fileName)) { // Runs the following code if the file
 			                                                   // doesn't currently exist.
-			/* Creates the file by appending the complete path to the filename. */
-			File file = new File("DataFiles/ProfilePictures/" + fileName);
+			// Creates the file by appending the complete path to the filename. 
+			File file = new File(PROFILE_PICTURE_PATH + fileName);
 			
-			/* Creating the image by taking a snapchot of the canvas. */
+			// Creating the image by taking a snapchot of the canvas. 
 			Image snap = canvas.snapshot(snapParameter, customImage); 
 			
 			try { // Try's the code when writing to the file, handling any exceptions thrown.
@@ -157,7 +159,7 @@ public class CreateProfilePictureController {
 				Utility.profilePictureCreated();
 			} catch (IOException e) {
 				System.out.println("Cannot save " + fileName);
-				System.exit(0);
+				System.exit(-1);
 			}
 			
 		} 
@@ -228,6 +230,6 @@ public class CreateProfilePictureController {
 	 */
 	public void handleBackButtonAction() {
 		Stage curStage = (Stage) back.getScene().getWindow(); 
-		curStage.close(); //closes that stage.
+		curStage.close(); // Closes that stage.
 	}
 }
