@@ -49,15 +49,6 @@ public class NewUserController {
 	@FXML private CheckBox cbStaff;
 	/** The back button for the page. */
 	@FXML private Button btnBack;
-	
-	/**
-     * Sets up the contents for the array lists for the users.
-     * This method will run automatically.
-     */
-    public void initialize() {
-    	librarianList = FileHandling.getLibrarians();
-        userList = FileHandling.getUsers();
-    }
     
     /**
      * Creates a new user based on the information typed in 
@@ -129,10 +120,8 @@ public class NewUserController {
     	String newUser = "";
     	int userType;
     	if (cbStaff.isSelected()) {
-    		
     		// Gets todays date in format of YYYY-MM-DD.
-    		LocalDate employmentDate = LocalDate.now(); 
-    		userType = 1;
+    		String employmentDate = LocalDate.now().toString(); 
     		int staffID;
     		int previousStaffID;
     		// Gets the staff ID of the latest registered librarian.
@@ -143,21 +132,37 @@ public class NewUserController {
     					.getStaffID();
     			staffID = previousStaffID + 1; 
     		}
-    		newUser = username + "," + firstName + "," + surname + 
-    				"," + mobileNumber + "," + address1 + "," + address2 + 
-    				"," + city + "," + postcode + "," + profilePicture + 
-    				"," + fine + "," + staffID + "," + employmentDate + ",";
+    		
+    		userType = 1;
+    		Librarian newLibrarian = new Librarian(username, firstName, surname,
+    				mobileNumber, address1, address2, city, postcode, 
+    				profilePicture, fine, staffID, employmentDate);
+    		newUser = newLibrarian.toStringDetail();
+    		librarianList.add(newLibrarian);
+    	// If it's a regular user.
     	} else {
     		userType = 2;
-    		newUser = username + "," + firstName + "," + surname + 
-    				"," + mobileNumber + "," + address1 + "," + address2 + 
-    				"," + city + "," + postcode + "," + profilePicture + 
-    				"," + fine + ",";
+    		User newMember = new User(username, firstName, surname, mobileNumber,
+    				address1, address2, city, postcode, profilePicture, fine);
+    		newUser = newMember.toStringDetail();
+    		userList.add(newMember);
     	}
     	FileHandling.createUser(newUser, userType);
     	Utility.userCreated();
     	handleBackButtonAction();
     }	
+    
+    /**
+     * Sets both array lists so that the new user can be added locally.
+     * @param thisUserList The ArrayList of all current members.
+     * @param thisLibrarianList The ArrayList of all current librarians.
+     */
+    public void setUserArrays(ArrayList<User> thisUserList, 
+    		ArrayList<Librarian> thisLibrarianList) {
+    	// Both are passed in as the page is accessed.
+    	userList = thisUserList;
+    	librarianList = thisLibrarianList;
+    }
 	
 	/**
      * Goes back to the previous page when the button is clicked.
@@ -165,20 +170,5 @@ public class NewUserController {
     public void handleBackButtonAction() {
 		Stage curStage = (Stage) btnBack.getScene().getWindow(); 
 		curStage.close(); 
-		
-		try {
-			Stage primaryStage = new Stage();
-			Parent root = FXMLLoader.load(getClass()
-					.getResource("FXMLFiles/UserSettings.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.setTitle(USER_SETTINGS_TITLE);
-			primaryStage.show(); 
-		} catch (IOException e) {
-			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
-		}
     }
 }

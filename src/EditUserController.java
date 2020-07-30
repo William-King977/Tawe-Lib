@@ -174,10 +174,8 @@ public class EditUserController {
     
     /**
      * Validates the edited details of the user and saves any changes made.
-     * @throws IOException Throws an exception to be caught when the 
-	 *                     FXML file cannot be accessed.
      */
-    public void handleSaveButtonAction() throws IOException {
+    public void handleSaveButtonAction() {
     	String firstName = txtFirstName.getText().trim();
         String surname = txtSurname.getText().trim();
         String mobileNumber = txtMobileNumber.getText().trim();
@@ -222,7 +220,6 @@ public class EditUserController {
         	Utility.invalidPostcode();
         	return;
         }
-        
         saveUserEdits(firstName, surname, mobileNumber, address1, address2,
         		city, postcode, profilePicture);
     }
@@ -268,15 +265,6 @@ public class EditUserController {
         }
         handleBackButtonAction(); // Closes the window.
     }
-    
-    /**
-     * Goes back to the previous page when the button is clicked.
-     */
-    public void handleBackButtonAction() {
-    	//Closes the window.
-    	Stage stage = (Stage) btnBack.getScene().getWindow();
-    	stage.close();
-    }
 
     /**
      * Checks if the edited user is a librarian or a member.
@@ -314,4 +302,13 @@ public class EditUserController {
 	public void setEditAnotherUser(boolean editAnotherUser) {
 		this.editAnotherUser = editAnotherUser;
 	}
+	
+	/**
+     * Goes back to the previous page when the button is clicked.
+     */
+    public void handleBackButtonAction() {
+    	//Closes the window.
+    	Stage stage = (Stage) btnBack.getScene().getWindow();
+    	stage.close();
+    }
 }

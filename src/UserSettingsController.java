@@ -10,6 +10,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -65,14 +66,6 @@ public class UserSettingsController {
 	 * This method will run automatically.
 	 */
 	public void initialize() { 
-		lstShowUsers.getItems().clear();
-		allUsers.clear();
-		
-		btnViewUser.setDisable(true);
-		btnEditUser.setDisable(true);
-        cbLibrarian.setSelected(false);
-        cbMember.setSelected(false);
-		
 		librarianList = FileHandling.getLibrarians();
 		userList = FileHandling.getUsers();
 		
@@ -135,7 +128,7 @@ public class UserSettingsController {
 	
 			AnchorPane editRoot = fxmlLoader.load();
 			
-			//Gets the controller for the FXML file loaded.
+			// Gets the controller for the FXML file.
 			EditUserController editUser = fxmlLoader
 					.<EditUserController> getController();
 			
@@ -147,8 +140,9 @@ public class UserSettingsController {
 				Librarian selectedUser = librarianList.get(selectedIndex);
 				editUser.setIsLibrarian(true);
 				editUser.setEditAnotherUser(false);
-    			editUser.editUser(selectedUser);		
-    		} else if (cbMember.isSelected()){ // If editing another user.
+    			editUser.editUser(selectedUser);
+    		// If editing another user (i.e members).
+    		} else if (cbMember.isSelected()) { 
 				User selectedUser = userList.get(selectedIndex);
 				editUser.setIsLibrarian(false);
 				editUser.setEditAnotherUser(true);
@@ -177,8 +171,7 @@ public class UserSettingsController {
             editStage.setTitle(EDIT_USER_TITLE);
             editStage.initModality(Modality.APPLICATION_MODAL);
             editStage.showAndWait();
-            initialize(); // Loads any changes to the users.
-			
+            refreshUserSettings(); // Fresh the User Settings page.
 		} catch (IOException e) {
             // Catches an IO exception such as that where the FXML
             // file is not found.
@@ -198,15 +191,13 @@ public class UserSettingsController {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource("FXMLFiles/DisplayUser.fxml")); 
-			
-			// Sets a new anchor pane.
 			AnchorPane editRoot = fxmlLoader.load();
 			
-			//Gets the controller for the FXML file loaded.
+			//Gets the controller for the FXML file.
 			DisplayUserController viewUser = fxmlLoader
 					.<DisplayUserController> getController();
 			
-			// Sets variables to editUser based on user type being edited.
+			// Sets variables to viewUser based on user type being edited.
 			if (cbLibrarian.isSelected()) {
 				// Uses the earlier index to find the librarian 
 				// in the librarianList arrayList.
@@ -233,19 +224,13 @@ public class UserSettingsController {
     			}
     		}
 			
-			// Sets the scene.
             Scene editScene = new Scene(editRoot); 
-            // Creates a new stage
             Stage editStage = new Stage();
-            // Sets the scene to the stage
             editStage.setScene(editScene);
-            // Sets the stage title
             editStage.setTitle(DISPLAY_USER_TITLE);
-          
             // Sets modality which prevents any other window being
             // used (In the app) until this one is closed.
             editStage.initModality(Modality.APPLICATION_MODAL);
-            //Shows the window.
             editStage.showAndWait();
 		} catch (IOException e) {
             // Catches an IO exception such as that where the FXML
@@ -259,18 +244,26 @@ public class UserSettingsController {
 	 * Displays a page where the librarian can create a new user.
 	 */
 	public void handleCreateNewUserButtonAction() {
-		// Closes the window.
-    	Stage stage = (Stage) btnBack.getScene().getWindow();
-		stage.close();
-		
 		try {
-			Stage primaryStage = new Stage();
-			Parent root = FXMLLoader.load(getClass()
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource("FXMLFiles/NewUser.fxml"));
+			
+			AnchorPane root = (AnchorPane) fxmlLoader.load();
+			// Gets the controller for the FXML file.
+			NewUserController createUser = fxmlLoader
+					.<NewUserController> getController();
+			
+			// Passes down the array lists (allows the local change of them).
+			createUser.setUserArrays(userList, librarianList);        			
+			
 			Scene scene = new Scene(root);
+			Stage primaryStage = new Stage();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(CREATE_USER_TITLE);
-			primaryStage.show(); // Displays the new stage.
+			primaryStage.initModality(Modality.APPLICATION_MODAL);
+            primaryStage.showAndWait();
+			
+			refreshUserSettings(); // Fresh the User Settings page.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
@@ -333,6 +326,27 @@ public class UserSettingsController {
 				lstShowUsers.getItems().add(user.getUserDescription());
 			}		
 		}	
+    }
+    
+    /**
+     * Refreshes the User Settings page after creating a new user
+     * or editing an existing user's details.
+     */
+    public void refreshUserSettings() {
+    	lstShowUsers.getItems().clear();
+		allUsers.clear();
+		
+		btnViewUser.setDisable(true);
+		btnEditUser.setDisable(true);
+        cbLibrarian.setSelected(false);
+        cbMember.setSelected(false);
+		
+		allUsers.addAll(userList);
+		allUsers.addAll(librarianList);
+		
+		for (User user : allUsers) {
+			lstShowUsers.getItems().add(user.getUserDescription());
+		}
     }
     
     /**
