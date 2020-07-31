@@ -185,7 +185,7 @@ public class UserSettingsController {
 	 * is selected.
 	 */
 	public void handleDisplayUserButtonAction() {
-		//Gets the position of the selected user on the UI.
+		// Gets the position of the selected user on the UI.
 		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
 		
 		try {
@@ -204,7 +204,8 @@ public class UserSettingsController {
 				Librarian selectedUser = librarianList.get(selectedIndex);
 				viewUser.setIsLibrarian(true);
 	    		viewUser.displayProfile(selectedUser); 	
-    		} else if (cbMember.isSelected()){ // If editing another user.
+	    	// If viewing another user.
+    		} else if (cbMember.isSelected()) { 
 				User selectedUser = userList.get(selectedIndex);
 				viewUser.setIsLibrarian(false);
 				viewUser.displayProfile(selectedUser); 

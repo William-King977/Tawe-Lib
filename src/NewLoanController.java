@@ -30,6 +30,11 @@ public class NewLoanController {
     private ArrayList<Request> pendingRequests = new ArrayList<>();
     /** ArrayList to store all the copies. */
     private ArrayList<Copy> copies;
+    /** ArrayList to store all librarians. */
+    private ArrayList<Librarian> librarians;
+    
+    /** Holds the staff's username (currently using the system). */
+    private String staffUsername;
 
     /** Represents the list view and links it to the FXML file. */
     @FXML private ListView<String> lstRequests;
@@ -55,17 +60,13 @@ public class NewLoanController {
      * features and functionality for the page to work correctly.
      */
     public void initialize() {
-    	txtRequestDate.clear();
-		txtUsername.clear();
-        txtRequestID.clear();
-        txtCopyID.clear();
-        txtResourceID.clear();
-    	lstRequests.getItems().clear();
-    	pendingRequests.clear();
-    	btnCreateLoan.setDisable(true);
-    	
     	requestList = FileHandling.getRequests();
     	copies = FileHandling.getCopies();
+    	loanList = FileHandling.getLoans();
+    	Collections.sort(loanList, new SortLoansAsc());
+    	
+    	librarians = FileHandling.getLibrarians();
+    	staffUsername = FileHandling.getCurrentUser();
     	
     	for (Request request : requestList) {
     		if (!request.getRequestFilled() && request.isReserved()) {
@@ -106,7 +107,7 @@ public class NewLoanController {
 				.getSelectedIndex();
     	
 		// Fetch the details from the textfields.
-    	int loanID = getNextLatestLoanID() + 1;
+    	int loanID = getLatestLoanID() + 1;
     	int copyID = Integer.parseInt(txtCopyID.getText().trim());
     	int resourceID = Integer.parseInt(txtResourceID.getText().trim());
     	String username = txtUsername.getText().trim();
@@ -149,16 +150,14 @@ public class NewLoanController {
     	
     	// Alert to show that the loan has been created.
     	Utility.loanCreated();
-    	initialize(); // Refresh the request list.    
+    	refreshNewLoan(selectedIndex); // Refresh the request list.    
     }
     
     /**
      * Fetches the ID of the latest loan.
      * @return ID of the latest loan.
      */
-    public int getNextLatestLoanID() {
-    	loanList = FileHandling.getLoans();
-    	Collections.sort(loanList, new SortLoansAsc());
+    public int getLatestLoanID() {
     	int maxIndex = loanList.size() - 1;
     	
     	// If there are no loans (at all).
@@ -175,9 +174,6 @@ public class NewLoanController {
      * @return Staff ID of the librarian.
      */
     public int getStaffID() {
-    	ArrayList<Librarian> librarians = FileHandling.getLibrarians();
-    	String staffUsername = FileHandling.getCurrentUser();
-    	
     	for (Librarian librarian : librarians) {
     		if (staffUsername.equals(librarian.getUsername())) {
     			return librarian.getStaffID();
@@ -198,7 +194,6 @@ public class NewLoanController {
     			return copy.getResourceType();
     		}
     	}
-    	
     	// Shouldn't get to this point.
     	return null;
     }
@@ -222,6 +217,23 @@ public class NewLoanController {
 			}
 		}
 		return anyRequests;
+    }
+    
+    /**
+     * Refreshes the New Loan page after creating a new loan.
+     * @param selectedIndex The index of the fulfilled request to be removed.
+     */
+    public void refreshNewLoan(int selectedIndex) {
+    	txtRequestDate.clear();
+		txtUsername.clear();
+        txtRequestID.clear();
+        txtCopyID.clear();
+        txtResourceID.clear();
+    	btnCreateLoan.setDisable(true);
+    	
+    	// Removes the fulfilled request from the array list and list view.
+    	lstRequests.getItems().remove(selectedIndex);
+    	pendingRequests.remove(selectedIndex);
     }
     
     /**
