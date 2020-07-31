@@ -49,15 +49,7 @@ public class PayUserFineController {
 	 * This method will run automatically.
 	 */
 	public void initialize() {
-		// Clear boxes from previous transaction (if any).
-		txtUsername.clear();
-		txtCurrentFines.clear();
-		txtPayment.clear();
-		lstFinedUsers.getItems().clear();
-		btnPayFine.setDisable(true);
-		
 		userList = FileHandling.getUsers();
-		finedUsers.clear();
 		
 		for (User user : userList) {
 			if (user.getFine() > 0) {
@@ -132,7 +124,7 @@ public class PayUserFineController {
 		FileHandling.editProfile(oldUser, newUser, 2);
 		makePaymentTransaction(username, payment2DP);
 		Utility.paymentMade();
-		initialize();
+		refreshPayUserFine(selectedIndex, selectedUser); 
 	}
 	
 	/**
@@ -170,6 +162,30 @@ public class PayUserFineController {
 			maxID = (transactions.get(maxIndex)).getTransactionID();
 		}
 		return maxID;
+	}
+	
+	/**
+	 * Refreshes the page after a payment has been made.
+	 * @param selectedIndex The index of the payment made.
+	 * @param thisUser The user that requested the payment.
+	 */
+	public void refreshPayUserFine(int selectedIndex, User thisUser) {
+		// Clear boxes after the payment.
+		txtUsername.clear();
+		txtCurrentFines.clear();
+		txtPayment.clear();
+		btnPayFine.setDisable(true);
+		
+		// Remove the user if they no longer have any outstanding fines.
+		if (thisUser.getFine() == 0) {
+			lstFinedUsers.getItems().remove(selectedIndex);
+			finedUsers.remove(selectedIndex);
+		// Otherwise update their list view value.
+		} else {
+			String strUser = "Username: " + thisUser.getUsername() + " | "
+					+ "Fine: £" + thisUser.getFine();
+			lstFinedUsers.getItems().set(selectedIndex, strUser);
+		}
 	}
 	
 	/**
