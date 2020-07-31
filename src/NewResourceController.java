@@ -36,6 +36,10 @@ public class NewResourceController {
     private ArrayList<DVD> dvdList;
     /** An array list that holds all the existing laptops. */
     private ArrayList<Laptop> laptopList;
+    /** An array list that holds all resources. */
+    private ArrayList<Resource> resourceList;
+    /** An array list that holds all the copies. */
+    private ArrayList<Copy> copyList;
     /** Keeps track of the current languages in the list view */
     private ArrayList<String> currentLangList =  new ArrayList<String>();
     /** Holds the files of all resource images. */
@@ -95,14 +99,13 @@ public class NewResourceController {
 	@FXML private CheckBox cbLaptop;
 	
 	/**
-     * Sets up the ArrayLists for each resource.
+     * Sets up the copy list and the combo box for the resource thumbnail images.
      * This method will run automatically.
      */
 	public void initialize() {
-		bookList = FileHandling.getBooks();
-        dvdList = FileHandling.getDVDs();
-        laptopList = FileHandling.getLaptops();
-        
+		copyList = FileHandling.getCopies();
+		Collections.sort(copyList, new SortCopies());
+		
         //Creates an array of all resource images.
         File folder = new File(RESOURCE_IMAGE_PATH);
         resourceImageList = folder.listFiles();
@@ -268,7 +271,7 @@ public class NewResourceController {
 			validateNewDVD();
 		} else if (cbLaptop.isSelected()) {
 			validateNewLaptop();
-		//If none of the check boxes have been selected.
+		// If none of the check boxes have been selected.
 		} else {
 			Utility.resourceNotSelectedCreate();
 		} 
@@ -375,13 +378,15 @@ public class NewResourceController {
 		
 		int resourceID = getMaxResourceID() + 1;
 		
-		String newBook = resourceID + "," + resourceTitle + "," + year + 
-				"," + imageName + "," + NUMBER_OF_COPIES + "," + author + 
-				"," + publisher + "," + genre + "," + isbn + 
-				"," + language + ",";
+		Book newBook = new Book(resourceID, resourceTitle, year, imageName, 
+				NUMBER_OF_COPIES, author, publisher, genre, isbn, language);
+		String strNewBook = newBook.toStringDetail();
 		
 		addCopies(resourceID, ResourceType.BOOK);
-		FileHandling.createResource(newBook, ResourceType.BOOK);
+		FileHandling.createResource(strNewBook, ResourceType.BOOK);
+		bookList.add(newBook);
+		resourceList.add(newBook);
+		
 		Utility.resourceCreated();
 		handleBackButtonAction();
     }
@@ -454,12 +459,15 @@ public class NewResourceController {
 		
 		int resourceID = getMaxResourceID() + 1;
 		
-		String newDVD = resourceID + "," + resourceTitle + "," + year + 
-				"," + imageName + "," + NUMBER_OF_COPIES + "," + director + 
-				"," + runtime + "," + language + "," + strSubLang + ",";
+		DVD newDVD = new DVD(resourceID, resourceTitle, year, imageName, 
+				NUMBER_OF_COPIES, director, runtime, language, strSubLang);
+		String strNewDVD = newDVD.toStringDetail();
 		
 		addCopies(resourceID, ResourceType.DVD);
-		FileHandling.createResource(newDVD, ResourceType.DVD);
+		FileHandling.createResource(strNewDVD, ResourceType.DVD);
+		dvdList.add(newDVD);
+		resourceList.add(newDVD);
+		
 		Utility.resourceCreated();
 		handleBackButtonAction();
     }
@@ -518,12 +526,15 @@ public class NewResourceController {
    		
    		int resourceID = getMaxResourceID() + 1; 
    		
-		String newLaptop = resourceID + "," + resourceTitle + "," + year + 
-				"," + imageName + "," + NUMBER_OF_COPIES + "," + manufacturer + 
-				"," + model + "," + operatingSystem + ",";
+   		Laptop newLaptop = new Laptop(resourceID, resourceTitle, year, imageName, 
+   				NUMBER_OF_COPIES, manufacturer, model, operatingSystem);
+		String strNewLaptop = newLaptop.toStringDetail();
 		
 		addCopies(resourceID, ResourceType.LAPTOP);
-		FileHandling.createResource(newLaptop, ResourceType.LAPTOP);
+		FileHandling.createResource(strNewLaptop, ResourceType.LAPTOP);
+		laptopList.add(newLaptop);
+		resourceList.add(newLaptop);
+		
 		Utility.resourceCreated();
 		handleBackButtonAction();
 	}
@@ -534,12 +545,6 @@ public class NewResourceController {
 	 * @return The current maximum resource ID.
 	 */
 	public int getMaxResourceID() {
-		ArrayList<Resource> resourceList = new ArrayList<Resource>();
-		resourceList.addAll(bookList);
-		resourceList.addAll(dvdList);
-		resourceList.addAll(laptopList);
-  
-        Collections.sort(resourceList, new SortResources());
         int maxIndex = resourceList.size() - 1;
         int maxResourceID = resourceList.get(maxIndex).getResourceID();
 		return maxResourceID;
@@ -551,9 +556,6 @@ public class NewResourceController {
      * @param resourceType The resource type.
 	 */
 	public void addCopies(int resourceID, ResourceType resourceType) {
-		ArrayList<Copy> copyList = FileHandling.getCopies();
-		Collections.sort(copyList, new SortCopies());
-	
 		int maxIndex = copyList.size() - 1;
 		int maxCopyID = (copyList.get(maxIndex)).getCopyID();
 		int copyID = maxCopyID; // It's going to be incremented in the loop.
@@ -579,7 +581,24 @@ public class NewResourceController {
 					"," + loanDuration + ",";
 			FileHandling.createCopy(newCopy);
 		}
-	}  
+	} 
+	
+	/**
+	 * Sets the array lists for each resource so that the new resource can
+	 * be added locally.
+	 * @param bookList The ArrayList of all current books.
+	 * @param dvdList The ArrayList of all current DVDs.
+	 * @param laptopList The ArrayList of all current laptops.
+	 * @param resourceList The ArrayList of all current resources.
+	 */
+	public void setResourceArrays(ArrayList<Book> bookList, 
+			ArrayList<DVD> dvdList, ArrayList<Laptop> laptopList, 
+			ArrayList<Resource> resourceList) {
+		this.bookList = bookList;
+		this.dvdList = dvdList;
+		this.laptopList = laptopList;
+		this.resourceList = resourceList;
+	}
 	
 	/**
 	 * Goes back to the previous page when the button is clicked.
@@ -587,21 +606,5 @@ public class NewResourceController {
 	public void handleBackButtonAction() {
 		Stage curStage = (Stage) btnBack.getScene().getWindow(); 
 		curStage.close(); 
-		
-		try {
-			Stage primaryStage = new Stage();
-			Parent root = FXMLLoader.load(getClass()
-					.getResource("FXMLFiles/ResourceSettings.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.setTitle(RESOURCE_SETTINGS_TITLE);
-			primaryStage.show(); // Displays the new stage.
-		} catch (IOException e) {
-			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
-		}
 	}
-
 }

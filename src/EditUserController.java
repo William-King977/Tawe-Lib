@@ -25,11 +25,6 @@ public class EditUserController {
 	/** The file location of the profile pictures. */
     private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
 	
-	/** A list of all the librarians. */
-    private ArrayList<Librarian> librarianList;
-    /** A list of all the users. */
-    private ArrayList<User> userList;
-	
 	/** Used to check if the user edited is a librarian or not. */
 	private boolean isLibrarian;
 	/** Used to check if a librarian is editing another user's profile
@@ -76,9 +71,6 @@ public class EditUserController {
      * used later on. This method runs automatically.
      */
     public void initialize() {
-        librarianList = FileHandling.getLibrarians();
-        userList = FileHandling.getUsers();
-        
         //Creates an array of all profile pictures.
         File folder = new File(PROFILE_PICTURE_PATH);
         profilePictureList = folder.listFiles();

@@ -46,7 +46,7 @@ public class ResourceSettingsController {
 	private ArrayList<Laptop> laptopList;
 		
 	/** Used to check if the resources have been searched via search box or not. */
-	private boolean isSearch = false;
+	private boolean isSearch;
 	
 	/** A list view to display the resources with their short descriptions. */
 	@FXML private ListView<String> lstShowResource;
@@ -126,6 +126,8 @@ public class ResourceSettingsController {
         resourceList.addAll(dvdList);
         resourceList.addAll(laptopList);
         Collections.sort(resourceList, new SortResources()); 
+        
+        isSearch = false;
         
         // Show the resources on list view.
         for (Resource thisResource : resourceList) {
@@ -531,6 +533,8 @@ public class ResourceSettingsController {
 			// Gets the controller for the FXML file loaded.
 			EditResourceController editResource = fxmlLoader
 					.<EditResourceController> getController();
+			// Pass down the array lists.
+			editResource.setResourceArrays(bookList, dvdList, laptopList);
 			
 			// Looks at the same list (searchedList).
 			if (isSearch) {
@@ -552,10 +556,6 @@ public class ResourceSettingsController {
 					editResource.editResource(selectedResource); 	
 				}
 			}
-			
-			// Closes the current window.
-			Stage stage = (Stage) btnEditResource.getScene().getWindow();
-			stage.close();
 	        // Sets the scene.
 	        Scene editScene = new Scene(editRoot); 
 	        // Creates a new stage.
@@ -563,8 +563,9 @@ public class ResourceSettingsController {
 	        // Sets the scene to the stage.
 	        editStage.setScene(editScene);
 	        editStage.setTitle(EDIT_RESOURCE_TITLE);
+	        editStage.initModality(Modality.APPLICATION_MODAL);
 	        editStage.showAndWait();
-        
+	        refreshResourceSettings(); // Refresh to show the changes.
         } catch (IOException e) {
         	// Catches an IO exception such as that where the fxml
             // file is not found.
@@ -577,24 +578,75 @@ public class ResourceSettingsController {
 	 * Displays a page where the librarian can create a new resource.
 	 */
 	public void handleCreateNewResourceButtonAction() {
-		// Closes the window.
-		Stage stage = (Stage) btnCreateResource.getScene().getWindow();
-		stage.close();
-		
 		try {
-			Stage primaryStage = new Stage();
-			Parent root = FXMLLoader.load(getClass()
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource("FXMLFiles/NewResource.fxml"));
+			
+			BorderPane root = (BorderPane) fxmlLoader.load();
+			// Gets the controller for the FXML file.
+			NewResourceController createResource = fxmlLoader
+					.<NewResourceController> getController();
+			
+			// Passes down the array lists (allows the local changing of them).
+			createResource.setResourceArrays(bookList, dvdList, laptopList, resourceList);  
+			
 			Scene scene = new Scene(root);
+			Stage primaryStage = new Stage();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(CREATE_RESOURCE_TITLE);
-			primaryStage.show(); // Displays the new stage.
+			primaryStage.initModality(Modality.APPLICATION_MODAL);
+            primaryStage.showAndWait();
+            refreshResourceSettings(); // Refresh to add the new resource.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
             e.printStackTrace();
             System.exit(-1);
 		}
+	}
+	
+	/** 
+	 * Refreshes the Resource Settings page after a new resource has been 
+	 * created or edits has been made to an existing resource.
+	 */
+	public void refreshResourceSettings() {
+		// Clear each text field and list view.
+		txtResourceID.clear();
+		txtResourceTitle.clear();
+		txtYear.clear();
+		txtFinePerDay.clear();
+		txtMaxFine.clear();
+		txtNumberOfCopies.clear();
+		imageThumbnail.setImage(null);
+		
+		txtDirector.clear();
+		txtRuntime.clear();
+		txtLanguage.clear();
+		
+		txtAuthor.clear();
+		txtGenre.clear();
+		txtISBN.clear();
+		txtPublisher.clear();
+		
+		txtManufacturer.clear();
+		txtModel.clear();
+		txtOperatingSystem.clear();
+		
+		lstShowResource.getItems().clear();
+		lstSubLang.getItems().clear();
+		
+		// Untick the check boxes and disable the Edit button.
+		cbBook.setSelected(false);
+		cbDVD.setSelected(false);
+		cbLaptop.setSelected(false);
+		btnEditResource.setDisable(true);
+		
+		isSearch = false;
+		
+		// Show the resources on list view.
+        for (Resource thisResource : resourceList) {
+        	lstShowResource.getItems().add(thisResource.toString());
+        }
 	}
 	
 	/**

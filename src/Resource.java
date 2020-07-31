@@ -92,6 +92,14 @@ abstract public class Resource {
     }
     
     /**
+     * Sets the title for the resource.
+     * @param resourceTitle The title for the resource.
+     */
+    protected void setResourceTitle(String resourceTitle) {
+    	this.resourceTitle = resourceTitle;
+    }
+    
+    /**
      * Gets the year of the resource.
      * @return year The year the resource was released.
      */
@@ -100,11 +108,27 @@ abstract public class Resource {
     }
     
     /**
+     * Sets the year of the resource.
+     * @param year The year the resource was released.
+     */
+    protected void setYear(int year) {
+    	this.year = year;
+    }
+    
+    /**
      * Gets the path to the thumbnail image of the resource.
      * @return A string path to the thumbnail for a resource.
      */
     protected String getThumbnail() {
     	return thumbnail;
+    }
+    
+    /**
+     * Sets the path to the thumbnail image.
+     * @param thumbnail A string path to the thumbnail for a resource.
+     */
+    protected void setThumbnail(String thumbnail) {
+    	this.thumbnail = thumbnail;
     }
     
     /**

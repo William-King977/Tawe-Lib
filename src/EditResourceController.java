@@ -10,7 +10,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -39,7 +38,7 @@ public class EditResourceController {
     private File[] resourceImageList;
     
     /** Local storage of the resource being edited. */
-    private Resource resourceBeingEdited;
+    private Resource editedResource;
     
     /** A combo box used to select an image for a resource. */
 	@FXML private ComboBox<String> cmbResourceImage;
@@ -88,11 +87,7 @@ public class EditResourceController {
 	/**
 	 * Sets up the ArrayLists for each resource.
 	 */
-	public void initialize() {
-		bookList = FileHandling.getBooks();
-        dvdList = FileHandling.getDVDs();
-        laptopList = FileHandling.getLaptops();
-        
+	public void initialize() {        
         //Creates an array of all resource images.
         File folder = new File(RESOURCE_IMAGE_PATH);
         resourceImageList = folder.listFiles();
@@ -111,7 +106,7 @@ public class EditResourceController {
 	 */
 	public void editResource(Resource editedResource) {
 		// Keeps local storage of the edited resource.
-		this.resourceBeingEdited = editedResource;
+		this.editedResource = editedResource;
 		String resourceType = editedResource.getClass().getTypeName();
 		
 		// Displays the resource's editable details on screen in the
@@ -141,7 +136,7 @@ public class EditResourceController {
 	 * if they are valid.
 	 */
 	public void handleSaveButtonAction() {
-		String resourceType = resourceBeingEdited.getClass().getTypeName();
+		String resourceType = editedResource.getClass().getTypeName();
 		switch (resourceType) {
 			case "Book":
 				validateEditedBook();
@@ -153,6 +148,7 @@ public class EditResourceController {
 				validateEditedLaptop();
 				break;
 		}
+		Utility.savedResourceChanges();
 		handleBackButtonAction();
 	}
 	
@@ -223,7 +219,7 @@ public class EditResourceController {
 			imageName = resourceImageList[selectedIndex].getName();
 		} else {
 			//Sets to the previous resource image.
-			imageName = resourceBeingEdited.getThumbnail();
+			imageName = editedResource.getThumbnail();
 		}
 		
 		//Validation applied to the inputed values.
@@ -257,14 +253,19 @@ public class EditResourceController {
 			return;
 		}
 		
-		Book editedBook = (Book) resourceBeingEdited;
+		Book editedBook = (Book) editedResource;
 		String oldBook = editedBook.toStringDetail();
-		String newBook = resourceBeingEdited.getResourceID() + 
-				"," + resourceTitle + "," + year + "," + imageName+ 
-				"," + resourceBeingEdited.getNumberOfCopies() + 
-				"," + author + "," + publisher + "," + genre + 
-				"," + isbn + "," + language + ",";
 		
+		editedBook.setResourceTitle(resourceTitle);
+		editedBook.setYear(year);
+		editedBook.setThumbnail(imageName);
+		editedBook.setAuthor(author);
+		editedBook.setPublisher(publisher);
+		editedBook.setGenre(genre);
+		editedBook.setISBN(isbn);
+		editedBook.setLanguage(language);
+		
+		String newBook = editedBook.toStringDetail();
 		FileHandling.editResource(oldBook, newBook, "Book");
     }
     
@@ -290,7 +291,7 @@ public class EditResourceController {
 			imageName = resourceImageList[selectedIndex].getName();
 		} else {
 			//Sets to the previous resource image.
-			imageName = resourceBeingEdited.getThumbnail();
+			imageName = editedResource.getThumbnail();
 		}
 		
 		//Validation applied to the inputed values.
@@ -337,14 +338,18 @@ public class EditResourceController {
 			}
 		}
 		
-		DVD editedDVD = (DVD) resourceBeingEdited;
+		DVD editedDVD = (DVD) editedResource;
 		String oldDVD = editedDVD.toStringDetail();
-		String newDVD = resourceBeingEdited.getResourceID() + 
-				"," + resourceTitle + "," + year + "," + imageName + 
-				"," + resourceBeingEdited.getNumberOfCopies() + 
-				"," + director + "," + runtime + "," + language + 
-				"," + strSubLang + ",";
 		
+		editedDVD.setResourceTitle(resourceTitle);
+		editedDVD.setYear(year);
+		editedDVD.setThumbnail(imageName);
+		editedDVD.setDirector(director);
+		editedDVD.setRuntime(runtime);
+		editedDVD.setLanguage(language);
+		editedDVD.setSubLang(subLang);
+		
+		String newDVD = editedDVD.toStringDetail();		
 		FileHandling.editResource(oldDVD, newDVD, "DVD");
     }
     
@@ -368,7 +373,7 @@ public class EditResourceController {
 			imageName = resourceImageList[selectedIndex].getName();
 		} else {
 			//Sets to the previous resource image.
-			imageName = resourceBeingEdited.getThumbnail();
+			imageName = editedResource.getThumbnail();
 		}
 		
 		//Validation applied to the inputted values.
@@ -401,13 +406,17 @@ public class EditResourceController {
 			return;
 		}
    		
-   		Laptop editedLaptop = (Laptop) resourceBeingEdited;
+   		Laptop editedLaptop = (Laptop) editedResource;
 		String oldLaptop = editedLaptop.toStringDetail();
-		String newLaptop = resourceBeingEdited.getResourceID() + 
-				"," + resourceTitle + "," + year + "," + imageName + 
-				"," + resourceBeingEdited.getNumberOfCopies() + 
-				"," + manufacturer + "," + model + "," + operatingSystem + ",";
 		
+		editedLaptop.setResourceTitle(resourceTitle);
+		editedLaptop.setYear(year);
+		editedLaptop.setThumbnail(imageName);
+		editedLaptop.setManufacturer(manufacturer);
+		editedLaptop.setModel(model);
+		editedLaptop.setOperatingSystem(operatingSystem);
+		
+		String newLaptop = editedLaptop.toStringDetail();
 		FileHandling.editResource(oldLaptop, newLaptop, "Laptop");
     }
 	
@@ -516,6 +525,21 @@ public class EditResourceController {
 		txtOperatingSystem.setText(editedLaptop.getOperatingSystem());
     }
 	
+    /**
+	 * Sets the array lists for each resource.
+	 * Used to check if the edited resource's details matches with 
+	 * an existing resource.
+	 * @param thisBookList The ArrayList of all current books.
+	 * @param thisDVDList The ArrayList of all current DVDs.
+	 * @param thisLaptopList The ArrayList of all current laptops.
+	 */
+	public void setResourceArrays(ArrayList<Book> bookList, 
+			ArrayList<DVD> dvdList, ArrayList<Laptop> laptopList) {
+		this.bookList = bookList;
+		this.dvdList = dvdList;
+		this.laptopList = laptopList;
+	}
+    
 	/**
 	 * Goes back to the previous page when the button is clicked.
 	 * Also used to exit the page after an edit has been saved.
@@ -523,20 +547,5 @@ public class EditResourceController {
 	public void handleBackButtonAction() {
 		Stage curStage = (Stage) btnBack.getScene().getWindow(); 
 		curStage.close(); 
-		
-		try {
-			Stage primaryStage = new Stage();
-			Parent root = FXMLLoader.load(getClass()
-					.getResource("FXMLFiles/ResourceSettings.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.setTitle(RESOURCE_SETTINGS_TITLE);
-			primaryStage.show(); // Displays the new stage.
-		} catch (IOException e) {
-			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
-		}
 	}
 }

@@ -57,11 +57,11 @@ public class Laptop extends Resource {
 	 */
 	public String toStringDetail() {
 
-		String bookString = resourceID + "," + resourceTitle + "," + year + 
+		String laptopString = resourceID + "," + resourceTitle + "," + year + 
 				"," + thumbnail + "," + numberOfCopies + "," + manufacturer + 
 				"," + model + "," + operatingSystem + ",";
 		
-		return bookString;
+		return laptopString;
 	}
 	
 	/**

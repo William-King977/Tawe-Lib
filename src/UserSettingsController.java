@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -97,6 +98,9 @@ public class UserSettingsController {
 				btnEditUser.setDisable(true); // Disable it.
 				return;
 			}
+		} else if (cbMember.isSelected()) {
+			// They can edit members.
+			btnEditUser.setDisable(false); 
 		// If the users are not filtered.
 		} else {
 			User selectedUser = allUsers.get(selectedIndex);
@@ -254,8 +258,8 @@ public class UserSettingsController {
 			NewUserController createUser = fxmlLoader
 					.<NewUserController> getController();
 			
-			// Passes down the array lists (allows the local change of them).
-			createUser.setUserArrays(userList, librarianList);        			
+			// Passes down the array lists (allows the local changing of them).
+			createUser.setUserArrays(userList, librarianList, allUsers);        			
 			
 			Scene scene = new Scene(root);
 			Stage primaryStage = new Stage();
@@ -335,15 +339,11 @@ public class UserSettingsController {
      */
     public void refreshUserSettings() {
     	lstShowUsers.getItems().clear();
-		allUsers.clear();
 		
 		btnViewUser.setDisable(true);
 		btnEditUser.setDisable(true);
         cbLibrarian.setSelected(false);
         cbMember.setSelected(false);
-		
-		allUsers.addAll(userList);
-		allUsers.addAll(librarianList);
 		
 		for (User user : allUsers) {
 			lstShowUsers.getItems().add(user.getUserDescription());

@@ -77,6 +77,14 @@ public class DVD extends Resource {
 	public String getDirector() {
 		return director;
 	}
+	
+	/**
+	 * Sets the director of the DVD.
+	 * @param director The director to be set.
+	 */
+	public void setDirector(String director) {
+		this.director = director;
+	}
 
 	/**
 	 * Gets the runtime of the DVD.
@@ -84,6 +92,14 @@ public class DVD extends Resource {
 	 */
 	public double getRuntime(){
 		return runtime;
+	}
+	
+	/**
+	 * Sets the DVD's runtime.
+	 * @param runtime The runtime to be set.
+	 */
+	public void setRuntime(double runtime) {
+		this.runtime = runtime;
 	}
 	
 	/**
@@ -108,5 +124,13 @@ public class DVD extends Resource {
 	 */
 	public String[] getSubLang(){
 		return subLang;
+	}
+	
+	/**
+	 * Sets the subtitle languages for the DVD.
+	 * @param subLang An array of subtitle languages.
+	 */
+	public void setSubLang(String[] subLang) {
+		this.subLang = subLang;
 	}
 }
