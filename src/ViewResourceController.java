@@ -40,11 +40,11 @@ public class ViewResourceController {
 	/** A list to hold all the copies. */
 	private ArrayList<Copy> copyList;
 	/** A list to hold all the requests. */
-	ArrayList <Request> requestList;
-	/** ArrayList to hold all the pending requests. */
-	ArrayList<Request> pendingRequests = new ArrayList<>();
+	private ArrayList <Request> requestList;
+	/** ArrayList to hold all the pending requests for a resource. */
+	private ArrayList<Request> pendingRequests = new ArrayList<>();
 	/** A list to hold all the loans. */
-	ArrayList<Loan> loanList;
+	private ArrayList<Loan> loanList;
 	/** A list to hold all the copies for the selected resource. */
 	private ArrayList<Copy> currentCopiesList = new ArrayList<Copy>();
 	/** A list to hold all the users in the system. */
@@ -56,6 +56,8 @@ public class ViewResourceController {
 	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";	
 	/** Used to check if the resources have been searched via search box or not. */
 	private boolean isSearch = false;
+	/** Holds the logged in user's username. */
+	private String currentUsername;
 	
 	/** A list view to display the resources with their short descriptions. */
 	@FXML private ListView<String> lstShowResource;
@@ -96,7 +98,7 @@ public class ViewResourceController {
 	/** A text field used to display the DVD's runtime. */
 	@FXML private TextField txtRuntime;
 	/** A list view used to display the DVD's subtitle languages. */
-	@FXML private ListView<String>  lstSubLang;
+	@FXML private ListView<String> lstSubLang;
 	
 	/** A text field used to display the laptop's manufacturer. */
 	@FXML private TextField txtManufacturer;
@@ -125,6 +127,9 @@ public class ViewResourceController {
 	 * The method will be called automatically.
 	 */
 	public void initialize() {
+		// Set user variables.
+		currentUsername = FileHandling.getCurrentUser();
+		userList = FileHandling.getUsers();
 		
 		// Gets an ArrayList for each resource and their copies.
 		bookList = FileHandling.getBooks();
@@ -144,6 +149,13 @@ public class ViewResourceController {
         for (Resource thisResource : resourceList) {
         	lstShowResource.getItems().add(thisResource.toString());
         }  
+        
+        // Fetch the user's active loans.
+        for (Loan loan : loanList) {
+ 			if (currentUsername.equals(loan.getUsername()) && !loan.isReturned()) {
+ 				userCurrentLoans.add(loan);
+ 			}
+ 		}
 	}
 	
 	/**
@@ -151,9 +163,7 @@ public class ViewResourceController {
 	 */
 	public void handleRequestButtonAction() {
 		// Find current user.
-		String currentUsername = FileHandling.getCurrentUser();
 		User currentUser = null;
-		userList = FileHandling.getUsers();
 		for (User thisUser : userList) {
 			if (thisUser.getUsername().equals(currentUsername)) {
 				currentUser = thisUser;
@@ -213,11 +223,14 @@ public class ViewResourceController {
 		
 		// Create request.
 		int requestID = getMaxRequestID() + 1;
-		LocalDate requestDate = LocalDate.now(); 
-		String newRequest = requestID + "," + copyID + "," + resourceID + 
-				"," + currentUsername + "," + requestDate + ",false," + reserved + ",";
+		String requestDate = LocalDate.now().toString(); 
 		
-		FileHandling.makeRequest(newRequest);
+		Request newRequest = new Request(requestID, copyID, resourceID, 
+				currentUsername, requestDate, false, reserved);
+		String strNewRequest = newRequest.toStringDetail();
+		
+		requestList.add(newRequest);
+		FileHandling.makeRequest(strNewRequest);
 		setLoanDueDate(isCopyFound, copyID, duration); // Set due date if necessary.
 		displayCopies(resourceID); // Refresh copies.
 	}
@@ -246,18 +259,6 @@ public class ViewResourceController {
 	 * @return Whether the user has any overdue copies or not.
 	 */
 	public boolean getOverdue(String currentUsername) {
-		// The same user can't request the same resource twice, but
-	    // have this just in case.
-		userCurrentLoans.clear();
-		
-		// Fetch the user's active loans.
-		for (Loan loan : loanList) {
-			if (currentUsername.equals(loan.getUsername()) && 
-					!loan.isReturned()) {
-				userCurrentLoans.add(loan);
-			}
-		}
-		
 		// Check if there's a due date - due dates are set 
 		// when the copy is requested.
 		// If there is, check if it's past the due date.
@@ -315,8 +316,7 @@ public class ViewResourceController {
 	 */
 	public int getNextLatestCopyID(int resourceID, int minCopyID, 
 			int maxCopyID) {
-		// The same user can't request the same resource twice, but
-		// have this just in case.
+		// Clear from the previous request (for a different resource).
 		pendingRequests.clear();
 		
 		// Fetch pending requests for copies of the requested resource.
@@ -362,7 +362,8 @@ public class ViewResourceController {
 			// Set the due date to the current loan of the resource
 			// if it doesn't have one.
 			for (Loan loan : loanList) {
-				if (loan.getCopyID() == copyID && 
+				if (!loan.isReturned() && 
+						(loan.getCopyID() == copyID) &&
 						(loan.getDueDate()).isEmpty()) {
 					
 					Loan selectedLoan = loan;
@@ -375,8 +376,6 @@ public class ViewResourceController {
 			}
 			Utility.requestCreated("Queue");
 		}
-		requestList = FileHandling.getRequests();
-        loanList = FileHandling.getLoans();
 	}
 	
 	/**
@@ -406,10 +405,6 @@ public class ViewResourceController {
 		if (selectedIndex < 0) {
 			return;
 		}
-		
-		// Clear copies list view.
-		lstShowCopies.getItems().clear();
-		currentCopiesList.clear();
 		
 		// If it was found by search.
 		// You're looking in the same list (searchedList).

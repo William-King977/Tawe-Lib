@@ -138,6 +138,7 @@ public class NewLoanController {
     	}
     	
     	// Save the loan.
+    	loanList.add(newLoan);
     	String strNewLoan = newLoan.toStringDetail();
     	FileHandling.createLoan(strNewLoan);
     	
@@ -162,7 +163,7 @@ public class NewLoanController {
     	
     	// If there are no loans (at all).
     	if (loanList.size() == 0) {
-    		return 0;
+    		return 1;
     	} 
     	
     	int latestLoanID = loanList.get(maxIndex).getLoanID();
