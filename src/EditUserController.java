@@ -32,7 +32,7 @@ public class EditUserController {
 	private boolean editAnotherUser;
 	
 	/** Local storage of the user being edited. */
-    private User userBeingEdited;
+    private User editedUser;
     
     /** Holds the files of all profile pictures. */
     private File[] profilePictureList;
@@ -92,7 +92,7 @@ public class EditUserController {
      */
     public void editUser(User editedUser) {
 		//Keeps local storage of the edited user.
-		this.userBeingEdited = editedUser;
+		this.editedUser = editedUser;
 		
 		//Displays the user's editable details on screen in the
 		//appropriate text fields.
@@ -186,7 +186,7 @@ public class EditUserController {
 				.getSelectedIndex();
 		
 		// Sets to the user's old profile picture.
-		String profilePicture = userBeingEdited.getProfilePicture();
+		String profilePicture = editedUser.getProfilePicture();
 		
 		// Sets a new profile picture if the user has selected one.
 		if (selectedIndex >= 0) {
@@ -233,18 +233,18 @@ public class EditUserController {
     		String mobileNumber, String address1, String address2, String city, 
     		String postcode, String profilePicture) {
     	// Create copies of the old and new profiles, then replace the old with new.
-    	String oldProfile = userBeingEdited.toStringDetail();
+    	String oldProfile = editedUser.toStringDetail();
     	
-    	userBeingEdited.setFirstName(firstName);
-    	userBeingEdited.setSurname(surname);
-    	userBeingEdited.setMobileNumber(mobileNumber);
-    	userBeingEdited.setAddress1(address1);
-    	userBeingEdited.setAddress2(address2);
-    	userBeingEdited.setCity(city);
-    	userBeingEdited.setPostcode(postcode);
-    	userBeingEdited.setProfilePicture(profilePicture);
+    	editedUser.setFirstName(firstName);
+    	editedUser.setSurname(surname);
+    	editedUser.setMobileNumber(mobileNumber);
+    	editedUser.setAddress1(address1);
+    	editedUser.setAddress2(address2);
+    	editedUser.setCity(city);
+    	editedUser.setPostcode(postcode);
+    	editedUser.setProfilePicture(profilePicture);
     	
-		String newProfile = userBeingEdited.toStringDetail();
+		String newProfile = editedUser.toStringDetail();
 		
     	// If the user is a librarian.
         if (isLibrarian()) {
@@ -293,6 +293,14 @@ public class EditUserController {
 	 */
 	public void setEditAnotherUser(boolean editAnotherUser) {
 		this.editAnotherUser = editAnotherUser;
+	}
+	
+	/**
+	 * Gets the user being edited.
+	 * @return The user being edited.
+	 */
+	public User getEditedUser() {
+		return editedUser;
 	}
 	
 	/**

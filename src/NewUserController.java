@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 public class NewUserController {
 	/** Holds the file name of the default profile picture. */
     private final String DEFAULT_PROFILE_PICTURE = "Default1.png";
+    /** Holds the type of user being created. */
+    private String newUserType = "null";
 	
 	/** A list of all the librarians. */
     private ArrayList<Librarian> librarianList;
@@ -132,6 +134,7 @@ public class NewUserController {
     		}
     		
     		userType = 1;
+    		newUserType = "Librarian";
     		Librarian newLibrarian = new Librarian(username, firstName, surname,
     				mobileNumber, address1, address2, city, postcode, 
     				profilePicture, fine, staffID, employmentDate);
@@ -140,6 +143,7 @@ public class NewUserController {
     	// If it's a regular user.
     	} else {
     		userType = 2;
+    		newUserType = "User";
     		User newMember = new User(username, firstName, surname, mobileNumber,
     				address1, address2, city, postcode, profilePicture, fine);
     		newUser = newMember.toStringDetail();
@@ -160,6 +164,14 @@ public class NewUserController {
     	// Lists are passed in as the page is accessed.
     	this.userList = userList;
     	this.librarianList = librarianList;
+    }
+    
+    /**
+     * Gets the type of user being created.
+     * @return The type of user being created.
+     */
+    public String getNewUserType() {
+    	return newUserType;
     }
 	
 	/**

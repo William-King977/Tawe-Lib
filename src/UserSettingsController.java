@@ -121,20 +121,17 @@ public class UserSettingsController {
 					.<EditUserController> getController();
 			
 			String currentUser = FileHandling.getCurrentUser();
-			User editedUser = null; // Local variable for refreshing any changes.
 			
 			// Sets variables to editUser based on user type being edited.
 			if (cbLibrarian.isSelected()) {
 				// Uses the earlier index to find the librarian.
 				Librarian selectedUser = librarianList.get(selectedIndex);
-				editedUser = selectedUser;
 				editUser.setIsLibrarian(true);
 				editUser.setEditAnotherUser(false);
     			editUser.editUser(selectedUser);
     		// If editing another user (i.e members).
     		} else if (cbMember.isSelected()) { 
 				User selectedUser = userList.get(selectedIndex);
-				editedUser = selectedUser;
 				editUser.setIsLibrarian(false);
 				editUser.setEditAnotherUser(true);
 				editUser.editUser(selectedUser);
@@ -148,6 +145,7 @@ public class UserSettingsController {
             editStage.showAndWait();
             
             // Fresh the list view after any edits.
+            User editedUser = editUser.getEditedUser(); // Changes have been made (if any).
             lstShowUsers.getItems().set(selectedIndex, editedUser.getUserDescription());
             
 		} catch (IOException e) {
@@ -221,10 +219,6 @@ public class UserSettingsController {
 			// Passes down the array lists (allows the local changing of them).
 			createUser.setUserArrays(userList, librarianList); 
 			
-			// Used to check if a new user has been made.
-			int prevUserSize = userList.size();
-			int prevLibSize = librarianList.size();
-			
 			Scene scene = new Scene(root);
 			Stage primaryStage = new Stage();
 			primaryStage.setScene(scene);
@@ -233,7 +227,8 @@ public class UserSettingsController {
             primaryStage.showAndWait();
 			
             // Fresh the User Settings page.
-			refreshUserSettings(prevUserSize, prevLibSize); 
+            String newUserType = createUser.getNewUserType();
+			refreshUserSettings(newUserType); 
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
@@ -293,20 +288,22 @@ public class UserSettingsController {
     
     /**
      * Refreshes the User Settings page after creating a new user.
-     * @param prevUserSize The previous size of the users list.
-     * @param prevLibSize The previous size of the librarian list.
+     * @param newUserType The type of user that was created.
      */
-    public void refreshUserSettings(int prevUserSize, int prevLibSize) {
-    	// Checks if a new user was created by comparing the sizes
-    	// of arraylists. If a new user was made, the sizes will change.
-    	// If a member was created.
-    	if (cbMember.isSelected() && (userList.size() > prevUserSize)) {
-    		User newUser = userList.get(userList.size() - 1);
-    		lstShowUsers.getItems().add(newUser.getUserDescription());
-    	// If a librarian was created.
-    	} else if (cbLibrarian.isSelected() && (librarianList.size() > prevLibSize)) {
-    		Librarian newLibrarian = librarianList.get(librarianList.size() - 1);
-    		lstShowUsers.getItems().add(newLibrarian.getUserDescription());
+    public void refreshUserSettings(String newUserType) {
+    	switch (newUserType) {
+	    	case "User":
+	    		if (cbMember.isSelected()) {
+	    			User newUser = userList.get(userList.size() - 1);
+	    			lstShowUsers.getItems().add(newUser.getUserDescription());
+	    		}
+	    		break;
+	    	case "Librarian":
+	    		if (cbLibrarian.isSelected()) {
+	    			Librarian newLibrarian = librarianList.get(librarianList.size() - 1);
+	    			lstShowUsers.getItems().add(newLibrarian.getUserDescription());
+	    		}
+	    		break;
     	}
     	// Otherwise, do nothing (no user was created).
     }

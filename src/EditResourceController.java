@@ -539,6 +539,14 @@ public class EditResourceController {
 		this.dvdList = dvdList;
 		this.laptopList = laptopList;
 	}
+	
+	/**
+	 * Gets the resource being edited.
+	 * @return The resource being edited.
+	 */
+	public Resource getEditedResource() {
+		return editedResource;
+	}
     
 	/**
 	 * Goes back to the previous page when the button is clicked.
