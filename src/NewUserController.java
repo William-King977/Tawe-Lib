@@ -24,8 +24,6 @@ public class NewUserController {
     private ArrayList<Librarian> librarianList;
     /** A list of all the members. */
     private ArrayList<User> userList;
-    /** A list of all the users. */
-    private ArrayList<User> allUsers;
     
 	/** A text field to hold the user's username. */
 	@FXML private TextField txtUsername;
@@ -139,7 +137,6 @@ public class NewUserController {
     				profilePicture, fine, staffID, employmentDate);
     		newUser = newLibrarian.toStringDetail();
     		librarianList.add(newLibrarian);
-    		allUsers.add(newLibrarian);
     	// If it's a regular user.
     	} else {
     		userType = 2;
@@ -147,7 +144,6 @@ public class NewUserController {
     				address1, address2, city, postcode, profilePicture, fine);
     		newUser = newMember.toStringDetail();
     		userList.add(newMember);
-    		allUsers.add(newMember);
     	}
     	FileHandling.createUser(newUser, userType);
     	Utility.userCreated();
@@ -158,14 +154,12 @@ public class NewUserController {
      * Sets the array lists for the users so that the new user can be added locally.
      * @param userList The ArrayList of all current members.
      * @param librarianList The ArrayList of all current librarians.
-     * @param allUsers The ArrayList of all current users.
      */
     public void setUserArrays(ArrayList<User> userList, 
-    		ArrayList<Librarian> librarianList, ArrayList<User> allUsers) {
+    		ArrayList<Librarian> librarianList) {
     	// Lists are passed in as the page is accessed.
     	this.userList = userList;
     	this.librarianList = librarianList;
-    	this.allUsers = allUsers;
     }
 	
 	/**
