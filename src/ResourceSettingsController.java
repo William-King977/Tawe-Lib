@@ -535,24 +535,30 @@ public class ResourceSettingsController {
 					.<EditResourceController> getController();
 			// Pass down the array lists.
 			editResource.setResourceArrays(bookList, dvdList, laptopList);
+			Resource editedResource = null; // Local variable for refreshing any changes.
 			
 			// Looks at the same list (searchedList).
 			if (isSearch) {
 				Resource selectedResource = searchedList.get(selectedIndex);
+				editedResource = selectedResource; 
 				editResource.editResource(selectedResource); 
 			// Not found by search.
 			} else {
 				if (cbBook.isSelected()) {
 					Book selectedBook = bookList.get(selectedIndex);
+					editedResource = selectedBook;
 					editResource.editResource(selectedBook); 
 				} else if (cbDVD.isSelected()) {
 					DVD selectedDVD = dvdList.get(selectedIndex);
+					editedResource = selectedDVD;
 					editResource.editResource(selectedDVD); 
 				} else if (cbLaptop.isSelected()) {
 					Laptop selectedLaptop = laptopList.get(selectedIndex);
+					editedResource = selectedLaptop;
 					editResource.editResource(selectedLaptop); 
 				} else {
 					Resource selectedResource = resourceList.get(selectedIndex);
+					editedResource = selectedResource;
 					editResource.editResource(selectedResource); 	
 				}
 			}
@@ -565,7 +571,9 @@ public class ResourceSettingsController {
 	        editStage.setTitle(EDIT_RESOURCE_TITLE);
 	        editStage.initModality(Modality.APPLICATION_MODAL);
 	        editStage.showAndWait();
-	        refreshResourceSettings(); // Refresh to show the changes.
+	        
+	        // Refresh changes on the list view.
+	        lstShowResource.getItems().set(selectedIndex, editedResource.toString());
         } catch (IOException e) {
         	// Catches an IO exception such as that where the fxml
             // file is not found.
