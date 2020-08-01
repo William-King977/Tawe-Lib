@@ -20,10 +20,10 @@ public class Transaction {
 	/** The number of days overdue for the loan (that the user was fined for). */
 	private int daysOverdue;
 	
-	/** The date that the transaction was carried out. */
+	/** The date that the transaction was carried out (YYYY-MM-DD). */
 	private String date;
 	
-	/** The time that the transaction was carried out. */
+	/** The time that the transaction was carried out (HH:MM:SS). */
 	private String time;
 	
 	/** The type of resource that the user was fined for. */
@@ -39,8 +39,8 @@ public class Transaction {
 	 * @param username The username of the user who the transaction is issued for.
 	 * @param amount The amount of money involved in the transaction (GBP).
 	 * @param daysOverdue The number of days overdue for the loan (for fines).
-	 * @param date The date that the transaction was carried out.
-	 * @param time The time that the transaction was carried out.
+	 * @param date The date that the transaction was carried out (YYYY-MM-DD).
+	 * @param time The time that the transaction was carried out (HH:MM:SS).
 	 * @param type The type of resource that the user was fined for.
 	 * @param isFine Checks if the transaction is a fine or not (or payment).
 	 */
@@ -110,16 +110,16 @@ public class Transaction {
 	}
 	
 	/**
-	 * Gets the date that the transaction was carried out. 
-	 * @return The date that the transaction was carried out.
+	 * Gets the date that the transaction was carried out (YYYY-MM-DD). 
+	 * @return The date that the transaction was carried out (YYYY-MM-DD).
 	 */
 	public String getDate() {
 		return date;
 	}
 	
 	/**
-	 * Gets the time that the transaction was carried out. 
-	 * @return The time that the transaction was carried out.
+	 * Gets the time that the transaction was carried out (HH:MM:SS). 
+	 * @return The time that the transaction was carried out (HH:MM:SS).
 	 */
 	public String getTime() {
 		return time;

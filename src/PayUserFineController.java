@@ -135,7 +135,7 @@ public class PayUserFineController {
 	public void makePaymentTransaction(String username, double payment) {
 		int transactionID = getMaxTransactionID() + 1;
 		String today = LocalDate.now().toString();
-		String time = LocalTime.now().withSecond(0).withNano(0).toString();
+		String time = LocalTime.now().withNano(0).toString();
 		ResourceType type = null;
 		boolean isFine = false;
 		

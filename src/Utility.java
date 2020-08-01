@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays; 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -838,7 +839,7 @@ public class Utility {
 	
 	/**
 	 * Gets the number of days past since the entered date.
-	 * @param origionalDate The original date as a string (YYYY-MM-DD)
+	 * @param origionalDate The original date as a string (YYYY-MM-DD).
 	 * @return An integer of days past since the entered date.
 	 */
 	public static int daysPastDate(String originalDate) {
@@ -846,5 +847,31 @@ public class Utility {
         LocalDate thisDate = LocalDate.parse(originalDate);
         int daysBetween = (int) DAYS.between(thisDate, today);
         return daysBetween;
+	}
+	
+	/**
+	 * Gets the number of days past between two entered dates.
+	 * @param firstDate The first date as a string (YYYY-MM-DD).
+	 * @param secondDate The second date as a string (YYYY-MM-DD).
+	 * @return An integer of days between the entered dates.
+	 */
+	public static int daysBetweenDates(String firstDate, String secondDate) {
+        LocalDate locFirstDate = LocalDate.parse(firstDate);
+        LocalDate locSecondDate = LocalDate.parse(secondDate);
+        int daysBetween = (int) DAYS.between(locFirstDate, locSecondDate);
+        return daysBetween;
+	}
+	
+	/**
+	 * Gets the number of seconds between two entered times.
+	 * @param firstTime The first time as a string (HH:MM:SS).
+	 * @param secondTime The second time as a string (HH:MM:SS).
+	 * @return An integer of seconds between the entered times.
+	 */
+	public static int secondsBetweenTimes(String firstTime, String secondTime) {
+        LocalTime locFirstTime = LocalTime.parse(firstTime);
+        LocalTime locSecondTime = LocalTime.parse(secondTime);
+        int minutesBetween = (int) SECONDS.between(locFirstTime, locSecondTime);
+        return minutesBetween;
 	}
 }

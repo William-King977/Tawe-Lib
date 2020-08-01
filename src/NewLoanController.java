@@ -113,7 +113,7 @@ public class NewLoanController {
     	String username = txtUsername.getText().trim();
     	int staffID = getStaffID();
     	LocalDate checkoutDate = LocalDate.now();
-    	LocalTime checkoutTime = LocalTime.now().withSecond(0).withNano(0);
+    	LocalTime checkoutTime = LocalTime.now().withNano(0);
     	String strCheckoutDate = checkoutDate.toString();
     	String strCheckoutTime = checkoutTime.toString();
     	ResourceType type = getResourceType(copyID);

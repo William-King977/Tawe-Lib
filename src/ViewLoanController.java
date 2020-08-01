@@ -96,7 +96,7 @@ public class ViewLoanController {
 		users = FileHandling.getUsers();
 		
 		// Order lists.
-		Collections.sort(loanList, new SortLoansDesc()); // Show most recent loans first.
+		Collections.sort(loanList, new SortLoansReturnDesc()); // Show most recent loans first.
 		Collections.sort(requests, new SortRequests());
 		Collections.sort(transactions, new SortTransactionsAsc());
 		
@@ -180,7 +180,7 @@ public class ViewLoanController {
 		// Set returned to true.
 		String oldLoan = returnedLoan.toStringDetail();
 		LocalDate today = LocalDate.now();
-		LocalTime timeNow = LocalTime.now().withSecond(0).withNano(0);
+		LocalTime timeNow = LocalTime.now().withNano(0);
 		returnedLoan.setReturnDate(today.toString());
 		returnedLoan.setReturnTime(timeNow.toString());
 		returnedLoan.setReturned(true);
