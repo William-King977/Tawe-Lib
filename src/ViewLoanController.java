@@ -85,37 +85,23 @@ public class ViewLoanController {
 	 * This method will run automatically.
 	 */
 	public void initialize() { 
-		// Clear checkboxes, textboxes and list views.
-		txtLoanID.clear();
-		txtCopyID.clear();
-		txtResourceID.clear();
-		txtReturned.clear();
-		
-		txtCheckoutDate.clear();
-		txtReturnedDate.clear();
-		txtDueDate.clear();
-		txtDaysOverdue.clear();
-		
-		txtUsername.clear();
-		txtStaffID.clear();
-		txtResourceType.clear();
-	
-		btnReturnLoan.setDisable(true);
-		
-		lstShowLoans.getItems().clear();
-		pastLoans.clear();
-		currentLoans.clear();
 		loanList = FileHandling.getLoans();
 		
-		// Order to show the most recent loans first.
-		Collections.sort(loanList, new SortLoansDesc()); 
+		// Used to update requests (and copies if applicable).
+		requests = FileHandling.getRequests();
+		copies = FileHandling.getCopies();
+		
+		// Used for adding a user's fine (if overdue).
+		transactions = FileHandling.getTransactions();
+		users = FileHandling.getUsers();
+		
+		// Order lists.
+		Collections.sort(loanList, new SortLoansDesc()); // Show most recent loans first.
+		Collections.sort(requests, new SortRequests());
+		Collections.sort(transactions, new SortTransactionsAsc());
 		
 		for (Loan loan : loanList) {
-			// Doesn't completely reset everything i.e. when returning a loan.
-			if (!cbPastLoans.isSelected() 
-					&& !cbCurrentLoans.isSelected()) {
-				lstShowLoans.getItems().add(loan.getDescription());
-			}
+			lstShowLoans.getItems().add(loan.getDescription());
 
 			// Populate other array lists.
 			if (loan.isReturned()) {
@@ -124,17 +110,6 @@ public class ViewLoanController {
 				currentLoans.add(loan);
 			}
 		}
-		
-		// As mentioned previously (doesn't reset EVERYTHING).
-		if (cbPastLoans.isSelected()) {
-			setCBPastLoansStatus();
-		} else if (cbCurrentLoans.isSelected()) {
-			setCBCurrentLoansStatus();
-		} else {
-			// Both checkboxes are disabled at this point.
-			cbPastLoans.setSelected(false);
-			cbCurrentLoans.setSelected(false);
-		}	
     }
 	
 	/**
@@ -189,7 +164,6 @@ public class ViewLoanController {
      * Allows a librarian to return a selected loan.
      */
     public void handleReturnLoanButtonAction() {
-    	// A loan is selected (button enabled if so...).
     	int selectedIndex = lstShowLoans.getSelectionModel()
 				.getSelectedIndex();
 		
@@ -231,7 +205,7 @@ public class ViewLoanController {
 		String newLoan = returnedLoan.toStringDetail();
 		FileHandling.editLoan(oldLoan, newLoan);
 		Utility.loanReturned(); // Loan returned alert.
-		initialize();
+		refreshViewLoan(selectedIndex, returnedLoan); // Refresh page.
     }
     
     /**
@@ -277,8 +251,6 @@ public class ViewLoanController {
      * @param fine The amount of money fined for the loan.
      */
     public void addUserFine(String user, double fine) {
-    	users = FileHandling.getUsers();
-    	
     	User finedUser = null;
     	for (User thisUser : users) {
     		if (user.equals(thisUser.getUsername())) {
@@ -319,6 +291,7 @@ public class ViewLoanController {
     			resourceID, username, amount, daysOverdue, date, timeNow, 
     			type, isFine);
     	
+    	transactions.add(fineTransaction);
     	String strFineTransaction = fineTransaction.toStringDetail();
     	FileHandling.makeTransaction(strFineTransaction);
     }
@@ -328,13 +301,11 @@ public class ViewLoanController {
 	 * @return The current maximum transaction ID.
 	 */
 	public int getMaxTransactionID() {
-		transactions = FileHandling.getTransactions();
 		int maxID;
 		
 		if (transactions.size() == 0) {
 			maxID = 0;
 		} else {
-			Collections.sort(transactions, new SortTransactionsAsc());
 			int maxIndex = transactions.size() - 1;
 			maxID = (transactions.get(maxIndex)).getTransactionID();
 		}
@@ -348,13 +319,11 @@ public class ViewLoanController {
      * @param returnedLoan The returned loan.
      */
     public void checkReservedRequests(Loan returnedLoan) {
-    	requests = FileHandling.getRequests();
 		int copyID = returnedLoan.getCopyID();
 		String username = returnedLoan.getUsername();
 		boolean anyRequests = false;
 		Request nextRequest = null;
 		
-		Collections.sort(requests, new SortRequests());
 		for (Request request : requests) {
 			if (!request.getRequestFilled() && (copyID == request.getCopyID()) 
 					&& !username.equals(request.getUsername())) {
@@ -372,7 +341,6 @@ public class ViewLoanController {
 			FileHandling.editRequest(oldRequest, newRequest);
 		// Otherwise set the copy to available.
 		} else {
-			copies = FileHandling.getCopies();
 			Copy borrowedCopy = null;
 			for (Copy copy : copies) {
 				if (copyID == copy.getCopyID()) {
@@ -404,8 +372,10 @@ public class ViewLoanController {
     			lstShowLoans.getItems().add(thisLoan.getDescription());
     		}
         // If you're clicking the check box to clear it. 
-    	} else if (!cbPastLoans.isSelected() && !cbCurrentLoans.isSelected()) {
-        	initialize();
+    	} else {
+    		for (Loan thisLoan : loanList) {
+    			lstShowLoans.getItems().add(thisLoan.getDescription());
+    		}
 	    }
     }
     
@@ -425,9 +395,47 @@ public class ViewLoanController {
     			lstShowLoans.getItems().add(thisLoan.getDescription());
     		}
         // If you're clicking the check box to clear it. 
-    	} else if (!cbPastLoans.isSelected() && !cbCurrentLoans.isSelected()) {
-        	initialize();
+    	} else {
+    		for (Loan thisLoan : loanList) {
+    			lstShowLoans.getItems().add(thisLoan.getDescription());
+    		}
 	    }
+    }
+    
+    /**
+     * Refreshes the View Loan page after a loan has been returned.
+     * @param index The index of the returned loan.
+     * @param returnedLoan The returned loan.
+     */
+    public void refreshViewLoan(int index, Loan returnedLoan) {
+    	// Clear checkboxes, textboxes and list views.
+    	txtLoanID.clear();
+		txtCopyID.clear();
+		txtResourceID.clear();
+		txtReturned.clear();
+		
+		txtCheckoutDate.clear();
+		txtReturnedDate.clear();
+		txtDueDate.clear();
+		txtDaysOverdue.clear();
+		
+		txtUsername.clear();
+		txtStaffID.clear();
+		txtResourceType.clear();
+		
+		btnReturnLoan.setDisable(true); // Disable return loan button.
+		
+		// Remove the returned loan and add it to past loans.
+		currentLoans.remove(returnedLoan);
+		pastLoans.add(0, returnedLoan); // Add to the start (to show most recent returns first).
+		
+		// Remove from the current loans list view.
+		if (cbCurrentLoans.isSelected()) {
+			lstShowLoans.getItems().remove(index);
+		// If all loans are shown, then update its description.
+		} else {
+			lstShowLoans.getItems().set(index, returnedLoan.getDescription());
+		}
     }
     
     /**
