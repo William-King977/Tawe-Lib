@@ -101,13 +101,14 @@ public class ViewLoanController {
 		Collections.sort(transactions, new SortTransactionsAsc());
 		
 		for (Loan loan : loanList) {
-			lstShowLoans.getItems().add(loan.getDescription());
-
 			// Populate other array lists.
 			if (loan.isReturned()) {
 				pastLoans.add(loan);
 			} else {
+				// Show current loans by default.
 				currentLoans.add(loan);
+				lstShowLoans.getItems().add(loan.getDescription());
+				
 			}
 		}
     }
@@ -124,14 +125,12 @@ public class ViewLoanController {
 		} 
 		
 		// Get selected loan and show its details.
-		Loan selectedLoan;
+		Loan selectedLoan = null;
 		if (cbPastLoans.isSelected()) {
 			selectedLoan = pastLoans.get(selectedIndex);
 		} else if (cbCurrentLoans.isSelected()) {
 			selectedLoan = currentLoans.get(selectedIndex);
-		} else {
-			selectedLoan = loanList.get(selectedIndex);
-		}
+		} 
 		
 		// Disables the return loan button if selecting a past loan.
 		if (selectedLoan.isReturned()) {
@@ -168,14 +167,7 @@ public class ViewLoanController {
 				.getSelectedIndex();
 		
     	// Get the returned loan.
-    	Loan returnedLoan;
-		if (cbPastLoans.isSelected()) {
-			returnedLoan = pastLoans.get(selectedIndex);
-		} else if (cbCurrentLoans.isSelected()) {
-			returnedLoan = currentLoans.get(selectedIndex);
-		} else {
-			returnedLoan = loanList.get(selectedIndex);
-		}
+    	Loan returnedLoan = currentLoans.get(selectedIndex);
 		
 		// Set returned to true.
 		String oldLoan = returnedLoan.toStringDetail();
@@ -363,20 +355,17 @@ public class ViewLoanController {
     public void setCBPastLoansStatus() {
     	cbCurrentLoans.setSelected(false);
     	btnReturnLoan.setDisable(true);
-    	
-    	// Clears the content of the resource list if any. 
-    	lstShowLoans.getItems().clear();
     			
     	if (cbPastLoans.isSelected()) {
+    		// Clears the content of the resource list if any. 
+        	lstShowLoans.getItems().clear();
     		for (Loan thisLoan : pastLoans) {
     			lstShowLoans.getItems().add(thisLoan.getDescription());
     		}
-        // If you're clicking the check box to clear it. 
+    	// Keep it selected if it gets clicked again.
     	} else {
-    		for (Loan thisLoan : loanList) {
-    			lstShowLoans.getItems().add(thisLoan.getDescription());
-    		}
-	    }
+    		cbPastLoans.setSelected(true); 
+    	}
     }
     
     /**
@@ -385,21 +374,18 @@ public class ViewLoanController {
      */
     public void setCBCurrentLoansStatus() {
     	cbPastLoans.setSelected(false);
-    	btnReturnLoan.setDisable(true);
-    	
-    	// Clears the content of the resource list if any. 
-    	lstShowLoans.getItems().clear();
-    			
+    
     	if (cbCurrentLoans.isSelected()) {
+    		// Clears the content of the resource list if any. 
+        	lstShowLoans.getItems().clear();
+        	btnReturnLoan.setDisable(true);
     		for (Loan thisLoan : currentLoans) {
     			lstShowLoans.getItems().add(thisLoan.getDescription());
     		}
-        // If you're clicking the check box to clear it. 
+    	// Keep it selected if it gets clicked again.
     	} else {
-    		for (Loan thisLoan : loanList) {
-    			lstShowLoans.getItems().add(thisLoan.getDescription());
-    		}
-	    }
+    		cbCurrentLoans.setSelected(true); 
+    	}
     }
     
     /**
@@ -429,13 +415,8 @@ public class ViewLoanController {
 		currentLoans.remove(returnedLoan);
 		pastLoans.add(0, returnedLoan); // Add to the start (to show most recent returns first).
 		
-		// Remove from the current loans list view.
-		if (cbCurrentLoans.isSelected()) {
-			lstShowLoans.getItems().remove(index);
-		// If all loans are shown, then update its description.
-		} else {
-			lstShowLoans.getItems().set(index, returnedLoan.getDescription());
-		}
+		// Remove from the list view (current loans).
+		lstShowLoans.getItems().remove(index);
     }
     
     /**

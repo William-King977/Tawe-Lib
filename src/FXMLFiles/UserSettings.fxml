@@ -14,7 +14,7 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <CheckBox fx:id="cbMember" mnemonicParsing="false" onAction="#setCBMemberStatus" text="Members">
+            <CheckBox fx:id="cbMember" mnemonicParsing="false" onAction="#setCBMemberStatus" selected="true" text="Members">
                <font>
                   <Font size="14.0" />
                </font>
