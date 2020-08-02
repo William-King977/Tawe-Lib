@@ -29,6 +29,8 @@ public class NewResourceController {
 	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";
 	/** The number of copies a resource has. */
 	private final int NUMBER_OF_COPIES = 5;
+	/** The type of resource being created. */
+	private ResourceType newResourceType = null;
 	
     /** An array list that holds all the existing books. */
     private ArrayList<Book> bookList;
@@ -386,6 +388,7 @@ public class NewResourceController {
 		FileHandling.createResource(strNewBook, ResourceType.BOOK);
 		bookList.add(newBook);
 		resourceList.add(newBook);
+		newResourceType = ResourceType.BOOK;
 		
 		Utility.resourceCreated();
 		handleBackButtonAction();
@@ -467,6 +470,7 @@ public class NewResourceController {
 		FileHandling.createResource(strNewDVD, ResourceType.DVD);
 		dvdList.add(newDVD);
 		resourceList.add(newDVD);
+		newResourceType = ResourceType.DVD;
 		
 		Utility.resourceCreated();
 		handleBackButtonAction();
@@ -534,6 +538,7 @@ public class NewResourceController {
 		FileHandling.createResource(strNewLaptop, ResourceType.LAPTOP);
 		laptopList.add(newLaptop);
 		resourceList.add(newLaptop);
+		newResourceType = ResourceType.LAPTOP;
 		
 		Utility.resourceCreated();
 		handleBackButtonAction();
@@ -598,6 +603,22 @@ public class NewResourceController {
 		this.dvdList = dvdList;
 		this.laptopList = laptopList;
 		this.resourceList = resourceList;
+	}
+	
+	/**
+	 * Gets the type of resource that is being created.
+	 * @return The type of the new resource as an Enum.
+	 */
+	public String getNewResourceType() {
+		switch (newResourceType) {
+			case BOOK:
+				return "Book";
+			case DVD:
+				return "DVD";
+			case LAPTOP:
+				return "Laptop";
+		}
+		return "null";
 	}
 	
 	/**

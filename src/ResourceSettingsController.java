@@ -599,7 +599,10 @@ public class ResourceSettingsController {
 			primaryStage.setTitle(CREATE_RESOURCE_TITLE);
 			primaryStage.initModality(Modality.APPLICATION_MODAL);
             primaryStage.showAndWait();
-            refreshResourceSettings(); // Refresh to add the new resource.
+            
+            // Refresh to add the new resource locally.
+            String newResourceType = createResource.getNewResourceType();
+            refreshResourceSettings(newResourceType); 
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
@@ -610,46 +613,43 @@ public class ResourceSettingsController {
 	
 	/** 
 	 * Refreshes the Resource Settings page after a new resource has been 
-	 * created or edits has been made to an existing resource.
+	 * created.
+	 * @param newResourceType The type of resource created.
 	 */
-	public void refreshResourceSettings() {
-		// Clear each text field and list view.
-		txtResourceID.clear();
-		txtResourceTitle.clear();
-		txtYear.clear();
-		txtFinePerDay.clear();
-		txtMaxFine.clear();
-		txtNumberOfCopies.clear();
-		imageThumbnail.setImage(null);
+	public void refreshResourceSettings(String newResourceType) {
+		if (isSearch) {
+			// Don't to anything. Search updates anyway.
+			return;
+		}
 		
-		txtDirector.clear();
-		txtRuntime.clear();
-		txtLanguage.clear();
+		Resource newResource = resourceList.get(resourceList.size() - 1);
 		
-		txtAuthor.clear();
-		txtGenre.clear();
-		txtISBN.clear();
-		txtPublisher.clear();
+		// If none of the resource are filtered (by check boxes)
+		if (!cbBook.isSelected() && !cbDVD.isSelected() && 
+				!cbLaptop.isSelected()) {
+			lstShowResource.getItems().add(newResource.toString());
+			
+		}
 		
-		txtManufacturer.clear();
-		txtModel.clear();
-		txtOperatingSystem.clear();
-		
-		lstShowResource.getItems().clear();
-		lstSubLang.getItems().clear();
-		
-		// Untick the check boxes and disable the Edit button.
-		cbBook.setSelected(false);
-		cbDVD.setSelected(false);
-		cbLaptop.setSelected(false);
-		btnEditResource.setDisable(true);
-		
-		isSearch = false;
-		
-		// Show the resources on list view.
-        for (Resource thisResource : resourceList) {
-        	lstShowResource.getItems().add(thisResource.toString());
-        }
+		// Otherwise, show it depending on the new resource and the 
+		// filtered resources.
+		switch (newResourceType) {
+			case "Book":
+				if (cbBook.isSelected()) {
+					lstShowResource.getItems().add(newResource.toString());
+				}
+				break;
+			case "DVD":
+				if (cbDVD.isSelected()) {
+					lstShowResource.getItems().add(newResource.toString());
+				}
+				break;
+			case "Laptop":
+				if (cbLaptop.isSelected()) {
+					lstShowResource.getItems().add(newResource.toString());
+				}
+				break;
+		}
 	}
 	
 	/**
