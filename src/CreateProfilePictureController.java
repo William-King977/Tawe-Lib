@@ -11,12 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -32,6 +34,8 @@ import javafx.stage.Stage;
 public class CreateProfilePictureController {
 	/** The file path for the profile pictures. */
 	private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
+	/** The String name of the user's created profile picture. */
+	private String newProfilePicture = "";
 	
 	/** The fxID for the colour picker. */
 	@FXML private ColorPicker colourPicker;
@@ -156,7 +160,21 @@ public class CreateProfilePictureController {
 			
 			try { // Try's the code when writing to the file, handling any exceptions thrown.
 				ImageIO.write(SwingFXUtils.fromFXImage(snap, null), "png", file);
-				Utility.profilePictureCreated();
+				
+				// Alert message for confirmation.
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Profile Picture Created.");
+				alert.setHeaderText(null);
+				alert.setContentText("The profile picture has been created "
+						+ "successfully. Do you want to set it as your profile picture?");
+				alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+				// Handles the button press event (Yes, No).
+				alert.showAndWait().ifPresent(e -> {
+					// If they want it as their profile picture.
+					if (e == ButtonType.YES) {
+						newProfilePicture = fileName;
+					}
+				});
 			} catch (IOException e) {
 				System.out.println("Cannot save " + fileName);
 				System.exit(-1);
@@ -223,6 +241,14 @@ public class CreateProfilePictureController {
 		line.setSelected(true);
 		circle.setSelected(false);
 		brush.setSelected(false);
+	}
+	
+	/**
+	 * Gets the user's newly created profile picture.
+	 * @return The user's new profile picture as a String file name.
+	 */
+	public String getNewProfilePicture() {
+		return newProfilePicture; 
 	}
 	
 	/**

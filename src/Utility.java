@@ -189,20 +189,6 @@ public class Utility {
 	}
 	
 	/**
-	 * An alert pop-up that tells the user that their profile
-	 * picture has been saved.
-	 */
-	public static void profilePictureCreated() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Profile Picture Created.");
-		alert.setHeaderText(null);
-		alert.setContentText("The profile picture has been created "
-				+ "successfully. Select it from your profile "
-				+ "if you want to use it as your profile picture.");
-		alert.showAndWait();
-	}
-	
-	/**
 	 * An alert pop-up that tells the librarian that
 	 * the username entered already exists in the system.
 	 */

@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,6 +24,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class EditUserController {
+	/** Title for the Create Profile Picture page. */
+	private final String CREATE_PROFILE_PICTURE_TITLE = "Create Profile Picture";
 	/** The file location of the profile pictures. */
     private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
 	
@@ -123,7 +127,9 @@ public class EditUserController {
      * the selected profile picture onto the screen.
      */
     public void handleProfilePictureComboBoxAction() {
-	    //Gets the position of the selected profile picture.
+	    // Gets the position of the selected profile picture.
+    	// NOTE: An array index out of bounds exception can be thrown
+    	// if stuff gets processed too fast.
 		int selectedIndex = cmbProfilePicture.getSelectionModel()
 				.getSelectedIndex();			
 		File imageURL = profilePictureList[selectedIndex];
@@ -134,34 +140,34 @@ public class EditUserController {
     /**
      * Leads to a page where the user can create their own
      * profile picture.
-     * @throws IOException Throws an exception to be caught when the 
-	 *                     FXML file cannot be accessed.
      */
-    public void handleCreateProfilePictureButtonAction() throws IOException {
-    	// Creates the new stage
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass()
-				.getResource("FXMLFiles/CreateProfilePicture.fxml"));
-		// Gets the controller for the FXML file loaded.
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		
-		// Sets modality which prevents any other window being
-        // used (In the app) until this one is closed.
-        primaryStage.initModality(Modality.APPLICATION_MODAL);
-        primaryStage.showAndWait();
+    public void handleCreateProfilePictureButtonAction() {
+    	try {
+    		FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+					.getResource("FXMLFiles/CreateProfilePicture.fxml"));
+			
+			Pane root = fxmlLoader.load();
+			// Gets the controller for the FXML file.
+			CreateProfilePictureController createImage = fxmlLoader
+					.<CreateProfilePictureController> getController();
+			
+			Scene scene = new Scene(root);
+			Stage primaryStage = new Stage();
+			primaryStage.setScene(scene);
+			primaryStage.setTitle(CREATE_PROFILE_PICTURE_TITLE);
+			primaryStage.initModality(Modality.APPLICATION_MODAL);
+            primaryStage.showAndWait();
+            
+            // Updates the profile pictures.
+            String newProfilePicture = createImage.getNewProfilePicture();
+            refreshProfilePictures(newProfilePicture);
         
-        // Updates the profile pictures.
-        File folder = new File(PROFILE_PICTURE_PATH);
-        profilePictureList = folder.listFiles();
-        
-        cmbProfilePicture.getItems().clear();
-        
-        for (File file : profilePictureList) {
-        	if (file.isFile()) {
-        		cmbProfilePicture.getItems().add(file.getName());
-        	}
-        }
+    	} catch (IOException e) {
+    		// Catches an IO exception such as that where the FXML
+            // file is not found.
+            e.printStackTrace();
+            System.exit(-1);
+    	}
     }
     
     /**
@@ -256,6 +262,35 @@ public class EditUserController {
     		Utility.savedUserChanges("user");
         }
         handleBackButtonAction(); // Closes the window.
+    }
+    
+    /**
+     * Refreshes the profile pictures after the user has
+     * created a new profile picture.
+     * @param newProfilePicture Filename of the user's created profile picture.
+     */
+    public void refreshProfilePictures(String newProfilePicture) {
+    	// Refresh the combo box.
+    	File folder = new File(PROFILE_PICTURE_PATH);
+        profilePictureList = folder.listFiles();
+        cmbProfilePicture.getItems().clear();
+        
+        for (File file : profilePictureList) {
+        	if (file.isFile()) {
+        		cmbProfilePicture.getItems().add(file.getName());
+        	}
+        }
+        
+        // Set the user's profile picture on the page.
+        // If the user requested it to be their profile picture.
+        if (!newProfilePicture.isEmpty()) {
+        	editedUser.setProfilePicture(newProfilePicture);
+        	
+        	// Show it on the image view.
+    		File imageURL = new File(PROFILE_PICTURE_PATH + newProfilePicture);
+            Image profilePicture = new Image(imageURL.toURI().toString());
+    		imageProfilePicture.setImage(profilePicture);
+        }
     }
 
     /**
