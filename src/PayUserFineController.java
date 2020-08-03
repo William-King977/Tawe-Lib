@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +23,8 @@ public class PayUserFineController {
 	/** Title for the Staff Dashboard page. */
 	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 	
-	/** ArrayList to hold all users. */
-	private ArrayList<User> userList;
+	/** Linked hashmap to hold all users. */
+	private LinkedHashMap<String, User> userList;
 	/** ArrayList to hold all transactions. */
 	private ArrayList<Transaction> transactions;
 	/** ArrayList to hold users who currently have outstanding fines. */
@@ -51,7 +52,8 @@ public class PayUserFineController {
 	public void initialize() {
 		userList = FileHandling.getUsers();
 		
-		for (User user : userList) {
+		for (String key : userList.keySet()) {
+			User user = userList.get(key);
 			if (user.getFine() > 0) {
 				finedUsers.add(user);
 				String strUser = "Username: " + user.getUsername() + " | "

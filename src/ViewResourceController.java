@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +49,7 @@ public class ViewResourceController {
 	/** A list to hold all the copies for the selected resource. */
 	private ArrayList<Copy> currentCopiesList = new ArrayList<Copy>();
 	/** A list to hold all the users in the system. */
-	private ArrayList<User> userList;
+	private LinkedHashMap<String, User> userList;
 	/** ArrayList to hold all of the user's current loans. */
 	private ArrayList<Loan> userCurrentLoans = new ArrayList<>();
 	
@@ -163,16 +164,10 @@ public class ViewResourceController {
 	 */
 	public void handleRequestButtonAction() {
 		// Find current user.
-		User currentUser = null;
-		for (User thisUser : userList) {
-			if (thisUser.getUsername().equals(currentUsername)) {
-				currentUser = thisUser;
-				break;
-			}
-		}
+		User currentUser = userList.get(currentUsername);
 		
 		// Checks if the user has outstanding fines or overdue copies.
-		boolean isOverdue = getOverdue(currentUsername);
+		boolean isOverdue = getOverdue();
 		if (currentUser.getFine() > 0) {
 			Utility.outstandingFines();
 			return;
@@ -255,10 +250,9 @@ public class ViewResourceController {
 	/**
 	 * Checks if the user has any unreturned overdue copies i.e.
 	 * past the due date.
-	 * @param currentUsername Username of the user.
 	 * @return Whether the user has any overdue copies or not.
 	 */
-	public boolean getOverdue(String currentUsername) {
+	public boolean getOverdue() {
 		// Check if there's a due date - due dates are set 
 		// when the copy is requested.
 		// If there is, check if it's past the due date.

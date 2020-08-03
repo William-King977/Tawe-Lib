@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 /**
@@ -58,10 +59,10 @@ public class FileHandling {
 	
 	/**
 	 * Fetches all the current users in the system and stores
-	 * them in an ArrayList.
-	 * @return ArrayList of all users in the system.
+	 * them in a Linked Hashmap.
+	 * @return LinkedHashMap of all users in the system.
 	 */
-	public static ArrayList<User> getUsers() {
+	public static LinkedHashMap<String, User> getUsers() {
 		String filePath = DATA_FILE_PATH + "User.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
@@ -75,8 +76,9 @@ public class FileHandling {
 		}
 	    
 	    in.useDelimiter(",");
-	    // Read each user and store them in an ArrayList.
-	    ArrayList<User> users = new ArrayList<>();
+	    // Read each user and store them in a linked hashmap.
+	    // The key is the username.
+	    LinkedHashMap<String, User> users = new LinkedHashMap<>();
 	    while (in.hasNextLine()) {
 	    	
 	    	String username = in.next();
@@ -91,7 +93,7 @@ public class FileHandling {
 	    	double fine = in.nextDouble();
 	    	User user = new User(username, firstName, surname, mobileNumber,
 	    			address1, address2, city, postcode, profilePicture, fine); 
-	    	users.add(user);
+	    	users.put(username, user);
 	    	in.nextLine(); // Needed if you change delimiter.
 	    }
 	    in.close();
@@ -100,10 +102,10 @@ public class FileHandling {
 	
 	/**
 	 * Fetches all the current librarians in the system and stores
-	 * them in an ArrayList.
-	 * @return ArrayList of all librarians in the system.
+	 * them in a Linked Hashmap.
+	 * @return LinkedHashmap of all librarians in the system.
 	 */
-	public static ArrayList<Librarian> getLibrarians() {
+	public static LinkedHashMap<String, Librarian> getLibrarians() {
 		String filePath = DATA_FILE_PATH + "Librarian.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
@@ -117,8 +119,8 @@ public class FileHandling {
 		}
 	    
 	    in.useDelimiter(",");
-	    // Read each librarian and store them in an ArrayList.
-	    ArrayList<Librarian> librarians = new ArrayList<>();
+	    // Read each librarian and store them in a linked hashmap.
+	    LinkedHashMap<String, Librarian> librarians = new LinkedHashMap<>();
 	    while (in.hasNextLine()) {
 	    	String username = in.next();
 	    	String firstName = in.next();
@@ -135,7 +137,7 @@ public class FileHandling {
 	    	Librarian librarian = new Librarian(username, firstName, surname, 
 	    			mobileNumber, address1, address2, city, postcode, 
 	    			profilePicture, fine, staffID, employmentDate); 
-	    	librarians.add(librarian);
+	    	librarians.put(username, librarian);
 	    	in.nextLine(); // Needed if you change delimiter.
 	    }
 	    in.close();

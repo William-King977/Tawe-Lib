@@ -1,5 +1,6 @@
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +18,25 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class LoginController {
+	/** A linked hashmap to hold all current users. */
+	LinkedHashMap<String, User> users;
+	/** A linked hashmap to hold all current librarians. */
+	LinkedHashMap<String, Librarian> librarians;
 	/** fxID for the username test field */
 	@FXML private TextField txtUsername;
 	/** fxID for the staff check box */
 	@FXML private CheckBox cbStaff;
 	/** fxID for the login button */
 	@FXML private Button btnLogin;
+	
+	/**
+	 * Sets up the linked hashmaps for both user types.
+	 * This method will run automatically.
+	 */
+	public void initialize() {
+		users = FileHandling.getUsers();
+		librarians = FileHandling.getLibrarians();
+	}
 	
 	/**
 	 * Handles a button event for the login button e.g. button press.
@@ -60,23 +74,17 @@ public class LoginController {
 	 */
 	private boolean isUserExist(String username, int userType) {
 		switch (userType) {
-			// Create arrayList of users / librarians, then search it.
+			// Create linked hashmap of users/librarians, then search it.
 			case 1:
 				// Search for librarian.
-				ArrayList<Librarian> librarians = FileHandling.getLibrarians();
-				for(Librarian librarian : librarians) {
-					if(librarian.getUsername().equals(username)) {
-						return true;
-					}
+				if (librarians.containsKey(username)) {
+					return true;
 				}
 				break;
 			case 2:
 				// Search for user.
-				ArrayList<User> users = FileHandling.getUsers();
-				for(User user : users) {
-					if(user.getUsername().equals(username)) {
-						return true;
-					}
+				if (users.containsKey(username)) {
+					return true;
 				}
 				break;
 		}
@@ -99,6 +107,7 @@ public class LoginController {
 			Stage primaryStage = new Stage();
 			Parent root;
 			
+			// NOTE: Switch, Case will cause an error!
 			// Show appropriate dashboard based on the user type.
 			if (userType == 1) {
 				// Show staff dashboard.

@@ -29,8 +29,6 @@ public class DisplayUserController {
 	private boolean isLibrarian;
 	/** Local storage of the user (that you're viewing). */
 	private User thisUser;
-	/** An ArrayList holding all the users. */
-	private ArrayList<User> userList;
     
     /** A text field to hold the librarian's username. */
 	@FXML private TextField txtUsername;

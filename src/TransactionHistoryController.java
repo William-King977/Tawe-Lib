@@ -19,16 +19,15 @@ import javafx.stage.Stage;
 public class TransactionHistoryController {
 	/** Title for the User Dashboard page. */
 	private final String USER_DASHBOARD_TITLE = "User Dashboard";
+	/** Holds the user's username. */
+	private String username;
+	/** Holds a list of all of the transactions. */
+	private ArrayList<Transaction> transactions;
 	
 	/** A list view to display the transactions of the user. */
 	@FXML private ListView<String> lstShowTransactions;
 	/** The back button for the page. */
 	@FXML private Button btnBack;
-
-	/** Holds a list of all of the transactions. */
-	private ArrayList<Transaction> transactions;
-	/** Holds the user's username. */
-	private String username;
 	
 	/**
 	 * Displays all of the user's transactions in descending order. 

@@ -17,16 +17,15 @@ import javafx.stage.Stage;
 public class RequestedItemsController {
 	/** Title for the User Dashboard page. */
 	private final String USER_DASHBOARD_TITLE = "User Dashboard";
+	/** Holds the user's username. */
+	private String username;
+	/** Holds a list of all of the requests. */
+	private ArrayList<Request> requestList;
 	
 	/** A list view to display the requests for unavailable copies. */
 	@FXML private ListView<String> lstShowRequestedItems;
 	/** The back button for the page. */
 	@FXML private Button btnBack;
-
-	/** Holds a list of all of the requests. */
-	private ArrayList<Request> requestList;
-	/** Holds the user's username. */
-	private String username;
 	
 	/**
 	 * Displays all the current requests that the user has made for

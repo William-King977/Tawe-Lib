@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,11 +21,13 @@ public class NewUserController {
     private final String DEFAULT_PROFILE_PICTURE = "Default1.png";
     /** Holds the type of user being created. */
     private String newUserType = "null";
+    /** Holds the new user's username. */
+    private String newUsername;
 	
 	/** A list of all the librarians. */
-    private ArrayList<Librarian> librarianList;
+    private LinkedHashMap<String, Librarian> librarianList;
     /** A list of all the members. */
-    private ArrayList<User> userList;
+    private LinkedHashMap<String, User> userList;
     
 	/** A text field to hold the user's username. */
 	@FXML private TextField txtUsername;
@@ -117,6 +119,7 @@ public class NewUserController {
     private void saveUser(String username, String firstName, String surname, 
     		String mobileNumber, String address1, String address2, String city, 
     		String postcode, String profilePicture, double fine) {
+    	newUsername = username;
     	String newUser = "";
     	int userType;
     	if (cbStaff.isSelected()) {
@@ -128,8 +131,7 @@ public class NewUserController {
     		if (librarianList.size() == 0) { // staffID will start at 1.
     			staffID = 1;
     		} else {
-    			previousStaffID = librarianList.get(librarianList.size() - 1)
-    					.getStaffID();
+    			previousStaffID = getLatestStaffID();
     			staffID = previousStaffID + 1; 
     		}
     		
@@ -139,7 +141,7 @@ public class NewUserController {
     				mobileNumber, address1, address2, city, postcode, 
     				profilePicture, fine, staffID, employmentDate);
     		newUser = newLibrarian.toStringDetail();
-    		librarianList.add(newLibrarian);
+    		librarianList.put(username, newLibrarian);
     	// If it's a regular user.
     	} else {
     		userType = 2;
@@ -147,7 +149,7 @@ public class NewUserController {
     		User newMember = new User(username, firstName, surname, mobileNumber,
     				address1, address2, city, postcode, profilePicture, fine);
     		newUser = newMember.toStringDetail();
-    		userList.add(newMember);
+    		userList.put(username, newMember);
     	}
     	FileHandling.createUser(newUser, userType);
     	Utility.userCreated();
@@ -155,12 +157,28 @@ public class NewUserController {
     }	
     
     /**
-     * Sets the array lists for the users so that the new user can be added locally.
-     * @param userList The ArrayList of all current members.
-     * @param librarianList The ArrayList of all current librarians.
+     * Gets the staff ID of the latest librarian.
+     * @return StaffID of the latest librarian.
      */
-    public void setUserArrays(ArrayList<User> userList, 
-    		ArrayList<Librarian> librarianList) {
+    public int getLatestStaffID() {
+    	int staffID = -1;
+    	Librarian latestStaff = null;
+    	
+    	// Loop through each key (basically till the last one).
+    	for (String key : librarianList.keySet()) {
+    		latestStaff = librarianList.get(key);
+    	}
+    	staffID = latestStaff.getStaffID();
+    	return staffID;
+    }
+    
+    /**
+     * Sets the Linked Hashmaps for the users so that the new user can be added locally.
+     * @param userList The Linked Hashmap of all current members.
+     * @param librarianList The Linked Hashmap of all current librarians.
+     */
+    public void setUserLists(LinkedHashMap<String, User> userList, 
+    		LinkedHashMap<String, Librarian> librarianList) {
     	// Lists are passed in as the page is accessed.
     	this.userList = userList;
     	this.librarianList = librarianList;
@@ -172,6 +190,14 @@ public class NewUserController {
      */
     public String getNewUserType() {
     	return newUserType;
+    }
+    
+    /**
+     * Gets the new user's username.
+     * @return The username of the new user.
+     */
+    public String getNewUsername() {
+    	return newUsername;
     }
 	
 	/**

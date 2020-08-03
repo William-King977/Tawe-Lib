@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,9 +34,13 @@ public class UserSettingsController {
 	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 	
 	/** A list of all the librarians. */
-    private ArrayList<Librarian> librarianList;
+    private LinkedHashMap<String, Librarian> librarianList;
     /** A list of all the members. */
-    private ArrayList<User> userList;
+    private LinkedHashMap<String, User> userList;
+    /** An array list holding usernames of all librarians. */
+    private ArrayList<String> staffUsernames;
+    /** An array list holding usernames of all members. */
+    private ArrayList<String> memberUsernames;
     
     /** Stores the currently logged in librarian's username. */
     private String currentUser = FileHandling.getCurrentUser();
@@ -60,7 +65,7 @@ public class UserSettingsController {
 	@FXML private Button btnBack;
 	
     /**
-	 * Sets up the array lists for the users to be displayed
+	 * Sets up the linked hashmaps for the users to be displayed
 	 * later, depending on which check boxes are ticked.
 	 * This method will run automatically.
 	 */
@@ -69,7 +74,8 @@ public class UserSettingsController {
 		userList = FileHandling.getUsers();
 		
 		// Shows only members by default.
-		for (User user : userList) {
+		for (String key : userList.keySet()) {
+			User user = userList.get(key);
 			lstShowUsers.getItems().add(user.getUserDescription());
 		}
     }
@@ -89,8 +95,12 @@ public class UserSettingsController {
 		
 		// Members don't need to be considered for this.
 		if (cbLibrarian.isSelected()) {
-			User selectedUser = librarianList.get(selectedIndex);
-			if (!currentUser.equals(selectedUser.getUsername())) {
+			// Gets the username from the String (from the list view).
+			String user = lstShowUsers.getItems().get(selectedIndex);
+			// It's 10 indexes ahead of where 'Username: ' starts.
+			String thisUsername = user.substring(
+					user.indexOf("Username: ") + 10, user.indexOf(" | First Name:"));
+			if (!currentUser.equals(thisUsername)) {
 				btnEditUser.setDisable(true); // Disable it.
 				return;
 			}
@@ -109,6 +119,10 @@ public class UserSettingsController {
 	public void handleEditUserButtonAction() {	
 		//Gets the position of the selected user on the UI.
 		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
+		// Gets the username from the String (from the list view).
+		String user = lstShowUsers.getItems().get(selectedIndex);
+		String thisUsername = user.substring(
+				user.indexOf("Username: ") + 10, user.indexOf(" | First Name:"));
 		
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
@@ -120,18 +134,15 @@ public class UserSettingsController {
 			EditUserController editUser = fxmlLoader
 					.<EditUserController> getController();
 			
-			String currentUser = FileHandling.getCurrentUser();
-			
 			// Sets variables to editUser based on user type being edited.
 			if (cbLibrarian.isSelected()) {
-				// Uses the earlier index to find the librarian.
-				Librarian selectedUser = librarianList.get(selectedIndex);
+				Librarian selectedUser = librarianList.get(thisUsername);
 				editUser.setIsLibrarian(true);
 				editUser.setEditAnotherUser(false);
     			editUser.editUser(selectedUser);
     		// If editing another user (i.e members).
     		} else if (cbMember.isSelected()) { 
-				User selectedUser = userList.get(selectedIndex);
+				User selectedUser = userList.get(thisUsername);
 				editUser.setIsLibrarian(false);
 				editUser.setEditAnotherUser(true);
 				editUser.editUser(selectedUser);
@@ -163,6 +174,10 @@ public class UserSettingsController {
 	public void handleDisplayUserButtonAction() {
 		// Gets the position of the selected user on the UI.
 		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
+		// Gets the username from the String (from the list view).
+		String user = lstShowUsers.getItems().get(selectedIndex);
+		String thisUsername = user.substring(
+				user.indexOf("Username: ") + 10, user.indexOf(" | First Name:"));
 		
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
@@ -175,14 +190,12 @@ public class UserSettingsController {
 			
 			// Sets variables to viewUser based on user type being edited.
 			if (cbLibrarian.isSelected()) {
-				// Uses the earlier index to find the librarian 
-				// in the librarianList arrayList.
-				Librarian selectedUser = librarianList.get(selectedIndex);
+				Librarian selectedUser = librarianList.get(thisUsername);
 				viewUser.setIsLibrarian(true);
 	    		viewUser.displayProfile(selectedUser); 	
 	    	// If viewing another user.
     		} else if (cbMember.isSelected()) { 
-				User selectedUser = userList.get(selectedIndex);
+				User selectedUser = userList.get(thisUsername);
 				viewUser.setIsLibrarian(false);
 				viewUser.displayProfile(selectedUser); 
     		} 
@@ -216,8 +229,8 @@ public class UserSettingsController {
 			NewUserController createUser = fxmlLoader
 					.<NewUserController> getController();
 			
-			// Passes down the array lists (allows the local changing of them).
-			createUser.setUserArrays(userList, librarianList); 
+			// Passes down the linked hashmaps (allows the local changing of them).
+			createUser.setUserLists(userList, librarianList); 
 			
 			Scene scene = new Scene(root);
 			Stage primaryStage = new Stage();
@@ -228,7 +241,8 @@ public class UserSettingsController {
 			
             // Fresh the User Settings page.
             String newUserType = createUser.getNewUserType();
-			refreshUserSettings(newUserType); 
+            String newUsername = createUser.getNewUsername();
+			refreshUserSettings(newUserType, newUsername); 
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
             // file is not found.
@@ -253,9 +267,11 @@ public class UserSettingsController {
 			lstShowUsers.getItems().clear();
 			btnViewUser.setDisable(true);
 			btnEditUser.setDisable(true);
-    		for (User thisUser: userList) {
-    			lstShowUsers.getItems().add(thisUser.getUserDescription());
-    		}
+			
+			for (String key : userList.keySet()) {
+				User user = userList.get(key);
+				lstShowUsers.getItems().add(user.getUserDescription());
+			}
     	// Keeps it selected if gets clicked on again.
 	    } else {
 	    	cbMember.setSelected(true);
@@ -277,7 +293,9 @@ public class UserSettingsController {
 			lstShowUsers.getItems().clear();
 			btnViewUser.setDisable(true);
 			btnEditUser.setDisable(true);
-			for (User thisLibrarian : librarianList) {
+		
+			for (String key : librarianList.keySet()) {
+				User thisLibrarian = librarianList.get(key);
 				lstShowUsers.getItems().add(thisLibrarian.getUserDescription());
 			}
 		// Keeps it selected if gets clicked on again.
@@ -288,19 +306,20 @@ public class UserSettingsController {
     
     /**
      * Refreshes the User Settings page after creating a new user.
-     * @param newUserType The type of user that was created.
+     * @param newUserType The type of user that was created
+     * @param newUsername The username of the created user.
      */
-    public void refreshUserSettings(String newUserType) {
+    public void refreshUserSettings(String newUserType, String newUsername) {
     	switch (newUserType) {
 	    	case "User":
 	    		if (cbMember.isSelected()) {
-	    			User newUser = userList.get(userList.size() - 1);
+	    			User newUser = userList.get(newUsername);
 	    			lstShowUsers.getItems().add(newUser.getUserDescription());
 	    		}
 	    		break;
 	    	case "Librarian":
 	    		if (cbLibrarian.isSelected()) {
-	    			Librarian newLibrarian = librarianList.get(librarianList.size() - 1);
+	    			Librarian newLibrarian = librarianList.get(newUsername);
 	    			lstShowUsers.getItems().add(newLibrarian.getUserDescription());
 	    		}
 	    		break;

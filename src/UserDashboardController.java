@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +31,11 @@ public class UserDashboardController {
 	private final String VIEW_PROFILE_TITLE = "View Profile";
 	/** Title for the Login page. */
 	private final String LOGIN_TITLE = "TaweLib: Library System";
+	/** Holds the logged in user's username. */
+	private String currentUser;
+	
+	/** Linked hashmap holding all the users. */
+	private LinkedHashMap<String, User> userList;
 	
 	/** A button that leads to the Borrowed Items page. */
 	@FXML private Button btnBorrowedItems;
@@ -46,6 +51,15 @@ public class UserDashboardController {
 	@FXML private Button btnViewProfile;
 	/** The log out button for the dashboard. */
 	@FXML private Button btnLogout;
+	
+	/**
+	 * Sets up the variables required for the page.
+	 * This method will run automatically.
+	 */
+	public void initialize() {
+		userList = FileHandling.getUsers();
+		currentUser = FileHandling.getCurrentUser();
+	}
 	
 	/**
 	 * Displays the currently borrowed items of the user when the button 
@@ -189,17 +203,12 @@ public class UserDashboardController {
 					.<DisplayUserController> getController();
 			
 			// Gets array list of all users.
-			ArrayList<User> userList = FileHandling.getUsers();
-			String currentUser = FileHandling.getCurrentUser();
 			
-			// Finds the logged in user in the user list.
-			for (User thisUser : userList) {
-				if (thisUser.getUsername().equals(currentUser)) {
-					viewUser.setIsLibrarian(false);
-					viewUser.displayProfile(thisUser); 
-					break;
-				}
-			}	
+			// Finds the logged in user in the user linked hashmap.
+			User thisUser = userList.get(currentUser);
+			viewUser.setIsLibrarian(false);
+			viewUser.displayProfile(thisUser); 
+				
 			viewUser.setEditProfileVisibility(true);
 			
             // Sets the scene.

@@ -1,7 +1,9 @@
 import java.util.ArrayList;
-import java.util.Arrays; 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.SECONDS;
 
@@ -578,22 +580,19 @@ public class Utility {
      * @param username The username entered.
      * @return Whether the username entered exists in the system or not.
      */
-    public static boolean isUsernameExist(ArrayList<User> userList, 
-    		ArrayList<Librarian> librarianList, String username) {
+    public static boolean isUsernameExist(LinkedHashMap<String, User> userList,
+    		LinkedHashMap<String, Librarian> librarianList, String username) {
 		// Checks if any of the librarians have the same username.
-        for (User thisLibrarian : librarianList) {
-        	if ((thisLibrarian.getUsername()).equals(username)) { 
-        		return true;
-        	}
-        }
-        // Checks if any of the members have the same username.
-        for (User thisUser : userList) {
-        	if ((thisUser.getUsername()).equals(username)) {
-        		return true;
-        	}
-        }
+        Boolean userExist = userList.containsKey(username);
+        Boolean librarianExist = librarianList.containsKey(username);
+        
+        // If either is true, then the username already exists.
+        if (userExist || librarianExist) {
+        	return true;
         // The entered username doesn't exist in the system.
-        return false;
+        } else {
+        	return false;
+        }
     }
     
     /**

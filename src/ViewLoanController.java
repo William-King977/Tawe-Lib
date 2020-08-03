@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,8 +31,8 @@ public class ViewLoanController {
     private ArrayList<Request> requests;
     /** A list to hold all the transactions. */
 	private ArrayList <Transaction> transactions;
-    /**ArrayList to hold all users. */
-    private ArrayList<User> users;
+    /** A linked hashmap to hold all users. */
+    private LinkedHashMap<String, User> users;
     /** ArrayList to hold all copies */
     private ArrayList<Copy> copies; 
     /** Holds all the past loans (when filtered). */
@@ -239,17 +240,11 @@ public class ViewLoanController {
     
     /**
      * Adds the fine for the loan to the user's total balance.
-     * @param user User being fined.
+     * @param username The username of the user being fined.
      * @param fine The amount of money fined for the loan.
      */
-    public void addUserFine(String user, double fine) {
-    	User finedUser = null;
-    	for (User thisUser : users) {
-    		if (user.equals(thisUser.getUsername())) {
-    			finedUser = thisUser;
-    			break;
-    		}
-    	}
+    public void addUserFine(String username, double fine) {
+    	User finedUser = users.get(username);
     	
     	String oldUser = finedUser.toStringDetail();
     	double currentBalance = finedUser.getFine();

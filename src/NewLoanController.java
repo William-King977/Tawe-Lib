@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,8 +31,8 @@ public class NewLoanController {
     private ArrayList<Request> pendingRequests = new ArrayList<>();
     /** ArrayList to store all the copies. */
     private ArrayList<Copy> copies;
-    /** ArrayList to store all librarians. */
-    private ArrayList<Librarian> librarians;
+    /** Linked hashmap to store all librarians. */
+    private LinkedHashMap<String, Librarian> librarians;
     
     /** Holds the staff's username (currently using the system). */
     private String staffUsername;
@@ -175,13 +176,8 @@ public class NewLoanController {
      * @return Staff ID of the librarian.
      */
     public int getStaffID() {
-    	for (Librarian librarian : librarians) {
-    		if (staffUsername.equals(librarian.getUsername())) {
-    			return librarian.getStaffID();
-    		}
-    	}
-    	// Shouldn't get to this point...
-    	return -1;
+    	Librarian currentLibrarian = librarians.get(staffUsername);
+    	return currentLibrarian.getStaffID();
     }
     
     /**
