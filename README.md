@@ -12,3 +12,7 @@ Tawe-Lib Reborn has all the functionality that satisfies the specification (with
 - Users can edit their details, even though this feature is not mentioned in the specification.
 - Current Balance is shown in the user's profile (rather than a stand alone page).
 - File handling is done by using text files.
+
+# Data Structures
+- Each data class are stored in Array Lists, with the exception of both User classes.
+- Both Users and Librarians are stored in Linked Hashmaps, with the key being their username.
