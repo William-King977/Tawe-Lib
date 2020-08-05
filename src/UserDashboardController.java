@@ -202,13 +202,10 @@ public class UserDashboardController {
 			DisplayUserController viewUser = fxmlLoader
 					.<DisplayUserController> getController();
 			
-			// Gets array list of all users.
-			
 			// Finds the logged in user in the user linked hashmap.
 			User thisUser = userList.get(currentUser);
 			viewUser.setIsLibrarian(false);
 			viewUser.displayProfile(thisUser); 
-				
 			viewUser.setEditProfileVisibility(true);
 			
             // Sets the scene.

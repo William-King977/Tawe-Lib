@@ -76,7 +76,7 @@ public class UserSettingsController {
 		// Shows only members by default.
 		for (String key : userList.keySet()) {
 			User user = userList.get(key);
-			lstShowUsers.getItems().add(user.getUserDescription());
+			lstShowUsers.getItems().add(user.getDescription());
 		}
     }
 	
@@ -119,7 +119,7 @@ public class UserSettingsController {
 	public void handleEditUserButtonAction() {	
 		//Gets the position of the selected user on the UI.
 		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
-		// Gets the username from the String (from the list view).
+		// Gets the username from the String (from the description shown on the list view).
 		String user = lstShowUsers.getItems().get(selectedIndex);
 		String thisUsername = user.substring(
 				user.indexOf("Username: ") + 10, user.indexOf(" | First Name:"));
@@ -157,7 +157,7 @@ public class UserSettingsController {
             
             // Fresh the list view after any edits.
             User editedUser = editUser.getEditedUser(); // Changes have been made (if any).
-            lstShowUsers.getItems().set(selectedIndex, editedUser.getUserDescription());
+            lstShowUsers.getItems().set(selectedIndex, editedUser.getDescription());
             
 		} catch (IOException e) {
             // Catches an IO exception such as that where the FXML
@@ -270,7 +270,7 @@ public class UserSettingsController {
 			
 			for (String key : userList.keySet()) {
 				User user = userList.get(key);
-				lstShowUsers.getItems().add(user.getUserDescription());
+				lstShowUsers.getItems().add(user.getDescription());
 			}
     	// Keeps it selected if gets clicked on again.
 	    } else {
@@ -296,7 +296,7 @@ public class UserSettingsController {
 		
 			for (String key : librarianList.keySet()) {
 				User thisLibrarian = librarianList.get(key);
-				lstShowUsers.getItems().add(thisLibrarian.getUserDescription());
+				lstShowUsers.getItems().add(thisLibrarian.getDescription());
 			}
 		// Keeps it selected if gets clicked on again.
 		} else {
@@ -314,13 +314,13 @@ public class UserSettingsController {
 	    	case "User":
 	    		if (cbMember.isSelected()) {
 	    			User newUser = userList.get(newUsername);
-	    			lstShowUsers.getItems().add(newUser.getUserDescription());
+	    			lstShowUsers.getItems().add(newUser.getDescription());
 	    		}
 	    		break;
 	    	case "Librarian":
 	    		if (cbLibrarian.isSelected()) {
 	    			Librarian newLibrarian = librarianList.get(newUsername);
-	    			lstShowUsers.getItems().add(newLibrarian.getUserDescription());
+	    			lstShowUsers.getItems().add(newLibrarian.getDescription());
 	    		}
 	    		break;
     	}

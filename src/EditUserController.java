@@ -34,6 +34,9 @@ public class EditUserController {
 	/** Used to check if a librarian is editing another user's profile
 	  * or if a user is editing their own profile. */
 	private boolean editAnotherUser;
+	/** Used to check if the action performed on the profile picture combo box is 
+	 * clearing the check box (or selecting a picture). */
+	private boolean isClearingPictureCB;
 	
 	/** Local storage of the user being edited. */
     private User editedUser;
@@ -95,11 +98,11 @@ public class EditUserController {
      * @param editedUser The user to be edited.
      */
     public void editUser(User editedUser) {
-		//Keeps local storage of the edited user.
+		// Keeps local storage of the edited user.
 		this.editedUser = editedUser;
 		
-		//Displays the user's editable details on screen in the
-		//appropriate text fields.
+		// Displays the user's editable details on screen in the
+		// appropriate text fields.
     	txtFirstName.setText(editedUser.getFirstName());
 		txtSurname.setText(editedUser.getSurname());
 		txtAddressLine1.setText(editedUser.getAddress1());
@@ -108,15 +111,15 @@ public class EditUserController {
 		txtPostcode.setText(editedUser.getPostcode());
 		txtMobileNumber.setText(editedUser.getMobileNumber());
 		
-		//Changes image URL to a file, then converts that to an image.
+		// Changes image URL to a file, then converts that to an image.
 		File imageURL = new File(PROFILE_PICTURE_PATH 
 				+ editedUser.getProfilePicture());
         Image profilePicture = new Image(imageURL.toURI().toString());
 		imageProfilePicture.setImage(profilePicture);
 		
-		//Checks if a librarian is editing another user.
+		// Checks if a librarian is editing another user.
 		if (isEditAnotherUser()) {
-			//If so, prevent the editing of profile pictures.
+			// If so, prevent the editing of profile pictures.
     		cmbProfilePicture.setDisable(true);
     		btnCreateProfilePicture.setDisable(true);
         }
@@ -127,14 +130,17 @@ public class EditUserController {
      * the selected profile picture onto the screen.
      */
     public void handleProfilePictureComboBoxAction() {
-	    // Gets the position of the selected profile picture.
-    	// NOTE: An array index out of bounds exception can be thrown
-    	// if stuff gets processed too fast.
-		int selectedIndex = cmbProfilePicture.getSelectionModel()
-				.getSelectedIndex();			
-		File imageURL = profilePictureList[selectedIndex];
-		Image profilePicture = new Image(imageURL.toURI().toString());
-		imageProfilePicture.setImage(profilePicture);
+    	// If the action performed is NOT clearing the combo box, then
+    	// show the selected profile picture.
+    	// NOTE: Clearing the combo box is considered an action and will
+    	// throw an index out of bounds exception (the index will be -1).
+    	if (!isClearingPictureCB) {
+			int selectedIndex = cmbProfilePicture.getSelectionModel()
+					.getSelectedIndex();
+			File imageURL = profilePictureList[selectedIndex];
+			Image profilePicture = new Image(imageURL.toURI().toString());
+			imageProfilePicture.setImage(profilePicture);
+    	}
     }
     
     /**
@@ -160,7 +166,8 @@ public class EditUserController {
             
             // Updates the profile pictures.
             String newProfilePicture = createImage.getNewProfilePicture();
-            refreshProfilePictures(newProfilePicture);
+            boolean isPictureCreated = createImage.isProfilePictureCreated();
+            refreshProfilePictures(newProfilePicture, isPictureCreated);
         
     	} catch (IOException e) {
     		// Catches an IO exception such as that where the FXML
@@ -196,7 +203,7 @@ public class EditUserController {
 		
 		// Sets a new profile picture if the user has selected one.
 		if (selectedIndex >= 0) {
-			//Stores the file of the profile picture.
+			// Gets the name of the profile picture.
 			profilePicture = profilePictureList[selectedIndex].getName();
 		}
 		
@@ -268,29 +275,39 @@ public class EditUserController {
      * Refreshes the profile pictures after the user has
      * created a new profile picture.
      * @param newProfilePicture Filename of the user's created profile picture.
+     * @param isPictureCreated If the user has created a profile picture.
      */
-    public void refreshProfilePictures(String newProfilePicture) {
-    	// Refresh the combo box.
-    	File folder = new File(PROFILE_PICTURE_PATH);
-        profilePictureList = folder.listFiles();
-        cmbProfilePicture.getItems().clear();
-        
-        for (File file : profilePictureList) {
-        	if (file.isFile()) {
-        		cmbProfilePicture.getItems().add(file.getName());
-        	}
-        }
-        
-        // Set the user's profile picture on the page.
-        // If the user requested it to be their profile picture.
-        if (!newProfilePicture.isEmpty()) {
-        	editedUser.setProfilePicture(newProfilePicture);
-        	
-        	// Show it on the image view.
-    		File imageURL = new File(PROFILE_PICTURE_PATH + newProfilePicture);
-            Image profilePicture = new Image(imageURL.toURI().toString());
-    		imageProfilePicture.setImage(profilePicture);
-        }
+    public void refreshProfilePictures(String newProfilePicture, boolean isPictureCreated) {
+    	// Only refresh if a profile picture has been created.
+    	if (isPictureCreated) {
+	    	// Refresh the combo box.
+	    	File folder = new File(PROFILE_PICTURE_PATH);
+	        profilePictureList = folder.listFiles();
+	        
+	        // Clearing the combo box is considered an action.
+	        // Boolean helps to prevent an index out of bounds exception.
+	        isClearingPictureCB = true; 
+	        cmbProfilePicture.getItems().clear();
+	        
+	        for (File file : profilePictureList) {
+	        	if (file.isFile()) {
+	        		cmbProfilePicture.getItems().add(file.getName());
+	        	}
+	        }
+	        // Clear action is done, so change the status.
+	        isClearingPictureCB = false;
+	        
+	        // Set the user's profile picture on the page.
+	        // If the user requested it to be their profile picture.
+	        if (!newProfilePicture.isEmpty()) {
+	        	editedUser.setProfilePicture(newProfilePicture);
+	        	
+	        	// Show it on the image view.
+	    		File imageURL = new File(PROFILE_PICTURE_PATH + newProfilePicture);
+	            Image profilePicture = new Image(imageURL.toURI().toString());
+	    		imageProfilePicture.setImage(profilePicture);
+	        }
+    	}
     }
 
     /**
@@ -339,7 +356,7 @@ public class EditUserController {
 	}
 	
 	/**
-     * Goes back to the previous page when the button is clicked.
+     * Closes the current page.
      */
     public void handleBackButtonAction() {
     	//Closes the window.

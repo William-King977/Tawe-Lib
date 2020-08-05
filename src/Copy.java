@@ -117,7 +117,7 @@ public class Copy {
         } else {
         	canBorrow = "No";
         }
-        return "Copy ID: " + copyID + " | Resource ID: " + resourceID + 
+        return "ID: " + copyID + " | Resource ID: " + resourceID + 
         		" | Is Available: " + canBorrow;
     }
 	

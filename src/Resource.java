@@ -169,7 +169,7 @@ abstract public class Resource {
      * @return toString The short description of a resource.
      */
     public String toString() {
-    	String resourceDescription = "Resource ID: " + resourceID + 
+    	String resourceDescription = "ID: " + resourceID + 
     			" | Title: " + resourceTitle + " | Year: " + year;
     	return resourceDescription;
     }

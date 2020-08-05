@@ -37,6 +37,9 @@ public class CreateProfilePictureController {
 	/** The String name of the user's created profile picture. */
 	private String newProfilePicture = "";
 	
+	/** Checks if the user has created a profile picture. */
+	private boolean isProfilePictureCreated = false;
+	
 	/** The fxID for the colour picker. */
 	@FXML private ColorPicker colourPicker;
 	
@@ -71,28 +74,29 @@ public class CreateProfilePictureController {
 	 * Determines what shape is selected, and then draws the shape applicable.
 	 */
 	public void draw() {
-		gc = canvas.getGraphicsContext2D(); // Sets the graphics context.
+		gc = canvas.getGraphicsContext2D(); 
 		// The stroke colour, fill colour, and width set initially.
 		gc.setStroke(colourPicker.getValue()); 
 		gc.setFill(colourPicker.getValue());
 		gc.setLineWidth(brushSize.getValue());
 		
-		canvas.setOnMousePressed(e-> { // Sets the initial x and y 
-			   // coordinate when pressed.
+		// Sets the initial x and y coordinate when pressed.
+		canvas.setOnMousePressed(e -> { 
 			double xStart = e.getX();
 			double yStart = e.getY();
-			canvas.setOnMouseReleased(a-> { // When released, the final x and y
-					    // coordinates are recorded and used.
-				if (line.isSelected()) { // if line is selected, then a line is drawn.
+			// When released, the final x and y coordinates are recorded and used.
+			canvas.setOnMouseReleased(a -> {
+				// if line is selected, then a line is drawn.
+				if (line.isSelected()) { 
 					gc.strokeLine(xStart, yStart, a.getX(), a.getY());
-					gc.closePath(); // Closes the path so following lines
-						            // don't link up from the previous line.
-					}
+					// Closes the path so following lines don't link up from the previous line.
+					gc.closePath(); 
+				}
 			});
 		});
 		
-		canvas.setOnMouseClicked(e->{ // Sets the initial x and y values when
-			// the mouse is selected, and the shape size.
+		// Sets the initial x and y values when the mouse is selected, and the shape size.
+		canvas.setOnMouseClicked(e -> { 
 			double shapeSize = brushSize.getValue();
 			double initX = e.getX() - shapeSize / 2;
 			double initY = e.getY() - shapeSize / 2;
@@ -110,14 +114,14 @@ public class CreateProfilePictureController {
 			}
 		});
 		
-		canvas.setOnMouseDragged(a -> { // Sets the current x and y coordinate every time
-			// the mouse is dragged.
+		// Sets the current x and y coordinate every time the mouse is dragged.
+		canvas.setOnMouseDragged(a -> { 
 			double thickness = brushSize.getValue();
 			double x = a.getX() - thickness / 2;
 			double y = a.getY() - thickness / 2;
 			
-			if (brush.isSelected()) { // When a brush is selected, a stream
-				// of circles are displayed every drag.
+			// When a brush is selected, a stream of circles are displayed every drag.
+			if (brush.isSelected()) { 
 				gc.setFill(colourPicker.getValue());
 				gc.fillOval(x, y, thickness, thickness);
 			}
@@ -137,29 +141,29 @@ public class CreateProfilePictureController {
 	 * a .png file.
 	 */
 	public void saveImage() {
-		// Creates the snapchot object, setting the background of the image transparent. 
+		// Creates the snapshot object, setting the background of the image transparent. 
 		SnapshotParameters snapParameter = new SnapshotParameters();
 		snapParameter.setFill(Color.TRANSPARENT);
 		
 		// Creating a writable image object which is of 300x300. 
 		WritableImage customImage = new WritableImage(300,300);
-		String fileName = ImageFilename.getText().trim() + ".png"; // Setting a filename to
-													// the name in the text field,
-													// appended to the .png extension.
+		String fileName = ImageFilename.getText().trim() + ".png"; 
+		
 		if (fileName.equals(".png")) { 
 			Utility.fileNameEmpty();
 		} else if (FileHandling.checkImageExists(fileName)) {
 			Utility.fileNameExists();
-		} else if (!FileHandling.checkImageExists(fileName)) { // Runs the following code if the file
-			                                                   // doesn't currently exist.
-			// Creates the file by appending the complete path to the filename. 
+		// Save the image if the filename doesn't already exist.
+		} else if (!FileHandling.checkImageExists(fileName)) { 
+			// Creates the file by concatenating the complete path to the filename. 
 			File file = new File(PROFILE_PICTURE_PATH + fileName);
 			
-			// Creating the image by taking a snapchot of the canvas. 
+			// Creating the image by taking a snapshot of the canvas. 
 			Image snap = canvas.snapshot(snapParameter, customImage); 
 			
-			try { // Try's the code when writing to the file, handling any exceptions thrown.
+			try { 
 				ImageIO.write(SwingFXUtils.fromFXImage(snap, null), "png", file);
+				isProfilePictureCreated = true;
 				
 				// Alert message for confirmation.
 				Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -176,6 +180,7 @@ public class CreateProfilePictureController {
 					}
 				});
 			} catch (IOException e) {
+				// Catches an exception if the image can't be saved.
 				System.out.println("Cannot save " + fileName);
 				System.exit(-1);
 			}
@@ -252,7 +257,15 @@ public class CreateProfilePictureController {
 	}
 	
 	/**
-	 * Closes the current page and navigates to the previous page.
+	 * Gets if the user has created a profile picture or not.
+	 * @return If the user has created a profile picture.
+	 */
+	public boolean isProfilePictureCreated() {
+		return isProfilePictureCreated;
+	}
+	
+	/**
+	 * Closes the current page.
 	 */
 	public void handleBackButtonAction() {
 		Stage curStage = (Stage) back.getScene().getWindow(); 

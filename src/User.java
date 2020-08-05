@@ -240,7 +240,7 @@ public class User {
      * Gets a short description of the user that's suitable to display.
      * @return A short description of the user.
      */
-    public String getUserDescription() {
+    public String getDescription() {
     	return "Username: " + username + " | First Name: " + 
     			firstName + " | Surname: " + surname;
     }

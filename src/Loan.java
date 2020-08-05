@@ -286,7 +286,7 @@ public class Loan {
 			date = returnDate;
 			time = returnTime;
 		} 
-		return "Loan ID: " + loanID + " | Username: " + username + " | "
+		return "ID: " + loanID + " | Username: " + username + " | "
 				+ "Status: " + status + " | Date: " + date + " | "
 						+ "Time: " + time;
 	}
@@ -307,7 +307,7 @@ public class Loan {
 	 * @return A short description of the issued Loan.
 	 */
 	public String getBorrowedDescription() {
-		return "Username: " + username + " | Status: Borrowed | "
+		return "Username: " + username + " | Status: BORROWED | "
 				+ "Date: " + checkoutDate + " | Time: " + checkoutTime;
 	}
 	
@@ -317,7 +317,7 @@ public class Loan {
 	 * @return A short description of the returned Loan.
 	 */
 	public String getReturnedDescription() {
-		return "Username: " + username + " | Status: Returned | "
+		return "Username: " + username + " | Status: RETURNED | "
 				+ "Date: " + returnDate + " | Time: " + returnTime;
 			
 	}

@@ -98,32 +98,33 @@ public class LoginController {
 	 * 				   user (librarian / user).
 	 */
 	private void showDashboard(int userType) {
-		final String DASHBOARD_TITLE;
+		String dashboardTitle = "";
 		// Closes the window.
 		Stage stage = (Stage) btnLogin.getScene().getWindow();
 		stage.close();
 		
 		try {
 			Stage primaryStage = new Stage();
-			Parent root;
+			Parent root = null;
 			
-			// NOTE: Switch, Case will cause an error!
 			// Show appropriate dashboard based on the user type.
-			if (userType == 1) {
-				// Show staff dashboard.
-				root = FXMLLoader.load(getClass()
-						.getResource("FXMLFiles/UserDashboardStaff.fxml"));
-				DASHBOARD_TITLE = "Staff Dashboard";
-					
-			} else {
-				// Show user dashboard.	
-				root = FXMLLoader.load(getClass()
-						.getResource("FXMLFiles/UserDashboard.fxml"));
-				DASHBOARD_TITLE = "User Dashboard";
+			switch (userType) {
+				case 1:
+					// Show staff dashboard.
+					root = FXMLLoader.load(getClass()
+							.getResource("FXMLFiles/UserDashboardStaff.fxml"));
+					dashboardTitle = "Staff Dashboard";
+					break;
+				case 2:
+					// Show user dashboard.	
+					root = FXMLLoader.load(getClass()
+							.getResource("FXMLFiles/UserDashboard.fxml"));
+					dashboardTitle = "User Dashboard";
+					break;
 			}
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle(DASHBOARD_TITLE);
+			primaryStage.setTitle(dashboardTitle);
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			//Catches an IO exception such as that where the FXML

@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CopySettingsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CopySettingsController">
    <top>
       <Text strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Copies" textAlignment="CENTER" wrappingWidth="318.80600053071976" BorderPane.alignment="CENTER">
          <font>
@@ -34,14 +34,14 @@
       </HBox>
    </bottom>
    <left>
-      <VBox prefHeight="281.0" prefWidth="348.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="281.0" prefWidth="317.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Copies">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ListView fx:id="lstShowCopies" onMouseClicked="#showCopyHistory" prefHeight="204.0" prefWidth="293.0">
+            <ListView fx:id="lstShowCopies" onMouseClicked="#showCopyHistory" prefHeight="204.0" prefWidth="322.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
