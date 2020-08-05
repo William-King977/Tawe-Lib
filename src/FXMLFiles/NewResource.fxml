@@ -112,7 +112,7 @@
                   </TextField>
                   <Label text="Select Image" GridPane.columnIndex="4" GridPane.rowIndex="8" />
                   <ComboBox fx:id="cmbResourceImage" onAction="#handleResourceThumbnailComboBoxAction" prefHeight="26.0" prefWidth="231.0" promptText="Select Thumbnail" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-                  <CheckBox fx:id="cbBook" mnemonicParsing="false" onAction="#setCBBookStatus" text="Is a Book" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                  <CheckBox fx:id="cbBook" mnemonicParsing="false" onAction="#setCBBookStatus" selected="true" text="Is a Book" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                   <CheckBox fx:id="cbDVD" mnemonicParsing="false" onAction="#setCBDVDStatus" text="Is a DVD" GridPane.columnIndex="1" GridPane.rowIndex="14" />
                   <CheckBox fx:id="cbLaptop" mnemonicParsing="false" onAction="#setCBLaptopStatus" text="Is a Laptop" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                </children>

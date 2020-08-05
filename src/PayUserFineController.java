@@ -51,6 +51,7 @@ public class PayUserFineController {
 	 */
 	public void initialize() {
 		userList = FileHandling.getUsers();
+		transactions = FileHandling.getTransactions();
 		
 		for (String key : userList.keySet()) {
 			User user = userList.get(key);
@@ -85,7 +86,6 @@ public class PayUserFineController {
 	 * Pays off the user's fine based on the amount entered.
 	 */
 	public void handlePayFineButtonAction() {
-		
 		String strPayment = txtPayment.getText().trim();
 		boolean isDouble = Utility.isDouble(strPayment); 
 		
@@ -153,7 +153,6 @@ public class PayUserFineController {
 	 * @return The current maximum transaction ID.
 	 */
 	public int getMaxTransactionID() {
-		transactions = FileHandling.getTransactions();
 		int maxID;
 		
 		if (transactions.size() == 0) {

@@ -85,7 +85,7 @@ public class EditResourceController {
 	@FXML private TextField txtOperatingSystem;
 	
 	/**
-	 * Sets up the ArrayLists for each resource.
+	 * Sets up the image thumbnail combo box.
 	 */
 	public void initialize() {        
         //Creates an array of all resource images.
@@ -549,8 +549,7 @@ public class EditResourceController {
 	}
     
 	/**
-	 * Goes back to the previous page when the button is clicked.
-	 * Also used to exit the page after an edit has been saved.
+	 * Closes the current page.
 	 */
 	public void handleBackButtonAction() {
 		Stage curStage = (Stage) btnBack.getScene().getWindow(); 

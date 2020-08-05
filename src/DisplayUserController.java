@@ -15,8 +15,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Controller for the Display User / Profile page.
- * Displays all the details for a selected user / librarian.
+ * Controller for the Display User/Profile page.
+ * Displays all the details for a selected user/librarian.
  * @author William King
  */
 public class DisplayUserController {
@@ -175,7 +175,7 @@ public class DisplayUserController {
 	}
 	
 	/**
-     * Goes back to the previous page when the button is clicked.
+     * Closes the current page.
      */
     public void handleBackButtonAction() {
     	//Closes the window.

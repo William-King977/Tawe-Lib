@@ -617,7 +617,8 @@ public class ResourceSettingsController {
 	 * @param newResourceType The type of resource created.
 	 */
 	public void refreshResourceSettings(String newResourceType) {
-		if (isSearch) {
+		// If a new resource wasn't created.
+		if (isSearch || newResourceType.equals("null")) {
 			// Don't to anything. Search updates anyway.
 			return;
 		}

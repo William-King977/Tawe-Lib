@@ -321,21 +321,6 @@ public class Utility {
 	}
 	
 	/**
-	 * An alert pop-up that tells the user that they have not selected
-	 * a resource to create when clicking on the create resource button.
-	 */
-	public static void resourceNotSelectedCreate() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error: Cannot Create Resource.");
-		alert.setHeaderText(null);
-		alert.setContentText("Please select a check box "
-				+ "to show which resource you want "
-				+ "to create.");
-		alert.showAndWait();
-		return;
-	}
-	
-	/**
 	 * An alert pop-up that tells the user that they have outstanding fines
 	 * when requesting to borrow a resource.
 	 */

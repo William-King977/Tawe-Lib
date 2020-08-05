@@ -117,6 +117,8 @@ public class NewResourceController {
         		cmbResourceImage.getItems().add(file.getName());
         	}
         }
+        
+        setCBBookStatus(); // Select the book check box by default.
 	}
 	
 	/**
@@ -161,18 +163,10 @@ public class NewResourceController {
 			txtManufacturer.setVisible(false);
 			txtModel.setVisible(false);
 			txtOperatingSystem.setVisible(false);
-		// If you're selecting the check box to clear it.	
-		} else {
-			txtDirector.setVisible(true);
-			txtRuntime.setVisible(true);
-			txtSubLang.setVisible(true);
-			lstSubLang.setVisible(true);
-			btnAdd.setVisible(true);
-			btnRemove.setVisible(true);
 			
-			txtManufacturer.setVisible(true);
-			txtModel.setVisible(true);
-			txtOperatingSystem.setVisible(true);
+		// If it's already clicked on, keep it checked.	
+		} else {
+			cbBook.setSelected(true);
 		}
     }
     
@@ -204,16 +198,10 @@ public class NewResourceController {
 			txtManufacturer.setVisible(false);
 			txtModel.setVisible(false);
 			txtOperatingSystem.setVisible(false);
-		// If you're selecting the check box to clear it.	
-		} else {			
-			txtAuthor.setVisible(true);
-			txtPublisher.setVisible(true);
-			txtGenre.setVisible(true);
-			txtISBN.setVisible(true);
 			
-			txtManufacturer.setVisible(true);
-			txtModel.setVisible(true);
-			txtOperatingSystem.setVisible(true);
+		// If it's already clicked on, keep it checked.	
+		} else {
+			cbDVD.setSelected(true);
 		}
     }
     
@@ -245,21 +233,10 @@ public class NewResourceController {
 			txtManufacturer.setVisible(true);
 			txtModel.setVisible(true);
 			txtOperatingSystem.setVisible(true);
-		// If you're selecting the check box to clear it.	
+			
+		// If it's already clicked on, keep it checked.	
 		} else {
-			txtLanguage.setVisible(true);
-			
-			txtAuthor.setVisible(true);
-			txtPublisher.setVisible(true);
-			txtGenre.setVisible(true);
-			txtISBN.setVisible(true);
-			
-			txtDirector.setVisible(true);
-			txtRuntime.setVisible(true);
-			txtSubLang.setVisible(true);
-			lstSubLang.setVisible(true);
-			btnAdd.setVisible(true);
-			btnRemove.setVisible(true);
+			cbLaptop.setSelected(true);
 		}
     }
 	
@@ -273,9 +250,6 @@ public class NewResourceController {
 			validateNewDVD();
 		} else if (cbLaptop.isSelected()) {
 			validateNewLaptop();
-		// If none of the check boxes have been selected.
-		} else {
-			Utility.resourceNotSelectedCreate();
 		} 
     }
     
@@ -610,19 +584,20 @@ public class NewResourceController {
 	 * @return The type of the new resource as an Enum.
 	 */
 	public String getNewResourceType() {
-		switch (newResourceType) {
-			case BOOK:
+		switch (String.valueOf(newResourceType)) {
+			case "BOOK":
 				return "Book";
-			case DVD:
+			case "DVD":
 				return "DVD";
-			case LAPTOP:
+			case "LAPTOP":
 				return "Laptop";
+			default:
+				return "null";
 		}
-		return "null";
 	}
 	
 	/**
-	 * Goes back to the previous page when the button is clicked.
+	 * Closes the current page.
 	 */
 	public void handleBackButtonAction() {
 		Stage curStage = (Stage) btnBack.getScene().getWindow(); 

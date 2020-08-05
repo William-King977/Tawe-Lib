@@ -231,7 +231,7 @@ public class ViewLoanController {
     	}
     	
     	double userFine = daysOverdue * finePerDay;
-    	if (userFine > maxFine) {
+    	if (userFine > maxFine) { 
     		userFine = maxFine;
     	}
   
@@ -312,6 +312,7 @@ public class ViewLoanController {
 		Request nextRequest = null;
 		
 		for (Request request : requests) {
+			// Find the next request for the copy (from a different user).
 			if (!request.getRequestFilled() && (copyID == request.getCopyID()) 
 					&& !username.equals(request.getUsername())) {
 				nextRequest = request;

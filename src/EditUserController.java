@@ -294,7 +294,7 @@ public class EditUserController {
 	        		cmbProfilePicture.getItems().add(file.getName());
 	        	}
 	        }
-	        // Clear action is done, so change the status.
+	        // Clearing action is done, so change the status.
 	        isClearingPictureCB = false;
 	        
 	        // Set the user's profile picture on the page.

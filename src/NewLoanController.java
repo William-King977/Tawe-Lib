@@ -57,7 +57,7 @@ public class NewLoanController {
     @FXML private Button btnBack;
     
     /**
-     * Initialize is automatically run when the page loads. Sets up necessary
+     * Initialize automatically runs when the page loads. Sets up necessary
      * features and functionality for the page to work correctly.
      */
     public void initialize() {

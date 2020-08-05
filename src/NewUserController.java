@@ -201,7 +201,7 @@ public class NewUserController {
     }
 	
 	/**
-     * Goes back to the previous page when the button is clicked.
+     * Closes the current page.
      */
     public void handleBackButtonAction() {
 		Stage curStage = (Stage) btnBack.getScene().getWindow(); 
