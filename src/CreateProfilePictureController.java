@@ -32,6 +32,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class CreateProfilePictureController {
+	/** Used to scale the size of the brush size. */
+	private final int BRUSH_SCALE = 2;
 	/** The file path for the profile pictures. */
 	private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
 	/** The String name of the user's created profile picture. */
@@ -78,7 +80,7 @@ public class CreateProfilePictureController {
 		// The stroke colour, fill colour, and width set initially.
 		gc.setStroke(colourPicker.getValue()); 
 		gc.setFill(colourPicker.getValue());
-		gc.setLineWidth(brushSize.getValue());
+		gc.setLineWidth(brushSize.getValue() / BRUSH_SCALE);
 		
 		// Sets the initial x and y coordinate when pressed.
 		canvas.setOnMousePressed(e -> { 
@@ -97,9 +99,9 @@ public class CreateProfilePictureController {
 		
 		// Sets the initial x and y values when the mouse is selected, and the shape size.
 		canvas.setOnMouseClicked(e -> { 
-			double shapeSize = brushSize.getValue();
-			double initX = e.getX() - shapeSize / 2;
-			double initY = e.getY() - shapeSize / 2;
+			double shapeSize = brushSize.getValue() / BRUSH_SCALE;
+			double initX = e.getX() - shapeSize;
+			double initY = e.getY() - shapeSize;
 			
 			if (circle.isSelected()) { // Draws a circle if the shape is selected.
 				gc.setFill(colourPicker.getValue());
@@ -115,10 +117,10 @@ public class CreateProfilePictureController {
 		});
 		
 		// Sets the current x and y coordinate every time the mouse is dragged.
-		canvas.setOnMouseDragged(a -> { 
-			double thickness = brushSize.getValue();
-			double x = a.getX() - thickness / 2;
-			double y = a.getY() - thickness / 2;
+		canvas.setOnMouseDragged(e -> { 
+			double thickness = brushSize.getValue() / BRUSH_SCALE;
+			double x = e.getX() - thickness;
+			double y = e.getY() - thickness;
 			
 			// When a brush is selected, a stream of circles are displayed every drag.
 			if (brush.isSelected()) { 

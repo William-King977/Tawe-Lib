@@ -132,7 +132,7 @@ public class ViewResourceController {
 		currentUsername = FileHandling.getCurrentUser();
 		userList = FileHandling.getUsers();
 		
-		// Gets an ArrayList for each resource and their copies.
+		// Gets an ArrayList for each resource and other relevant items.
 		bookList = FileHandling.getBooks();
         dvdList = FileHandling.getDVDs();
         laptopList = FileHandling.getLaptops();
@@ -146,7 +146,7 @@ public class ViewResourceController {
         resourceList.addAll(laptopList);
         Collections.sort(resourceList, new SortResources());
         
-        // Show the resources on list view.
+        // Show the resources on the list view.
         for (Resource thisResource : resourceList) {
         	lstShowResource.getItems().add(thisResource.toString());
         }  
@@ -183,6 +183,7 @@ public class ViewResourceController {
 		Copy requestedCopy = null;
 		boolean isCopyFound = false;
 		
+		// Checks if there are any copies available. 
 		for (Copy thisCopy : currentCopiesList) {
 			// Needed anyway if no copies are available.
 			resourceID = thisCopy.getResourceID(); 
