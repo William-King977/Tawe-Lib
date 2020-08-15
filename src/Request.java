@@ -150,7 +150,7 @@ public class Request {
 	public String getDescription() {
 		String requestDescription = "Request ID: " + requestID + " | "
 				+ "Resource ID: " + resourceID + " | Request Date: " 
-				+ requestDate + ";
+				+ requestDate;
 		return requestDescription;
 	}
 }

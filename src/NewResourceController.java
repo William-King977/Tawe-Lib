@@ -374,8 +374,7 @@ public class NewResourceController {
     public void validateNewDVD() {
     	String resourceTitle = txtResourceTitle.getText().trim();
     	String strYear = txtYear.getText().trim(); 
-    	String[] subLang = currentLangList.toArray(
-    			new String[currentLangList.size()]);
+    	String[] subLang = currentLangList.toArray(new String[currentLangList.size()]);
     	String director = txtDirector.getText().trim();
     	String strRuntime = txtRuntime.getText().trim();
     	String language = txtLanguage.getText().trim();
@@ -424,20 +423,10 @@ public class NewResourceController {
 			return;
 		}
 		
-		// Ensures sub languages are in format of 'lang;lang;lang...'
-		String strSubLang = "";
-		for (int i = 0; i < subLang.length; i++) {
-			if (i == 0) {
-				strSubLang = subLang[0];
-			} else {
-				strSubLang = strSubLang + ";" + subLang[i];
-			}
-		}
-		
 		int resourceID = getMaxResourceID() + 1;
 		
 		DVD newDVD = new DVD(resourceID, resourceTitle, year, imageName, 
-				NUMBER_OF_COPIES, director, runtime, language, strSubLang);
+				NUMBER_OF_COPIES, director, runtime, language, subLang);
 		String strNewDVD = newDVD.toStringDetail();
 		
 		addCopies(resourceID, ResourceType.DVD);

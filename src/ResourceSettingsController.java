@@ -566,9 +566,10 @@ public class ResourceSettingsController {
 	        editStage.initModality(Modality.APPLICATION_MODAL);
 	        editStage.showAndWait();
 	        
-	        // Refresh changes on the list view.
+	        // Refresh changes on the list view (and its other details...).
 	        Resource editedResource = editResource.getEditedResource();
 	        lstShowResource.getItems().set(selectedIndex, editedResource.toString());
+	        displayResourceDetails(); // Refresh its other details (we know its selected).
         } catch (IOException e) {
         	// Catches an IO exception such as that where the fxml
             // file is not found.

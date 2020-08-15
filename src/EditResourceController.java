@@ -328,16 +328,6 @@ public class EditResourceController {
 			return;
 		}
 		
-		// Ensures sub languages are in format of 'lang;lang;lang...'
-		String strSubLang = "";
-		for (int i = 0; i < subLang.length; i++) {
-			if (i == 0) {
-				strSubLang = subLang[0];
-			} else {
-				strSubLang = strSubLang + ";" + subLang[i];
-			}
-		}
-		
 		DVD editedDVD = (DVD) editedResource;
 		String oldDVD = editedDVD.toStringDetail();
 		
