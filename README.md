@@ -5,8 +5,8 @@ This is my take on the CS-230 Software Engineering (2018) software product speci
 Tawe-Lib Reborn has all the functionality that satisfies the specification (with some unnecessary stuff like edit users) minus the 'extra' feature and user statistics. Any pushes to this repository from this day onwards will be refactoring of the code (and unseen bugs).
 
 # How to Run
-- **On Eclipse:** Import this an existing project and run Main.java.   
-- **On Command Line:** You **MUST** change the file path to the data files by adding "../DataFiles/" (to go back a directory from src folder). This is present in:
+- **On Eclipse:** Import this as an existing project and run Main.java.   
+- **On Command Line:** You **MUST** change the file path to the data files by changing "/DataFiles/" to "../DataFiles/" (to go back a directory from src folder). This is present in:
   - CreateProfilePictureController.java
   - DisplayUserController.java
   - EditResourceController.java
