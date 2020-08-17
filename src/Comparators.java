@@ -6,8 +6,8 @@ import java.util.Comparator;
  * @author William King
  */
 public class Comparators {
-	// This class is purely used to keep all the different comparators
-	// in one place.
+	// This class is purely used to keep all of the 
+	// different comparators in one place.
 }
 
 /**

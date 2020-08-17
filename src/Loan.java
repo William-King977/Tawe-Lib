@@ -297,7 +297,9 @@ public class Loan {
 	 * @return A short description of the an overdue Loan.
 	 */
 	public String getOverdueDescription() {
-		return "Copy ID: " + copyID + " | Days Overdue: " + daysOverdue + 
+		// Calculate it because it's not returned.
+		int daysPastDueDate = Utility.daysPastDate(dueDate);
+		return "Copy ID: " + copyID + " | Days Overdue: " + daysPastDueDate + 
 				" | Username: " + username;
 	}
 	

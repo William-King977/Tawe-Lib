@@ -25,6 +25,8 @@ import javafx.stage.Stage;
  * @author William King
  */
 public class ViewResourceController {
+	/** The directory to the thumbnail images for the resources. */
+	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";	
 	/** Title for the User Dashboard page.*/
 	private final String USER_DASHBOARD_TITLE = "User Dashboard";
 	
@@ -53,8 +55,6 @@ public class ViewResourceController {
 	/** ArrayList to hold all of the user's current loans. */
 	private ArrayList<Loan> userCurrentLoans = new ArrayList<>();
 	
-	/** The directory to the thumbnail images for the resources. */
-	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";	
 	/** Used to check if the resources have been searched via search box or not. */
 	private boolean isSearch = false;
 	/** Holds the logged in user's username. */

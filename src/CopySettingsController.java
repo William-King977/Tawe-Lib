@@ -55,13 +55,19 @@ public class CopySettingsController {
 			lstShowCopies.getItems().add(copy.getCopyDescription());
 		}
 		
-		// Store overdue copies from PAST loans (found by the loans).
+		// Store overdue copies from CURRENT loans (found by the loans).
 		for (Loan loan : loanList) {
-			if (loan.getDaysOverdue() > 0) {
-				overdueCopyList.add(loan); 
+			if ((loan.getDueDate()).isEmpty() || loan.isReturned()) {
+				// Nothing happens...
+			} else {
+				int daysPastDueDate = Utility.daysPastDate(
+						loan.getDueDate());
+				// Will be negative if the due date is in the future.
+				if (daysPastDueDate > 0) {
+					overdueCopyList.add(loan);
+				}
 			}
 		}
-		
 		// Sort the loans.
 		Collections.sort(loanList, new SortLoansDesc());
 	}
