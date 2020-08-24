@@ -58,7 +58,7 @@ public class DisplayUserController {
 	/** Label for the Employment Date text field. */
 	@FXML private Label lblEmploymentDate;
 	
-	/** A canvas to hold the librarian's profile picture. */
+	/** An image view to hold the user's profile picture. */
 	@FXML private ImageView imageProfilePicture; 
 	
 	/** The button for the edit profile page. */

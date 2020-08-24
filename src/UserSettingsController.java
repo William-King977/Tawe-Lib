@@ -81,7 +81,7 @@ public class UserSettingsController {
     }
 	
 	/**
-	 * Handles the actions when the librarian selected a user.
+	 * Handles the actions when the librarian selects a user.
 	 * This determines when the Edit/Display User buttons can be selected.
 	 */
 	public void handleUserSelectAction() {

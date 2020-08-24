@@ -818,8 +818,7 @@ public class FileHandling {
 			printWriter.print(newUser);
 			printWriter.println("");
 			printWriter.close();
-        } 
-        catch (IOException e) { 
+        } catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
             System.exit(-1);
         } 
@@ -847,8 +846,7 @@ public class FileHandling {
 			printWriter.print(newCopy);
 			printWriter.println("");
 			printWriter.close();
-        } 
-        catch (IOException e) { 
+        } catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
             System.exit(-1);
         } 
@@ -887,8 +885,7 @@ public class FileHandling {
 			printWriter.print(newResource);
 			printWriter.println("");
 			printWriter.close();
-        } 
-        catch (IOException e) { 
+        } catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
             System.exit(-1);
         } 	
@@ -917,8 +914,7 @@ public class FileHandling {
 			printWriter.print(newRequest);
 			printWriter.println("");
 			printWriter.close();
-        } 
-        catch (IOException e) { 
+        } catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
             System.exit(-1);
         } 	
@@ -947,8 +943,7 @@ public class FileHandling {
 			printWriter.print(newLoan);
 			printWriter.println("");
 			printWriter.close();
-        } 
-        catch (IOException e) { 
+        } catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
             System.exit(-1);
         } 	
@@ -977,8 +972,7 @@ public class FileHandling {
 			printWriter.print(newTransaction);
 			printWriter.println("");
 			printWriter.close();
-        } 
-        catch (IOException e) { 
+        } catch (IOException e) { 
             System.out.println("Cannot write to " + filePath); 
             System.exit(-1);
         } 	

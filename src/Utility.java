@@ -244,7 +244,7 @@ public class Utility {
 	}
 	
 	/**
-	 * An alert pop-up that tells the user that the user has 
+	 * An alert pop-up that tells the librarian that the user has 
 	 * been created successfully.
 	 */
 	public static void userCreated() {

@@ -22,7 +22,7 @@ public class LoginController {
 	LinkedHashMap<String, User> users;
 	/** A linked hashmap to hold all current librarians. */
 	LinkedHashMap<String, Librarian> librarians;
-	/** fxID for the username test field */
+	/** fxID for the username text field */
 	@FXML private TextField txtUsername;
 	/** fxID for the staff check box */
 	@FXML private CheckBox cbStaff;
