@@ -241,7 +241,7 @@ public class FileHandling {
 	 * Method to read in the individual subtitle language options that
 	 * the DVD provides.
 	 * @param langSet The string that holds the languages.
-	 * @return Array of subtitle languages.
+	 * @return String array of subtitle languages.
 	 */
 	private static String[] addLanguages(String langSet) {
 		
@@ -252,30 +252,30 @@ public class FileHandling {
 	    // Delimiter change to read individual languages.
 		readLang.useDelimiter(";");
 	    
-	    //Reads through interests to check how many there are.
+	    // Reads through each language to check how many there are.
 	    while (readLang.hasNext()) {
 	    	numOfLanguages++;
 	    	readLang.next();
 	    }
 	    
-	    //Closes the file stream after reading all the languages.
+	    // Closes the file stream after reading all the languages.
 	    readLang.close();
 	    
-	    String[] updatedLang = new String[numOfLanguages];
+	    String[] subLang = new String[numOfLanguages];
 	    
-	    /* readLang is redeclared so that its contents can be inserted 
-	       into the array. (.next() was used on it earlier.) */
+	    // readLang is redeclared so that its contents can be inserted 
+	    // into the array. (.next() was used on it earlier).
 	    readLang = new Scanner(langSet);
 	    readLang.useDelimiter(";");
 	    
-	    //Insert interests into updatedInterests array.
+	    // Insert the languages into the array.
 	    for (int i = 0; i < numOfLanguages; i++) {
 	    	String language = readLang.next();
-	    	updatedLang[i] = language;
+	    	subLang[i] = language;
 	    }
 	    
 	    readLang.close();
-	    return updatedLang;   
+	    return subLang;   
 	}
 	
 	/**
