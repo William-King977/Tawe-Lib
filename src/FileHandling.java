@@ -46,8 +46,8 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 	    try {
-	    	//Opens the file for reading
-			in = new Scanner (inputFile);
+	    	// Opens the file for reading
+			in = new Scanner(inputFile);
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -67,8 +67,8 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 	    try {
-	    	//Opens the file for reading
-			in = new Scanner (inputFile);
+	    	// Opens the file for reading
+			in = new Scanner(inputFile);
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -111,7 +111,7 @@ public class FileHandling {
 		Scanner in = null;
 	    try {
 	    	// Opens the file for reading.
-			in = new Scanner (inputFile);	
+			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -155,7 +155,7 @@ public class FileHandling {
 		Scanner in = null;
 	    try {
 	    	// Opens the file for reading.
-			in = new Scanner (inputFile);	
+			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -199,7 +199,7 @@ public class FileHandling {
 		Scanner in = null;
 	    try {
 	    	// Opens the file for reading.
-			in = new Scanner (inputFile);	
+			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -244,8 +244,7 @@ public class FileHandling {
 	 * @return String array of subtitle languages.
 	 */
 	private static String[] addLanguages(String langSet) {
-		
-		// New scanner to read individual languages.
+		// Scanner to read individual languages.
 	    Scanner readLang = new Scanner(langSet);
 		int numOfLanguages = 0;
 	    
@@ -289,7 +288,7 @@ public class FileHandling {
 		Scanner in = null;
 	    try {
 	    	// Opens the file for reading.
-			in = new Scanner (inputFile);	
+			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -331,7 +330,7 @@ public class FileHandling {
 		Scanner in = null;
 	    try {
 	    	// Opens the file for reading.
-			in = new Scanner (inputFile);	
+			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -396,7 +395,7 @@ public class FileHandling {
 		Scanner in = null;
 	    try {
 	    	// Opens the file for reading.
-			in = new Scanner (inputFile);	
+			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -435,7 +434,7 @@ public class FileHandling {
 		Scanner in = null;
 	    try {
 	    	// Opens the file for reading.
-			in = new Scanner (inputFile);	
+			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -496,7 +495,7 @@ public class FileHandling {
 		Scanner in = null;
 	    try {
 	    	// Opens the file for reading.
-			in = new Scanner (inputFile);	
+			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
@@ -897,7 +896,6 @@ public class FileHandling {
 	 * @param newRequest The details of the request.
 	 */
 	public static void makeRequest(String newRequest) {
-		
 		String filePath = DATA_FILE_PATH + "Request.txt";
 		
 		File file = null;
@@ -926,7 +924,6 @@ public class FileHandling {
 	 * @param newRequest The details of the loan.
 	 */
 	public static void createLoan(String newLoan) {
-		
 		String filePath = DATA_FILE_PATH + "Loan.txt";
 		
 		File file = null;
@@ -955,7 +952,6 @@ public class FileHandling {
 	 * @param newRequest The details of the transaction.
 	 */
 	public static void makeTransaction(String newTransaction) {
-		
 		String filePath = DATA_FILE_PATH + "Transaction.txt";
 		
 		File file = null;
