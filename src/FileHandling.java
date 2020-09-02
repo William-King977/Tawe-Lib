@@ -15,7 +15,6 @@ import java.util.Scanner;
  * @author William King
  */
 public class FileHandling {
-	
 	/** File location of the data files. */
 	private final static String DATA_FILE_PATH = "DataFiles/";
 	
@@ -25,6 +24,7 @@ public class FileHandling {
 	 */
 	public static void setCurrentUser(String currentUser) {
 		String filePath = DATA_FILE_PATH + "CurrentUser.txt";
+		
 		try {
 			FileWriter myWriter = new FileWriter(filePath);
 			myWriter.write(currentUser);
@@ -41,10 +41,10 @@ public class FileHandling {
 	 */
 	public static String getCurrentUser() {
 		String currentUser = "";
-		
 		String filePath = DATA_FILE_PATH + "CurrentUser.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading
 			in = new Scanner(inputFile);
@@ -66,6 +66,7 @@ public class FileHandling {
 		String filePath = DATA_FILE_PATH + "User.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading
 			in = new Scanner(inputFile);
@@ -109,6 +110,7 @@ public class FileHandling {
 		String filePath = DATA_FILE_PATH + "Librarian.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading.
 			in = new Scanner(inputFile);	
@@ -153,6 +155,7 @@ public class FileHandling {
 		String filePath = DATA_FILE_PATH + "Book.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading.
 			in = new Scanner(inputFile);	
@@ -197,6 +200,7 @@ public class FileHandling {
 		String filePath = DATA_FILE_PATH + "DVD.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading.
 			in = new Scanner(inputFile);	
@@ -286,6 +290,7 @@ public class FileHandling {
 		String filePath = DATA_FILE_PATH + "Laptop.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading.
 			in = new Scanner(inputFile);	
@@ -328,6 +333,7 @@ public class FileHandling {
 		String filePath = DATA_FILE_PATH + "Copy.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading.
 			in = new Scanner(inputFile);	
@@ -393,6 +399,7 @@ public class FileHandling {
 		String filePath = DATA_FILE_PATH + "Request.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading.
 			in = new Scanner(inputFile);	
@@ -432,6 +439,7 @@ public class FileHandling {
 		String filePath = DATA_FILE_PATH + "Loan.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading.
 			in = new Scanner(inputFile);	
@@ -493,6 +501,7 @@ public class FileHandling {
 		String filePath = DATA_FILE_PATH + "Transaction.txt";
 		File inputFile = new File(filePath);
 		Scanner in = null;
+		
 	    try {
 	    	// Opens the file for reading.
 			in = new Scanner(inputFile);	
@@ -542,15 +551,17 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A profile is edited by replacing the details of the previous profile
-	 * with the new one.
+	 * Edits an existing profile's details. 
 	 * @param oldProfile The string holding details of the old profile.
 	 * @param newProfile The string holding details of the new profile.
-	 * @param userType Integer showing whether a user is staff or not.
+	 * @param userType Integer showing whether the user is staff or a member.
 	 */
 	public static void editProfile(String oldProfile, String newProfile, 
 			int userType) {
+		// Edits are made by replacing the details of the previous 
+		// profile with the new one.
 		String filePath = "";
+		
 		switch (userType) {
 			case 1:
 				filePath = DATA_FILE_PATH + "Librarian.txt";
@@ -597,14 +608,15 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A resource is edited by replacing the details of the previous resource
-	 * with the new one.
+	 * Edits an existing resource's details.
 	 * @param oldResource The string description of the old resource.
 	 * @param newResource The string description of the edits made to the resource.
 	 * @param resourceType The type of resource edited.
 	 */
 	public static void editResource(String oldResource, String newResource, 
 			String resourceType) {
+		// Edits are made by replacing the details of the previous 
+		// resource with the new one.
 		String filePath = "";
 		
 		switch (resourceType) {
@@ -655,14 +667,14 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A copy is edited by replacing the details of the previous copy
-	 * with the new one.
+	 * Edits an existing copy's details.
 	 * @param oldCopy The string details of the old copy.
 	 * @param newCopy The string details of the edited copy.
 	 */
 	public static void editCopy(String oldCopy, String newCopy) {
+		// Edits are made by replacing the details of the previous 
+		// copy with the new one.
 		String filePath = DATA_FILE_PATH + "Copy.txt";
-		
 		File inputFile = new File(filePath);
 		BufferedReader reader = null;
 		FileWriter writer = null;
@@ -699,14 +711,14 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A request is edited by replacing the details of the previous request
-	 * with the new one.
+	 * Edit an existing request's details.
 	 * @param oldRequest The string details of the old request.
 	 * @param newRequest The string details of the edited request.
 	 */
 	public static void editRequest(String oldRequest, String newRequest) {
+		// Edits are made by replacing the details of the previous 
+		// request with the new one.
 		String filePath = DATA_FILE_PATH + "Request.txt";
-		
 		File inputFile = new File(filePath);
 		BufferedReader reader = null;
 		FileWriter writer = null;
@@ -743,14 +755,14 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A loan is edited by replacing the details of the previous loan
-	 * with the new one.
+	 * Edits an existing loan's details.
 	 * @param oldLoan The string details of the old loan.
 	 * @param newLoan The string details of the edited loan.
 	 */
 	public static void editLoan(String oldLoan, String newLoan) {
+		// Edits are made by replacing the details of the previous 
+		// loan with the new one.
 		String filePath = DATA_FILE_PATH + "Loan.txt";
-		
 		File inputFile = new File(filePath);
 		BufferedReader reader = null;
 		FileWriter writer = null;
@@ -787,10 +799,9 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A new user is created by adding their details at the end
-	 * of their respective textfile.
+	 * Creates a new user.
 	 * @param newUser Details of the new registered user.
-	 * @param userType Integer showing whether a user is staff or not.
+	 * @param userType Integer showing whether the user is staff or a member.
 	 */
 	public static void createUser(String newUser, int userType) {
 		String filePath = "";
@@ -807,6 +818,7 @@ public class FileHandling {
 		FileWriter fileWriter = null;
 		BufferedWriter buffWriter = null;
 		PrintWriter printWriter = null;
+		
 		try { 
 			file = new File(filePath);
 			fileWriter = new FileWriter(file, true);
@@ -824,17 +836,16 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A new copy is created by adding their details at the end
-	 * of the textfile.
+	 * Creates a new copy.
 	 * @param newCopy The details of the new copy.
 	 */
 	public static void createCopy(String newCopy) {
 		String filePath = DATA_FILE_PATH + "Copy.txt";
-		
 		File file = null;
 		FileWriter fileWriter = null;
 		BufferedWriter buffWriter = null;
 		PrintWriter printWriter = null;
+		
 		try { 
 			file = new File(filePath);
 			fileWriter = new FileWriter(file, true);
@@ -852,9 +863,9 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A new resource is created by adding their details at the end
-	 * of the textfile.
-	 * @param newCopy The details of the new copy.
+	 * Creates a new resource.
+	 * @param newResource The details of the new resource.
+	 * @param resourceType The type of resource.
 	 */
 	public static void createResource(String newResource, 
 			ResourceType resourceType) {
@@ -874,6 +885,7 @@ public class FileHandling {
 		FileWriter fileWriter = null;
 		BufferedWriter buffWriter = null;
 		PrintWriter printWriter = null;
+		
 		try { 
 			file = new File(filePath);
 			fileWriter = new FileWriter(file, true);
@@ -891,17 +903,16 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A new request is made by adding its details at the end
-	 * of the textfile.
+	 * Creates a new request.
 	 * @param newRequest The details of the request.
 	 */
 	public static void makeRequest(String newRequest) {
 		String filePath = DATA_FILE_PATH + "Request.txt";
-		
 		File file = null;
 		FileWriter fileWriter = null;
 		BufferedWriter buffWriter = null;
 		PrintWriter printWriter = null;
+		
 		try { 
 			file = new File(filePath);
 			fileWriter = new FileWriter(file, true);
@@ -919,17 +930,16 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A new loan is made by adding its details at the end
-	 * of the textfile.
-	 * @param newRequest The details of the loan.
+	 * Creates a new loan.
+	 * @param newLoan The details of the loan.
 	 */
 	public static void createLoan(String newLoan) {
 		String filePath = DATA_FILE_PATH + "Loan.txt";
-		
 		File file = null;
 		FileWriter fileWriter = null;
 		BufferedWriter buffWriter = null;
 		PrintWriter printWriter = null;
+		
 		try { 
 			file = new File(filePath);
 			fileWriter = new FileWriter(file, true);
@@ -947,17 +957,16 @@ public class FileHandling {
 	}
 	
 	/**
-	 * A new transaction is made by adding its details at the end
-	 * of the textfile.
-	 * @param newRequest The details of the transaction.
+	 * Creates a new transaction.
+	 * @param newTransaction The details of the transaction.
 	 */
 	public static void makeTransaction(String newTransaction) {
 		String filePath = DATA_FILE_PATH + "Transaction.txt";
-		
 		File file = null;
 		FileWriter fileWriter = null;
 		BufferedWriter buffWriter = null;
 		PrintWriter printWriter = null;
+		
 		try { 
 			file = new File(filePath);
 			fileWriter = new FileWriter(file, true);
@@ -975,12 +984,12 @@ public class FileHandling {
 	}
 	
 	/**
-     * Checks if an image file and its path already exist.
-     * Because of how Windows works, it's not case sensitive.
-     * @param fileName Takes the name of the file to test.
-     * @return Returns a boolean as to if the file is already in the system.
+     * Checks if the image exists in the system.
+     * @param fileName The name of the image file.
+     * @return True if the file exists, otherwise false.
      */
-    public static boolean checkImageExists(String fileName){
+    public static boolean checkImageExists(String fileName) {
+    	// Because of how Windows works, it's not case sensitive.
     	File pathCheck = new File(DATA_FILE_PATH + 
     			"ProfilePictures/" + fileName); //The path of the file.
     	return pathCheck.exists();

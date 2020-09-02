@@ -133,8 +133,8 @@ public class Book extends Resource {
 	}
 	
 	/**
-     * Returns the language of the book.
-     * @return language Returns the language of the book.
+     * Gets the language of the book.
+     * @return language The language as a string.
      */
 	public String getLanguage() {
 		return language;

@@ -99,7 +99,7 @@ public class BorrowedItemsController {
 	}
 	
 	/**
-	 * Goes back to the previous page when the button is clicked.
+	 * Closes this page, then goes back to the User Dashboard.
 	 */
 	public void handleBackButtonAction() {
 		// Closes the window.

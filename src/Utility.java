@@ -67,7 +67,7 @@ public class Utility {
 	
 	/**
 	 * An alert pop-up that tells the user that some fields
-	 * have non-alphabetic characters in them (when they shouldn't).
+	 * have non-alphabetic characters in them.
 	 */
 	public static void nonAlphaError() {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -96,7 +96,7 @@ public class Utility {
 	
 	/**
 	 * An alert pop-up that tells the user that some fields
-	 * have non-integer characters in them (when they shouldn't).
+	 * have non-integer characters in them.
 	 */
 	public static void nonIntegerError() {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -110,7 +110,7 @@ public class Utility {
 	
 	/**
 	 * An alert pop-up that tells the user that some fields
-	 * have non-double characters in them (when they shouldn't).
+	 * have non-double characters in them.
 	 */
 	public static void nonDoubleError() {
 		//Displays an alert message
@@ -577,6 +577,7 @@ public class Utility {
 	 * @param genre The entered genre.
 	 * @param language The entered language.
 	 * @param isbn The entered ISBN.
+	 * @param bookList The array list of all current books.
 	 * @return Whether the book being created has the same details as
 	 * 		   an already existing book in the library.
 	 */
@@ -610,6 +611,7 @@ public class Utility {
 	 * @param runtime The entered runtime.
 	 * @param subLang The entered subtitle language.
 	 * @param language The entered language.
+	 * @param dvdList The array list of all current DVDs.
 	 * @return Whether the DVD being created has the same details as
 	 * 		   an already existing DVD in the library.
 	 */
@@ -641,7 +643,8 @@ public class Utility {
 	 * @param imageName The image name of the laptop's thumbnail.
 	 * @param manufacturer The entered manufacturer.
 	 * @param model The entered model.
-	 * @param operatingSystem The entered operating system. 
+	 * @param operatingSystem The entered operating system.
+	 * @param laptopList The array list of all current laptops.
 	 * @return Whether the laptop being created has the same details as
 	 * 		   an already existing laptop in the library.
 	 */

@@ -328,7 +328,7 @@ public class UserSettingsController {
     }
     
     /**
-     * Goes back to the Staff Dashboard when the button is clicked.
+     * Closes this page, then goes back to the Staff Dashboard.
      */
     public void handleBackButtonAction() {
     	// Closes the window.

@@ -508,8 +508,7 @@ public class NewResourceController {
 	}
 	
 	/**
-	 * Gets the current maximum resource ID by sorting all resources
-	 * in ascending order and fetching the ID of the last resource.
+	 * Gets the current maximum resource ID.
 	 * @return The current maximum resource ID.
 	 */
 	public int getMaxResourceID() {

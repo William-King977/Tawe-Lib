@@ -272,7 +272,7 @@ public class ResourceSettingsController {
 	
 	/**
 	 * Displays the details of the selected laptop.
-     * @param selectedLaptop  The selected laptop.
+     * @param selectedLaptop The selected laptop.
 	 */
 	public void displayLaptopDetails(Laptop selectedLaptop) {
 		//Displays the selected laptop's details
@@ -317,7 +317,7 @@ public class ResourceSettingsController {
 			case "Book":
 				Book selectedBook = (Book) selectedResource;
 				String genre = selectedBook.getGenre();
-				String language = selectedBook.getLanguage();
+				String bookLang = selectedBook.getLanguage();
 				String isbn = selectedBook.getISBN();
 				
 				// Check genre.
@@ -328,10 +328,10 @@ public class ResourceSettingsController {
 				}
 				
 				// Check language.
-				if (language.isEmpty()) {
+				if (bookLang.isEmpty()) {
 					txtLanguage.setText("None");
 				} else {
-					txtLanguage.setText(language);
+					txtLanguage.setText(bookLang);
 				}
 				
 				// Check ISBN.
@@ -343,14 +343,14 @@ public class ResourceSettingsController {
 				break;
 			case "DVD":
 				DVD selectedDVD = (DVD) selectedResource;
-				language = selectedDVD.getLanguage();
+				String dvdLang = selectedDVD.getLanguage();
 				String[] subLang = selectedDVD.getSubLang();
 				
 				// Check language.
-				if (language.isEmpty()) {
+				if (dvdLang.isEmpty()) {
 					txtLanguage.setText("None");
 				} else {
-					txtLanguage.setText(language);
+					txtLanguage.setText(dvdLang);
 				}
 				
 				// Check subtitle languages.
@@ -613,7 +613,7 @@ public class ResourceSettingsController {
 	}
 	
 	/** 
-	 * Refreshes the Resource Settings page after a new resource has been 
+	 * Refreshes the Resource Settings page after a new resource has been
 	 * created.
 	 * @param newResourceType The type of resource created.
 	 */
@@ -655,7 +655,7 @@ public class ResourceSettingsController {
 	}
 	
 	/**
-	 * Goes back to the Staff Dashboard when the button is clicked.
+	 * Closes this page, then goes back to the Staff Dashboard.
 	 */
 	public void handleBackButtonAction() {
 		// Closes the window.

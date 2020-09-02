@@ -67,8 +67,7 @@ public class DisplayUserController {
 	@FXML private Button btnBack;
 	
 	/**
-	 * Displays each piece of information of the selected user 
-	 * onto the screen.
+	 * Displays each piece of information of the selected user onto the screen.
 	 * @param viewUser The selected user in the library system.
 	 */
 	public void displayProfile(User viewUser) {
@@ -165,7 +164,7 @@ public class DisplayUserController {
 	}
 	
 	/**
-	 * Updates each text field for the user's profile after
+	 * Updates each text field of the user's profile after
 	 * changes have been made (if any).
 	 */
 	public void refreshProfile() {

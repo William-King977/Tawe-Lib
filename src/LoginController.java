@@ -39,7 +39,8 @@ public class LoginController {
 	}
 	
 	/**
-	 * Handles a button event for the login button e.g. button press.
+	 * Validates the existence of the entered username, then determine
+	 * which dashboard to show.
 	 */
 	public void handleLoginButtonAction() {
 		String username = txtUsername.getText().trim();

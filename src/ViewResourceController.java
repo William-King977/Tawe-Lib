@@ -527,7 +527,7 @@ public class ViewResourceController {
 	
 	/**
 	 * Displays the details of the selected laptop.
-     * @param selectedLaptop  The selected laptop.
+     * @param selectedLaptop The selected laptop.
 	 */
 	public void displayLaptopDetails(Laptop selectedLaptop) {
 		//Displays the selected laptop's details
@@ -574,7 +574,7 @@ public class ViewResourceController {
 			case "Book":
 				Book selectedBook = (Book) selectedResource;
 				String genre = selectedBook.getGenre();
-				String language = selectedBook.getLanguage();
+				String bookLang = selectedBook.getLanguage();
 				String isbn = selectedBook.getISBN();
 				
 				// Check genre.
@@ -585,10 +585,10 @@ public class ViewResourceController {
 				}
 				
 				// Check language.
-				if (language.isEmpty()) {
+				if (bookLang.isEmpty()) {
 					txtLanguage.setText("None");
 				} else {
-					txtLanguage.setText(language);
+					txtLanguage.setText(bookLang);
 				}
 				
 				// Check ISBN.
@@ -600,14 +600,14 @@ public class ViewResourceController {
 				break;
 			case "DVD":
 				DVD selectedDVD = (DVD) selectedResource;
-				language = selectedDVD.getLanguage();
+				String dvdLang = selectedDVD.getLanguage();
 				String[] subLang = selectedDVD.getSubLang();
 				
 				// Check language.
-				if (language.isEmpty()) {
+				if (dvdLang.isEmpty()) {
 					txtLanguage.setText("None");
 				} else {
-					txtLanguage.setText(language);
+					txtLanguage.setText(dvdLang);
 				}
 				
 				// Check subtitle languages.
@@ -781,7 +781,7 @@ public class ViewResourceController {
     }
     
     /**
-	 * Goes back to the User Dashboard when the button is clicked.
+	 * Closes this page, then goes back to the User Dashboard.
 	 */
 	public void handleBackButtonAction() {
 		// Closes the window.

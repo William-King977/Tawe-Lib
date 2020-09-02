@@ -200,7 +200,7 @@ public class NewLoanController {
      * to borrow this copy as well.
      * @param copyID The copy of the borrowed resource.
      * @param username The user's username.
-     * @return If there are any other requests for the resource.
+     * @return True if there are any other requests for the resource.
      */
     public boolean checkReservedRequests(int copyID, String username) {
 		boolean anyRequests = false;
@@ -234,7 +234,7 @@ public class NewLoanController {
     }
     
     /**
-	 * Goes back to the previous page when the button is clicked.
+	 * Closes this page, then goes back to the Staff Dashboard.
 	 */
 	public void handleBackButtonAction() {
 		// Closes the window.

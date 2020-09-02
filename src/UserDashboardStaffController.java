@@ -195,7 +195,7 @@ public class UserDashboardStaffController {
 	}
 	
 	/**
-	 * Goes back to the Login page when the button is clicked.
+	 * Closes this page, then goes back to the Login page.
 	 */
 	public void handleLogoutButtonAction() {
 		// Closes the window.

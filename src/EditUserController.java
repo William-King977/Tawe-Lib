@@ -74,8 +74,8 @@ public class EditUserController {
 	@FXML private Button btnBack;
 	
 	/**
-     * Initialises the users array lists to be 
-     * used later on. This method runs automatically.
+     * Initialises the users array lists to be used later on. 
+     * This method runs automatically.
      */
     public void initialize() {
         //Creates an array of all profile pictures.
@@ -231,8 +231,6 @@ public class EditUserController {
     
     /**
      * Saves the edits made to the user.
-     * It's done by replacing the details of the old profile with the
-     * new edited profile.
      * @param firstName The edited first name.
      * @param surname The edited surname.
      * @param mobileNumber The edited mobile number.

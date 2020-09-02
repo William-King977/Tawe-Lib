@@ -519,9 +519,9 @@ public class EditResourceController {
 	 * Sets the array lists for each resource.
 	 * Used to check if the edited resource's details matches with 
 	 * an existing resource.
-	 * @param thisBookList The ArrayList of all current books.
-	 * @param thisDVDList The ArrayList of all current DVDs.
-	 * @param thisLaptopList The ArrayList of all current laptops.
+	 * @param bookList The ArrayList of all current books.
+	 * @param dvdList The ArrayList of all current DVDs.
+	 * @param laptopList The ArrayList of all current laptops.
 	 */
 	public void setResourceArrays(ArrayList<Book> bookList, 
 			ArrayList<DVD> dvdList, ArrayList<Laptop> laptopList) {

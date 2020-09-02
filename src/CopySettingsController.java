@@ -43,7 +43,7 @@ public class CopySettingsController {
 	@FXML private Button viewCopyHistory;
 	
 	/**
-	 * Displays all the copies of all resources onto the screen
+	 * Displays all the copies of all the resources onto the screen
 	 * with a short description. The method will be called automatically.
 	 */
 	public void initialize() {
@@ -73,7 +73,7 @@ public class CopySettingsController {
 	}
 	
 	/**
-	 * Displays the borrow and return history of a selected copy,
+	 * Displays the borrow/return history of a selected copy,
 	 * showing who borrowed it, date and time of the event and 
 	 * whether it was being borrowed or returned.
 	 */
@@ -154,8 +154,7 @@ public class CopySettingsController {
     }
     
     /**
-     * Closes the current page, then navigates back to the previous page
-     * when the button is clicked.
+     * Closes the current page, then navigates back to the Staff Dashboard.
      */
     public void handleBackButtonAction() {
 		// Closes the window.

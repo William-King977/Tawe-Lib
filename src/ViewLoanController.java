@@ -365,7 +365,7 @@ public class ViewLoanController {
     }
     
     /**
-     * Sets the status of the past loans check box and makes the 
+     * Sets the status of the current loans check box and makes the 
      * appropriate changes to the loan list when selected.
      */
     public void setCBCurrentLoansStatus() {
@@ -416,8 +416,7 @@ public class ViewLoanController {
     }
     
     /**
-     * Closes the current page, then navigates back to the previous page
-     * when the button is clicked.
+     * Closes the current page, then navigates back to the User Dashboard.
      */
     public void handleBackButtonAction() {
 		Stage stage = (Stage) btnBack.getScene().getWindow();

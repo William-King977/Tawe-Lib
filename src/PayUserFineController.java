@@ -46,7 +46,7 @@ public class PayUserFineController {
     @FXML private Button btnBack;
     
     /**
-	 * Displays the user's who currently have outstanding fines.
+	 * Displays the users who currently have outstanding fines.
 	 * This method will run automatically.
 	 */
 	public void initialize() {
@@ -190,7 +190,7 @@ public class PayUserFineController {
 	}
 	
 	/**
-	 * Goes back to the previous page when the button is clicked.
+	 * Closes this page, then goes back to the Staff Dashboard.
 	 */
 	public void handleBackButtonAction() {
 		// Closes the window.

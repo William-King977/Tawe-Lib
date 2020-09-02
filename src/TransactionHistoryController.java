@@ -51,7 +51,7 @@ public class TransactionHistoryController {
 	}
 	
 	/**
-	 * Goes back to the User Dashboard when the button is clicked.
+	 * Closes this page, then goes back to the User Dashboard.
 	 */
 	public void handleBackButtonAction() {
 		// Closes the window.

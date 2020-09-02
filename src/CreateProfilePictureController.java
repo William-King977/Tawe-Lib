@@ -45,7 +45,7 @@ public class CreateProfilePictureController {
 	/** The fxID for the colour picker. */
 	@FXML private ColorPicker colourPicker;
 	
-	/** The fxID for the scrollbar determining brush size. */
+	/** The fxID for the slider determining brush size. */
 	@FXML private Slider brushSize;
 	
 	/** The fxID for the canvas. */
@@ -54,10 +54,10 @@ public class CreateProfilePictureController {
 	/** The fxID for the back button. */
 	@FXML private Button back;
 	
-	/** The fxID for the text field which takes in the filename wanting to be saved. */
-	@FXML private TextField ImageFilename;
+	/** The fxID for the text field that holds the filename of the image. */
+	@FXML private TextField imageFilename;
 	
-	/** The fxID for the stright line checkbox. */
+	/** The fxID for the straight line checkbox. */
 	@FXML private CheckBox line;
 	/** The fxID for the circle checkbox. */
 	@FXML private CheckBox circle;
@@ -138,9 +138,7 @@ public class CreateProfilePictureController {
 	}
 	
 	/**
-	 * Saves the image created on the canvas to the folder specified.
-	 * Providing the filename doesn't already exist, saving the image as
-	 * a .png file.
+	 * Saves the image created on the canvas.
 	 */
 	public void saveImage() {
 		// Creates the snapshot object, setting the background of the image transparent. 
@@ -148,8 +146,8 @@ public class CreateProfilePictureController {
 		snapParameter.setFill(Color.TRANSPARENT);
 		
 		// Creating a writable image object which is of 300x300. 
-		WritableImage customImage = new WritableImage(300,300);
-		String fileName = ImageFilename.getText().trim() + ".png"; 
+		WritableImage customImage = new WritableImage(300, 300);
+		String fileName = imageFilename.getText().trim() + ".png"; 
 		
 		if (fileName.equals(".png")) { 
 			Utility.fileNameEmpty();
@@ -191,8 +189,7 @@ public class CreateProfilePictureController {
 	}
 	
 	/**
-	 * When the canvas check box is selected, this method will run.
-	 * Setting canvas fill selected to true, and all others to false.
+	 * Selects the canvas check box and clears the other check boxes.
 	 */
 	public void selectFillCanvas() {
 		arc.setSelected(false);
@@ -203,8 +200,7 @@ public class CreateProfilePictureController {
 	}
 	
 	/**
-	 * When the paintbrush check box is selected, this method will run.
-	 * Setting paintbrush selected to true, and all others to false.
+	 * Selects the arc check box and clears the other check boxes.
 	 */
 	public void selectArc() {
 		arc.setSelected(true);
@@ -215,8 +211,7 @@ public class CreateProfilePictureController {
 	}
 	
 	/**
-	 * When the paintbrush check box is selected, this method will run.
-	 * Setting paintbrush selected to true, and all others to false.
+	 * Selects the paintbrush check box and clears the other check boxes.
 	 */
 	public void selectPaintbrush() {
 		arc.setSelected(false);
@@ -227,8 +222,7 @@ public class CreateProfilePictureController {
 	}
 	
 	/**
-	 * When the circle check box is selected, this method will run.
-	 * Setting circle selected to true, and all others to false.
+	 * Selects the circle check box and clears the other check boxes.
 	 */
 	public void selectCircle() {
 		arc.setSelected(false);
@@ -239,8 +233,7 @@ public class CreateProfilePictureController {
 	}
 	
 	/**
-	 * When the line check box is selected, this method will run.
-	 * Setting line selected to true, and all others to false.
+	 * Selects the line check box and clears the other check boxes.
 	 */
 	public void selectLine() {
 		arc.setSelected(false);

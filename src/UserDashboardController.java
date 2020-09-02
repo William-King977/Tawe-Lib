@@ -224,7 +224,7 @@ public class UserDashboardController {
 	}
 	
 	/**
-	 * Goes back to the Log in page when the button is clicked.
+	 * Closes this page, then goes back to the Login page.
 	 */
 	public void handleLogoutButtonAction() {
 		// Closes the window.
