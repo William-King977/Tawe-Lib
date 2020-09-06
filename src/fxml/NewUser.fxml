@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="420.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NewUserController">
+  <children>
+    <BorderPane layoutX="0.0" layoutY="0.0" prefHeight="419.0" prefWidth="715.0">
+      <bottom>
+        <BorderPane prefHeight="47.0" prefWidth="639.0">
+          <left>
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="33.0" prefWidth="93.0" text="Back">
+                     <BorderPane.margin>
+                        <Insets left="10.0" />
+                     </BorderPane.margin></Button>
+          </left>
+          <right>
+            <Button mnemonicParsing="false" onAction="#handleSaveButtonAction" prefHeight="33.0" prefWidth="100.0" text="Save">
+                     <BorderPane.margin>
+                        <Insets right="10.0" />
+                     </BorderPane.margin></Button>
+          </right>
+        </BorderPane>
+      </bottom>
+      <top>
+        <AnchorPane prefHeight="58.0" prefWidth="639.0">
+          <children>
+            <Label layoutX="308.0" layoutY="11.0" text="New User" textAlignment="CENTER">
+                     <font>
+                <Font size="25.0" fx:id="x2" />
+                     </font></Label>
+          </children>
+        </AnchorPane>
+      </top>
+         <center>
+        <GridPane prefHeight="258.0" prefWidth="695.0" BorderPane.alignment="CENTER">
+          <children>
+            <Label prefWidth="70.0" text="First Name" GridPane.rowIndex="2">
+                     <font>
+                <Font size="14.0" fx:id="x1" />
+                     </font></Label>
+            <TextField fx:id="txtFirstName" prefWidth="189.0" promptText="Required" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label font="$x1" prefWidth="70.0" text="Surname" GridPane.rowIndex="4" />
+            <TextField fx:id="txtSurname" prefWidth="200.0" promptText="Required" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label font="$x1" prefWidth="107.0" text="Mobile Number" GridPane.rowIndex="6" />
+            <TextField fx:id="txtMobileNumber" prefWidth="200.0" promptText="Required" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label font="$x1" prefWidth="100.0" text="Address Line 1" GridPane.columnIndex="3" />
+            <TextField fx:id="txtAddressLine1" prefWidth="200.0" promptText="Required" GridPane.columnIndex="4" />
+            <Label font="$x1" prefWidth="100.0" text="Address Line 2" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="txtAddressLine2" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label font="$x1" prefWidth="100.0" text="City" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <TextField fx:id="txtCity" prefWidth="200.0" promptText="Required" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Label font="$x1" prefWidth="100.0" text="Postcode" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextField fx:id="txtPostcode" prefWidth="200.0" promptText="Required" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <Label font="$x1" prefWidth="107.0" text="Librarian No" visible="false" GridPane.rowIndex="8" />
+            <TextField prefWidth="200.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label font="$x1" prefWidth="107.0" text="Start Date" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <TextField prefWidth="200.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+                  <ImageView fx:id="imageProfilePicture" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Label text="Username">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtUsername" promptText="Required" GridPane.columnIndex="1" />
+                  <CheckBox fx:id="cbStaff" mnemonicParsing="false" text="The User is a Librarian" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </CheckBox>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.6000244140625" minWidth="10.0" prefWidth="211.2" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="58.4000244140625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="95.39996337890625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.199951171875" minWidth="10.0" prefWidth="225.80003662109368" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="148.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+          <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+          </BorderPane.margin>
+        </GridPane>
+         </center>
+    </BorderPane>
+  </children>
+</AnchorPane>

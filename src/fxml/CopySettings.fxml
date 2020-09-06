@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CopySettingsController">
+   <top>
+      <Text strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Copies" textAlignment="CENTER" wrappingWidth="318.80600053071976" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="29.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+   <bottom>
+      <HBox alignment="TOP_CENTER" prefHeight="65.0" prefWidth="894.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="20.0" text="Back" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+   <left>
+      <VBox prefHeight="281.0" prefWidth="317.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Copies">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ListView fx:id="lstShowCopies" onMouseClicked="#showCopyHistory" prefHeight="204.0" prefWidth="322.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </ListView>
+            <CheckBox fx:id="cbOverdueCopies" mnemonicParsing="false" onAction="#setCBOverdueCopiesStatus" text="Overdue Copies" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="291.0" prefWidth="498.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Borrow/Return History">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ListView fx:id="lstShowCopyHistory" prefHeight="204.0" prefWidth="509.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="20.0" right="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>
