@@ -105,7 +105,7 @@ public class EditResourceController {
 	public void editResource(Resource editedResource) {
 		// Keeps local storage of the edited resource.
 		this.editedResource = editedResource;
-		String resourceType = editedResource.getClass().getTypeName();
+		String resourceType = editedResource.getType();
 		
 		// Displays the resource's editable details on screen in the
 		// appropriate text fields.
@@ -134,7 +134,7 @@ public class EditResourceController {
 	 * if they are valid.
 	 */
 	public void handleSaveButtonAction() {
-		String resourceType = editedResource.getClass().getTypeName();
+		String resourceType = editedResource.getType();
 		switch (resourceType) {
 			case "Book":
 				validateEditedBook();

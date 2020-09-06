@@ -38,7 +38,7 @@ public class UserSettingsController {
     private LinkedHashMap<String, User> userList;
     
     /** Stores the currently logged in librarian's username. */
-    private String currentUser = FileHandling.getCurrentUser();
+    private String currentUser;
 	
 	/** A list view used to display the users. */
 	@FXML private ListView<String> lstShowUsers;
@@ -65,6 +65,7 @@ public class UserSettingsController {
 	 * This method will run automatically.
 	 */
 	public void initialize() { 
+		currentUser = FileHandling.getCurrentUser();
 		librarianList = FileHandling.getLibrarians();
 		userList = FileHandling.getUsers();
 		

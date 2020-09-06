@@ -147,19 +147,17 @@ public class ViewLoanController {
 		} 
 		
 		// Get selected loan and show its details.
+		// Also, enables/disables the return loan button.
 		Loan selectedLoan = null;
+		// Past loans.
 		if (cbPastLoans.isSelected()) {
 			selectedLoan = pastLoans.get(selectedIndex);
+			btnReturnLoan.setDisable(true);
+		// Current loans.
 		} else if (cbCurrentLoans.isSelected()) {
 			selectedLoan = currentLoans.get(selectedIndex);
-		} 
-		
-		// Disables the return loan button if selecting a past loan.
-		if (selectedLoan.isReturned()) {
-			btnReturnLoan.setDisable(true);
-		} else {
 			btnReturnLoan.setDisable(false);
-		}
+		} 
 		
 		txtLoanID.setText(selectedLoan.getLoanID() + "");
 		txtCopyID.setText(selectedLoan.getCopyID() + "");
