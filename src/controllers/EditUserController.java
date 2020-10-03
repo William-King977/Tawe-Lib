@@ -39,6 +39,8 @@ public class EditUserController {
 	
 	/** Local storage of the user being edited. */
     private User editedUser;
+    /** Holds the string details of the user (before any edits). */
+    private String oldUser;
     
     /** Holds the files of all profile pictures. */
     private File[] profilePictureList;
@@ -99,6 +101,8 @@ public class EditUserController {
     public void editUser(User editedUser) {
 		// Keeps local storage of the edited user.
 		this.editedUser = editedUser;
+		// Helps fix a profile picture bug (file handling).
+		this.oldUser = editedUser.toStringDetail();
 		
 		// Displays the user's editable details on screen in the
 		// appropriate text fields.
@@ -243,7 +247,7 @@ public class EditUserController {
     		String mobileNumber, String address1, String address2, String city, 
     		String postcode, String profilePicture) {
     	// Create copies of the old and new profiles, then replace the old with new.
-    	String oldProfile = editedUser.toStringDetail();
+    	String oldProfile = oldUser;
     	
     	editedUser.setFirstName(firstName);
     	editedUser.setSurname(surname);
