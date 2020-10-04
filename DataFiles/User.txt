@@ -1,2 +1,3 @@
 TranK,Tran,King,+44 9807 65432,20 Big Town,N/A,Lancaster,AB9 3CD,Default5.png,0.0,
 WillKing,William,King,+44 1111 11111,11 Down Town,N/A,London,AL1 1NN,MyPic.png,0.0,
+BigZ,Zydrunas,Savickas,+44 5555 66666,55 Strongest House,N/A,Lithuania,LT3 6NN,Default1.png,0.0,

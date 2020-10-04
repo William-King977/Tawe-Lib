@@ -105,10 +105,7 @@ public class ViewLoanController {
 			if (loan.isReturned()) {
 				pastLoans.add(loan);
 			} else {
-				// Show current loans by default.
 				currentLoans.add(loan);
-				lstShowLoans.getItems().add(loan.getDescription());
-				
 			}
 		}
 		
@@ -132,7 +129,12 @@ public class ViewLoanController {
 		    		return Utility.secondsBetweenTimes(firstTime, secondTime);
 		    	}
 			}
-		}); 
+		});
+		
+		// Display the loan descriptions (of current loans by default).
+		for (Loan thisLoan : currentLoans) {
+			lstShowLoans.getItems().add(thisLoan.getDescription());
+		}
     }
 	
 	/**
