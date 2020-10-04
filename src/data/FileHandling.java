@@ -666,6 +666,8 @@ public class FileHandling {
             e.printStackTrace();
             System.exit(-1);
 	    }
+	    
+	    Utility.savedResourceChanges();
 	}
 	
 	/**

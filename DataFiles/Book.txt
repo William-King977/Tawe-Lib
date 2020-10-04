@@ -2,4 +2,4 @@
 7,The Ultimate Book of Sharks,2018,The Ultimate Book Of Sharks.jpg,5,Brian Skerry,National Geographic Kids,,9781426330711,English,
 8,The Best Book of Sharks,1999,The Best Book Of Sharks.jpg,5,Claire Llewellyn,Kingfisher,Animals,,English,
 9,Fly Guy Presents: Sharks,2013,Fly Guy Presents Sharks.jpg,5,Tedd Arnold,Scholastic,Animals,9780545507714,English,
-12,Horrid Henry's Stinkbomb,2002,Horrid Henry's Stinkbomb.jpg,5,Francesca Simon,Orion,,9781842550663,English,
+10,Horrid Henry's Stinkbomb,2002,Horrid Henry's Stinkbomb.jpg,5,Francesca Simon,Orion,Childrens,9781842550663,English,

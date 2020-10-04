@@ -146,8 +146,6 @@ public class EditResourceController {
 				validateEditedLaptop();
 				break;
 		}
-		Utility.savedResourceChanges();
-		handleBackButtonAction();
 	}
 	
 	/**
@@ -208,15 +206,15 @@ public class EditResourceController {
     	String isbn = txtISBN.getText().trim();
     	String imageName;
     	
-    	//Gets the position of the selected resource image.
+    	// Gets the position of the selected resource image.
 		int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
-		//Sets a new resource image if it has been selected.
+		// Sets a new resource image if it has been selected.
 		if (selectedIndex > -1) {
 			imageName = resourceImageList[selectedIndex].getName();
 		} else {
-			//Sets to the previous resource image.
+			// Sets to the previous resource image.
 			imageName = editedResource.getThumbnail();
 		}
 		
@@ -265,6 +263,7 @@ public class EditResourceController {
 		
 		String newBook = editedBook.toStringDetail();
 		FileHandling.editResource(oldBook, newBook, "Book");
+		handleBackButtonAction();
     }
     
     /**
@@ -339,6 +338,7 @@ public class EditResourceController {
 		
 		String newDVD = editedDVD.toStringDetail();		
 		FileHandling.editResource(oldDVD, newDVD, "DVD");
+		handleBackButtonAction();
     }
     
     /**
@@ -406,6 +406,7 @@ public class EditResourceController {
 		
 		String newLaptop = editedLaptop.toStringDetail();
 		FileHandling.editResource(oldLaptop, newLaptop, "Laptop");
+		handleBackButtonAction();
     }
 	
 	/**
