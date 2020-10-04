@@ -510,6 +510,12 @@ public class NewResourceController {
 	 */
 	public int getMaxResourceID() {
         int maxIndex = resourceList.size() - 1;
+        
+        // If there's no existing resources.
+        if (resourceList.size() == 0) {
+        	return 0;
+        }
+        
         int maxResourceID = resourceList.get(maxIndex).getResourceID();
 		return maxResourceID;
 	}
@@ -521,7 +527,15 @@ public class NewResourceController {
 	 */
 	public void addCopies(int resourceID, ResourceType resourceType) {
 		int maxIndex = copyList.size() - 1;
-		int maxCopyID = (copyList.get(maxIndex)).getCopyID();
+		int maxCopyID;
+		
+		// If there are no resources (therefore no copies).
+		if (copyList.size() == 0) {
+			maxCopyID = 0;
+		} else {
+			maxCopyID = (copyList.get(maxIndex)).getCopyID();
+		}
+		
 		int copyID = maxCopyID; // It's going to be incremented in the loop.
 		
 		Random rand = new Random(); 

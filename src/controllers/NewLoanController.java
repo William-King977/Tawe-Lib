@@ -174,7 +174,7 @@ public class NewLoanController {
     	
     	// If there are no loans (at all).
     	if (loanList.size() == 0) {
-    		return 1;
+    		return 0;
     	} 
     	
     	int latestLoanID = loanList.get(maxIndex).getLoanID();
