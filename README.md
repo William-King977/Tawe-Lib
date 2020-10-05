@@ -6,7 +6,7 @@ Tawe-Lib Reborn has all the functionality that satisfies the specification (with
 
 # How To Run
 - **On Eclipse:** Import this as an existing project and run Main.java in the data package (directory).   
-- **On Command Line:** WIP.
+- **On Command Line:** WIP due to the packages split (controllers/data etc.).
 
 # Notes About The Implementation
 - Everything is coded in Eclipse IDE.
@@ -21,3 +21,6 @@ Tawe-Lib Reborn has all the functionality that satisfies the specification (with
 # Data Structures
 - Each data class is stored in Array Lists, with the exception of both User classes.
 - Both Users and Librarians are stored in Linked Hashmaps, with the key being their username.
+
+# Video Demonstration
+A short demo video that demonstrates all of the features: https://youtu.be/3TyYubX-mis
