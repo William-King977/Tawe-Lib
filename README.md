@@ -24,3 +24,12 @@ Tawe-Lib Reborn has all the functionality that satisfies the specification (with
 
 # Video Demonstration
 A short demo video that demonstrates all of the features: https://youtu.be/3TyYubX-mis
+
+# Credits
+Even though this project was built from the beginning (on this repository), some components have been used from the original project. So I'd like to thank the following people who were in my group for the assignment:
+
+- Aaron Lewis
+- Adam Moore
+- Chris Wong
+- Ellis Thompson
+- Kelvin Ho
