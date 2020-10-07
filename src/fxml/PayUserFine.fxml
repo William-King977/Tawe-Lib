@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PayUserFineController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PayUserFineController">
    <top>
       <Text strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pay User Fine" textAlignment="CENTER" wrappingWidth="318.80600053071976" BorderPane.alignment="CENTER">
          <font>
@@ -26,67 +26,56 @@
       </Text>
    </top>
    <center>
-      <VBox alignment="CENTER" prefHeight="290.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="290.0" prefWidth="400.0" spacing="20.0" BorderPane.alignment="TOP_CENTER">
          <children>
-            <GridPane prefHeight="307.0" prefWidth="380.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.60003662109375" minWidth="10.0" prefWidth="65.6" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.79997558593752" minWidth="0.1999748229978664" prefWidth="100.80000000000001" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.99999999999997" minWidth="-Infinity" prefWidth="165.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+            <HBox alignment="TOP_CENTER" prefHeight="243.0" prefWidth="644.0" spacing="60.0">
                <children>
-                  <TextField fx:id="txtCurrentFines" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Label text="Username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtUsername" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtPayment" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <Label text="Payment" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Current Fines" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="btnPayFine" mnemonicParsing="false" onAction="#handlePayFineButtonAction" text="Pay Fine" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <VBox prefHeight="246.0" prefWidth="272.0" spacing="10.0">
+                     <children>
+                        <Label text="Fined Users">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="lstFinedUsers" onMouseClicked="#displayUserDetails" prefHeight="204.0" prefWidth="272.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ListView>
+                     </children>
+                  </VBox>
+                  <GridPane prefHeight="242.0" prefWidth="266.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="165.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="txtCurrentFines" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Username" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtUsername" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtPayment" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Payment" GridPane.rowIndex="4" />
+                        <Label text="Current Fines" GridPane.rowIndex="2" />
+                        <Button fx:id="btnPayFine" mnemonicParsing="false" onAction="#handlePayFineButtonAction" text="Pay Fine" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     </children>
+                  </GridPane>
                </children>
+            </HBox>
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="20.0" text="Back" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets right="20.0" />
+                  <Insets bottom="20.0" />
                </VBox.margin>
-            </GridPane>
+            </Button>
          </children>
       </VBox>
    </center>
-   <bottom>
-      <HBox alignment="TOP_CENTER" prefHeight="65.0" prefWidth="894.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="20.0" text="Back" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets top="20.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-   </bottom>
-   <left>
-      <VBox prefHeight="290.0" prefWidth="272.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Fined Users">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ListView fx:id="lstFinedUsers" onMouseClicked="#displayUserDetails" prefHeight="204.0" prefWidth="272.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ListView>
-         </children>
-         <BorderPane.margin>
-            <Insets left="20.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
 </BorderPane>
