@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -113,8 +113,8 @@ public class DisplayUserController {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource(Main.FXML_FILE_PATH + "EditUser.fxml"));
 			
-			// Sets a new anchor pane.
-			AnchorPane editRoot = fxmlLoader.load();
+			// Sets a new border pane.
+			BorderPane editRoot = fxmlLoader.load();
 			
 			// Gets the controller for the FXML file loaded.
 			EditUserController editUser = fxmlLoader

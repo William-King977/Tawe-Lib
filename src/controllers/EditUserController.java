@@ -12,7 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -155,7 +155,7 @@ public class EditUserController {
     		FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource(Main.FXML_FILE_PATH + "CreateProfilePicture.fxml"));
 			
-			Pane root = fxmlLoader.load();
+			BorderPane root = fxmlLoader.load();
 			// Gets the controller for the FXML file.
 			CreateProfilePictureController createImage = fxmlLoader
 					.<CreateProfilePictureController> getController();

@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -198,7 +198,7 @@ public class UserDashboardController {
 					.getResource(Main.FXML_FILE_PATH + "DisplayUser.fxml"));
 			
 			// Sets a new anchor pane.
-			AnchorPane editRoot = fxmlLoader.load();
+			BorderPane editRoot = fxmlLoader.load();
 			
 			// Gets the controller for the FXML file loaded.
 			DisplayUserController viewUser = fxmlLoader

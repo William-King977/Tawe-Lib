@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -124,7 +124,7 @@ public class UserSettingsController {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource(Main.FXML_FILE_PATH + "EditUser.fxml")); 
 	
-			AnchorPane editRoot = fxmlLoader.load();
+			BorderPane editRoot = fxmlLoader.load();
 			
 			// Gets the controller for the FXML file.
 			EditUserController editUser = fxmlLoader
@@ -178,7 +178,7 @@ public class UserSettingsController {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource(Main.FXML_FILE_PATH + "DisplayUser.fxml")); 
-			AnchorPane editRoot = fxmlLoader.load();
+			BorderPane editRoot = fxmlLoader.load();
 			
 			//Gets the controller for the FXML file.
 			DisplayUserController viewUser = fxmlLoader
@@ -220,7 +220,7 @@ public class UserSettingsController {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource(Main.FXML_FILE_PATH + "NewUser.fxml"));
 			
-			AnchorPane root = (AnchorPane) fxmlLoader.load();
+			BorderPane root = fxmlLoader.load();
 			// Gets the controller for the FXML file.
 			NewUserController createUser = fxmlLoader
 					.<NewUserController> getController();
