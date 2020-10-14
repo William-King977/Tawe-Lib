@@ -21,18 +21,18 @@ public class DVD extends Resource {
 	/**
 	 * Constructor for the DVD class.
 	 * @param resourceID A unique resource ID.
-     * @param resourceTitle A resource's title i.e book title.
-     * @param year The year that the resource was released.
-     * @param thumbnail A string path to the thumbnail for a resource.
-     * @param numberOfCopies The total number of copies of a resource.
+	 * @param resourceTitle A resource's title i.e book title.
+	 * @param year The year that the resource was released.
+	 * @param thumbnail A string path to the thumbnail for a resource.
+	 * @param numberOfCopies The total number of copies of a resource.
 	 * @param director The director who directed the DVD content.
 	 * @param runtime The runtime of the DVD.
 	 * @param language The main language of the DVD.
 	 * @param subLang The subtitle languages the DVD provides.
 	 */
-	public DVD(int resourceID, String resourceTitle, int year, String thumbnail,
-			   int numberOfCopies, String director, double runtime, 
-			   String language, String[] subLang) {
+	public DVD(int resourceID, String resourceTitle, int year, String thumbnail, 
+			int numberOfCopies, String director, double runtime, 
+			String language, String[] subLang) {
 		super(resourceID, resourceTitle, year, thumbnail, numberOfCopies);
 		this.director = director;
 		this.language = language;
@@ -64,7 +64,7 @@ public class DVD extends Resource {
 				strSubLang = strSubLang + ";" + subLang[i];
 			}
 		}
-
+		
 		String dvdString = resourceID + "," + resourceTitle + "," + year + 
 				"," + thumbnail + "," + numberOfCopies + ","  + director + 
 				"," + runtime + "," + language + "," + strSubLang + ",";
@@ -87,7 +87,7 @@ public class DVD extends Resource {
 	public void setDirector(String director) {
 		this.director = director;
 	}
-
+	
 	/**
 	 * Gets the runtime of the DVD.
 	 * @return The runtime of the DVD.
@@ -105,13 +105,13 @@ public class DVD extends Resource {
 	}
 	
 	/**
-     * Returns the main language of the DVD.
-     * @return language Returns the language of the DVD.
-     */
+	 * Returns the main language of the DVD.
+	 * @return language Returns the language of the DVD.
+	 */
 	public String getLanguage() {
 		return language;
 	}
-
+	
 	/**
 	 * Sets the language for the DVD.
 	 * @param language Takes a language as a string.
@@ -119,7 +119,7 @@ public class DVD extends Resource {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-
+	
 	/**
 	 * Gets the subtitle languages of the DVD.
 	 * @return The subtitle languages of the DVD.

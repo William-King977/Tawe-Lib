@@ -38,7 +38,7 @@ public class Request implements Comparable<Request> {
 	 * @param requestFilled Whether the request copy has been given to
 	 *                      the user or not.
 	 * @param reserved Whether the requested copy was reserved for the
-	 *                   user or not.
+	 *                 user or not.
 	 */
 	public Request(int requestID, int copyID, int resourceID, String username,
 			String requestDate, boolean requestFilled, boolean reserved) {
@@ -55,12 +55,12 @@ public class Request implements Comparable<Request> {
 	 * Gets the full details of the request.
 	 * @return Full details of the request as a string.
 	 */
-    public String toStringDetail() {
-    	String strRequest = requestID + "," + copyID + "," + resourceID + 
-    			"," + username + "," + requestDate + "," + requestFilled + 
-    			"," + reserved + ",";
-    	return strRequest;
-    }
+	public String toStringDetail() {
+		String strRequest = requestID + "," + copyID + "," + resourceID + 
+				"," + username + "," + requestDate + "," + requestFilled + 
+				"," + reserved + ",";
+		return strRequest;
+	}
 	
 	/**
 	 * Gets the ID of the request.
@@ -85,7 +85,7 @@ public class Request implements Comparable<Request> {
 	public int getResourceID() {
 		return resourceID;
 	}
-
+	
 	/**
 	 * Gets the username of the user who made the request.
 	 * @return The user's username.
@@ -93,7 +93,7 @@ public class Request implements Comparable<Request> {
 	public String getUsername() {
 		return username;
 	}
-
+	
 	/**
 	 * Gets the date that the request was made.
 	 * @return The date when the request was made.
@@ -101,22 +101,22 @@ public class Request implements Comparable<Request> {
 	public String getRequestDate() {
 		return requestDate;
 	}
-
+	
 	/**
 	 * Gets whether the request has been fulfilled or not.
 	 * @return Whether the request copy has been given to
 	 *         the user or not.
 	 */
 	public Boolean getRequestFilled() {
-			return requestFilled;
+		return requestFilled;
 	}
-
+	
 	/**
 	 * Sets whether the copy is reserved or not.
 	 * @param reserved Whether the copy is reserved ot not.
 	 */
 	public void setReserved(boolean reserved) {
-			this.reserved = reserved;
+		this.reserved = reserved;
 	}
 	
 	/**
@@ -124,15 +124,15 @@ public class Request implements Comparable<Request> {
 	 * @return Whether the request copy is reserved or not.
 	 */
 	public Boolean isReserved() {
-			return reserved;
+		return reserved;
 	}
-
+	
 	/**
 	 * Sets whether the request has been fulfilled or not.
 	 * @param requestFilled Whether the request has been fulfilled or not.
 	 */
 	public void setRequestFilled(Boolean requestFilled) {
-			this.requestFilled = requestFilled;
+		this.requestFilled = requestFilled;
 	}
 	
 	/**
@@ -155,7 +155,7 @@ public class Request implements Comparable<Request> {
 				+ requestDate;
 		return requestDescription;
 	}
-
+	
 	/**
 	 * Comparison method used to sort the Requests in ascending order of request ID.
 	 * @param otherRequest The other request object being compared.

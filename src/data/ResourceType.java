@@ -7,11 +7,11 @@ package data;
  */
 public enum ResourceType {
 	/** A laptop type resource. */
-    LAPTOP,
-    
-    /** A DVD type resource. */
-    DVD,
-    
-    /** A book type resource. */
-    BOOK
+	LAPTOP,
+	
+	/** A DVD type resource. */
+	DVD,
+	
+	/** A book type resource. */
+	BOOK
 }

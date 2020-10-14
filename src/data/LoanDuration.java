@@ -8,14 +8,14 @@ package data;
 public enum LoanDuration {
 	
 	/** One day loan. */
-    DAY,
-    
-    /** One week loan. */
-    WEEK,
-    
-    /** Two week loan. */
-    TWO_WEEK,
-    
-    /** Four week Loan. */
-    FOUR_WEEK
+	DAY,
+	
+	/** One week loan. */
+	WEEK,
+	
+	/** Two week loan. */
+	TWO_WEEK,
+	
+	/** Four week Loan. */
+	FOUR_WEEK
 }

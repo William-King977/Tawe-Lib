@@ -30,10 +30,10 @@ public class FileHandling {
 		try {
 			FileWriter myWriter = new FileWriter(filePath);
 			myWriter.write(currentUser);
-		    myWriter.close();
+			myWriter.close();
 		} catch (IOException e) {
-		      System.out.println("Cannot write to " + filePath);
-		      System.exit(-1);
+			System.out.println("Cannot write to " + filePath);
+			System.exit(-1);
 		}
 	}
 	
@@ -47,15 +47,15 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading
+		try {
+			// Opens the file for reading
 			in = new Scanner(inputFile);
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    currentUser = in.next();
+		currentUser = in.next();
 		return currentUser;
 	}
 	
@@ -69,37 +69,36 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading
+		try {
+			// Opens the file for reading
 			in = new Scanner(inputFile);
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    in.useDelimiter(",");
-	    // Read each user and store them in a linked hashmap.
-	    // The key is the username.
-	    LinkedHashMap<String, User> users = new LinkedHashMap<>();
-	    while (in.hasNextLine()) {
-	    	
-	    	String username = in.next();
-	    	String firstName = in.next();
-	    	String surname = in.next();
-	    	String mobileNumber = in.next();
-	    	String address1 = in.next();
-	    	String address2 = in.next();
-	    	String city = in.next();
-	    	String postcode = in.next();
-	    	String profilePicture = in.next();
-	    	double fine = in.nextDouble();
-	    	User user = new User(username, firstName, surname, mobileNumber,
-	    			address1, address2, city, postcode, profilePicture, fine); 
-	    	users.put(username, user);
-	    	in.nextLine(); // Needed if you change delimiter.
-	    }
-	    in.close();
+		
+		in.useDelimiter(",");
+		// Read each user and store them in a linked hashmap.
+		// The key is the username.
+		LinkedHashMap<String, User> users = new LinkedHashMap<>();
+		while (in.hasNextLine()) {
+			String username = in.next();
+			String firstName = in.next();
+			String surname = in.next();
+			String mobileNumber = in.next();
+			String address1 = in.next();
+			String address2 = in.next();
+			String city = in.next();
+			String postcode = in.next();
+			String profilePicture = in.next();
+			double fine = in.nextDouble();
+			User user = new User(username, firstName, surname, mobileNumber,
+					address1, address2, city, postcode, profilePicture, fine); 
+			users.put(username, user);
+			in.nextLine(); // Needed if you change delimiter.
+		}
+		in.close();
 		return users;
 	}
 	
@@ -113,38 +112,38 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading.
+		try {
+			// Opens the file for reading.
 			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    in.useDelimiter(",");
-	    // Read each librarian and store them in a linked hashmap.
-	    LinkedHashMap<String, Librarian> librarians = new LinkedHashMap<>();
-	    while (in.hasNextLine()) {
-	    	String username = in.next();
-	    	String firstName = in.next();
-	    	String surname = in.next();
-	    	String mobileNumber = in.next();
-	    	String address1 = in.next();
-	    	String address2 = in.next();
-	    	String city = in.next();
-	    	String postcode = in.next();
-	    	String profilePicture = in.next();
-	    	double fine = in.nextDouble();
-	    	int staffID = in.nextInt();
-	    	String employmentDate = in.next();
-	    	Librarian librarian = new Librarian(username, firstName, surname, 
-	    			mobileNumber, address1, address2, city, postcode, 
-	    			profilePicture, fine, staffID, employmentDate); 
-	    	librarians.put(username, librarian);
-	    	in.nextLine(); // Needed if you change delimiter.
-	    }
-	    in.close();
+		
+		in.useDelimiter(",");
+		// Read each librarian and store them in a linked hashmap.
+		LinkedHashMap<String, Librarian> librarians = new LinkedHashMap<>();
+		while (in.hasNextLine()) {
+			String username = in.next();
+			String firstName = in.next();
+			String surname = in.next();
+			String mobileNumber = in.next();
+			String address1 = in.next();
+			String address2 = in.next();
+			String city = in.next();
+			String postcode = in.next();
+			String profilePicture = in.next();
+			double fine = in.nextDouble();
+			int staffID = in.nextInt();
+			String employmentDate = in.next();
+			Librarian librarian = new Librarian(username, firstName, surname, 
+					mobileNumber, address1, address2, city, postcode, 
+					profilePicture, fine, staffID, employmentDate); 
+			librarians.put(username, librarian);
+			in.nextLine(); // Needed if you change delimiter.
+		}
+		in.close();
 		return librarians;
 	}
 	
@@ -158,38 +157,37 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading.
+		try {
+			// Opens the file for reading.
 			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    in.useDelimiter(",");
-	    // Read each book and store them in an ArrayList.
-	    ArrayList<Book> books = new ArrayList<>();
-	    while (in.hasNextLine()) {
-	    	
-	    	int resourceID = in.nextInt();
-	    	String resourceTitle = in.next();
-	    	int year = in.nextInt();
-	    	String thumbnail = in.next();
-	    	int numberOfCopies = in.nextInt();
-	    	
-	    	String author = in.next();
-	    	String publisher = in.next();
-	    	String genre = in.next();
-	    	String ISBN = in.next();
-	    	String language = in.next();
-	    	
-	    	Book book = new Book(resourceID, resourceTitle, year, thumbnail,
-	    			numberOfCopies, author, publisher, genre, ISBN, language); 
-	    	books.add(book);
-	    	in.nextLine(); // Needed if you change delimiter.
-	    }
-	    in.close();
+		
+		in.useDelimiter(",");
+		// Read each book and store them in an ArrayList.
+		ArrayList<Book> books = new ArrayList<>();
+		while (in.hasNextLine()) {
+			int resourceID = in.nextInt();
+			String resourceTitle = in.next();
+			int year = in.nextInt();
+			String thumbnail = in.next();
+			int numberOfCopies = in.nextInt();
+			
+			String author = in.next();
+			String publisher = in.next();
+			String genre = in.next();
+			String ISBN = in.next();
+			String language = in.next();
+			
+			Book book = new Book(resourceID, resourceTitle, year, thumbnail,
+					numberOfCopies, author, publisher, genre, ISBN, language); 
+			books.add(book);
+			in.nextLine(); // Needed if you change delimiter.
+		}
+		in.close();
 		return books;
 	}
 	
@@ -203,43 +201,42 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading.
+		try {
+			// Opens the file for reading.
 			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    in.useDelimiter(",");
-	    // Read each DVD and store them in an ArrayList.
-	    ArrayList<DVD> dvds = new ArrayList<>();
-	    while (in.hasNextLine()) {
-	    	
-	    	int resourceID = in.nextInt();
-	    	String resourceTitle = in.next();
-	    	int year = in.nextInt();
-	    	String thumbnail = in.next();
-	    	int numberOfCopies = in.nextInt();
-	    	
-	    	String director = in.next();
-	    	double runtime= in.nextDouble();
-	    	String language = in.next();
-	    	String[] subLang = {};
-	    	
-	    	// Checks if the DVD has any subtitle language options.
+		
+		in.useDelimiter(",");
+		// Read each DVD and store them in an ArrayList.
+		ArrayList<DVD> dvds = new ArrayList<>();
+		while (in.hasNextLine()) {
+			int resourceID = in.nextInt();
+			String resourceTitle = in.next();
+			int year = in.nextInt();
+			String thumbnail = in.next();
+			int numberOfCopies = in.nextInt();
+			
+			String director = in.next();
+			double runtime= in.nextDouble();
+			String language = in.next();
+			String[] subLang = {};
+			
+			// Checks if the DVD has any subtitle language options.
 			if (in.hasNext()) {
 				String langSet = in.next();
 				subLang = addLanguages(langSet); 
 			}
 				
-	    	DVD dvd = new DVD(resourceID, resourceTitle, year, thumbnail,
-	    			numberOfCopies, director, runtime, language, subLang); 
-	    	dvds.add(dvd);
-	    	in.nextLine(); // Needed if you change delimiter.
-	    }
-	    in.close();
+			DVD dvd = new DVD(resourceID, resourceTitle, year, thumbnail,
+					numberOfCopies, director, runtime, language, subLang); 
+			dvds.add(dvd);
+			in.nextLine(); // Needed if you change delimiter.
+		}
+		in.close();
 		return dvds;
 	}
 	
@@ -251,36 +248,36 @@ public class FileHandling {
 	 */
 	private static String[] addLanguages(String langSet) {
 		// Scanner to read individual languages.
-	    Scanner readLang = new Scanner(langSet);
+		Scanner readLang = new Scanner(langSet);
 		int numOfLanguages = 0;
-	    
-	    // Delimiter change to read individual languages.
+		
+		// Delimiter change to read individual languages.
 		readLang.useDelimiter(";");
-	    
-	    // Reads through each language to check how many there are.
-	    while (readLang.hasNext()) {
-	    	numOfLanguages++;
-	    	readLang.next();
-	    }
-	    
-	    // Closes the file stream after reading all the languages.
-	    readLang.close();
-	    
-	    String[] subLang = new String[numOfLanguages];
-	    
-	    // readLang is redeclared so that its contents can be inserted 
-	    // into the array. (.next() was used on it earlier).
-	    readLang = new Scanner(langSet);
-	    readLang.useDelimiter(";");
-	    
-	    // Insert the languages into the array.
-	    for (int i = 0; i < numOfLanguages; i++) {
-	    	String language = readLang.next();
-	    	subLang[i] = language;
-	    }
-	    
-	    readLang.close();
-	    return subLang;   
+		
+		// Reads through each language to check how many there are.
+		while (readLang.hasNext()) {
+			numOfLanguages++;
+			readLang.next();
+		}
+		
+		// Closes the file stream after reading all the languages.
+		readLang.close();
+		
+		String[] subLang = new String[numOfLanguages];
+		
+		// readLang is redeclared so that its contents can be inserted 
+		// into the array. (.next() was used on it earlier).
+		readLang = new Scanner(langSet);
+		readLang.useDelimiter(";");
+		
+		// Insert the languages into the array.
+		for (int i = 0; i < numOfLanguages; i++) {
+			String language = readLang.next();
+			subLang[i] = language;
+		}
+		
+		readLang.close();
+		return subLang;   
 	}
 	
 	/**
@@ -293,36 +290,35 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading.
+		try {
+			// Opens the file for reading.
 			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    in.useDelimiter(",");
-	    // Read each laptop and store them in an ArrayList.
-	    ArrayList<Laptop> laptops = new ArrayList<>();
-	    while (in.hasNextLine()) {
-	    	
-	    	int resourceID = in.nextInt();
-	    	String resourceTitle = in.next();
-	    	int year = in.nextInt();
-	    	String thumbnail = in.next();
-	    	int numberOfCopies = in.nextInt();
-	    	
-	    	String manufacturer = in.next();
-	    	String model = in.next();
-	    	String operatingSystem = in.next();
-	    	 
-	    	Laptop laptop = new Laptop(resourceID, resourceTitle, year, thumbnail,
-	    			numberOfCopies, manufacturer, model, operatingSystem); 
-	    	laptops.add(laptop);
-	    	in.nextLine(); // Needed if you change delimiter.
-	    }
-	    in.close();
+		
+		in.useDelimiter(",");
+		// Read each laptop and store them in an ArrayList.
+		ArrayList<Laptop> laptops = new ArrayList<>();
+		while (in.hasNextLine()) {
+			int resourceID = in.nextInt();
+			String resourceTitle = in.next();
+			int year = in.nextInt();
+			String thumbnail = in.next();
+			int numberOfCopies = in.nextInt();
+			
+			String manufacturer = in.next();
+			String model = in.next();
+			String operatingSystem = in.next();
+			
+			Laptop laptop = new Laptop(resourceID, resourceTitle, year, thumbnail,
+					numberOfCopies, manufacturer, model, operatingSystem); 
+			laptops.add(laptop);
+			in.nextLine(); // Needed if you change delimiter.
+		}
+		in.close();
 		return laptops;
 	}
 	
@@ -336,60 +332,59 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading.
+		try {
+			// Opens the file for reading.
 			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    in.useDelimiter(",");
-	    // Read each copy and store them in an ArrayList.
-	    ArrayList<Copy> copies = new ArrayList<>();
-	    while (in.hasNextLine()) {
-	    	
-	    	int copyID = in.nextInt();
-	    	int resourceID = in.nextInt();
-	    	boolean isAvailable = in.nextBoolean();
-	    	String strType = in.next();
-	    	String strLoanDuration = in.next();
-	    	
-	    	ResourceType resourceType = null;
-	    	switch (strType) {
-	    		case "BOOK":
-	    			resourceType = ResourceType.BOOK;
-	    			break;
-	    		case "DVD":
-	    			resourceType = ResourceType.DVD;
-	    			break;
-	    		case "LAPTOP":
-	    			resourceType = ResourceType.LAPTOP;
-	    			break;
-	    	}
-	    	
-	    	LoanDuration duration = null;
-	    	switch (strLoanDuration) {
-	    		case "DAY":
-	    			duration = LoanDuration.DAY;
-	    			break;
-	    		case "WEEK":
-	    			duration = LoanDuration.WEEK;
-	    			break;
-	    		case "TWO_WEEK":
-	    			duration = LoanDuration.TWO_WEEK;
-	    			break;
-	    		case "FOUR_WEEK":
-	    			duration = LoanDuration.FOUR_WEEK;
-	    			break;
-	    	}
-	    
-	    	Copy copy = new Copy(copyID, resourceID, isAvailable, resourceType, duration); 
-	    	copies.add(copy);
-	    	in.nextLine(); // Needed if you change delimiter.
-	    }
-	    in.close();
+		
+		in.useDelimiter(",");
+		// Read each copy and store them in an ArrayList.
+		ArrayList<Copy> copies = new ArrayList<>();
+		while (in.hasNextLine()) {
+			int copyID = in.nextInt();
+			int resourceID = in.nextInt();
+			boolean isAvailable = in.nextBoolean();
+			String strType = in.next();
+			String strLoanDuration = in.next();
+			
+			ResourceType resourceType = null;
+			switch (strType) {
+				case "BOOK":
+					resourceType = ResourceType.BOOK;
+					break;
+				case "DVD":
+					resourceType = ResourceType.DVD;
+					break;
+				case "LAPTOP":
+					resourceType = ResourceType.LAPTOP;
+					break;
+			}
+			
+			LoanDuration duration = null;
+			switch (strLoanDuration) {
+				case "DAY":
+					duration = LoanDuration.DAY;
+					break;
+				case "WEEK":
+					duration = LoanDuration.WEEK;
+					break;
+				case "TWO_WEEK":
+					duration = LoanDuration.TWO_WEEK;
+					break;
+				case "FOUR_WEEK":
+					duration = LoanDuration.FOUR_WEEK;
+					break;
+			}
+		
+			Copy copy = new Copy(copyID, resourceID, isAvailable, resourceType, duration); 
+			copies.add(copy);
+			in.nextLine(); // Needed if you change delimiter.
+		}
+		in.close();
 		return copies;
 	}
 	
@@ -402,34 +397,33 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading.
+		try {
+			// Opens the file for reading.
 			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    in.useDelimiter(",");
-	    // Read each request and store them in an ArrayList.
-	    ArrayList<Request> requests = new ArrayList<>();
-	    while (in.hasNextLine()) {
-	    	
-	    	int requestID = in.nextInt();
-	    	int copyID = in.nextInt();
-	    	int resourceID = in.nextInt();
-	    	String username = in.next();
-	    	String requestDate = in.next();
-	    	boolean requestFilled = in.nextBoolean();
-	    	boolean reserved = in.nextBoolean();
-	    	 
-	    	Request request = new Request(requestID, copyID, resourceID, 
-	    			username, requestDate, requestFilled, reserved);
-	    	requests.add(request);
-	    	in.nextLine(); // Needed if you change delimiter.
-	    }
-	    in.close();
+		
+		in.useDelimiter(",");
+		// Read each request and store them in an ArrayList.
+		ArrayList<Request> requests = new ArrayList<>();
+		while (in.hasNextLine()) {
+			int requestID = in.nextInt();
+			int copyID = in.nextInt();
+			int resourceID = in.nextInt();
+			String username = in.next();
+			String requestDate = in.next();
+			boolean requestFilled = in.nextBoolean();
+			boolean reserved = in.nextBoolean();
+			
+			Request request = new Request(requestID, copyID, resourceID, 
+					username, requestDate, requestFilled, reserved);
+			requests.add(request);
+			in.nextLine(); // Needed if you change delimiter.
+		}
+		in.close();
 		return requests;
 	}
 	
@@ -442,56 +436,55 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading.
+		try {
+			// Opens the file for reading.
 			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    in.useDelimiter(",");
-	    // Read each loan and store them in an ArrayList.
-	    ArrayList<Loan> loans = new ArrayList<>();
-	    while (in.hasNextLine()) {
-	    	
-	    	int loanID = in.nextInt();
-	    	int copyID = in.nextInt();
-	    	int resourceID = in.nextInt();
-	    	String username = in.next();
-	    	int staffID = in.nextInt();
-	    	String checkoutDate = in.next();
-	    	String checkoutTime = in.next();
-	    	String dueDate = in.next();
-	    	
-	    	boolean returned = in.nextBoolean();
-	    	String returnDate = in.next();
-	    	String returnTime = in.next();
-	    	int daysOverdue = in.nextInt();
-	    	String strType = in.next();
-	    	
-	    	ResourceType resourceType = null;
-	    	switch (strType) {
-	    		case "BOOK":
-	    			resourceType = ResourceType.BOOK;
-	    			break;
-	    		case "DVD":
-	    			resourceType = ResourceType.DVD;
-	    			break;
-	    		case "LAPTOP":
-	    			resourceType = ResourceType.LAPTOP;
-	    			break;
-	    	}
-	    	 
-	    	Loan loan = new Loan(loanID, copyID, resourceID, username,
-	    			staffID, checkoutDate, checkoutTime, dueDate, returned, 
-	    			returnDate, returnTime, daysOverdue, resourceType);
-	    	loans.add(loan);
-	    	in.nextLine(); // Needed if you change delimiter.
-	    }
-	    in.close();
-	    return loans;
+		
+		in.useDelimiter(",");
+		// Read each loan and store them in an ArrayList.
+		ArrayList<Loan> loans = new ArrayList<>();
+		while (in.hasNextLine()) {
+			int loanID = in.nextInt();
+			int copyID = in.nextInt();
+			int resourceID = in.nextInt();
+			String username = in.next();
+			int staffID = in.nextInt();
+			String checkoutDate = in.next();
+			String checkoutTime = in.next();
+			String dueDate = in.next();
+			
+			boolean returned = in.nextBoolean();
+			String returnDate = in.next();
+			String returnTime = in.next();
+			int daysOverdue = in.nextInt();
+			String strType = in.next();
+			
+			ResourceType resourceType = null;
+			switch (strType) {
+				case "BOOK":
+					resourceType = ResourceType.BOOK;
+					break;
+				case "DVD":
+					resourceType = ResourceType.DVD;
+					break;
+				case "LAPTOP":
+					resourceType = ResourceType.LAPTOP;
+					break;
+			}
+			
+			Loan loan = new Loan(loanID, copyID, resourceID, username,
+					staffID, checkoutDate, checkoutTime, dueDate, returned, 
+					returnDate, returnTime, daysOverdue, resourceType);
+			loans.add(loan);
+			in.nextLine(); // Needed if you change delimiter.
+		}
+		in.close();
+		return loans;
 	}
 	
 	/**
@@ -504,52 +497,51 @@ public class FileHandling {
 		File inputFile = new File(filePath);
 		Scanner in = null;
 		
-	    try {
-	    	// Opens the file for reading.
+		try {
+			// Opens the file for reading.
 			in = new Scanner(inputFile);	
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    in.useDelimiter(",");
-	    // Read each transaction and store them in an ArrayList.
-	    ArrayList<Transaction> transactions = new ArrayList<>();
-	    while (in.hasNextLine()) {
-	    	
-	    	int transactionID = in.nextInt();
-	    	int resourceID = in.nextInt();
-	    	String username = in.next();
-	    	double amount = in.nextDouble();
-	    	
-	    	int daysOverdue = in.nextInt();
-	    	String date = in.next();
-	    	String time = in.next();
-	    	String strType = in.next();
-	    	boolean isFine = in.nextBoolean();
-	    	
-	    	ResourceType resourceType = null;
-	    	switch (strType) {
-	    		case "BOOK":
-	    			resourceType = ResourceType.BOOK;
-	    			break;
-	    		case "DVD":
-	    			resourceType = ResourceType.DVD;
-	    			break;
-	    		case "LAPTOP":
-	    			resourceType = ResourceType.LAPTOP;
-	    			break;
-	    	}
-	    	 
-	    	Transaction transaction = new Transaction(transactionID, 
-	    			resourceID, username, amount, daysOverdue, date, time, 
-	    			resourceType, isFine);
-	    	transactions.add(transaction);
-	    	in.nextLine(); // Needed if you change delimiter.
-	    }
-	    in.close();
-	    return transactions;
+		
+		in.useDelimiter(",");
+		// Read each transaction and store them in an ArrayList.
+		ArrayList<Transaction> transactions = new ArrayList<>();
+		while (in.hasNextLine()) {
+			int transactionID = in.nextInt();
+			int resourceID = in.nextInt();
+			String username = in.next();
+			double amount = in.nextDouble();
+			
+			int daysOverdue = in.nextInt();
+			String date = in.next();
+			String time = in.next();
+			String strType = in.next();
+			boolean isFine = in.nextBoolean();
+			
+			ResourceType resourceType = null;
+			switch (strType) {
+				case "BOOK":
+					resourceType = ResourceType.BOOK;
+					break;
+				case "DVD":
+					resourceType = ResourceType.DVD;
+					break;
+				case "LAPTOP":
+					resourceType = ResourceType.LAPTOP;
+					break;
+			}
+			
+			Transaction transaction = new Transaction(transactionID, 
+					resourceID, username, amount, daysOverdue, date, time, 
+					resourceType, isFine);
+			transactions.add(transaction);
+			in.nextLine(); // Needed if you change delimiter.
+		}
+		in.close();
+		return transactions;
 	}
 	
 	/**
@@ -578,35 +570,35 @@ public class FileHandling {
 		FileWriter writer = null;
 		String oldContent = "";
 		
-	    try {
+		try {
 			reader = new BufferedReader(new FileReader(inputFile));
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    try {
-		    // Uses buffer to write old file contents to a string.
-		    String line = reader.readLine();
-		    while (line != null) {
-		    	oldContent = oldContent + line + System.lineSeparator();
-		        line = reader.readLine();
-		    }
-		    // Replace old profile with the new one within the textfile.
-		    String newContent = oldContent.replace(oldProfile, newProfile);
-		   
-		    writer = new FileWriter(filePath);
-		    writer.write(newContent);
-		    reader.close();
-		    writer.flush();
-		    writer.close();
-	    } catch (IOException e) {
-	    	// Catches an IO exception when the file can't 
-	    	// be written.
-            e.printStackTrace();
-            System.exit(-1);
-	    }
+		
+		try {
+			// Uses buffer to write old file contents to a string.
+			String line = reader.readLine();
+			while (line != null) {
+				oldContent = oldContent + line + System.lineSeparator();
+				line = reader.readLine();
+			}
+			// Replace old profile with the new one within the textfile.
+			String newContent = oldContent.replace(oldProfile, newProfile);
+			
+			writer = new FileWriter(filePath);
+			writer.write(newContent);
+			reader.close();
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// Catches an IO exception when the file can't 
+			// be written.
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -638,36 +630,36 @@ public class FileHandling {
 		FileWriter writer = null;
 		String oldContent = "";
 		
-	    try {
+		try {
 			reader = new BufferedReader(new FileReader(inputFile));
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    try {
-		    // Uses buffer to write old file contents to a string.
-		    String line = reader.readLine();
-		    while (line != null) {
-		    	oldContent = oldContent + line + System.lineSeparator();
-		        line = reader.readLine();
-		    }
-		    // Replace old resource with the new one within the textfile.
-		    String newContent = oldContent.replace(oldResource, newResource);
-		    writer = new FileWriter(filePath);
-		    writer.write(newContent);
-		    reader.close();
-		    writer.flush();
-		    writer.close();
-	    } catch (IOException e) {
-	    	// Catches an IO exception when the file can't 
-	    	// be written.
-            e.printStackTrace();
-            System.exit(-1);
-	    }
-	    
-	    Utility.savedResourceChanges();
+		
+		try {
+			// Uses buffer to write old file contents to a string.
+			String line = reader.readLine();
+			while (line != null) {
+				oldContent = oldContent + line + System.lineSeparator();
+				line = reader.readLine();
+			}
+			// Replace old resource with the new one within the textfile.
+			String newContent = oldContent.replace(oldResource, newResource);
+			writer = new FileWriter(filePath);
+			writer.write(newContent);
+			reader.close();
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// Catches an IO exception when the file can't 
+			// be written.
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		
+		Utility.savedResourceChanges();
 	}
 	
 	/**
@@ -684,34 +676,34 @@ public class FileHandling {
 		FileWriter writer = null;
 		String oldContent = "";
 		
-	    try {
+		try {
 			reader = new BufferedReader(new FileReader(inputFile));
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    try {
-		    // Uses buffer to write old file contents to a string.
-		    String line = reader.readLine();
-		    while (line != null) {
-		    	oldContent = oldContent + line + System.lineSeparator();
-		        line = reader.readLine();
-		    }
-		    // Replace old copy with the new one within the textfile.
-		    String newContent = oldContent.replace(oldCopy, newCopy);
-		    writer = new FileWriter(filePath);
-		    writer.write(newContent);
-		    reader.close();
-		    writer.flush();
-		    writer.close();
-	    } catch (IOException e) {
-	    	// Catches an IO exception when the file can't 
-	    	// be written.
-            e.printStackTrace();
-            System.exit(-1);
-	    }
+		
+		try {
+			// Uses buffer to write old file contents to a string.
+			String line = reader.readLine();
+			while (line != null) {
+				oldContent = oldContent + line + System.lineSeparator();
+				line = reader.readLine();
+			}
+			// Replace old copy with the new one within the textfile.
+			String newContent = oldContent.replace(oldCopy, newCopy);
+			writer = new FileWriter(filePath);
+			writer.write(newContent);
+			reader.close();
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// Catches an IO exception when the file can't 
+			// be written.
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -728,34 +720,34 @@ public class FileHandling {
 		FileWriter writer = null;
 		String oldContent = "";
 		
-	    try {
+		try {
 			reader = new BufferedReader(new FileReader(inputFile));
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    try {
-		    // Uses buffer to write old file contents to a string.
-		    String line = reader.readLine();
-		    while (line != null) {
-		    	oldContent = oldContent + line + System.lineSeparator();
-		        line = reader.readLine();
-		    }
-		    // Replace old request with the new one within the textfile.
-		    String newContent = oldContent.replace(oldRequest, newRequest);
-		    writer = new FileWriter(filePath);
-		    writer.write(newContent);
-		    reader.close();
-		    writer.flush();
-		    writer.close();
-	    } catch (IOException e) {
-	    	// Catches an IO exception when the file can't 
-	    	// be written.
-            e.printStackTrace();
-            System.exit(-1);
-	    }
+		
+		try {
+			// Uses buffer to write old file contents to a string.
+			String line = reader.readLine();
+			while (line != null) {
+				oldContent = oldContent + line + System.lineSeparator();
+				line = reader.readLine();
+			}
+			// Replace old request with the new one within the textfile.
+			String newContent = oldContent.replace(oldRequest, newRequest);
+			writer = new FileWriter(filePath);
+			writer.write(newContent);
+			reader.close();
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// Catches an IO exception when the file can't 
+			// be written.
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -764,7 +756,7 @@ public class FileHandling {
 	 * @param newLoan The string details of the edited loan.
 	 */
 	public static void editLoan(String oldLoan, String newLoan) {
-		// Edits are made by replacing the details of the previous 
+		// Edits are made by replacing the details of the previous
 		// loan with the new one.
 		String filePath = DATA_FILE_PATH + "Loan.txt";
 		File inputFile = new File(filePath);
@@ -772,34 +764,34 @@ public class FileHandling {
 		FileWriter writer = null;
 		String oldContent = "";
 		
-	    try {
+		try {
 			reader = new BufferedReader(new FileReader(inputFile));
 		// Catch an exception if the file does not exist and exit the program.
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open " + filePath);
 			System.exit(-1);
 		}
-	    
-	    try {
-		    // Uses buffer to write old file contents to a string.
-		    String line = reader.readLine();
-		    while (line != null) {
-		    	oldContent = oldContent + line + System.lineSeparator();
-		        line = reader.readLine();
-		    }
-		    // Replace old loan with the new one within the textfile.
-		    String newContent = oldContent.replace(oldLoan, newLoan);
-		    writer = new FileWriter(filePath);
-		    writer.write(newContent);
-		    reader.close();
-		    writer.flush();
-		    writer.close();
-	    } catch (IOException e) {
-	    	// Catches an IO exception when the file can't 
-	    	// be written.
-            e.printStackTrace();
-            System.exit(-1);
-	    }
+		
+		try {
+			// Uses buffer to write old file contents to a string.
+			String line = reader.readLine();
+			while (line != null) {
+				oldContent = oldContent + line + System.lineSeparator();
+				line = reader.readLine();
+			}
+			// Replace old loan with the new one within the textfile.
+			String newContent = oldContent.replace(oldLoan, newLoan);
+			writer = new FileWriter(filePath);
+			writer.write(newContent);
+			reader.close();
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// Catches an IO exception when the file can't 
+			// be written.
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -829,14 +821,14 @@ public class FileHandling {
 			buffWriter = new BufferedWriter(fileWriter);
 			printWriter = new PrintWriter(buffWriter);
 			
-			// Writes the user then adds a new line. 
+			// Writes the user then adds a new line.
 			printWriter.print(newUser);
 			printWriter.println("");
 			printWriter.close();
-        } catch (IOException e) { 
-            System.out.println("Cannot write to " + filePath); 
-            System.exit(-1);
-        } 
+		} catch (IOException e) {
+			System.out.println("Cannot write to " + filePath);
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -860,10 +852,10 @@ public class FileHandling {
 			printWriter.print(newCopy);
 			printWriter.println("");
 			printWriter.close();
-        } catch (IOException e) { 
-            System.out.println("Cannot write to " + filePath); 
-            System.exit(-1);
-        } 
+		} catch (IOException e) {
+			System.out.println("Cannot write to " + filePath); 
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -900,10 +892,10 @@ public class FileHandling {
 			printWriter.print(newResource);
 			printWriter.println("");
 			printWriter.close();
-        } catch (IOException e) { 
-            System.out.println("Cannot write to " + filePath); 
-            System.exit(-1);
-        } 	
+		} catch (IOException e) {
+			System.out.println("Cannot write to " + filePath);
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -927,10 +919,10 @@ public class FileHandling {
 			printWriter.print(newRequest);
 			printWriter.println("");
 			printWriter.close();
-        } catch (IOException e) { 
-            System.out.println("Cannot write to " + filePath); 
-            System.exit(-1);
-        } 	
+		} catch (IOException e) {
+			System.out.println("Cannot write to " + filePath);
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -954,10 +946,10 @@ public class FileHandling {
 			printWriter.print(newLoan);
 			printWriter.println("");
 			printWriter.close();
-        } catch (IOException e) { 
-            System.out.println("Cannot write to " + filePath); 
-            System.exit(-1);
-        } 	
+		} catch (IOException e) {
+			System.out.println("Cannot write to " + filePath);
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -981,22 +973,21 @@ public class FileHandling {
 			printWriter.print(newTransaction);
 			printWriter.println("");
 			printWriter.close();
-        } catch (IOException e) { 
-            System.out.println("Cannot write to " + filePath); 
-            System.exit(-1);
-        } 	
+		} catch (IOException e) {
+			System.out.println("Cannot write to " + filePath);
+			System.exit(-1);
+		}
 	}
 	
 	/**
-     * Checks if the image exists in the system.
-     * @param fileName The name of the image file.
-     * @return True if the file exists, otherwise false.
-     */
-    public static boolean checkImageExists(String fileName) {
-    	// Because of how Windows works, it's not case sensitive.
-    	File pathCheck = new File(DATA_FILE_PATH + 
-    			"ProfilePictures/" + fileName); //The path of the file.
-    	return pathCheck.exists();
-    }
+	 * Checks if the image exists in the system.
+	 * @param fileName The name of the image file.
+	 * @return True if the file exists, otherwise false.
+	 */
+	public static boolean checkImageExists(String fileName) {
+		// Because of how Windows works, it's not case sensitive.
+		File pathCheck = new File(DATA_FILE_PATH + 
+				"ProfilePictures/" + fileName); //The path of the file.
+		return pathCheck.exists();
+	}
 }
-

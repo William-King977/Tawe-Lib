@@ -48,19 +48,19 @@ public class Loan implements Comparable<Loan>{
 	
 	/** The ID of the loaned copy. */
 	private int copyID;
-    
-    /** The type of resource of the loaned copy. */
-    private ResourceType type;
-    
-    /**
-     * Constructor for the Loan class.
-     * @param loanID A unique ID for the Loan.
-     * @param copyID The ID of the loaned copy.
-     * @param resourceID The ID of the resource.
-     * @param username The username of the user who the Loan was issued to.
+	
+	/** The type of resource of the loaned copy. */
+	private ResourceType type;
+	
+	/**
+	 * Constructor for the Loan class.
+	 * @param loanID A unique ID for the Loan.
+	 * @param copyID The ID of the loaned copy.
+	 * @param resourceID The ID of the resource.
+	 * @param username The username of the user who the Loan was issued to.
 	 * @param staffID The ID of the librarian who authorised the Loan.
-     * @param checkoutDate The date the Loan was issued (YYYY-MM-DD).
-     * @param checkoutTime The time the loan was issued (HH:MM:SS).
+	 * @param checkoutDate The date the Loan was issued (YYYY-MM-DD).
+	 * @param checkoutTime The time the loan was issued (HH:MM:SS).
 	 * @param dueDate The date the Loan needs to be returned. It's set when 
 	 *                the copy is requested and it's either the loan duration 
 	 *                or the day after the request was made - (YYYY-MM-DD).
@@ -69,47 +69,47 @@ public class Loan implements Comparable<Loan>{
 	 *                   (YYYY-MM-DD).
 	 * @param returnTime The time that the loan was returned (HH:MM:SS). 
 	 * @param daysOverdue The amount of days overdue an item is;
-     * @param type The type of resource of the loaned copy.
-     */
-    public Loan (int loanID, int copyID, int resourceID, String username, 
-    		int staffID, String checkoutDate, String checkoutTime, String dueDate,
-            boolean returned, String returnDate, String returnTime, int daysOverdue,
-            ResourceType type) {
-    	this.loanID = loanID;
-    	this.copyID = copyID;
-    	this.resourceID = resourceID;
-    	this.username = username;
-        this.staffID = staffID;
-        this.checkoutDate = checkoutDate;
-        this.checkoutTime = checkoutTime;
-        this.type = type;
-        
-        this.dueDate = dueDate;
-        this.returned = returned;
-        this.returnDate = returnDate;
-        this.returnTime = returnTime;
-        this.daysOverdue = daysOverdue;
-    }
-    
-    /**
+	 * @param type The type of resource of the loaned copy.
+	 */
+	public Loan (int loanID, int copyID, int resourceID, String username, 
+			int staffID, String checkoutDate, String checkoutTime, String dueDate,
+			boolean returned, String returnDate, String returnTime, int daysOverdue,
+			ResourceType type) {
+		this.loanID = loanID;
+		this.copyID = copyID;
+		this.resourceID = resourceID;
+		this.username = username;
+		this.staffID = staffID;
+		this.checkoutDate = checkoutDate;
+		this.checkoutTime = checkoutTime;
+		this.type = type;
+		
+		this.dueDate = dueDate;
+		this.returned = returned;
+		this.returnDate = returnDate;
+		this.returnTime = returnTime;
+		this.daysOverdue = daysOverdue;
+	}
+	
+	/**
 	 * Gets the full details of the loan.
 	 * @return Full details of the loan as a string.
 	 */
-    public String toStringDetail() {
-    	String strLoan = loanID + "," + copyID + "," + resourceID + 
-    			"," + username + "," + staffID + "," + checkoutDate + 
-    			"," + checkoutTime + "," + dueDate + "," + returned + 
-    			"," + returnDate + "," + returnTime + "," + daysOverdue + 
-    			"," + type + ",";
-    	return strLoan;
-    }
-    
-    /**
+	public String toStringDetail() {
+		String strLoan = loanID + "," + copyID + "," + resourceID + 
+				"," + username + "," + staffID + "," + checkoutDate + 
+				"," + checkoutTime + "," + dueDate + "," + returned + 
+				"," + returnDate + "," + returnTime + "," + daysOverdue + 
+				"," + type + ",";
+		return strLoan;
+	}
+	
+	/**
 	 * Gets the ID of the Loan.
 	 * @return The ID of the Loan.
 	 */
 	public int getLoanID() {
-			return loanID;
+		return loanID;
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class Loan implements Comparable<Loan>{
 	 * @return The ID of the loaned copy.
 	 */
 	public int getCopyID() {
-			return copyID;
+		return copyID;
 	}
 	
 	/**
@@ -125,23 +125,23 @@ public class Loan implements Comparable<Loan>{
 	 * @return Returns the resource ID.
 	 */
 	public int getResourceID() {
-			return resourceID;
+		return resourceID;
 	}
 	
 	/**
-     * Gets the username for the object being viewed.
-     * @return Returns a username.
-     */
-    public String getUsername() {
-            return username;
-    }
+	 * Gets the username for the object being viewed.
+	 * @return Returns a username.
+	 */
+	public String getUsername() {
+		return username;
+	}
 	
 	/**
 	 * Gets the ID of the librarian who authorised the Loan.
 	 * @return The ID of the librarian who authorised the Loan.
 	 */
 	public int getStaffID() {
-			return staffID;
+		return staffID;
 	}
 	
 	/**
@@ -189,7 +189,7 @@ public class Loan implements Comparable<Loan>{
 			this.dueDate = dueDateLocal.toString();
 		}
 	}
-    
+	
 	/**
 	 * Checks whether the Loan has been returned or not.
 	 * @return Whether the Loan has been returned or not.
@@ -207,34 +207,34 @@ public class Loan implements Comparable<Loan>{
 	}
 	
 	/**
-     * Gets the date a user returned a loan (YYYY-MM-DD).
-     * @return Returns a date (YYYY-MM-DD).
-     */
-    public String getReturnDate() {
-    	return returnDate;
-    }
-    
-    /**
+	 * Gets the date a user returned a loan (YYYY-MM-DD).
+	 * @return Returns a date (YYYY-MM-DD).
+	 */
+	public String getReturnDate() {
+		return returnDate;
+	}
+	
+	/**
 	 * Sets the date that the Loan was returned (YYYY-MM-DD).
 	 * @param returnDate The date that the Loan was returned (YYYY-MM-DD).
 	 */
-    public void setReturnDate(String returnDate) {
+	public void setReturnDate(String returnDate) {
 		this.returnDate = returnDate;
 	}
-    
-    /**
-     * Gets the time a user returned a loan (HH:MM:SS).
-     * @return Returns a time (HH:MM:SS).
-     */
-    public String getReturnTime() {
-    	return returnTime;
-    }
-    
-    /**
+	
+	/**
+	 * Gets the time a user returned a loan (HH:MM:SS).
+	 * @return Returns a time (HH:MM:SS).
+	 */
+	public String getReturnTime() {
+		return returnTime;
+	}
+	
+	/**
 	 * Sets the time that the Loan was returned (HH:MM:SS).
 	 * @param returnTime The time that the Loan was returned (HH:MM:SS).
 	 */
-    public void setReturnTime(String returnTime) {
+	public void setReturnTime(String returnTime) {
 		this.returnTime = returnTime;
 	}
 	
@@ -257,24 +257,24 @@ public class Loan implements Comparable<Loan>{
 		} else {
 			LocalDate returnDateLoc = LocalDate.parse(returnDate);
 			LocalDate dueDateLoc = LocalDate.parse(dueDate);
-	        int days = (int) DAYS.between(dueDateLoc, returnDateLoc);
-	        if (days < 0) {
-	        	this.daysOverdue = 0;
-	        } else {
-	        	this.daysOverdue = days;
-	        }	
+			int days = (int) DAYS.between(dueDateLoc, returnDateLoc);
+			if (days < 0) {
+				this.daysOverdue = 0;
+			} else {
+				this.daysOverdue = days;
+			}
 		}
 	}
-
+	
 	/**
-     * Gets the resource type of the loaned copy.
-     * @return Returns The resource type of the loaned copy.
-     */
-    public ResourceType getType() {
-    	return type;
-    }
-
-    /**
+	 * Gets the resource type of the loaned copy.
+	 * @return Returns The resource type of the loaned copy.
+	 */
+	public ResourceType getType() {
+		return type;
+	}
+	
+	/**
 	 * Gets a short description of a loan.
 	 * @return A short description of the Loan.
 	 */
@@ -324,7 +324,7 @@ public class Loan implements Comparable<Loan>{
 				+ "Date: " + returnDate + " | Time: " + returnTime;
 			
 	}
-
+	
 	/**
 	 * Comparison method used to sort the Loans in ascending order of loan ID.
 	 * @param otherLoan The other loan object being compared.
