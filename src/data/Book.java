@@ -7,7 +7,7 @@ package data;
 public class Book extends Resource {
 	
 	/** The author of the book. */
-    private String author;
+	private String author;
     
     /** The publisher of the book. */
     private String publisher;
@@ -34,23 +34,23 @@ public class Book extends Resource {
      * @param ISBN The ISBN of the book.
      * @param language The language of the book.
      */
-	public Book(int resourceID, String resourceTitle, int year, String thumbnail,
-			int numberOfCopies, String author, 
-			String publisher, String genre, String ISBN, String language) {
-		super(resourceID, resourceTitle, year, thumbnail, numberOfCopies);
-		this.author = author;
-		this.publisher = publisher;
-		this.genre = genre;
-		this.ISBN = ISBN;
-		this.language = language;
-	}
+    public Book(int resourceID, String resourceTitle, int year, String thumbnail,
+    		int numberOfCopies, String author, 
+    		String publisher, String genre, String ISBN, String language) {
+    	super(resourceID, resourceTitle, year, thumbnail, numberOfCopies);
+    	this.author = author;
+    	this.publisher = publisher;
+    	this.genre = genre;
+    	this.ISBN = ISBN;
+    	this.language = language;
+    }
 	
 	/**
 	 * Gets a string of the book's details. Mainly for the resource search.
 	 * @return String of the book's details.
 	 */
-	public String toStringSearch() {
-		String bookString = resourceID + "," + resourceTitle + "," + year + 
+    public String toStringSearch() {
+    	String bookString = resourceID + "," + resourceTitle + "," + year + 
 				"," + genre + "," + language + "," + author + 
 				"," + publisher;
 		return bookString.toLowerCase();
@@ -61,12 +61,10 @@ public class Book extends Resource {
 	 * @return String of the book's full details.
 	 */
 	public String toStringDetail() {
-
 		String bookString = resourceID + "," + resourceTitle + "," + year + 
 				"," + thumbnail + "," + numberOfCopies + "," + author + 
 				"," + publisher + "," + genre + "," + ISBN + 
 				"," + language + ",";
-		
 		return bookString;
 	}
 	
@@ -87,9 +85,9 @@ public class Book extends Resource {
 	}
 	
 	/**
-     * Returns a genre such as Horror etc.
-     * @return genre Returns the genre of the book.
-     */
+	 * Returns a genre such as Horror etc.
+	 * @return genre Returns the genre of the book.
+	 */
 	public String getGenre() {
 		return genre;
 	}
@@ -135,9 +133,9 @@ public class Book extends Resource {
 	}
 	
 	/**
-     * Gets the language of the book.
-     * @return language The language as a string.
-     */
+	 * Gets the language of the book.
+	 * @return language The language as a string.
+	 */
 	public String getLanguage() {
 		return language;
 	}

@@ -349,7 +349,7 @@ public class NewResourceController {
 			return;
 		}
 		
-		int resourceID = getMaxResourceID() + 1;
+		int resourceID = getLatestResourceID() + 1;
 		
 		Book newBook = new Book(resourceID, resourceTitle, year, imageName, 
 				NUMBER_OF_COPIES, author, publisher, genre, isbn, language);
@@ -420,7 +420,7 @@ public class NewResourceController {
 			return;
 		}
 		
-		int resourceID = getMaxResourceID() + 1;
+		int resourceID = getLatestResourceID() + 1;
 		
 		DVD newDVD = new DVD(resourceID, resourceTitle, year, imageName, 
 				NUMBER_OF_COPIES, director, runtime, language, subLang);
@@ -488,7 +488,7 @@ public class NewResourceController {
 			return;
 		}
    		
-   		int resourceID = getMaxResourceID() + 1; 
+   		int resourceID = getLatestResourceID() + 1; 
    		
    		Laptop newLaptop = new Laptop(resourceID, resourceTitle, year, imageName, 
    				NUMBER_OF_COPIES, manufacturer, model, operatingSystem);
@@ -505,10 +505,10 @@ public class NewResourceController {
 	}
 	
 	/**
-	 * Gets the current maximum resource ID.
-	 * @return The current maximum resource ID.
+	 * Gets the ID of the latest resource.
+	 * @return ID of the latest resource.
 	 */
-	public int getMaxResourceID() {
+	public int getLatestResourceID() {
         int maxIndex = resourceList.size() - 1;
         
         // If there's no existing resources.

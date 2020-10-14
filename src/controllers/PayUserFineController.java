@@ -55,6 +55,7 @@ public class PayUserFineController {
 	public void initialize() {
 		userList = FileHandling.getUsers();
 		transactions = FileHandling.getTransactions();
+		Collections.sort(transactions);
 		
 		for (String key : userList.keySet()) {
 			User user = userList.get(key);
@@ -138,7 +139,7 @@ public class PayUserFineController {
 	 * @param payment The amount of money to be paid off.
 	 */
 	public void makePaymentTransaction(String username, double payment) {
-		int transactionID = getMaxTransactionID() + 1;
+		int transactionID = getLatestTransactionID() + 1;
 		String today = LocalDate.now().toString();
 		String time = LocalTime.now().withNano(0).toString();
 		ResourceType type = null;
@@ -152,16 +153,15 @@ public class PayUserFineController {
 	}
 	
 	/**
-	 * Fetches the maximum transaction ID of all current transactions.
-	 * @return The current maximum transaction ID.
+	 * Fetches the ID of the latest transaction.
+	 * @return The ID of the latest transaction.
 	 */
-	public int getMaxTransactionID() {
+	public int getLatestTransactionID() {
 		int maxID;
 		
 		if (transactions.size() == 0) {
 			maxID = 0;
 		} else {
-			Collections.sort(transactions);
 			int maxIndex = transactions.size() - 1;
 			maxID = (transactions.get(maxIndex)).getTransactionID();
 		}

@@ -220,7 +220,7 @@ public class ViewResourceController {
 		}
 		
 		// Create request.
-		int requestID = getMaxRequestID() + 1;
+		int requestID = getLatestRequestID() + 1;
 		String requestDate = LocalDate.now().toString(); 
 		
 		Request newRequest = new Request(requestID, copyID, resourceID, 
@@ -234,10 +234,10 @@ public class ViewResourceController {
 	}
 	
 	/**
-	 * Fetches the maximum request ID of all current requests.
-	 * @return The current maximum request ID.
+	 * Fetches the ID of the most recent request.
+	 * @return ID of the most recent request.
 	 */
-	public int getMaxRequestID() {
+	public int getLatestRequestID() {
 		int maxID;
 		
 		if (requestList.size() == 0) {
