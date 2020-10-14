@@ -25,14 +25,14 @@ public class DisplayUserController {
 	/** Title for the Edit User page. */
 	private final String EDIT_USER_TITLE = "Edit Profile";
 	/** The file location of the profile pictures. */
-    private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
+	private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
 	
 	/** Used to check if the profile is a librarian or not. */
 	private boolean isLibrarian;
 	/** Local storage of the user (that you're viewing). */
 	private User thisUser;
-    
-    /** A text field to hold the librarian's username. */
+	
+	/** A text field to hold the librarian's username. */
 	@FXML private TextField txtUsername;
 	/** A text field to hold the librarian's first name. */
 	@FXML private TextField txtFirstName;
@@ -83,7 +83,7 @@ public class DisplayUserController {
 		txtCity.setText(thisUser.getCity());
 		txtPostcode.setText(thisUser.getPostcode());
 		txtMobileNumber.setText(thisUser.getMobileNumber());
-
+		
 		if (isLibrarian()) {
 			//Librarians can't get fined, so not applicable.
 			txtCurrentFine.setText("N/A");
@@ -100,16 +100,16 @@ public class DisplayUserController {
 		
 		//Changes image URL to a file, then converts that to an image.
 		File imageURL = new File(PROFILE_PICTURE_PATH + thisUser.getProfilePicture());
-        Image profilePicture = new Image(imageURL.toURI().toString());
+		Image profilePicture = new Image(imageURL.toURI().toString());
 		imageProfilePicture.setImage(profilePicture);
 	}
 	
 	/**
 	 * Displays a page where the user can edit their profile.
 	 */
-	public void handleEditProfileButtonAction() {			
-        try {
-        	// Sets up a new FXML loader.
+	public void handleEditProfileButtonAction() {
+		try {
+			// Sets up a new FXML loader.
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource(Main.FXML_FILE_PATH + "EditUser.fxml"));
 			
@@ -125,30 +125,30 @@ public class DisplayUserController {
 			editUser.setEditAnotherUser(false);        
 			editUser.editUser(thisUser); // Pass down the user's details. 
 			
-            // Sets the scene.
-            Scene editScene = new Scene(editRoot); 
-            Stage editStage = new Stage();
-            editStage.setScene(editScene);
-            editStage.setTitle(EDIT_USER_TITLE);
-            editStage.initModality(Modality.APPLICATION_MODAL);
-            editStage.showAndWait();
-            refreshProfile(); // Update profile details on the page.
-        } catch (IOException e) {
-        	// Catches an IO exception such as that where the FXML
-            // file is not found.
-        	e.printStackTrace();
-        	System.exit(-1);
-        }
+			// Sets the scene.
+			Scene editScene = new Scene(editRoot); 
+			Stage editStage = new Stage();
+			editStage.setScene(editScene);
+			editStage.setTitle(EDIT_USER_TITLE);
+			editStage.initModality(Modality.APPLICATION_MODAL);
+			editStage.showAndWait();
+			refreshProfile(); // Update profile details on the page.
+		} catch (IOException e) {
+			// Catches an IO exception such as that where the FXML
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 	
 	/**
-     * Checks if the selected user is a librarian or a member.
-     * @return If the selected user is a librarian or not.
-     */
+	 * Checks if the selected user is a librarian or a member.
+	 * @return If the selected user is a librarian or not.
+	 */
 	private boolean isLibrarian() {
 		return isLibrarian;
 	}
-
+	
 	/**
 	 * Sets whether the selected user is a librarian or a member.
 	 * @param isLibrarian If the selected user is a librarian or not.
@@ -176,11 +176,11 @@ public class DisplayUserController {
 	}
 	
 	/**
-     * Closes the current page.
-     */
-    public void handleBackButtonAction() {
-    	//Closes the window.
-    	Stage stage = (Stage) btnBack.getScene().getWindow();
-    	stage.close();
-    }
+	 * Closes the current page.
+	 */
+	public void handleBackButtonAction() {
+		//Closes the window.
+		Stage stage = (Stage) btnBack.getScene().getWindow();
+		stage.close();
+	}
 }

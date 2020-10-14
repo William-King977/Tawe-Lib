@@ -119,21 +119,21 @@ public class ResourceSettingsController {
 	public void initialize() {
 		// Gets an ArrayList for each resource.
 		bookList = FileHandling.getBooks();
-        dvdList = FileHandling.getDVDs();
-        laptopList = FileHandling.getLaptops();
-        
-        // Adds each resource to the resource ArrayList.
-        resourceList.addAll(bookList);
-        resourceList.addAll(dvdList);
-        resourceList.addAll(laptopList);
-        Collections.sort(resourceList); 
-        
-        isSearch = false;
-        
-        // Show the resources on list view.
-        for (Resource thisResource : resourceList) {
-        	lstShowResource.getItems().add(thisResource.toString());
-        }  
+		dvdList = FileHandling.getDVDs();
+		laptopList = FileHandling.getLaptops();
+		
+		// Adds each resource to the resource ArrayList.
+		resourceList.addAll(bookList);
+		resourceList.addAll(dvdList);
+		resourceList.addAll(laptopList);
+		Collections.sort(resourceList); 
+		
+		isSearch = false;
+		
+		// Show the resources on list view.
+		for (Resource thisResource : resourceList) {
+			lstShowResource.getItems().add(thisResource.toString());
+		}
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class ResourceSettingsController {
 			// Then passes down the selected resource.
 			if (cbBook.isSelected()) {
 				Book selectedBook = bookList.get(selectedIndex);
-				displayBookDetails(selectedBook);	
+				displayBookDetails(selectedBook);
 			} else if (cbDVD.isSelected()) {
 				DVD selectedDVD = dvdList.get(selectedIndex);
 				displayDVDDetails(selectedDVD);
@@ -236,7 +236,7 @@ public class ResourceSettingsController {
 	
 	/**
 	 * Displays the details of the selected DVD.
-     * @param selectedDVD The selected DVD.
+	 * @param selectedDVD The selected DVD.
 	 */
 	public void displayDVDDetails(DVD selectedDVD) {
 		//Displays the selected DVD's details
@@ -273,7 +273,7 @@ public class ResourceSettingsController {
 	
 	/**
 	 * Displays the details of the selected laptop.
-     * @param selectedLaptop The selected laptop.
+	 * @param selectedLaptop The selected laptop.
 	 */
 	public void displayLaptopDetails(Laptop selectedLaptop) {
 		//Displays the selected laptop's details
@@ -289,7 +289,7 @@ public class ResourceSettingsController {
 				selectedLaptop.getThumbnail());
 		Image thumbnail = new Image(imageURL.toURI().toString());
 		imageThumbnail.setImage(thumbnail);
-	
+		
 		txtManufacturer.setText(selectedLaptop.getManufacturer());
 		txtModel.setText(selectedLaptop.getModel());
 		txtOperatingSystem.setText(selectedLaptop.getOperatingSystem());	
@@ -367,11 +367,11 @@ public class ResourceSettingsController {
 	}
 	
 	/**
-     * Sets the status of the Book check box and makes the 
-     * appropriate changes to the resource list when selected.
-     */
-    public void setCBBookStatus() {
-    	// Clears other check boxes if selected.
+	 * Sets the status of the Book check box and makes the 
+	 * appropriate changes to the resource list when selected.
+	 */
+	public void setCBBookStatus() {
+		// Clears other check boxes if selected.
 		cbDVD.setSelected(false);
 		cbLaptop.setSelected(false);
 		btnEditResource.setDisable(true);
@@ -384,24 +384,24 @@ public class ResourceSettingsController {
 		} else {
 			if (cbBook.isSelected()) {
 				for (Book thisBook : bookList) {
-	            	lstShowResource.getItems().add(thisBook.toString());
-	    		}
+					lstShowResource.getItems().add(thisBook.toString());
+				}
 			// If you're clicking the check box to clear it.
 			} else {
 				// Show the resources on list view.
-	            for (Resource thisResource : resourceList) {
-	            	lstShowResource.getItems().add(thisResource.toString());
-	            } 	
+				for (Resource thisResource : resourceList) {
+					lstShowResource.getItems().add(thisResource.toString());
+				}
 			}
 		}
-    }
-    
-    /**
-     * Sets the status of the DVD check box and makes the 
-     * appropriate changes to the resource list when selected.
-     */
-    public void setCBDVDStatus() {
-    	// Clears other check boxes if selected.
+	}
+	
+	/**
+	 * Sets the status of the DVD check box and makes the 
+	 * appropriate changes to the resource list when selected.
+	 */
+	 public void setCBDVDStatus() {
+		// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbLaptop.setSelected(false);
 		btnEditResource.setDisable(true);
@@ -414,24 +414,24 @@ public class ResourceSettingsController {
 		} else {
 			if (cbDVD.isSelected()) {
 				for (DVD thisDVD : dvdList) {
-	            	lstShowResource.getItems().add(thisDVD.toString());
-	    		}
+					lstShowResource.getItems().add(thisDVD.toString());
+				}
 			// If you're clicking the check box to clear it.
 			} else {
 				// Show the resources on list view.
-	            for (Resource thisResource : resourceList) {
-	            	lstShowResource.getItems().add(thisResource.toString());
-	            } 
+				for (Resource thisResource : resourceList) {
+					lstShowResource.getItems().add(thisResource.toString());
+				}
 			}
 		}
-    }
-    
-    /**
-     * Sets the status of the Laptop check box and makes the 
-     * appropriate changes to the resource list when selected.
-     */
-    public void setCBLaptopStatus() {
-    	// Clears other check boxes if selected.
+	}
+	
+	/**
+	 * Sets the status of the Laptop check box and makes the 
+	 * appropriate changes to the resource list when selected.
+	 */
+	public void setCBLaptopStatus() {
+		// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbDVD.setSelected(false);
 		btnEditResource.setDisable(true);
@@ -444,87 +444,87 @@ public class ResourceSettingsController {
 		} else {
 			if (cbLaptop.isSelected()) {
 				for (Laptop thisLaptop : laptopList) {
-	    			lstShowResource.getItems().add(thisLaptop.toString());
-	    		}
+					lstShowResource.getItems().add(thisLaptop.toString());
+				}
 			// If you're clicking the check box to clear it.
 			} else {
 				// Show the resources on list view.
-	            for (Resource thisResource : resourceList) {
-	            	lstShowResource.getItems().add(thisResource.toString());
-	            } 
+				for (Resource thisResource : resourceList) {
+					lstShowResource.getItems().add(thisResource.toString());
+				} 
 			}
 		}
-    }
-    
-    /**
-     * Searches through the resources using the key words entered
-     * in the search box, and displays the related resources.
-     */
-    public void handleResourceSearchAction() {
-    	String keywords = txtSearchResource.getText().trim().toLowerCase();
-    	isSearch = true;
-    	searchedList.clear(); // Clear ArrayList from previous search.
-    	lstShowResource.getItems().clear();
-    	btnEditResource.setDisable(true);
-    	
-    	// Show all of appropriate resources if there's nothing in 
-    	// the search bar.
-    	if (keywords.isEmpty()) {
-    		isSearch = false;
-    		if (cbBook.isSelected()) {
-        		setCBBookStatus();
-    		} else if (cbDVD.isSelected()) {
-    			setCBDVDStatus();
-    		} else if (cbLaptop.isSelected()) {
-    			setCBLaptopStatus();
-    		} else {
-    			// Show the resources on list view.
-    	        for (Resource thisResource : resourceList) {
-    	        	lstShowResource.getItems().add(thisResource.toString());
-    	        } 
-    		}
-    	} else if (cbBook.isSelected()) {
-    		for (Book book : bookList) {
-    			if ((book.toStringSearch()).contains(keywords)) {
-    				searchedList.add(book);
-    			}
-    		}
-    	} else if (cbDVD.isSelected()) {
-    		for (DVD dvd : dvdList) {
-    			if ((dvd.toStringSearch()).contains(keywords)) {
-    				searchedList.add(dvd);
-    			}
-    		}
-    	} else if (cbLaptop.isSelected()) {
-    		for (Laptop laptop : laptopList) {
-    			if ((laptop.toStringSearch()).contains(keywords)) {
-    				searchedList.add(laptop);
-    			}
-    		}
-    	// If the type of resource is unknown via checkbox.
-    	} else {
-    		for (Resource resource : resourceList) {
-    			if ((resource.toStringSearch()).contains(keywords)) {
-    				searchedList.add(resource);
-    			}
-    		}
-    	}
-    	
-    	// Display filtered items to the resource list view. 
-    	for (Resource thisResource : searchedList) {
-    		lstShowResource.getItems().add(thisResource.toString());
-    	}
-    }
-    
-    /**
+	}
+	
+	/**
+	 * Searches through the resources using the key words entered
+	 * in the search box, and displays the related resources.
+	 */
+	public void handleResourceSearchAction() {
+		String keywords = txtSearchResource.getText().trim().toLowerCase();
+		isSearch = true;
+		searchedList.clear(); // Clear ArrayList from previous search.
+		lstShowResource.getItems().clear();
+		btnEditResource.setDisable(true);
+		
+		// Show all of appropriate resources if there's nothing in 
+		// the search bar.
+		if (keywords.isEmpty()) {
+			isSearch = false;
+			if (cbBook.isSelected()) {
+				setCBBookStatus();
+			} else if (cbDVD.isSelected()) {
+				setCBDVDStatus();
+			} else if (cbLaptop.isSelected()) {
+				setCBLaptopStatus();
+			} else {
+				// Show the resources on list view.
+				for (Resource thisResource : resourceList) {
+					lstShowResource.getItems().add(thisResource.toString());
+				}
+			}
+		} else if (cbBook.isSelected()) {
+			for (Book book : bookList) {
+				if ((book.toStringSearch()).contains(keywords)) {
+					searchedList.add(book);
+				}
+			}
+		} else if (cbDVD.isSelected()) {
+			for (DVD dvd : dvdList) {
+				if ((dvd.toStringSearch()).contains(keywords)) {
+					searchedList.add(dvd);
+				}
+			}
+		} else if (cbLaptop.isSelected()) {
+			for (Laptop laptop : laptopList) {
+				if ((laptop.toStringSearch()).contains(keywords)) {
+					searchedList.add(laptop);
+				}
+			}
+		// If the type of resource is unknown via checkbox.
+		} else {
+			for (Resource resource : resourceList) {
+				if ((resource.toStringSearch()).contains(keywords)) {
+					searchedList.add(resource);
+				}
+			}
+		}
+		
+		// Display filtered items to the resource list view. 
+		for (Resource thisResource : searchedList) {
+			lstShowResource.getItems().add(thisResource.toString());
+		}
+	}
+	
+	/**
 	 * Displays a page where the librarian can edit a selected resource.
 	 */
 	public void handleEditResourceButtonAction() {
 		// Gets the position of the selected resource on the UI.
 		int selectedIndex = lstShowResource.getSelectionModel()
 				.getSelectedIndex();
-        
-        try {	
+		
+		try {	
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource(Main.FXML_FILE_PATH + "EditResource.fxml"));
 				
@@ -554,29 +554,29 @@ public class ResourceSettingsController {
 					editResource.editResource(selectedLaptop); 
 				} else {
 					Resource selectedResource = resourceList.get(selectedIndex);
-					editResource.editResource(selectedResource); 	
+					editResource.editResource(selectedResource);
 				}
 			}
-	        // Sets the scene.
-	        Scene editScene = new Scene(editRoot); 
-	        // Creates a new stage.
-	        Stage editStage = new Stage();
-	        // Sets the scene to the stage.
-	        editStage.setScene(editScene);
-	        editStage.setTitle(EDIT_RESOURCE_TITLE);
-	        editStage.initModality(Modality.APPLICATION_MODAL);
-	        editStage.showAndWait();
-	        
-	        // Refresh changes on the list view (and its other details...).
-	        Resource editedResource = editResource.getEditedResource();
-	        lstShowResource.getItems().set(selectedIndex, editedResource.toString());
-	        displayResourceDetails(); // Refresh its other details (we know its selected).
-        } catch (IOException e) {
-        	// Catches an IO exception such as that where the fxml
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
-        }
+			// Sets the scene.
+			Scene editScene = new Scene(editRoot); 
+			// Creates a new stage.
+			Stage editStage = new Stage();
+			// Sets the scene to the stage.
+			editStage.setScene(editScene);
+			editStage.setTitle(EDIT_RESOURCE_TITLE);
+			editStage.initModality(Modality.APPLICATION_MODAL);
+			editStage.showAndWait();
+			
+			// Refresh changes on the list view (and its other details...).
+			Resource editedResource = editResource.getEditedResource();
+			lstShowResource.getItems().set(selectedIndex, editedResource.toString());
+			displayResourceDetails(); // Refresh its other details (we know its selected).
+		} catch (IOException e) {
+			// Catches an IO exception such as that where the fxml
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -593,23 +593,23 @@ public class ResourceSettingsController {
 					.<NewResourceController> getController();
 			
 			// Passes down the array lists (allows the local changing of them).
-			createResource.setResourceArrays(bookList, dvdList, laptopList, resourceList);  
+			createResource.setResourceArrays(bookList, dvdList, laptopList, resourceList);
 			
 			Scene scene = new Scene(root);
 			Stage primaryStage = new Stage();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(CREATE_RESOURCE_TITLE);
 			primaryStage.initModality(Modality.APPLICATION_MODAL);
-            primaryStage.showAndWait();
-            
-            // Refresh to add the new resource locally.
-            String newResourceType = createResource.getNewResourceType();
-            refreshResourceSettings(newResourceType); 
+			primaryStage.showAndWait();
+			
+			// Refresh to add the new resource locally.
+			String newResourceType = createResource.getNewResourceType();
+			refreshResourceSettings(newResourceType); 
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -673,9 +673,9 @@ public class ResourceSettingsController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 }

@@ -30,19 +30,19 @@ public class ViewLoanController {
 	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 	
 	/** Holds all the loans from the loans file for local storage. */
-    private ArrayList<Loan> loanList;
-    /** ArrayList to hold all requests. */
-    private ArrayList<Request> requests;
-    /** A list to hold all the transactions. */
+	private ArrayList<Loan> loanList;
+	/** ArrayList to hold all requests. */
+	private ArrayList<Request> requests;
+	/** A list to hold all the transactions. */
 	private ArrayList <Transaction> transactions;
-    /** A linked hashmap to hold all users. */
-    private LinkedHashMap<String, User> users;
-    /** ArrayList to hold all copies */
-    private ArrayList<Copy> copies; 
-    /** Holds all the past loans (when filtered). */
-    private ArrayList<Loan> pastLoans = new ArrayList<>();
-    /** Holds all the current loans (when filtered). */
-    private ArrayList<Loan> currentLoans = new ArrayList<>();
+	/** A linked hashmap to hold all users. */
+	private LinkedHashMap<String, User> users;
+	/** ArrayList to hold all copies */
+	private ArrayList<Copy> copies; 
+	/** Holds all the past loans (when filtered). */
+	private ArrayList<Loan> pastLoans = new ArrayList<>();
+	/** Holds all the current loans (when filtered). */
+	private ArrayList<Loan> currentLoans = new ArrayList<>();
 	
 	/** A list view used to display all of the loans. */
 	@FXML private ListView<String> lstShowLoans;
@@ -53,39 +53,39 @@ public class ViewLoanController {
 	/** A check box to indicate that the librarian wants 
 	 * to filter to show the current loans. */
 	@FXML private CheckBox cbCurrentLoans;
-    
-    /** A text field used to display the selected loan's ID. */
-    @FXML private TextField txtLoanID;
-    /** A text field used to display the selected loan's resource ID. */
-    @FXML private TextField txtResourceID;
-    /** A text field used to display the loan's due date. */
-    @FXML private TextField txtDueDate;
-    /** A text field used to display the loan's checkout date. */
-    @FXML private TextField txtCheckoutDate;
-    /** A text field used to display the number of days the loan is 
-     * overdue, for a returned loan. */
-    @FXML private TextField txtDaysOverdue;
-    /** A text field used to display the loan's return date. */
-    @FXML private TextField txtReturnedDate;
-    /** A text field used to display if the loan has been returned or not. */
-    @FXML private TextField txtReturned;
-    /** A text field used to display the username of the user who the loan
-     * was issued to. */
-    @FXML private TextField txtUsername;
-    /** A text field used to display the ID of the librarian who 
-     * authorised the loan. */
-    @FXML private TextField txtStaffID;
-    /** A text field used to display the ID of the borrowed copy. */
-    @FXML private TextField txtCopyID;
-    /** A text field used to display the borrowed copy's resource type. */
-    @FXML private TextField txtResourceType;
-    
-    /** The return loan button for the page. */
-    @FXML private Button btnReturnLoan;
+	
+	/** A text field used to display the selected loan's ID. */
+	@FXML private TextField txtLoanID;
+	/** A text field used to display the selected loan's resource ID. */
+	@FXML private TextField txtResourceID;
+	/** A text field used to display the loan's due date. */
+	@FXML private TextField txtDueDate;
+	/** A text field used to display the loan's checkout date. */
+	@FXML private TextField txtCheckoutDate;
+	/** A text field used to display the number of days the loan is 
+	* overdue, for a returned loan. */
+	@FXML private TextField txtDaysOverdue;
+	/** A text field used to display the loan's return date. */
+	@FXML private TextField txtReturnedDate;
+	/** A text field used to display if the loan has been returned or not. */
+	@FXML private TextField txtReturned;
+	/** A text field used to display the username of the user who the loan
+	 * was issued to. */
+	@FXML private TextField txtUsername;
+	/** A text field used to display the ID of the librarian who 
+	 * authorised the loan. */
+	@FXML private TextField txtStaffID;
+	/** A text field used to display the ID of the borrowed copy. */
+	@FXML private TextField txtCopyID;
+	/** A text field used to display the borrowed copy's resource type. */
+	@FXML private TextField txtResourceType;
+	
+	/** The return loan button for the page. */
+	@FXML private Button btnReturnLoan;
 	/** The back button for the page. */
-    @FXML private Button btnBack;
-    
-    /**
+	@FXML private Button btnBack;
+	
+	/**
 	 * Sets up the array lists for the Loans and displays them.
 	 * This method will run automatically.
 	 */
@@ -117,17 +117,17 @@ public class ViewLoanController {
 		// Sort returned loans by return date. Most recent are shown first.
 		Collections.sort(pastLoans, new Comparator<Loan>() {
 			public int compare(Loan a, Loan b) {
-		    	// If the return dates are different, calculate days between them.
-		    	if (!b.getReturnDate().equals(a.getReturnDate())) {
-		    		String firstDate = a.getReturnDate();
-		    		String secondDate = b.getReturnDate();
-		    		return Utility.daysBetweenDates(firstDate, secondDate);
-		    	// Otherwise, calculate the time between them.
-		    	} else {
-		    		String firstTime = a.getReturnTime();
-		    		String secondTime = b.getReturnTime();
-		    		return Utility.secondsBetweenTimes(firstTime, secondTime);
-		    	}
+				// If the return dates are different, calculate days between them.
+				if (!b.getReturnDate().equals(a.getReturnDate())) {
+					String firstDate = a.getReturnDate();
+					String secondDate = b.getReturnDate();
+					return Utility.daysBetweenDates(firstDate, secondDate);
+				// Otherwise, calculate the time between them.
+				} else {
+					String firstTime = a.getReturnTime();
+					String secondTime = b.getReturnTime();
+					return Utility.secondsBetweenTimes(firstTime, secondTime);
+				}
 			}
 		});
 		
@@ -135,15 +135,15 @@ public class ViewLoanController {
 		for (Loan thisLoan : currentLoans) {
 			lstShowLoans.getItems().add(thisLoan.getDescription());
 		}
-    }
+	}
 	
 	/**
 	 * Displays all the details of a selected loan.
 	 */
 	public void displayLoanDetails() {
-    	int selectedIndex = lstShowLoans.getSelectionModel()
+		int selectedIndex = lstShowLoans.getSelectionModel()
 				.getSelectedIndex();
-    	// If nothing was selected i.e. clicking the list view.
+		// If nothing was selected i.e. clicking the list view.
 		if (selectedIndex < 0) {
 			return;
 		} 
@@ -182,14 +182,14 @@ public class ViewLoanController {
 	}
 	
 	/**
-     * Allows a librarian to return a selected loan.
-     */
-    public void handleReturnLoanButtonAction() {
-    	int selectedIndex = lstShowLoans.getSelectionModel()
+	 * Allows a librarian to return a selected loan.
+	 */
+	public void handleReturnLoanButtonAction() {
+		int selectedIndex = lstShowLoans.getSelectionModel()
 				.getSelectedIndex();
 		
-    	// Get the returned loan.
-    	Loan returnedLoan = currentLoans.get(selectedIndex);
+		// Get the returned loan.
+		Loan returnedLoan = currentLoans.get(selectedIndex);
 		
 		// Set returned to true.
 		String oldLoan = returnedLoan.toStringDetail();
@@ -208,10 +208,10 @@ public class ViewLoanController {
 			double userFine = calculateUserFine(daysOverdue, type);
 			String user = returnedLoan.getUsername();
 			addUserFine(user, userFine); // Adds the fine to the user's balance.
-			makeFineTransaction(returnedLoan, userFine, today, timeNow); 
+			makeFineTransaction(returnedLoan, userFine, today, timeNow);
 		}
 		
-		// Check if there are any pending requests for the returned copy. 
+		// Check if there are any pending requests for the returned copy.
 		// If not then set isAvailable to TRUE.
 		checkReservedRequests(returnedLoan);
 		
@@ -220,91 +220,91 @@ public class ViewLoanController {
 		FileHandling.editLoan(oldLoan, newLoan);
 		Utility.loanReturned(); // Loan returned alert.
 		refreshViewLoan(selectedIndex, returnedLoan); // Refresh page.
-    }
-    
-    /**
-     * Calculates the user's fine based on the resource.
-     * @param daysOverdue Number of days overdue.
-     * @param type The type of resource.
-     * @return The total fine for the loan.
-     */
-    public double calculateUserFine(int daysOverdue, ResourceType type) {
-    	double finePerDay = 0;
-    	double maxFine = 0;
-    	switch (type) {
-    		case BOOK:
-    			// Construct a fake resource, we only need the fines.
-    			Book book = new Book(-1, "", -1, "", -1, "", "", "", "", "");
-    			finePerDay = book.getFinePerDay();
-    			maxFine = book.getMaxFine();
-    			break;
-    		case DVD:
-    			String[] list = new String[4];
-    			DVD dvd = new DVD(-1, "", -1, "", -1, "", -1, "", list);
-    			finePerDay = dvd.getFinePerDay();
-    			maxFine = dvd.getMaxFine();
-    			break;
-    		case LAPTOP:
-    			Laptop laptop = new Laptop(-1, "", -1, "", -1, "", "", "");
-    			finePerDay = laptop.getFinePerDay();
-    			maxFine = laptop.getMaxFine();
-    			break;
-    	}
-    	
-    	double userFine = daysOverdue * finePerDay;
-    	if (userFine > maxFine) { 
-    		userFine = maxFine;
-    	}
-  
-    	return userFine;
-    }
-    
-    /**
-     * Adds the fine for the loan to the user's total balance.
-     * @param username The username of the user being fined.
-     * @param fine The amount of money fined for the loan.
-     */
-    public void addUserFine(String username, double fine) {
-    	User finedUser = users.get(username);
-    	
-    	String oldUser = finedUser.toStringDetail();
-    	double currentBalance = finedUser.getFine();
-    	finedUser.setFine(currentBalance + fine);
-    	String newUser = finedUser.toStringDetail();
-    	
-    	FileHandling.editProfile(oldUser, newUser, 2);
-    }
-    
-    /**
-     * Creates and saves the transaction for the fine.
-     * @param returnedLoan The loan that was just returned.
-     * @param userFine The amount fined to the user.
-     * @param today Today's date.
-     * @param time The current time (when the loan was returned).
-     */
-    public void makeFineTransaction(Loan returnedLoan, double userFine, 
-    		LocalDate today, LocalTime time) {
-    	int transactionID = getMaxTransactionID() + 1;
-    	int resourceID = returnedLoan.getResourceID();
-    	String username = returnedLoan.getUsername();
-    	double amount = userFine;
-    	
-    	int daysOverdue = returnedLoan.getDaysOverdue();
-    	String date = today.toString();
-    	String timeNow = time.toString();
-    	ResourceType type = returnedLoan.getType();
-    	boolean isFine = true;
-    	
-    	Transaction fineTransaction = new Transaction(transactionID, 
-    			resourceID, username, amount, daysOverdue, date, timeNow, 
-    			type, isFine);
-    	
-    	transactions.add(fineTransaction);
-    	String strFineTransaction = fineTransaction.toStringDetail();
-    	FileHandling.makeTransaction(strFineTransaction);
-    }
-    
-    /**
+	}
+	
+	/**
+	 * Calculates the user's fine based on the resource.
+	 * @param daysOverdue Number of days overdue.
+	 * @param type The type of resource.
+	 * @return The total fine for the loan.
+	 */
+	public double calculateUserFine(int daysOverdue, ResourceType type) {
+		double finePerDay = 0;
+		double maxFine = 0;
+		switch (type) {
+			case BOOK:
+				// Construct a fake resource, we only need the fines.
+				Book book = new Book(-1, "", -1, "", -1, "", "", "", "", "");
+				finePerDay = book.getFinePerDay();
+				maxFine = book.getMaxFine();
+				break;
+			case DVD:
+				String[] list = new String[4];
+				DVD dvd = new DVD(-1, "", -1, "", -1, "", -1, "", list);
+				finePerDay = dvd.getFinePerDay();
+				maxFine = dvd.getMaxFine();
+				break;
+			case LAPTOP:
+				Laptop laptop = new Laptop(-1, "", -1, "", -1, "", "", "");
+				finePerDay = laptop.getFinePerDay();
+				maxFine = laptop.getMaxFine();
+				break;
+		}
+		
+		double userFine = daysOverdue * finePerDay;
+		if (userFine > maxFine) { 
+			userFine = maxFine;
+		}
+	
+		return userFine;
+	}
+	
+	/**
+	 * Adds the fine for the loan to the user's total balance.
+	 * @param username The username of the user being fined.
+	 * @param fine The amount of money fined for the loan.
+	 */
+	public void addUserFine(String username, double fine) {
+		User finedUser = users.get(username);
+		
+		String oldUser = finedUser.toStringDetail();
+		double currentBalance = finedUser.getFine();
+		finedUser.setFine(currentBalance + fine);
+		String newUser = finedUser.toStringDetail();
+		
+		FileHandling.editProfile(oldUser, newUser, 2);
+	}
+	
+	/**
+	 * Creates and saves the transaction for the fine.
+	 * @param returnedLoan The loan that was just returned.
+	 * @param userFine The amount fined to the user.
+	 * @param today Today's date.
+	 * @param time The current time (when the loan was returned).
+	 */
+	public void makeFineTransaction(Loan returnedLoan, double userFine, 
+			LocalDate today, LocalTime time) {
+		int transactionID = getMaxTransactionID() + 1;
+		int resourceID = returnedLoan.getResourceID();
+		String username = returnedLoan.getUsername();
+		double amount = userFine;
+		
+		int daysOverdue = returnedLoan.getDaysOverdue();
+		String date = today.toString();
+		String timeNow = time.toString();
+		ResourceType type = returnedLoan.getType();
+		boolean isFine = true;
+		
+		Transaction fineTransaction = new Transaction(transactionID, 
+				resourceID, username, amount, daysOverdue, date, timeNow, 
+				type, isFine);
+		
+		transactions.add(fineTransaction);
+		String strFineTransaction = fineTransaction.toStringDetail();
+		FileHandling.makeTransaction(strFineTransaction);
+	}
+	
+	/**
 	 * Fetches the maximum transaction ID of all current transactions.
 	 * @return The current maximum transaction ID.
 	 */
@@ -319,14 +319,14 @@ public class ViewLoanController {
 		}
 		return maxID;
 	}
-    
-    /**
-     * Checks if there are any unfilled requests that are waiting
-     * to borrow this returned copy and makes appropriate changes
-     * if there are.
-     * @param returnedLoan The returned loan.
-     */
-    public void checkReservedRequests(Loan returnedLoan) {
+	
+	/**
+	 * Checks if there are any unfilled requests that are waiting
+	 * to borrow this returned copy and makes appropriate changes
+	 * if there are.
+	 * @param returnedLoan The returned loan.
+	 */
+	public void checkReservedRequests(Loan returnedLoan) {
 		int copyID = returnedLoan.getCopyID();
 		String username = returnedLoan.getUsername();
 		boolean anyRequests = false;
@@ -363,56 +363,56 @@ public class ViewLoanController {
 			String newCopy = borrowedCopy.toStringDetail();
 			FileHandling.editCopy(oldCopy, newCopy);
 		}
-    }
-    
-    /**
-     * Sets the status of the past loans check box and makes the 
-     * appropriate changes to the loan list when selected.
-     */
-    public void setCBPastLoansStatus() {
-    	cbCurrentLoans.setSelected(false);
-    	btnReturnLoan.setDisable(true);
-    			
-    	if (cbPastLoans.isSelected()) {
-    		// Clears the content of the resource list if any. 
-        	lstShowLoans.getItems().clear();
-    		for (Loan thisLoan : pastLoans) {
-    			lstShowLoans.getItems().add(thisLoan.getDescription());
-    		}
-    	// Keep it selected if it gets clicked again.
-    	} else {
-    		cbPastLoans.setSelected(true); 
-    	}
-    }
-    
-    /**
-     * Sets the status of the current loans check box and makes the 
-     * appropriate changes to the loan list when selected.
-     */
-    public void setCBCurrentLoansStatus() {
-    	cbPastLoans.setSelected(false);
-    
-    	if (cbCurrentLoans.isSelected()) {
-    		// Clears the content of the resource list if any. 
-        	lstShowLoans.getItems().clear();
-        	btnReturnLoan.setDisable(true);
-    		for (Loan thisLoan : currentLoans) {
-    			lstShowLoans.getItems().add(thisLoan.getDescription());
-    		}
-    	// Keep it selected if it gets clicked again.
-    	} else {
-    		cbCurrentLoans.setSelected(true); 
-    	}
-    }
-    
-    /**
-     * Refreshes the View Loan page after a loan has been returned.
-     * @param index The index of the returned loan.
-     * @param returnedLoan The returned loan.
-     */
-    public void refreshViewLoan(int index, Loan returnedLoan) {
-    	// Clear checkboxes, textboxes and list views.
-    	txtLoanID.clear();
+	}
+	
+	/**
+	 * Sets the status of the past loans check box and makes the 
+	 * appropriate changes to the loan list when selected.
+	 */
+	public void setCBPastLoansStatus() {
+		cbCurrentLoans.setSelected(false);
+		btnReturnLoan.setDisable(true);
+		
+		if (cbPastLoans.isSelected()) {
+			// Clears the content of the resource list if any. 
+			lstShowLoans.getItems().clear();
+			for (Loan thisLoan : pastLoans) {
+				lstShowLoans.getItems().add(thisLoan.getDescription());
+			}
+		// Keep it selected if it gets clicked again.
+		} else {
+			cbPastLoans.setSelected(true); 
+		}
+	}
+	
+	/**
+	 * Sets the status of the current loans check box and makes the 
+	 * appropriate changes to the loan list when selected.
+	 */
+	public void setCBCurrentLoansStatus() {
+		cbPastLoans.setSelected(false);
+	
+		if (cbCurrentLoans.isSelected()) {
+			// Clears the content of the resource list if any. 
+			lstShowLoans.getItems().clear();
+			btnReturnLoan.setDisable(true);
+			for (Loan thisLoan : currentLoans) {
+				lstShowLoans.getItems().add(thisLoan.getDescription());
+			}
+		// Keep it selected if it gets clicked again.
+		} else {
+			cbCurrentLoans.setSelected(true); 
+		}
+	}
+	
+	/**
+	 * Refreshes the View Loan page after a loan has been returned.
+	 * @param index The index of the returned loan.
+	 * @param returnedLoan The returned loan.
+	 */
+	public void refreshViewLoan(int index, Loan returnedLoan) {
+		// Clear checkboxes, textboxes and list views.
+		txtLoanID.clear();
 		txtCopyID.clear();
 		txtResourceID.clear();
 		txtReturned.clear();
@@ -434,12 +434,12 @@ public class ViewLoanController {
 		
 		// Remove from the list view (current loans).
 		lstShowLoans.getItems().remove(index);
-    }
-    
-    /**
-     * Closes the current page, then navigates back to the User Dashboard.
-     */
-    public void handleBackButtonAction() {
+	}
+	
+	/**
+	 * Closes the current page, then navigates back to the User Dashboard.
+	 */
+	public void handleBackButtonAction() {
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
 		
@@ -453,9 +453,9 @@ public class ViewLoanController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
-    }           
+	}
 }

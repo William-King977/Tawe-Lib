@@ -34,21 +34,21 @@ public class PayUserFineController {
 	private ArrayList<User> finedUsers = new ArrayList<>();
 	
 	/** List view that holds users that have fines to pay off. */
-    @FXML private ListView<String> lstFinedUsers;
-
-    /** Represents the textbox holding the fined user's username. */
-    @FXML private TextField txtUsername;
-    /** Represents the textbox holding the user's current fines. */
-    @FXML private TextField txtCurrentFines;
-    /** Represents the textbox holding the amount to pay off. */
-    @FXML private TextField txtPayment;
-    
-    /** Models the pay fine button. */
-    @FXML private Button btnPayFine;
-    /** Models the back button. */
-    @FXML private Button btnBack;
-    
-    /**
+	@FXML private ListView<String> lstFinedUsers;
+	
+	/** Represents the textbox holding the fined user's username. */
+	@FXML private TextField txtUsername;
+	/** Represents the textbox holding the user's current fines. */
+	@FXML private TextField txtCurrentFines;
+	/** Represents the textbox holding the amount to pay off. */
+	@FXML private TextField txtPayment;
+	
+	/** Models the pay fine button. */
+	@FXML private Button btnPayFine;
+	/** Models the back button. */
+	@FXML private Button btnBack;
+	
+	/**
 	 * Displays the users who currently have outstanding fines.
 	 * This method will run automatically.
 	 */
@@ -74,7 +74,7 @@ public class PayUserFineController {
 	public void displayUserDetails() {
 		int selectedIndex = lstFinedUsers.getSelectionModel()
 				.getSelectedIndex();
-    	// If nothing was selected i.e. clicking the list view.
+		// If nothing was selected i.e. clicking the list view.
 		if (selectedIndex < 0) {
 			return;
 		} 
@@ -103,7 +103,7 @@ public class PayUserFineController {
 		
 		double payment = Double.parseDouble(strPayment);
 		// Round it to 2 decimal places.
-		double payment2DP = Math.round(payment * 100.0) / 100.0; 
+		double payment2DP = Math.round(payment * 100.0) / 100.0;
 		double userFine = Double.parseDouble(txtCurrentFines.getText().trim());
 		
 		// If less than 1p.
@@ -114,7 +114,7 @@ public class PayUserFineController {
 			Utility.paymentTooHigh();
 			return;
 		}
-
+		
 		// Get the selected user and save the changes.
 		int selectedIndex = lstFinedUsers.getSelectionModel()
 				.getSelectedIndex();
@@ -210,9 +210,9 @@ public class PayUserFineController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 }

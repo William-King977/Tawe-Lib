@@ -29,22 +29,22 @@ public class NewResourceController {
 	/** The type of resource being created. */
 	private ResourceType newResourceType = null;
 	
-    /** An array list that holds all the existing books. */
-    private ArrayList<Book> bookList;
-    /** An array list that holds all the existing DVDs. */
-    private ArrayList<DVD> dvdList;
-    /** An array list that holds all the existing laptops. */
-    private ArrayList<Laptop> laptopList;
-    /** An array list that holds all resources. */
-    private ArrayList<Resource> resourceList;
-    /** An array list that holds all the copies. */
-    private ArrayList<Copy> copyList;
-    /** Keeps track of the current languages in the list view */
-    private ArrayList<String> currentLangList =  new ArrayList<String>();
-    /** Holds the files of all resource images. */
-    private File[] resourceImageList;
-    
-    /** A combo box used to select an image for a resource. */
+	/** An array list that holds all the existing books. */
+	private ArrayList<Book> bookList;
+	/** An array list that holds all the existing DVDs. */
+	private ArrayList<DVD> dvdList;
+	/** An array list that holds all the existing laptops. */
+	private ArrayList<Laptop> laptopList;
+	/** An array list that holds all resources. */
+	private ArrayList<Resource> resourceList;
+	/** An array list that holds all the copies. */
+	private ArrayList<Copy> copyList;
+	/** Keeps track of the current languages in the list view */
+	private ArrayList<String> currentLangList =  new ArrayList<String>();
+	/** Holds the files of all resource images. */
+	private File[] resourceImageList;
+	
+	/** A combo box used to select an image for a resource. */
 	@FXML private ComboBox<String> cmbResourceImage;
 	/** A list view used to display the DVD's subtitle languages. */
 	@FXML private ListView<String>  lstSubLang;
@@ -98,46 +98,46 @@ public class NewResourceController {
 	@FXML private CheckBox cbLaptop;
 	
 	/**
-     * Sets up the copy list and the combo box for the resource thumbnail images.
-     * This method will run automatically.
-     */
+	 * Sets up the copy list and the combo box for the resource thumbnail images.
+	 * This method will run automatically.
+	 */
 	public void initialize() {
 		copyList = FileHandling.getCopies();
 		Collections.sort(copyList);
 		
-        //Creates an array of all resource images.
-        File folder = new File(RESOURCE_IMAGE_PATH);
-        resourceImageList = folder.listFiles();
-
-        for (File file : resourceImageList) {
-        	if (file.isFile()) {
-        		cmbResourceImage.getItems().add(file.getName());
-        	}
-        }
-        
-        setCBBookStatus(); // Select the book check box by default.
+		//Creates an array of all resource images.
+		File folder = new File(RESOURCE_IMAGE_PATH);
+		resourceImageList = folder.listFiles();
+		
+		for (File file : resourceImageList) {
+			if (file.isFile()) {
+				cmbResourceImage.getItems().add(file.getName());
+			}
+		}
+		
+		setCBBookStatus(); // Select the book check box by default.
 	}
 	
 	/**
-     * Allows the librarian to select a resource thumbnail and
-     * displays it onto the screen.
-     */
-    public void handleResourceThumbnailComboBoxAction() {
-    	//Gets the position of the selected thumbnail.
+	 * Allows the librarian to select a resource thumbnail and
+	 * displays it onto the screen.
+	 */
+	public void handleResourceThumbnailComboBoxAction() {
+		//Gets the position of the selected thumbnail.
 		int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
 		File imageURL = resourceImageList[selectedIndex];
-        Image profilePicture = new Image(imageURL.toURI().toString());
+		Image profilePicture = new Image(imageURL.toURI().toString());
 		imageThumbnail.setImage(profilePicture);
-    }
-    
-    /**
-     * Sets the status of the Book check box and makes appropriate
-     * changes to the other check boxes.
-     */
-    public void setCBBookStatus() {
-    	//Clears other check boxes if selected.
+	}
+	
+	/**
+	 * Sets the status of the Book check box and makes appropriate
+	 * changes to the other check boxes.
+	 */
+	public void setCBBookStatus() {
+		//Clears other check boxes if selected.
 		cbDVD.setSelected(false);
 		cbLaptop.setSelected(false);
 		
@@ -161,18 +161,18 @@ public class NewResourceController {
 			txtModel.setVisible(false);
 			txtOperatingSystem.setVisible(false);
 			
-		// If it's already clicked on, keep it checked.	
+		// If it's already clicked on, keep it checked.
 		} else {
 			cbBook.setSelected(true);
 		}
-    }
-    
-    /**
-     * Sets the status of the DVD check box and makes appropriate
-     * changes to the other check boxes.
-     */
-    public void setCBDVDStatus() {
-    	//Clears other check boxes if selected.
+	}
+	
+	/**
+	 * Sets the status of the DVD check box and makes appropriate
+	 * changes to the other check boxes.
+	 */
+	public void setCBDVDStatus() {
+		//Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbLaptop.setSelected(false); 
 		
@@ -196,18 +196,18 @@ public class NewResourceController {
 			txtModel.setVisible(false);
 			txtOperatingSystem.setVisible(false);
 			
-		// If it's already clicked on, keep it checked.	
+		// If it's already clicked on, keep it checked.
 		} else {
 			cbDVD.setSelected(true);
 		}
-    }
-    
-    /**
-     * Sets the status of the Laptop check box and makes appropriate
-     * changes to the other check boxes.
-     */
-    public void setCBLaptopStatus() {
-    	//Clears other check boxes if selected.
+	}
+	
+	/**
+	 * Sets the status of the Laptop check box and makes appropriate
+	 * changes to the other check boxes.
+	 */
+	public void setCBLaptopStatus() {
+		//Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbDVD.setSelected(false); 
 		
@@ -231,26 +231,26 @@ public class NewResourceController {
 			txtModel.setVisible(true);
 			txtOperatingSystem.setVisible(true);
 			
-		// If it's already clicked on, keep it checked.	
+		// If it's already clicked on, keep it checked.
 		} else {
 			cbLaptop.setSelected(true);
 		}
-    }
+	}
 	
 	/**
-     * Creates a new resource based on the information typed in.
-     */
-    public void handleCreateResourceButtonAction() {
-    	if (cbBook.isSelected()) {
+	 * Creates a new resource based on the information typed in.
+	 */
+	public void handleCreateResourceButtonAction() {
+		if (cbBook.isSelected()) {
 			validateNewBook();
 		} else if (cbDVD.isSelected()) {
 			validateNewDVD();
 		} else if (cbLaptop.isSelected()) {
 			validateNewLaptop();
 		} 
-    }
-    
-    /**
+	}
+	
+	/**
 	 * Adds the inputted subtitle language from the text box
 	 * into the list view.
 	 */
@@ -267,7 +267,7 @@ public class NewResourceController {
 			Utility.nonAlphaError();
 			return;
 		}
-
+		
 		languageExist = currentLangList.contains(language);
 		if (languageExist) {
 			Utility.languageExists();
@@ -296,18 +296,18 @@ public class NewResourceController {
 	}
 	
 	/**
-     * Validates the entered information for the new book to be created.
-     */
-    public void validateNewBook() {
-    	String resourceTitle = txtResourceTitle.getText().trim();
-    	String strYear = txtYear.getText().trim(); 
-    	String author = txtAuthor.getText().trim();
-    	String publisher = txtPublisher.getText().trim();
-    	String genre = txtGenre.getText().trim();
-    	String language = txtLanguage.getText().trim();
-    	String isbn = txtISBN.getText().trim();
-    	
-    	//Gets the position of the selected resource image.
+	 * Validates the entered information for the new book to be created.
+	 */
+	public void validateNewBook() {
+		String resourceTitle = txtResourceTitle.getText().trim();
+		String strYear = txtYear.getText().trim(); 
+		String author = txtAuthor.getText().trim();
+		String publisher = txtPublisher.getText().trim();
+		String genre = txtGenre.getText().trim();
+		String language = txtLanguage.getText().trim();
+		String isbn = txtISBN.getText().trim();
+		
+		//Gets the position of the selected resource image.
 		int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
@@ -319,14 +319,14 @@ public class NewResourceController {
 		String imageName = resourceImageList[selectedIndex].getName();
 		
 		//Validation applied to the inputed values.
-    	boolean bookFieldsFilled = Utility.isBookFieldFilled(resourceTitle, 
-    			strYear, author, publisher); 
-    	boolean isNum = Utility.isInt(strYear) && Utility.isInt(isbn);
-    	boolean isAlpha = Utility.isAlphaBook(author, publisher, 
-    			genre, language);
-    	
-    	if (!bookFieldsFilled) {
-    		Utility.missingFields();
+		boolean bookFieldsFilled = Utility.isBookFieldFilled(resourceTitle, 
+				strYear, author, publisher); 
+		boolean isNum = Utility.isInt(strYear) && Utility.isInt(isbn);
+		boolean isAlpha = Utility.isAlphaBook(author, publisher, 
+				genre, language);
+		
+		if (!bookFieldsFilled) {
+			Utility.missingFields();
 			return;
 		} else if (!isNum) {
 			Utility.nonIntegerError();
@@ -335,8 +335,8 @@ public class NewResourceController {
 			Utility.nonAlphaError();
 			return;
 		}
-    	
-    	// It's assumed that year is an integer.
+		
+		// It's assumed that year is an integer.
 		int year = Integer.parseInt(strYear);
 		
 		boolean bookExists = Utility.isBookExist(resourceTitle, year,
@@ -351,7 +351,7 @@ public class NewResourceController {
 		
 		int resourceID = getLatestResourceID() + 1;
 		
-		Book newBook = new Book(resourceID, resourceTitle, year, imageName, 
+		Book newBook = new Book(resourceID, resourceTitle, year, imageName,
 				NUMBER_OF_COPIES, author, publisher, genre, isbn, language);
 		String strNewBook = newBook.toStringDetail();
 		
@@ -363,21 +363,21 @@ public class NewResourceController {
 		
 		Utility.resourceCreated();
 		handleBackButtonAction();
-    }
-    
-    /**
-     * Validates the entered information for the new DVD to be created.
-     */
-    public void validateNewDVD() {
-    	String resourceTitle = txtResourceTitle.getText().trim();
-    	String strYear = txtYear.getText().trim(); 
-    	String[] subLang = currentLangList.toArray(new String[currentLangList.size()]);
-    	String director = txtDirector.getText().trim();
-    	String strRuntime = txtRuntime.getText().trim();
-    	String language = txtLanguage.getText().trim();
-    	
-    	// Gets the position of the selected resource image.
-    	int selectedIndex = cmbResourceImage.getSelectionModel()
+	}
+	
+	/**
+	 * Validates the entered information for the new DVD to be created.
+	 */
+	public void validateNewDVD() {
+		String resourceTitle = txtResourceTitle.getText().trim();
+		String strYear = txtYear.getText().trim(); 
+		String[] subLang = currentLangList.toArray(new String[currentLangList.size()]);
+		String director = txtDirector.getText().trim();
+		String strRuntime = txtRuntime.getText().trim();
+		String language = txtLanguage.getText().trim();
+		
+		// Gets the position of the selected resource image.
+		int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
 		// Sets a new resource image if it has been selected.
@@ -388,13 +388,13 @@ public class NewResourceController {
 		String imageName = resourceImageList[selectedIndex].getName();
 		
 		// Validation applied to the inputed values.
-    	boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
-    			strYear, director, strRuntime);
-    	boolean isNum = Utility.isInt(strYear);
-    	boolean isDouble = Utility.isDouble(strRuntime);
-    	boolean isAlpha = Utility.isAlphaDVD(director, language);
-    	
-    	if (!dvdFieldsFilled) {
+		boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
+				strYear, director, strRuntime);
+		boolean isNum = Utility.isInt(strYear);
+		boolean isDouble = Utility.isDouble(strRuntime);
+		boolean isAlpha = Utility.isAlphaDVD(director, language);
+		
+		if (!dvdFieldsFilled) {
 			Utility.missingFields();
 			return;
 		} else if (!isNum) {
@@ -404,17 +404,17 @@ public class NewResourceController {
 			Utility.nonDoubleError();
 			return;
 		} else if (!isAlpha) {
-	    	Utility.nonAlphaError();
+			Utility.nonAlphaError();
 			return;
 		}
-    	
-    	// It's assumed that year is an integer and that runtime is a double.
+		
+		// It's assumed that year is an integer and that runtime is a double.
 		int year = Integer.parseInt(strYear);
 		double runtime = Double.parseDouble(strRuntime);
 		boolean dvdExists = Utility.isDVDExist(resourceTitle, year, 
 				imageName, director, runtime, subLang, language, dvdList);
 		
-		// Checks if the entered details match with an existing DVD.	
+		// Checks if the entered details match with an existing DVD.
 		if (dvdExists) {
 			Utility.resourceExistsCreate();
 			return;
@@ -434,21 +434,21 @@ public class NewResourceController {
 		
 		Utility.resourceCreated();
 		handleBackButtonAction();
-    }
-    
-    /**
-     * Validates the entered information for the new laptop to be
-     * created.
-     */
+	}
+	
+	/**
+	 * Validates the entered information for the new laptop to be
+	 * created.
+	 */
 	public void validateNewLaptop() {
 		String resourceTitle = txtResourceTitle.getText().trim();
-    	String strYear = txtYear.getText().trim();
-    	String manufacturer = txtManufacturer.getText().trim();
-    	String model = txtModel.getText().trim();
-    	String operatingSystem = txtOperatingSystem.getText().trim();
-    	
-    	//Gets the position of the selected resource image.
-    	int selectedIndex = cmbResourceImage.getSelectionModel()
+		String strYear = txtYear.getText().trim();
+		String manufacturer = txtManufacturer.getText().trim();
+		String model = txtModel.getText().trim();
+		String operatingSystem = txtOperatingSystem.getText().trim();
+		
+		//Gets the position of the selected resource image.
+		int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
 		//Sets a new resource image if it has been selected.
@@ -459,39 +459,39 @@ public class NewResourceController {
 		String imageName = resourceImageList[selectedIndex].getName();
 		
 		//Validation applied to the inputted values.
-    	boolean laptopFieldsFilled = Utility.isLaptopFieldFilled(resourceTitle, 
-    			strYear, manufacturer, model, operatingSystem);
-    	boolean isNum = Utility.isInt(strYear);
-    	boolean isAlpha = Utility.isAlphaLaptop(resourceTitle, operatingSystem, 
-    			model, manufacturer);
-    	
-    	if (!laptopFieldsFilled) {
-    		Utility.missingFields();
+		boolean laptopFieldsFilled = Utility.isLaptopFieldFilled(resourceTitle, 
+				strYear, manufacturer, model, operatingSystem);
+		boolean isNum = Utility.isInt(strYear);
+		boolean isAlpha = Utility.isAlphaLaptop(resourceTitle, operatingSystem, 
+				model, manufacturer);
+		
+		if (!laptopFieldsFilled) {
+			Utility.missingFields();
 			return;
-    	} else if (!isNum) {
-    		Utility.nonIntegerError();
+		} else if (!isNum) {
+			Utility.nonIntegerError();
 			return;
-    	} else if (!isAlpha) {
-	    	Utility.nonAlphaError();
-	    	return;
-    	}
-    	
-    	// It's assumed that year is an integer.
-    	int year = Integer.parseInt(strYear);
-   		
-   		boolean laptopExists = Utility.isLaptopExist(resourceTitle, year, 
+		} else if (!isAlpha) {
+			Utility.nonAlphaError();
+			return;
+		}
+		
+		// It's assumed that year is an integer.
+		int year = Integer.parseInt(strYear);
+		
+		boolean laptopExists = Utility.isLaptopExist(resourceTitle, year, 
 				imageName, manufacturer, model, operatingSystem, laptopList);
-   		
-   	    // Checks if the entered details match with an existing laptop.
-   		if (laptopExists) {
+		
+		// Checks if the entered details match with an existing laptop.
+		if (laptopExists) {
 			Utility.resourceExistsCreate();
 			return;
 		}
-   		
-   		int resourceID = getLatestResourceID() + 1; 
-   		
-   		Laptop newLaptop = new Laptop(resourceID, resourceTitle, year, imageName, 
-   				NUMBER_OF_COPIES, manufacturer, model, operatingSystem);
+		
+		int resourceID = getLatestResourceID() + 1; 
+		
+		Laptop newLaptop = new Laptop(resourceID, resourceTitle, year, imageName, 
+				NUMBER_OF_COPIES, manufacturer, model, operatingSystem);
 		String strNewLaptop = newLaptop.toStringDetail();
 		
 		addCopies(resourceID, ResourceType.LAPTOP);
@@ -509,21 +509,21 @@ public class NewResourceController {
 	 * @return ID of the latest resource.
 	 */
 	public int getLatestResourceID() {
-        int maxIndex = resourceList.size() - 1;
-        
-        // If there's no existing resources.
-        if (resourceList.size() == 0) {
-        	return 0;
-        }
-        
-        int maxResourceID = resourceList.get(maxIndex).getResourceID();
+		int maxIndex = resourceList.size() - 1;
+		
+		// If there's no existing resources.
+		if (resourceList.size() == 0) {
+			return 0;
+		}
+		
+		int maxResourceID = resourceList.get(maxIndex).getResourceID();
 		return maxResourceID;
 	}
 	
 	/**
 	 * Creates the copies for the new resource.
 	 * @param resourceID The ID of the newly created resource.
-     * @param resourceType The resource type.
+	 * @param resourceType The resource type.
 	 */
 	public void addCopies(int resourceID, ResourceType resourceType) {
 		int maxIndex = copyList.size() - 1;

@@ -137,13 +137,13 @@ public class CopySettingsController {
 	}
 	
 	/**
-     * Sets the status of the Overdue Copies check box and makes the 
-     * appropriate changes to the copy list when selected.
-     */
-    public void setCBOverdueCopiesStatus() {
-    	lstShowCopies.getItems().clear();	
-    	lstShowCopyHistory.getItems().clear();	
-    	
+	 * Sets the status of the Overdue Copies check box and makes the 
+	 * appropriate changes to the copy list when selected.
+	 */
+	public void setCBOverdueCopiesStatus() {
+		lstShowCopies.getItems().clear();
+		lstShowCopyHistory.getItems().clear();
+		
 		if (cbOverdueCopies.isSelected()) {
 			for (Loan overdueCopy : overdueCopyList) {
 				lstShowCopies.getItems().add(
@@ -155,12 +155,12 @@ public class CopySettingsController {
 				lstShowCopies.getItems().add(copy.getCopyDescription());
 			}
 		}
-    }
-    
-    /**
-     * Closes the current page, then navigates back to the Staff Dashboard.
-     */
-    public void handleBackButtonAction() {
+	}
+	
+	/**
+	 * Closes the current page, then navigates back to the Staff Dashboard.
+	 */
+	public void handleBackButtonAction() {
 		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
@@ -175,9 +175,9 @@ public class CopySettingsController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
-    }
+	}
 }

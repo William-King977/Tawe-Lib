@@ -66,7 +66,7 @@ public class CreateProfilePictureController {
 	@FXML private CheckBox fill;
 	/** The fxID for the arc checkbox. */
 	@FXML private CheckBox arc;
-
+	
 	/** The variable used to manipulate all of the graphics context libraries. */
 	private GraphicsContext gc;
 	
@@ -75,14 +75,14 @@ public class CreateProfilePictureController {
 	 * Determines what shape is selected, and then draws the shape applicable.
 	 */
 	public void draw() {
-		gc = canvas.getGraphicsContext2D(); 
+		gc = canvas.getGraphicsContext2D();
 		// The stroke colour, fill colour, and width set initially.
-		gc.setStroke(colourPicker.getValue()); 
+		gc.setStroke(colourPicker.getValue());
 		gc.setFill(colourPicker.getValue());
 		gc.setLineWidth(brushSize.getValue() / BRUSH_SCALE);
 		
 		// Sets the initial x and y coordinate when pressed.
-		canvas.setOnMousePressed(e -> { 
+		canvas.setOnMousePressed(e -> {
 			double xStart = e.getX();
 			double yStart = e.getY();
 			// When released, the final x and y coordinates are recorded and used.
@@ -133,7 +133,7 @@ public class CreateProfilePictureController {
 	 * Clears the canvas.
 	 */
 	public void clearImage() {
-		gc.clearRect(0, 0, 300, 300);	
+		gc.clearRect(0, 0, 300, 300);
 	}
 	
 	/**
@@ -144,9 +144,9 @@ public class CreateProfilePictureController {
 		SnapshotParameters snapParameter = new SnapshotParameters();
 		snapParameter.setFill(Color.TRANSPARENT);
 		
-		// Creating a writable image object which is of 300x300. 
+		// Creating a writable image object which is of 300x300.
 		WritableImage customImage = new WritableImage(300, 300);
-		String fileName = imageFilename.getText().trim() + ".png"; 
+		String fileName = imageFilename.getText().trim() + ".png";
 		
 		if (fileName.equals(".png")) { 
 			Utility.fileNameEmpty();

@@ -136,29 +136,29 @@ public class ViewResourceController {
 		
 		// Gets an ArrayList for each resource and other relevant items.
 		bookList = FileHandling.getBooks();
-        dvdList = FileHandling.getDVDs();
-        laptopList = FileHandling.getLaptops();
-        copyList = FileHandling.getCopies();
-        requestList = FileHandling.getRequests();
-        loanList = FileHandling.getLoans();
-        
-        // Adds each resource to the resource ArrayList.
-        resourceList.addAll(bookList);
-        resourceList.addAll(dvdList);
-        resourceList.addAll(laptopList);
-        Collections.sort(resourceList);
-        
-        // Show the resources on the list view.
-        for (Resource thisResource : resourceList) {
-        	lstShowResource.getItems().add(thisResource.toString());
-        }  
-        
-        // Fetch the user's active loans.
-        for (Loan loan : loanList) {
- 			if (currentUsername.equals(loan.getUsername()) && !loan.isReturned()) {
- 				userCurrentLoans.add(loan);
- 			}
- 		}
+		dvdList = FileHandling.getDVDs();
+		laptopList = FileHandling.getLaptops();
+		copyList = FileHandling.getCopies();
+		requestList = FileHandling.getRequests();
+		loanList = FileHandling.getLoans();
+		
+		// Adds each resource to the resource ArrayList.
+		resourceList.addAll(bookList);
+		resourceList.addAll(dvdList);
+		resourceList.addAll(laptopList);
+		Collections.sort(resourceList);
+		
+		// Show the resources on the list view.
+		for (Resource thisResource : resourceList) {
+			lstShowResource.getItems().add(thisResource.toString());
+		}
+		
+		// Fetch the user's active loans.
+		for (Loan loan : loanList) {
+			if (currentUsername.equals(loan.getUsername()) && !loan.isReturned()) {
+				userCurrentLoans.add(loan);
+			}
+		}
 	}
 	
 	/**
@@ -491,7 +491,7 @@ public class ViewResourceController {
 	
 	/**
 	 * Displays the details of the selected DVD.
-     * @param selectedDVD The selected DVD.
+	 * @param selectedDVD The selected DVD.
 	 */
 	public void displayDVDDetails(DVD selectedDVD) {
 		//Displays the selected DVD's details
@@ -529,7 +529,7 @@ public class ViewResourceController {
 	
 	/**
 	 * Displays the details of the selected laptop.
-     * @param selectedLaptop The selected laptop.
+	 * @param selectedLaptop The selected laptop.
 	 */
 	public void displayLaptopDetails(Laptop selectedLaptop) {
 		//Displays the selected laptop's details
@@ -545,10 +545,10 @@ public class ViewResourceController {
 				selectedLaptop.getThumbnail());
 		Image thumbnail = new Image(imageURL.toURI().toString());
 		imageThumbnail.setImage(thumbnail);
-	
+		
 		txtManufacturer.setText(selectedLaptop.getManufacturer());
 		txtModel.setText(selectedLaptop.getModel());
-		txtOperatingSystem.setText(selectedLaptop.getOperatingSystem());	
+		txtOperatingSystem.setText(selectedLaptop.getOperatingSystem());
 		
 		displayCopies(selectedLaptop.getResourceID());
 		
@@ -625,11 +625,11 @@ public class ViewResourceController {
 	}
 	
 	/**
-     * Sets the status of the Book check box and makes the 
-     * appropriate changes to the resource list when selected.
-     */
+	 * Sets the status of the Book check box and makes the 
+	 * appropriate changes to the resource list when selected.
+	 */
 	public void setCBBookStatus() {
-    	// Clears other check boxes if selected.
+		// Clears other check boxes if selected.
 		cbDVD.setSelected(false);
 		cbLaptop.setSelected(false);
 		btnRequestCopy.setDisable(true);
@@ -644,24 +644,24 @@ public class ViewResourceController {
 		} else {
 			if (cbBook.isSelected()) {
 				for (Book thisBook : bookList) {
-	            	lstShowResource.getItems().add(thisBook.toString());
-	    		}
+					lstShowResource.getItems().add(thisBook.toString());
+				}
 			// If you're clicking the check box to clear it.
 			} else {
 				// Show the resources on list view.
-	            for (Resource thisResource : resourceList) {
-	            	lstShowResource.getItems().add(thisResource.toString());
-	            } 
+				for (Resource thisResource : resourceList) {
+					lstShowResource.getItems().add(thisResource.toString());
+				}
 			}
 		}
-    }
-    
-    /**
-     * Sets the status of the DVD check box and makes the 
-     * appropriate changes to the resource list when selected.
-     */
+	}
+	
+	/**
+	 * Sets the status of the DVD check box and makes the 
+	 * appropriate changes to the resource list when selected.
+	 */
 	public void setCBDVDStatus() {
-    	// Clears other check boxes if selected.
+		// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbLaptop.setSelected(false);
 		btnRequestCopy.setDisable(true);
@@ -676,24 +676,24 @@ public class ViewResourceController {
 		} else {
 			if (cbDVD.isSelected()) {
 				for (DVD thisDVD : dvdList) {
-	            	lstShowResource.getItems().add(thisDVD.toString());
-	    		}
+					lstShowResource.getItems().add(thisDVD.toString());
+				}
 			// If you're clicking the check box to clear it.
 			} else {
 				// Show the resources on list view.
-	            for (Resource thisResource : resourceList) {
-	            	lstShowResource.getItems().add(thisResource.toString());
-	            } 
+				for (Resource thisResource : resourceList) {
+					lstShowResource.getItems().add(thisResource.toString());
+				}
 			}
 		}
-    }
-    
-    /**
-     * Sets the status of the Laptop check box and makes the 
-     * appropriate changes to the resource list when selected.
-     */
+	}
+	
+	/**
+	 * Sets the status of the Laptop check box and makes the 
+	 * appropriate changes to the resource list when selected.
+	 */
 	public void setCBLaptopStatus() {
-    	// Clears other check boxes if selected.
+		// Clears other check boxes if selected.
 		cbBook.setSelected(false);
 		cbDVD.setSelected(false);
 		btnRequestCopy.setDisable(true);
@@ -708,81 +708,81 @@ public class ViewResourceController {
 		} else {
 			if (cbLaptop.isSelected()) {
 				for (Laptop thisLaptop : laptopList) {
-	    			lstShowResource.getItems().add(thisLaptop.toString());
-	    		}
+					lstShowResource.getItems().add(thisLaptop.toString());
+				}
 			// If you're clicking the check box to clear it.
 			} else {
 				// Show the resources on list view.
-	            for (Resource thisResource : resourceList) {
-	            	lstShowResource.getItems().add(thisResource.toString());
-	            } 
+				for (Resource thisResource : resourceList) {
+					lstShowResource.getItems().add(thisResource.toString());
+				} 
 			}
 		}
-    }
-    
-    /**
-     * Searches through the resources using the key words entered
-     * in the search box, and displays the related resources.
-     */
-    public void handleResourceSearchAction() {
-    	String keywords = txtSearchResource.getText().trim().toLowerCase();
-    	isSearch = true;
-    	searchedList.clear(); // Clear ArrayList from previous search.
-    	lstShowResource.getItems().clear();
+	}
+	
+	/**
+	 * Searches through the resources using the key words entered
+	 * in the search box, and displays the related resources.
+	 */
+	public void handleResourceSearchAction() {
+		String keywords = txtSearchResource.getText().trim().toLowerCase();
+		isSearch = true;
+		searchedList.clear(); // Clear ArrayList from previous search.
+		lstShowResource.getItems().clear();
 		lstShowCopies.getItems().clear();
 		currentCopiesList.clear();
 		btnRequestCopy.setDisable(true);
-    	
-    	// Show all of appropriate resources if there's nothing in 
-    	// the search bar.
-    	if (keywords.isEmpty()) {
-    		isSearch = false;
-    		if (cbBook.isSelected()) {
-        		setCBBookStatus();
-    		} else if (cbDVD.isSelected()) {
-    			setCBDVDStatus();
-    		} else if (cbLaptop.isSelected()) {
-    			setCBLaptopStatus();
-    		} else {
-    			// Show the resources on list view.
-    	        for (Resource thisResource : resourceList) {
-    	        	lstShowResource.getItems().add(thisResource.toString());
-    	        }  
-    		}
-    	} else if (cbBook.isSelected()) {
-    		for (Book book : bookList) {
-    			if ((book.toStringSearch()).contains(keywords)) {
-    				searchedList.add(book);
-    			}
-    		}
-    	} else if (cbDVD.isSelected()) {
-    		for (DVD dvd : dvdList) {
-    			if ((dvd.toStringSearch()).contains(keywords)) {
-    				searchedList.add(dvd);
-    			}
-    		}
-    	} else if (cbLaptop.isSelected()) {
-    		for (Laptop laptop : laptopList) {
-    			if ((laptop.toStringSearch()).contains(keywords)) {
-    				searchedList.add(laptop);
-    			}
-    		}
-    	// If the type of resource is unknown via checkbox.
-    	} else {
-    		for (Resource resource : resourceList) {
-    			if ((resource.toStringSearch()).contains(keywords)) {
-    				searchedList.add(resource);
-    			}
-    		}
-    	}
-    	
-    	// Display filtered items to the resource list view. 
-    	for (Resource thisResource : searchedList) {
-    		lstShowResource.getItems().add(thisResource.toString());
-    	}
-    }
-    
-    /**
+		
+		// Show all of appropriate resources if there's nothing in 
+		// the search bar.
+		if (keywords.isEmpty()) {
+			isSearch = false;
+			if (cbBook.isSelected()) {
+				setCBBookStatus();
+			} else if (cbDVD.isSelected()) {
+				setCBDVDStatus();
+			} else if (cbLaptop.isSelected()) {
+				setCBLaptopStatus();
+			} else {
+				// Show the resources on list view.
+				for (Resource thisResource : resourceList) {
+					lstShowResource.getItems().add(thisResource.toString());
+				}
+			}
+		} else if (cbBook.isSelected()) {
+			for (Book book : bookList) {
+				if ((book.toStringSearch()).contains(keywords)) {
+					searchedList.add(book);
+				}
+			}
+		} else if (cbDVD.isSelected()) {
+			for (DVD dvd : dvdList) {
+				if ((dvd.toStringSearch()).contains(keywords)) {
+					searchedList.add(dvd);
+				}
+			}
+		} else if (cbLaptop.isSelected()) {
+			for (Laptop laptop : laptopList) {
+				if ((laptop.toStringSearch()).contains(keywords)) {
+					searchedList.add(laptop);
+				}
+			}
+		// If the type of resource is unknown via checkbox.
+		} else {
+			for (Resource resource : resourceList) {
+				if ((resource.toStringSearch()).contains(keywords)) {
+					searchedList.add(resource);
+				}
+			}
+		}
+		
+		// Display filtered items to the resource list view. 
+		for (Resource thisResource : searchedList) {
+			lstShowResource.getItems().add(thisResource.toString());
+		}
+	}
+	
+	/**
 	 * Closes this page, then goes back to the User Dashboard.
 	 */
 	public void handleBackButtonAction() {
@@ -800,9 +800,9 @@ public class ViewResourceController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 }

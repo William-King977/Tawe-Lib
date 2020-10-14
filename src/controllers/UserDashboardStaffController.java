@@ -55,7 +55,7 @@ public class UserDashboardStaffController {
 		curStage.close(); // Closes current stage.
 		
 		try {
-		    // Creates the new stage.
+			// Creates the new stage.
 			Stage primaryStage = new Stage();
 			Parent root = FXMLLoader.load(getClass()
 					.getResource(Main.FXML_FILE_PATH + "ViewLoan.fxml"));
@@ -65,9 +65,9 @@ public class UserDashboardStaffController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -80,7 +80,7 @@ public class UserDashboardStaffController {
 		curStage.close(); // Closes current stage.
 		
 		try {
-		    // Creates the new stage.
+			// Creates the new stage.
 			Stage primaryStage = new Stage();
 			Parent root = FXMLLoader.load(getClass()
 					.getResource(Main.FXML_FILE_PATH + "NewLoan.fxml"));
@@ -90,9 +90,9 @@ public class UserDashboardStaffController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -102,7 +102,7 @@ public class UserDashboardStaffController {
 	 * resource.
 	 */
 	public void handleResourceSettingsButtonAction() {
-		Stage curStage = (Stage) btnResourceSettings.getScene().getWindow(); 
+		Stage curStage = (Stage) btnResourceSettings.getScene().getWindow();
 		curStage.close(); 
 		
 		try {
@@ -115,9 +115,9 @@ public class UserDashboardStaffController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -127,7 +127,7 @@ public class UserDashboardStaffController {
 	 * a copy's borrow/return history.
 	 */
 	public void handleCopySettingsButtonAction() {
-		Stage curStage = (Stage) btnCopySettings.getScene().getWindow(); 
+		Stage curStage = (Stage) btnCopySettings.getScene().getWindow();
 		curStage.close(); 
 		
 		try {
@@ -140,9 +140,9 @@ public class UserDashboardStaffController {
 			primaryStage.show(); 
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -152,7 +152,7 @@ public class UserDashboardStaffController {
 	 * the details of an existing user. 
 	 */
 	public void handleUserSettingsButtonAction() {
-		Stage curStage = (Stage) btnUserSettings.getScene().getWindow(); 
+		Stage curStage = (Stage) btnUserSettings.getScene().getWindow();
 		curStage.close(); 
 		
 		try {
@@ -165,9 +165,9 @@ public class UserDashboardStaffController {
 			primaryStage.show(); 
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -175,7 +175,7 @@ public class UserDashboardStaffController {
 	 * Goes to a page where the librarian can pay users' fines.
 	 */
 	public void handlePayFineButtonAction() throws IOException {
-		Stage curStage = (Stage) btnPayUserFine.getScene().getWindow(); 
+		Stage curStage = (Stage) btnPayUserFine.getScene().getWindow();
 		curStage.close(); 
 		
 		try {
@@ -188,9 +188,9 @@ public class UserDashboardStaffController {
 			primaryStage.show();
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -212,9 +212,9 @@ public class UserDashboardStaffController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
-	}	
+	}
 }

@@ -33,12 +33,12 @@ public class UserSettingsController {
 	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 	
 	/** A list of all the librarians. */
-    private LinkedHashMap<String, Librarian> librarianList;
-    /** A list of all the members. */
-    private LinkedHashMap<String, User> userList;
-    
-    /** Stores the currently logged in librarian's username. */
-    private String currentUser;
+	private LinkedHashMap<String, Librarian> librarianList;
+	/** A list of all the members. */
+	private LinkedHashMap<String, User> userList;
+	
+	/** Stores the currently logged in librarian's username. */
+	private String currentUser;
 	
 	/** A list view used to display the users. */
 	@FXML private ListView<String> lstShowUsers;
@@ -59,7 +59,7 @@ public class UserSettingsController {
 	/** The back button for the page. */
 	@FXML private Button btnBack;
 	
-    /**
+	/**
 	 * Sets up the linked hashmaps for the users to be displayed
 	 * later, depending on which check boxes are ticked.
 	 * This method will run automatically.
@@ -74,7 +74,7 @@ public class UserSettingsController {
 			User user = userList.get(key);
 			lstShowUsers.getItems().add(user.getDescription());
 		}
-    }
+	}
 	
 	/**
 	 * Handles the actions when the librarian selects a user.
@@ -112,7 +112,7 @@ public class UserSettingsController {
 	 * Displays a page where the librarian can edit the details of
 	 * a selected user.
 	 */
-	public void handleEditUserButtonAction() {	
+	public void handleEditUserButtonAction() {
 		//Gets the position of the selected user on the UI.
 		int selectedIndex = lstShowUsers.getSelectionModel().getSelectedIndex();
 		// Gets the username from the String (from the description shown on the list view).
@@ -135,31 +135,31 @@ public class UserSettingsController {
 				Librarian selectedUser = librarianList.get(thisUsername);
 				editUser.setIsLibrarian(true);
 				editUser.setEditAnotherUser(false);
-    			editUser.editUser(selectedUser);
-    		// If editing another user (i.e members).
-    		} else if (cbMember.isSelected()) { 
+				editUser.editUser(selectedUser);
+			// If editing another user (i.e members).
+			} else if (cbMember.isSelected()) { 
 				User selectedUser = userList.get(thisUsername);
 				editUser.setIsLibrarian(false);
 				editUser.setEditAnotherUser(true);
 				editUser.editUser(selectedUser);
-    		} 
-	
-            Scene editScene = new Scene(editRoot); 
-            Stage editStage = new Stage();
-            editStage.setScene(editScene);
-            editStage.setTitle(EDIT_USER_TITLE);
-            editStage.initModality(Modality.APPLICATION_MODAL);
-            editStage.showAndWait();
-            
-            // Fresh the list view after any edits.
-            User editedUser = editUser.getEditedUser(); // Changes have been made (if any).
-            lstShowUsers.getItems().set(selectedIndex, editedUser.getDescription());
-            
+			} 
+			
+			Scene editScene = new Scene(editRoot); 
+			Stage editStage = new Stage();
+			editStage.setScene(editScene);
+			editStage.setTitle(EDIT_USER_TITLE);
+			editStage.initModality(Modality.APPLICATION_MODAL);
+			editStage.showAndWait();
+			
+			// Fresh the list view after any edits.
+			User editedUser = editUser.getEditedUser(); // Changes have been made (if any).
+			lstShowUsers.getItems().set(selectedIndex, editedUser.getDescription());
+			
 		} catch (IOException e) {
-            // Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// Catches an IO exception such as that where the FXML
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -177,7 +177,7 @@ public class UserSettingsController {
 		
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-					.getResource(Main.FXML_FILE_PATH + "DisplayUser.fxml")); 
+					.getResource(Main.FXML_FILE_PATH + "DisplayUser.fxml"));
 			BorderPane editRoot = fxmlLoader.load();
 			
 			//Gets the controller for the FXML file.
@@ -188,27 +188,27 @@ public class UserSettingsController {
 			if (cbLibrarian.isSelected()) {
 				Librarian selectedUser = librarianList.get(thisUsername);
 				viewUser.setIsLibrarian(true);
-	    		viewUser.displayProfile(selectedUser); 	
-	    	// If viewing another user.
-    		} else if (cbMember.isSelected()) { 
+				viewUser.displayProfile(selectedUser);
+			// If viewing another user.
+			} else if (cbMember.isSelected()) { 
 				User selectedUser = userList.get(thisUsername);
 				viewUser.setIsLibrarian(false);
 				viewUser.displayProfile(selectedUser); 
-    		} 
+			} 
 			
-            Scene editScene = new Scene(editRoot); 
-            Stage editStage = new Stage();
-            editStage.setScene(editScene);
-            editStage.setTitle(DISPLAY_USER_TITLE);
-            // Sets modality which prevents any other window being
-            // used (In the app) until this one is closed.
-            editStage.initModality(Modality.APPLICATION_MODAL);
-            editStage.showAndWait();
+			Scene editScene = new Scene(editRoot); 
+			Stage editStage = new Stage();
+			editStage.setScene(editScene);
+			editStage.setTitle(DISPLAY_USER_TITLE);
+			// Sets modality which prevents any other window being
+			// used (In the app) until this one is closed.
+			editStage.initModality(Modality.APPLICATION_MODAL);
+			editStage.showAndWait();
 		} catch (IOException e) {
-            // Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// Catches an IO exception such as that where the FXML
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -233,26 +233,26 @@ public class UserSettingsController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(CREATE_USER_TITLE);
 			primaryStage.initModality(Modality.APPLICATION_MODAL);
-            primaryStage.showAndWait();
+			primaryStage.showAndWait();
 			
-            // Fresh the User Settings page.
-            String newUserType = createUser.getNewUserType();
-            String newUsername = createUser.getNewUsername();
+			// Fresh the User Settings page.
+			String newUserType = createUser.getNewUserType();
+			String newUsername = createUser.getNewUsername();
 			refreshUserSettings(newUserType, newUsername); 
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
 	/**
-     * Sets the status of the Members check box and makes the 
-     * appropriate changes to the user list when selected.
-     */
-    public void setCBMemberStatus() {
-    	// Clears librarians check box if previously selected. 
+	 * Sets the status of the Members check box and makes the 
+	 * appropriate changes to the user list when selected.
+	 */
+	public void setCBMemberStatus() {
+		// Clears librarians check box if previously selected. 
 		// Only one can be selected at a time.
 		cbLibrarian.setSelected(false);
 		
@@ -268,18 +268,18 @@ public class UserSettingsController {
 				User user = userList.get(key);
 				lstShowUsers.getItems().add(user.getDescription());
 			}
-    	// Keeps it selected if gets clicked on again.
-	    } else {
-	    	cbMember.setSelected(true);
-	    } 
-    }
-    
-    /**
-     * Sets the status of the Librarians check box and makes the 
-     * appropriate changes to the user list when selected.
-     */
-    public void setCBLibrarianStatus() {
-    	// Clears member check box if previously selected. 
+		// Keeps it selected if gets clicked on again.
+		} else {
+			cbMember.setSelected(true);
+		}
+	}
+	
+	/**
+	 * Sets the status of the Librarians check box and makes the 
+	 * appropriate changes to the user list when selected.
+	 */
+	public void setCBLibrarianStatus() {
+		// Clears member check box if previously selected. 
 		cbMember.setSelected(false);
 		
 		// Shows all librarians with a short description of each 
@@ -298,36 +298,36 @@ public class UserSettingsController {
 		} else {
 			cbLibrarian.setSelected(true);
 		}	
-    }
-    
-    /**
-     * Refreshes the User Settings page after creating a new user.
-     * @param newUserType The type of user that was created
-     * @param newUsername The username of the created user.
-     */
-    public void refreshUserSettings(String newUserType, String newUsername) {
-    	switch (newUserType) {
-	    	case "User":
-	    		if (cbMember.isSelected()) {
-	    			User newUser = userList.get(newUsername);
-	    			lstShowUsers.getItems().add(newUser.getDescription());
-	    		}
-	    		break;
-	    	case "Librarian":
-	    		if (cbLibrarian.isSelected()) {
-	    			Librarian newLibrarian = librarianList.get(newUsername);
-	    			lstShowUsers.getItems().add(newLibrarian.getDescription());
-	    		}
-	    		break;
-    	}
-    	// Otherwise, do nothing (no user was created).
-    }
-    
-    /**
-     * Closes this page, then goes back to the Staff Dashboard.
-     */
-    public void handleBackButtonAction() {
-    	// Closes the window.
+	}
+	
+	/**
+	 * Refreshes the User Settings page after creating a new user.
+	 * @param newUserType The type of user that was created
+	 * @param newUsername The username of the created user.
+	 */
+	public void refreshUserSettings(String newUserType, String newUsername) {
+		switch (newUserType) {
+			case "User":
+				if (cbMember.isSelected()) {
+					User newUser = userList.get(newUsername);
+					lstShowUsers.getItems().add(newUser.getDescription());
+				}
+				break;
+			case "Librarian":
+				if (cbLibrarian.isSelected()) {
+					Librarian newLibrarian = librarianList.get(newUsername);
+					lstShowUsers.getItems().add(newLibrarian.getDescription());
+				}
+				break;
+		}
+		// Otherwise, do nothing (no user was created).
+	}
+	
+	/**
+	 * Closes this page, then goes back to the Staff Dashboard.
+	 */
+	public void handleBackButtonAction() {
+		// Closes the window.
 		Stage stage = (Stage) btnBack.getScene().getWindow();
 		stage.close();
 		
@@ -341,9 +341,9 @@ public class UserSettingsController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
-    }
+	}
 }

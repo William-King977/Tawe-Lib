@@ -72,7 +72,7 @@ public class LoginController {
 	 * Checks if a user exists in the system.
 	 * @param username The username.
 	 * @param userType An integer value to indicate whether the user is a 
-	 * 				   librarian or a regular user.
+	 *                 librarian or a regular user.
 	 * @return True if the user exists, otherwise false.
 	 */
 	private boolean isUserExist(String username, int userType) {
@@ -98,7 +98,7 @@ public class LoginController {
 	 * Sets up the required settings for the dashboard and displays
 	 * the appropriate one depending on the usertype. 
 	 * @param userType Integer value indicating the type of 
-	 * 				   user (librarian / user).
+	 *                 user (librarian / user).
 	 */
 	private void showDashboard(int userType) {
 		String dashboardTitle = "";
@@ -131,9 +131,9 @@ public class LoginController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			//Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 }

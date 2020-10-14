@@ -20,25 +20,23 @@ import javafx.stage.Stage;
  */
 public class EditResourceController {
 	/** The directory to the thumbnail images for the resources. */
-	private final String RESOURCE_IMAGE_PATH = 
-			"DataFiles/ResourceThumbnails/";
+	private final String RESOURCE_IMAGE_PATH = "DataFiles/ResourceThumbnails/";
+	/** An array list that holds all the existing books. */
+	private ArrayList<Book> bookList;
+	/** An array list that holds all the existing DVDs. */
+	private ArrayList<DVD> dvdList;
+	/** An array list that holds all the existing laptops.*/
+	private ArrayList<Laptop> laptopList;
+	/** Keeps track of the current languages in the list view */
+	private ArrayList<String> currentLangList =  new ArrayList<String>();
 	
-    /** An array list that holds all the existing books. */
-    private ArrayList<Book> bookList;
-    /** An array list that holds all the existing DVDs. */
-    private ArrayList<DVD> dvdList;
-    /** An array list that holds all the existing laptops.*/
-    private ArrayList<Laptop> laptopList;
-    /** Keeps track of the current languages in the list view */
-    private ArrayList<String> currentLangList =  new ArrayList<String>();
-    
-    /** Holds the files of all the resource thumbnail images. */
-    private File[] resourceImageList;
-    
-    /** Local storage of the resource being edited. */
-    private Resource editedResource;
-    
-    /** A combo box used to select an image for a resource. */
+	/** Holds the files of all the resource thumbnail images. */
+	private File[] resourceImageList;
+	
+	/** Local storage of the resource being edited. */
+	private Resource editedResource;
+	
+	/** A combo box used to select an image for a resource. */
 	@FXML private ComboBox<String> cmbResourceImage;
 	/** A list view used to display the DVD's subtitle languages. */
 	@FXML private ListView<String>  lstSubLang;
@@ -85,16 +83,16 @@ public class EditResourceController {
 	/**
 	 * Sets up the image thumbnail combo box.
 	 */
-	public void initialize() {        
-        //Creates an array of all resource images.
-        File folder = new File(RESOURCE_IMAGE_PATH);
-        resourceImageList = folder.listFiles();
+	public void initialize() {
+		//Creates an array of all resource images.
+		File folder = new File(RESOURCE_IMAGE_PATH);
+		resourceImageList = folder.listFiles();
 
-        for (File file : resourceImageList) {
-        	if (file.isFile()) {
-        		cmbResourceImage.getItems().add(file.getName());
-        	}
-        }
+		for (File file : resourceImageList) {
+			if (file.isFile()) {
+				cmbResourceImage.getItems().add(file.getName());
+			}
+		}
 	}
 	
 	/**
@@ -109,21 +107,21 @@ public class EditResourceController {
 		
 		// Displays the resource's editable details on screen in the
 		// appropriate text fields.
-    	txtResourceTitle.setText(editedResource.getResourceTitle());
-    	txtYear.setText(editedResource.getYear() + "");
-    	
-    	File imageURL = new File(RESOURCE_IMAGE_PATH 
+		txtResourceTitle.setText(editedResource.getResourceTitle());
+		txtYear.setText(editedResource.getYear() + "");
+		
+		File imageURL = new File(RESOURCE_IMAGE_PATH 
 				+ editedResource.getThumbnail());
-        Image resourceImage = new Image(imageURL.toURI().toString());
+		Image resourceImage = new Image(imageURL.toURI().toString());
 		imageThumbnail.setImage(resourceImage);
-    	
+		
 		switch (resourceType) {
 			case "Book":
-	    		setBookFields((Book) editedResource);
-	    		break;
+				setBookFields((Book) editedResource);
+				break;
 			case "DVD":
-	    		setDVDFields((DVD) editedResource);
-	    		break;
+				setDVDFields((DVD) editedResource);
+				break;
 			case "Laptop":
 				setLaptopFields((Laptop) editedResource);
 		}
@@ -165,7 +163,7 @@ public class EditResourceController {
 			Utility.nonAlphaError();
 			return;
 		}
-
+		
 		languageExist = currentLangList.contains(language);
 		if (languageExist) {
 			Utility.languageExists();
@@ -194,19 +192,19 @@ public class EditResourceController {
 	}
 	
 	/**
-     * Validates the changes made to the edited book.
-     */
-    public void validateEditedBook() {
-    	String resourceTitle = txtResourceTitle.getText().trim();
-    	String strYear = txtYear.getText().trim(); 
-    	String author = txtAuthor.getText().trim();
-    	String publisher = txtPublisher.getText().trim();
-    	String genre = txtGenre.getText().trim();
-    	String language = txtLanguage.getText().trim();
-    	String isbn = txtISBN.getText().trim();
-    	String imageName;
-    	
-    	// Gets the position of the selected resource image.
+	 * Validates the changes made to the edited book.
+	 */
+	public void validateEditedBook() {
+		String resourceTitle = txtResourceTitle.getText().trim();
+		String strYear = txtYear.getText().trim(); 
+		String author = txtAuthor.getText().trim();
+		String publisher = txtPublisher.getText().trim();
+		String genre = txtGenre.getText().trim();
+		String language = txtLanguage.getText().trim();
+		String isbn = txtISBN.getText().trim();
+		String imageName;
+		
+		// Gets the position of the selected resource image.
 		int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
@@ -219,14 +217,14 @@ public class EditResourceController {
 		}
 		
 		//Validation applied to the inputed values.
-    	boolean bookFieldsFilled = Utility.isBookFieldFilled(resourceTitle, 
-    			strYear, author, publisher); 
-    	boolean isNum = Utility.isInt(strYear) && Utility.isInt(isbn);
-    	boolean isAlpha = Utility.isAlphaBook(author, publisher, 
-    			genre, language);
-    	
-    	if (!bookFieldsFilled) {
-    		Utility.missingFields();
+		boolean bookFieldsFilled = Utility.isBookFieldFilled(resourceTitle, 
+				strYear, author, publisher); 
+		boolean isNum = Utility.isInt(strYear) && Utility.isInt(isbn);
+		boolean isAlpha = Utility.isAlphaBook(author, publisher, 
+				genre, language);
+		
+		if (!bookFieldsFilled) {
+			Utility.missingFields();
 			return;
 		} else if (!isNum) {
 			Utility.nonIntegerError();
@@ -235,8 +233,8 @@ public class EditResourceController {
 			Utility.nonAlphaError();
 			return;
 		}
-    	
-    	// It's assumed that year is an integer.
+		
+		// It's assumed that year is an integer.
 		int year = Integer.parseInt(strYear);
 		
 		boolean bookExists = Utility.isBookExist(resourceTitle, year,
@@ -264,23 +262,23 @@ public class EditResourceController {
 		String newBook = editedBook.toStringDetail();
 		FileHandling.editResource(oldBook, newBook, "Book");
 		handleBackButtonAction();
-    }
-    
-    /**
-     * Validates the changes made to the edited DVD.
-     */
-    public void validateEditedDVD() {
-    	String resourceTitle = txtResourceTitle.getText().trim();
-    	String strYear = txtYear.getText().trim(); 
-    	String[] subLang = currentLangList.toArray(
-    			new String[currentLangList.size()]);
-    	String director = txtDirector.getText().trim();
-    	String strRuntime = txtRuntime.getText().trim();
-    	String language = txtLanguage.getText().trim();
-    	String imageName;
-    	
-    	//Gets the position of the selected resource image.
-    	int selectedIndex = cmbResourceImage.getSelectionModel()
+	}
+	
+	/**
+	 * Validates the changes made to the edited DVD.
+	 */
+	public void validateEditedDVD() {
+		String resourceTitle = txtResourceTitle.getText().trim();
+		String strYear = txtYear.getText().trim(); 
+		String[] subLang = currentLangList.toArray(
+				new String[currentLangList.size()]);
+		String director = txtDirector.getText().trim();
+		String strRuntime = txtRuntime.getText().trim();
+		String language = txtLanguage.getText().trim();
+		String imageName;
+		
+		//Gets the position of the selected resource image.
+		int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
 		//Sets a new resource image if it has been selected.
@@ -292,13 +290,13 @@ public class EditResourceController {
 		}
 		
 		//Validation applied to the inputed values.
-    	boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
-    			strYear, director, strRuntime);
-    	boolean isNum = Utility.isInt(strYear);
-    	boolean isDouble = Utility.isDouble(strRuntime);
-    	boolean isAlpha = Utility.isAlphaDVD(director, language);
-    	
-    	if (!dvdFieldsFilled) {
+		boolean dvdFieldsFilled = Utility.isDVDFieldFilled(resourceTitle, 
+				strYear, director, strRuntime);
+		boolean isNum = Utility.isInt(strYear);
+		boolean isDouble = Utility.isDouble(strRuntime);
+		boolean isAlpha = Utility.isAlphaDVD(director, language);
+		
+		if (!dvdFieldsFilled) {
 			Utility.missingFields();
 			return;
 		} else if (!isNum) {
@@ -308,18 +306,18 @@ public class EditResourceController {
 			Utility.nonDoubleError();
 			return;
 		} else if (!isAlpha) {
-	    	Utility.nonAlphaError();
+			Utility.nonAlphaError();
 			return;
 		}
-    	
-    	// It's assumed that year is an integer and that runtime is a double.
+		
+		// It's assumed that year is an integer and that runtime is a double.
 		int year = Integer.parseInt(strYear);
 		double runtime = Double.parseDouble(strRuntime);
 		boolean dvdExists = Utility.isDVDExist(resourceTitle, year, 
 				imageName, director, runtime, subLang, language, 
 				dvdList);
 		
-		// Checks if the entered details match with an existing DVD.	
+		// Checks if the entered details match with an existing DVD.
 		if (dvdExists) {
 			Utility.resourceExistsEdit();
 			return;
@@ -336,24 +334,24 @@ public class EditResourceController {
 		editedDVD.setLanguage(language);
 		editedDVD.setSubLang(subLang);
 		
-		String newDVD = editedDVD.toStringDetail();		
+		String newDVD = editedDVD.toStringDetail();
 		FileHandling.editResource(oldDVD, newDVD, "DVD");
 		handleBackButtonAction();
-    }
-    
-    /**
-     * Validates the changes made to the edited laptop.
-     */
-    public void validateEditedLaptop() {
-    	String resourceTitle = txtResourceTitle.getText().trim();
-    	String strYear = txtYear.getText().trim();
-    	String manufacturer = txtManufacturer.getText().trim();
-    	String model = txtModel.getText().trim();
-    	String operatingSystem = txtOperatingSystem.getText().trim();
-    	String imageName;
-    	
-    	//Gets the position of the selected resource image.
-    	int selectedIndex = cmbResourceImage.getSelectionModel()
+	}
+	
+	/**
+	 * Validates the changes made to the edited laptop.
+	 */
+	public void validateEditedLaptop() {
+		String resourceTitle = txtResourceTitle.getText().trim();
+		String strYear = txtYear.getText().trim();
+		String manufacturer = txtManufacturer.getText().trim();
+		String model = txtModel.getText().trim();
+		String operatingSystem = txtOperatingSystem.getText().trim();
+		String imageName;
+		
+		//Gets the position of the selected resource image.
+		int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
 		//Sets a new resource image if it has been selected.
@@ -365,36 +363,36 @@ public class EditResourceController {
 		}
 		
 		//Validation applied to the inputted values.
-    	boolean laptopFieldsFilled = Utility.isLaptopFieldFilled(resourceTitle, 
-    			strYear, manufacturer, model, operatingSystem);
-    	boolean isNum = Utility.isInt(strYear);
-    	boolean isAlpha = Utility.isAlphaLaptop(resourceTitle, operatingSystem, 
-    			model, manufacturer);
-    	
-    	if (!laptopFieldsFilled) {
-    		Utility.missingFields();
+		boolean laptopFieldsFilled = Utility.isLaptopFieldFilled(resourceTitle, 
+				strYear, manufacturer, model, operatingSystem);
+		boolean isNum = Utility.isInt(strYear);
+		boolean isAlpha = Utility.isAlphaLaptop(resourceTitle, operatingSystem, 
+				model, manufacturer);
+		
+		if (!laptopFieldsFilled) {
+			Utility.missingFields();
 			return;
-    	} else if (!isNum) {
-    		Utility.nonIntegerError();
+		} else if (!isNum) {
+			Utility.nonIntegerError();
 			return;
-    	} else if (!isAlpha) {
-	    	Utility.nonAlphaError();
-	    	return;
-    	}
-    	
-    	// It's assumed that year is an integer.
-    	int year = Integer.parseInt(strYear);
-   		
-   		boolean laptopExists = Utility.isLaptopExist(resourceTitle, year, 
+		} else if (!isAlpha) {
+			Utility.nonAlphaError();
+			return;
+		}
+		
+		// It's assumed that year is an integer.
+		int year = Integer.parseInt(strYear);
+		
+		boolean laptopExists = Utility.isLaptopExist(resourceTitle, year, 
 				imageName, manufacturer, model, operatingSystem, laptopList);
-   		
-   	    // Checks if the entered details match with an existing laptop.
-   		if (laptopExists) {
+		
+		// Checks if the entered details match with an existing laptop.
+		if (laptopExists) {
 			Utility.resourceExistsEdit();
 			return;
 		}
-   		
-   		Laptop editedLaptop = (Laptop) editedResource;
+		
+		Laptop editedLaptop = (Laptop) editedResource;
 		String oldLaptop = editedLaptop.toStringDetail();
 		
 		editedLaptop.setResourceTitle(resourceTitle);
@@ -407,26 +405,26 @@ public class EditResourceController {
 		String newLaptop = editedLaptop.toStringDetail();
 		FileHandling.editResource(oldLaptop, newLaptop, "Laptop");
 		handleBackButtonAction();
-    }
+	}
 	
 	/**
-     * Allows the librarian to select a resource thumbnail and
-     * displays it onto the screen.
-     */
-    public void handleResourceThumbnailComboBoxAction() {
-    	//Gets the position of the selected thumbnail.
+	 * Allows the librarian to select a resource thumbnail and
+	 * displays it onto the screen.
+	 */
+	public void handleResourceThumbnailComboBoxAction() {
+		//Gets the position of the selected thumbnail.
 		int selectedIndex = cmbResourceImage.getSelectionModel()
 				.getSelectedIndex();
 		
 		File imageURL = resourceImageList[selectedIndex];
-        Image profilePicture = new Image(imageURL.toURI().toString());
+		Image profilePicture = new Image(imageURL.toURI().toString());
 		imageThumbnail.setImage(profilePicture);
-    }
+	}
 	
 	/**
-     * Sets the text fields for the edited book.
-     */
-    public void setBookFields(Book editedBook) {
+	 * Sets the text fields for the edited book.
+	 */
+	public void setBookFields(Book editedBook) {
 		txtLanguage.setVisible(true);
 		
 		txtAuthor.setVisible(true);
@@ -443,20 +441,20 @@ public class EditResourceController {
 		
 		txtManufacturer.setVisible(false);
 		txtModel.setVisible(false);
-		txtOperatingSystem.setVisible(false);	
+		txtOperatingSystem.setVisible(false);
 		
 		txtAuthor.setText(editedBook.getAuthor());
 		txtPublisher.setText(editedBook.getPublisher());
 		txtLanguage.setText(editedBook.getLanguage());
 		txtISBN.setText(editedBook.getISBN());
 		txtGenre.setText(editedBook.getGenre());
-    }
-    		
-    
-    /**
-     * Sets the text fields for the edited DVD.
-     */
-    public void setDVDFields(DVD editedDVD) {
+	}
+	
+	
+	/**
+	 * Sets the text fields for the edited DVD.
+	 */
+	public void setDVDFields(DVD editedDVD) {
 		txtLanguage.setVisible(true);
 		
 		txtAuthor.setVisible(false);
@@ -473,7 +471,7 @@ public class EditResourceController {
 		
 		txtManufacturer.setVisible(false);
 		txtModel.setVisible(false);
-		txtOperatingSystem.setVisible(false);    	
+		txtOperatingSystem.setVisible(false);
 		
 		txtDirector.setText(editedDVD.getDirector());
 		txtRuntime.setText(editedDVD.getRuntime() + "");
@@ -485,12 +483,12 @@ public class EditResourceController {
 			lstSubLang.getItems().add(lang);
 			currentLangList.add(lang);
 		}
-    }
+	}
 	
-    /**
-     * Sets the text fields for the edited laptop.
-     */
-    public void setLaptopFields(Laptop editedLaptop) {
+	/**
+	 * Sets the text fields for the edited laptop.
+	 */
+	public void setLaptopFields(Laptop editedLaptop) {
 		txtLanguage.setVisible(false);
 		
 		txtAuthor.setVisible(false);
@@ -507,14 +505,14 @@ public class EditResourceController {
 		
 		txtManufacturer.setVisible(true);
 		txtModel.setVisible(true);
-		txtOperatingSystem.setVisible(true); 	
+		txtOperatingSystem.setVisible(true); 
 		
 		txtManufacturer.setText(editedLaptop.getManufacturer());
 		txtModel.setText(editedLaptop.getModel());
 		txtOperatingSystem.setText(editedLaptop.getOperatingSystem());
-    }
+	}
 	
-    /**
+	/**
 	 * Sets the array lists for each resource.
 	 * Used to check if the edited resource's details matches with 
 	 * an existing resource.
@@ -536,7 +534,7 @@ public class EditResourceController {
 	public Resource getEditedResource() {
 		return editedResource;
 	}
-    
+	
 	/**
 	 * Closes the current page.
 	 */

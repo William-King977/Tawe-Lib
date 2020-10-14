@@ -26,25 +26,25 @@ public class EditUserController {
 	/** Title for the Create Profile Picture page. */
 	private final String CREATE_PROFILE_PICTURE_TITLE = "Create Profile Picture";
 	/** The file location of the profile pictures. */
-    private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
+	private final String PROFILE_PICTURE_PATH = "DataFiles/ProfilePictures/";
 	
 	/** Used to check if the user edited is a librarian or not. */
 	private boolean isLibrarian;
 	/** Used to check if a librarian is editing another user's profile
-	  * or if a user is editing their own profile. */
+	 * or if a user is editing their own profile. */
 	private boolean editAnotherUser;
 	/** Used to check if the action performed on the profile picture combo box is 
 	 * clearing the check box (or selecting a picture). */
 	private boolean isClearingPictureCB;
 	
 	/** Local storage of the user being edited. */
-    private User editedUser;
-    /** Holds the string details of the user (before any edits). */
-    private String oldUser;
-    
-    /** Holds the files of all profile pictures. */
-    private File[] profilePictureList;
-    
+	private User editedUser;
+	/** Holds the string details of the user (before any edits). */
+	private String oldUser;
+	
+	/** Holds the files of all profile pictures. */
+	private File[] profilePictureList;
+	
 	/** A text field to hold the user's username. */
 	@FXML private TextField txtUsername;
 	/** A text field to hold the user's first name. */
@@ -75,30 +75,30 @@ public class EditUserController {
 	@FXML private Button btnBack;
 	
 	/**
-     * Initialises the users array lists to be used later on. 
-     * This method runs automatically.
-     */
-    public void initialize() {
-        //Creates an array of all profile pictures.
-        File folder = new File(PROFILE_PICTURE_PATH);
-        profilePictureList = folder.listFiles();
-        
-        //Clears current contents from the combo box.
-        cmbProfilePicture.getItems().clear();
-        
-        for (File file : profilePictureList) {
-        	if (file.isFile()) {
-        		cmbProfilePicture.getItems().add(file.getName());
-        	}
-        }
-    }
-    
-    /**
-     * Displays the current details of the user to be edited in the 
-     * appropriate text fields.
-     * @param editedUser The user to be edited.
-     */
-    public void editUser(User editedUser) {
+	 * Initialises the users array lists to be used later on. 
+	 * This method runs automatically.
+	 */
+	public void initialize() {
+		//Creates an array of all profile pictures.
+		File folder = new File(PROFILE_PICTURE_PATH);
+		profilePictureList = folder.listFiles();
+		
+		//Clears current contents from the combo box.
+		cmbProfilePicture.getItems().clear();
+		
+		for (File file : profilePictureList) {
+			if (file.isFile()) {
+				cmbProfilePicture.getItems().add(file.getName());
+			}
+		}
+	}
+	
+	/**
+	 * Displays the current details of the user to be edited in the 
+	 * appropriate text fields.
+	 * @param editedUser The user to be edited.
+	 */
+	public void editUser(User editedUser) {
 		// Keeps local storage of the edited user.
 		this.editedUser = editedUser;
 		// Helps fix a profile picture bug (file handling).
@@ -106,7 +106,7 @@ public class EditUserController {
 		
 		// Displays the user's editable details on screen in the
 		// appropriate text fields.
-    	txtFirstName.setText(editedUser.getFirstName());
+		txtFirstName.setText(editedUser.getFirstName());
 		txtSurname.setText(editedUser.getSurname());
 		txtAddressLine1.setText(editedUser.getAddress1());
 		txtAddressLine2.setText(editedUser.getAddress2());
@@ -117,42 +117,42 @@ public class EditUserController {
 		// Changes image URL to a file, then converts that to an image.
 		File imageURL = new File(PROFILE_PICTURE_PATH 
 				+ editedUser.getProfilePicture());
-        Image profilePicture = new Image(imageURL.toURI().toString());
+		Image profilePicture = new Image(imageURL.toURI().toString());
 		imageProfilePicture.setImage(profilePicture);
 		
 		// Checks if a librarian is editing another user.
 		if (isEditAnotherUser()) {
 			// If so, prevent the editing of profile pictures.
-    		cmbProfilePicture.setDisable(true);
-    		btnCreateProfilePicture.setDisable(true);
-        }
-    }
-    
-    /**
-     * Allows the user to select a profile picture and displays
-     * the selected profile picture onto the screen.
-     */
-    public void handleProfilePictureComboBoxAction() {
-    	// If the action performed is NOT clearing the combo box, then
-    	// show the selected profile picture.
-    	// NOTE: Clearing the combo box is considered an action and will
-    	// throw an index out of bounds exception (the index will be -1).
-    	if (!isClearingPictureCB) {
+			cmbProfilePicture.setDisable(true);
+			btnCreateProfilePicture.setDisable(true);
+		}
+	}
+	
+	/**
+	 * Allows the user to select a profile picture and displays
+	 * the selected profile picture onto the screen.
+	 */
+	public void handleProfilePictureComboBoxAction() {
+		// If the action performed is NOT clearing the combo box, then
+		// show the selected profile picture.
+		// NOTE: Clearing the combo box is considered an action and will
+		// throw an index out of bounds exception (the index will be -1).
+		if (!isClearingPictureCB) {
 			int selectedIndex = cmbProfilePicture.getSelectionModel()
 					.getSelectedIndex();
 			File imageURL = profilePictureList[selectedIndex];
 			Image profilePicture = new Image(imageURL.toURI().toString());
 			imageProfilePicture.setImage(profilePicture);
-    	}
-    }
-    
-    /**
-     * Leads to a page where the user can create their own
-     * profile picture.
-     */
-    public void handleCreateProfilePictureButtonAction() {
-    	try {
-    		FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+		}
+	}
+	
+	/**
+	 * Leads to a page where the user can create their own
+	 * profile picture.
+	 */
+	public void handleCreateProfilePictureButtonAction() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource(Main.FXML_FILE_PATH + "CreateProfilePicture.fxml"));
 			
 			BorderPane root = fxmlLoader.load();
@@ -165,39 +165,39 @@ public class EditUserController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(CREATE_PROFILE_PICTURE_TITLE);
 			primaryStage.initModality(Modality.APPLICATION_MODAL);
-            primaryStage.showAndWait();
-            
-            // Updates the profile pictures.
-            String newProfilePicture = createImage.getNewProfilePicture();
-            boolean isPictureCreated = createImage.isProfilePictureCreated();
-            refreshProfilePictures(newProfilePicture, isPictureCreated);
-        
-    	} catch (IOException e) {
-    		// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
-    	}
-    }
-    
-    /**
-     * Validates the edited details of the user and saves any changes made.
-     */
-    public void handleSaveButtonAction() {
-    	String firstName = txtFirstName.getText().trim();
-        String surname = txtSurname.getText().trim();
-        String mobileNumber = txtMobileNumber.getText().trim();
-        String city = txtCity.getText().trim();
-        String postcode = txtPostcode.getText().trim();
-        String address1 = txtAddressLine1.getText().trim();
-        String address2 = txtAddressLine2.getText().trim();
-        
-        // Set address2 to 'N/A' if it's empty.
-        if (address2.isEmpty()) {
-        	address2 = "N/A";
-        }
-        
-        // Gets the position of the selected profile picture.
+			primaryStage.showAndWait();
+			
+			// Updates the profile pictures.
+			String newProfilePicture = createImage.getNewProfilePicture();
+			boolean isPictureCreated = createImage.isProfilePictureCreated();
+			refreshProfilePictures(newProfilePicture, isPictureCreated);
+			
+		} catch (IOException e) {
+			// Catches an IO exception such as that where the FXML
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+	
+	/**
+	 * Validates the edited details of the user and saves any changes made.
+	 */
+	public void handleSaveButtonAction() {
+		String firstName = txtFirstName.getText().trim();
+		String surname = txtSurname.getText().trim();
+		String mobileNumber = txtMobileNumber.getText().trim();
+		String city = txtCity.getText().trim();
+		String postcode = txtPostcode.getText().trim();
+		String address1 = txtAddressLine1.getText().trim();
+		String address2 = txtAddressLine2.getText().trim();
+		
+		// Set address2 to 'N/A' if it's empty.
+		if (address2.isEmpty()) {
+			address2 = "N/A";
+		}
+		
+		// Gets the position of the selected profile picture.
 		int selectedIndex = cmbProfilePicture.getSelectionModel()
 				.getSelectedIndex();
 		
@@ -211,114 +211,114 @@ public class EditUserController {
 		}
 		
 		// Validation rules applied to certain fields.
-        boolean requiredFilled = Utility.isFieldFilledUser(firstName, surname, 
-        		mobileNumber, address1, city, postcode);
-        boolean hasLetter = Utility.isAlphaUser(firstName, surname, 
-        		mobileNumber, address1, address2, city);
-        boolean validPostcode = Utility.isPostcodeValid(postcode);
-        
-        // Shows appropriate alerts if validation has not been met.
-        if (!requiredFilled) { 
-        	Utility.missingFields();
-        	return;
-        } else if (!hasLetter) {
-        	Utility.nonAlphaError();
-        	return;
-        } else if (!validPostcode) {
-        	Utility.invalidPostcode();
-        	return;
-        }
-        saveUserEdits(firstName, surname, mobileNumber, address1, address2,
-        		city, postcode, profilePicture);
-    }
-    
-    /**
-     * Saves the edits made to the user.
-     * @param firstName The edited first name.
-     * @param surname The edited surname.
-     * @param mobileNumber The edited mobile number.
-     * @param address1 The edited address line 1.
-     * @param address2 The edited address line 2.
-     * @param city The edited city.
-     * @param postcode The edited postcode.
-     * @param profilePicture The changed profile picture file name.
-     */
-    public void saveUserEdits(String firstName, String surname, 
-    		String mobileNumber, String address1, String address2, String city, 
-    		String postcode, String profilePicture) {
-    	// Create copies of the old and new profiles, then replace the old with new.
-    	String oldProfile = oldUser;
-    	
-    	editedUser.setFirstName(firstName);
-    	editedUser.setSurname(surname);
-    	editedUser.setMobileNumber(mobileNumber);
-    	editedUser.setAddress1(address1);
-    	editedUser.setAddress2(address2);
-    	editedUser.setCity(city);
-    	editedUser.setPostcode(postcode);
-    	editedUser.setProfilePicture(profilePicture);
-    	
+		boolean requiredFilled = Utility.isFieldFilledUser(firstName, surname, 
+				mobileNumber, address1, city, postcode);
+		boolean hasLetter = Utility.isAlphaUser(firstName, surname, 
+				mobileNumber, address1, address2, city);
+		boolean validPostcode = Utility.isPostcodeValid(postcode);
+		
+		// Shows appropriate alerts if validation has not been met.
+		if (!requiredFilled) { 
+			Utility.missingFields();
+			return;
+		} else if (!hasLetter) {
+			Utility.nonAlphaError();
+			return;
+		} else if (!validPostcode) {
+			Utility.invalidPostcode();
+			return;
+		}
+		saveUserEdits(firstName, surname, mobileNumber, address1, address2,
+				city, postcode, profilePicture);
+	}
+	
+	/**
+	 * Saves the edits made to the user.
+	 * @param firstName The edited first name.
+	 * @param surname The edited surname.
+	 * @param mobileNumber The edited mobile number.
+	 * @param address1 The edited address line 1.
+	 * @param address2 The edited address line 2.
+	 * @param city The edited city.
+	 * @param postcode The edited postcode.
+	 * @param profilePicture The changed profile picture file name.
+	 */
+	public void saveUserEdits(String firstName, String surname, 
+			String mobileNumber, String address1, String address2, String city, 
+			String postcode, String profilePicture) {
+		// Create copies of the old and new profiles, then replace the old with new.
+		String oldProfile = oldUser;
+		
+		editedUser.setFirstName(firstName);
+		editedUser.setSurname(surname);
+		editedUser.setMobileNumber(mobileNumber);
+		editedUser.setAddress1(address1);
+		editedUser.setAddress2(address2);
+		editedUser.setCity(city);
+		editedUser.setPostcode(postcode);
+		editedUser.setProfilePicture(profilePicture);
+		
 		String newProfile = editedUser.toStringDetail();
 		
-    	// If the user is a librarian.
-        if (isLibrarian()) {
-    		FileHandling.editProfile(oldProfile, newProfile, 1);
-    		Utility.savedUserChanges("librarian");
-    	// If the user is a member.
-        } else {
-    		FileHandling.editProfile(oldProfile, newProfile, 2);
-    		Utility.savedUserChanges("user");
-        }
-        handleBackButtonAction(); // Closes the window.
-    }
-    
-    /**
-     * Refreshes the profile pictures after the user has
-     * created a new profile picture.
-     * @param newProfilePicture Filename of the user's created profile picture.
-     * @param isPictureCreated If the user has created a profile picture.
-     */
-    public void refreshProfilePictures(String newProfilePicture, boolean isPictureCreated) {
-    	// Only refresh if a profile picture has been created.
-    	if (isPictureCreated) {
-	    	// Refresh the combo box.
-	    	File folder = new File(PROFILE_PICTURE_PATH);
-	        profilePictureList = folder.listFiles();
-	        
-	        // Clearing the combo box is considered an action.
-	        // Boolean helps to prevent an index out of bounds exception.
-	        isClearingPictureCB = true; 
-	        cmbProfilePicture.getItems().clear();
-	        
-	        for (File file : profilePictureList) {
-	        	if (file.isFile()) {
-	        		cmbProfilePicture.getItems().add(file.getName());
-	        	}
-	        }
-	        // Clearing action is done, so change the status.
-	        isClearingPictureCB = false;
-	        
-	        // Set the user's profile picture on the page.
-	        // If the user requested it to be their profile picture.
-	        if (!newProfilePicture.isEmpty()) {
-	        	editedUser.setProfilePicture(newProfilePicture);
-	        	
-	        	// Show it on the image view.
-	    		File imageURL = new File(PROFILE_PICTURE_PATH + newProfilePicture);
-	            Image profilePicture = new Image(imageURL.toURI().toString());
-	    		imageProfilePicture.setImage(profilePicture);
-	        }
-    	}
-    }
-
-    /**
-     * Checks if the edited user is a librarian or a member.
-     * @return If the edited user is a librarian or not.
-     */
+		// If the user is a librarian.
+		if (isLibrarian()) {
+			FileHandling.editProfile(oldProfile, newProfile, 1);
+			Utility.savedUserChanges("librarian");
+		// If the user is a member.
+		} else {
+			FileHandling.editProfile(oldProfile, newProfile, 2);
+			Utility.savedUserChanges("user");
+		}
+		handleBackButtonAction(); // Closes the window.
+	}
+	
+	/**
+	 * Refreshes the profile pictures after the user has
+	 * created a new profile picture.
+	 * @param newProfilePicture Filename of the user's created profile picture.
+	 * @param isPictureCreated If the user has created a profile picture.
+	 */
+	public void refreshProfilePictures(String newProfilePicture, boolean isPictureCreated) {
+		// Only refresh if a profile picture has been created.
+		if (isPictureCreated) {
+			// Refresh the combo box.
+			File folder = new File(PROFILE_PICTURE_PATH);
+			profilePictureList = folder.listFiles();
+			
+			// Clearing the combo box is considered an action.
+			// Boolean helps to prevent an index out of bounds exception.
+			isClearingPictureCB = true; 
+			cmbProfilePicture.getItems().clear();
+			
+			for (File file : profilePictureList) {
+				if (file.isFile()) {
+					cmbProfilePicture.getItems().add(file.getName());
+				}
+			}
+			// Clearing action is done, so change the status.
+			isClearingPictureCB = false;
+			
+			// Set the user's profile picture on the page.
+			// If the user requested it to be their profile picture.
+			if (!newProfilePicture.isEmpty()) {
+				editedUser.setProfilePicture(newProfilePicture);
+				
+				// Show it on the image view.
+				File imageURL = new File(PROFILE_PICTURE_PATH + newProfilePicture);
+				Image profilePicture = new Image(imageURL.toURI().toString());
+				imageProfilePicture.setImage(profilePicture);
+			}
+		}
+	}
+	
+	/**
+	 * Checks if the edited user is a librarian or a member.
+	 * @return If the edited user is a librarian or not.
+	 */
 	private boolean isLibrarian() {
 		return isLibrarian;
 	}
-
+	
 	/**
 	 * Sets whether the edited user is a librarian or a member.
 	 * @param isLibrarian If the edited user is a librarian or not.
@@ -331,7 +331,7 @@ public class EditUserController {
 	 * Gets whether the user is editing their own profile or if
 	 * the librarian is editing another user's profile.
 	 * @return Whether the user is editing their own profile or if
-	 * 		   the librarian is editing another user's profile.
+	 *         the librarian is editing another user's profile.
 	 */
 	private boolean isEditAnotherUser() {
 		return editAnotherUser;
@@ -357,11 +357,11 @@ public class EditUserController {
 	}
 	
 	/**
-     * Closes the current page.
-     */
-    public void handleBackButtonAction() {
-    	//Closes the window.
-    	Stage stage = (Stage) btnBack.getScene().getWindow();
-    	stage.close();
-    }
+	 * Closes the current page.
+	 */
+	public void handleBackButtonAction() {
+		//Closes the window.
+		Stage stage = (Stage) btnBack.getScene().getWindow();
+		stage.close();
+	}
 }

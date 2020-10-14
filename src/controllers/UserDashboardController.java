@@ -81,9 +81,9 @@ public class UserDashboardController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -94,7 +94,7 @@ public class UserDashboardController {
 	public void handleRequestedItemsButtonAction() {
 		Stage curStage = (Stage) btnRequestedItems.getScene().getWindow(); 
 		curStage.close(); // Closes that stage.
-	    
+		
 		try {
 			Stage primaryStage = new Stage();
 			Parent root = FXMLLoader.load(getClass()
@@ -105,9 +105,9 @@ public class UserDashboardController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -116,9 +116,9 @@ public class UserDashboardController {
 	 * button is clicked (reserved for the user).
 	 */
 	public void handleReservedItemsButtonAction() {
-		Stage curStage = (Stage) btnReservedItems.getScene().getWindow(); 
+		Stage curStage = (Stage) btnReservedItems.getScene().getWindow();
 		curStage.close(); // Closes that stage.
-	    
+		
 		try {
 			Stage primaryStage = new Stage();
 			Parent root = FXMLLoader.load(getClass()
@@ -129,22 +129,22 @@ public class UserDashboardController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
-    
-    /**
-     * Displays a chronologically ordered list showing each transaction 
-     * on the user’s account when the button is clicked.
-     * Can be either a fine (showing the date and time of the fine, the 
-     * amount, the item that caused the fine, and the number of days the 
-     * item was overdue) or a payment (showing the date and time of 
-     * payment and the amount).
-     */
-    public void handleTransactionHistoryButtonAction() {
-    	Stage curStage = (Stage) btnTransactionHistory.getScene().getWindow();
+	
+	/**
+	 * Displays a chronologically ordered list showing each transaction 
+	 * on the user’s account when the button is clicked.
+	 * Can be either a fine (showing the date and time of the fine, the 
+	 * amount, the item that caused the fine, and the number of days the 
+	 * item was overdue) or a payment (showing the date and time of 
+	 * payment and the amount).
+	 */
+	public void handleTransactionHistoryButtonAction() {
+		Stage curStage = (Stage) btnTransactionHistory.getScene().getWindow();
 		curStage.close(); 
 		
 		try {
@@ -157,13 +157,13 @@ public class UserDashboardController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
-    }
-    
-    /**
+	}
+	
+	/**
 	 * Displays a list of all resources in the library and allows the user
 	 * to request to borrow resources when clicked.
 	 */
@@ -181,9 +181,9 @@ public class UserDashboardController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
@@ -192,8 +192,8 @@ public class UserDashboardController {
 	 * and edit their details.
 	 */
 	public void handleViewProfileButtonAction() {
-        try {
-        	// Sets up a new FXML loader.
+		try {
+			// Sets up a new FXML loader.
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 					.getResource(Main.FXML_FILE_PATH + "DisplayUser.fxml"));
 			
@@ -210,19 +210,19 @@ public class UserDashboardController {
 			viewUser.displayProfile(thisUser); 
 			viewUser.setEditProfileVisibility(true);
 			
-            // Sets the scene.
-            Scene editScene = new Scene(editRoot); 
-            Stage editStage = new Stage();
-            editStage.setScene(editScene);
-            editStage.setTitle(VIEW_PROFILE_TITLE);
-            editStage.initModality(Modality.APPLICATION_MODAL);
-            editStage.showAndWait();
-        } catch (IOException e) {
-        	// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
-        }
+			// Sets the scene.
+			Scene editScene = new Scene(editRoot); 
+			Stage editStage = new Stage();
+			editStage.setScene(editScene);
+			editStage.setTitle(VIEW_PROFILE_TITLE);
+			editStage.initModality(Modality.APPLICATION_MODAL);
+			editStage.showAndWait();
+		} catch (IOException e) {
+			// Catches an IO exception such as that where the FXML
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -243,9 +243,9 @@ public class UserDashboardController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 }

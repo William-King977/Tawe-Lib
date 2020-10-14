@@ -27,67 +27,67 @@ public class NewLoanController {
 	private final String STAFF_DASHBOARD_TITLE = "Staff Dashboard";
 	
 	/** ArrayList to store requests. */
-    private ArrayList<Request> requestList;
-    /** ArrayList to store all the loans. */
-    private ArrayList<Loan> loanList;
-    /** ArrayList to store the pending requests (unfilled, but not reserved). */
-    private ArrayList<Request> pendingRequests = new ArrayList<>();
-    /** ArrayList to store the pending (reserved) requests. */
-    private ArrayList<Request> pendingReserved = new ArrayList<>();
-    /** ArrayList to store all the copies. */
-    private ArrayList<Copy> copies;
-    /** Linked hashmap to store all librarians. */
-    private LinkedHashMap<String, Librarian> librarians;
-    
-    /** Holds the staff's username (currently using the system). */
-    private String staffUsername;
-
-    /** Represents the list view and links it to the FXML file. */
-    @FXML private ListView<String> lstRequests;
-
-    /** Represents the textbox holding the requested date. */
-    @FXML private TextField txtRequestDate;
-    /** Represents the request ID text field. */
-    @FXML private TextField txtRequestID;
-    /** Represents the textbox for the assigned copy ID. */
-    @FXML private TextField txtCopyID;
-    /** Represents the textbox that shows the resource ID. */
-    @FXML private TextField txtResourceID;
-    /** Models the Username textfield. */
-    @FXML private TextField txtUsername;
-    
-    /** The create loan button. */
-    @FXML private Button btnCreateLoan;
-    /** Models the back button. */
-    @FXML private Button btnBack;
-    
-    /**
-     * Initialize automatically runs when the page loads. Sets up necessary
-     * features and functionality for the page to work correctly.
-     */
-    public void initialize() {
-    	requestList = FileHandling.getRequests();
-    	copies = FileHandling.getCopies();
-    	loanList = FileHandling.getLoans();
-    	Collections.sort(loanList);
-    	Collections.sort(requestList);
-    	
-    	librarians = FileHandling.getLibrarians();
-    	staffUsername = FileHandling.getCurrentUser();
-    	
-    	for (Request request : requestList) {
-    		// If it's reserved.
-    		if (!request.getRequestFilled() && request.isReserved()) {
-    			lstRequests.getItems().add(request.getDescription());
-    			pendingReserved.add(request);
-    		// If it's an unfilled non-reserved request.
-    		} else if (!request.getRequestFilled()) {
-    			pendingRequests.add(request);
-    		}
-    	}
-    }
-    
-    /**
+	private ArrayList<Request> requestList;
+	/** ArrayList to store all the loans. */
+	private ArrayList<Loan> loanList;
+	/** ArrayList to store the pending requests (unfilled, but not reserved). */
+	private ArrayList<Request> pendingRequests = new ArrayList<>();
+	/** ArrayList to store the pending (reserved) requests. */
+	private ArrayList<Request> pendingReserved = new ArrayList<>();
+	/** ArrayList to store all the copies. */
+	private ArrayList<Copy> copies;
+	/** Linked hashmap to store all librarians. */
+	private LinkedHashMap<String, Librarian> librarians;
+	
+	/** Holds the staff's username (currently using the system). */
+	private String staffUsername;
+	
+	/** Represents the list view and links it to the FXML file. */
+	@FXML private ListView<String> lstRequests;
+	
+	/** Represents the textbox holding the requested date. */
+	@FXML private TextField txtRequestDate;
+	/** Represents the request ID text field. */
+	@FXML private TextField txtRequestID;
+	/** Represents the textbox for the assigned copy ID. */
+	@FXML private TextField txtCopyID;
+	/** Represents the textbox that shows the resource ID. */
+	@FXML private TextField txtResourceID;
+	/** Models the Username textfield. */
+	@FXML private TextField txtUsername;
+	
+	/** The create loan button. */
+	@FXML private Button btnCreateLoan;
+	/** Models the back button. */
+	@FXML private Button btnBack;
+	
+	/**
+	 * Initialize automatically runs when the page loads. Sets up necessary
+	 * features and functionality for the page to work correctly.
+	 */
+	public void initialize() {
+		requestList = FileHandling.getRequests();
+		copies = FileHandling.getCopies();
+		loanList = FileHandling.getLoans();
+		Collections.sort(loanList);
+		Collections.sort(requestList);
+		
+		librarians = FileHandling.getLibrarians();
+		staffUsername = FileHandling.getCurrentUser();
+		
+		for (Request request : requestList) {
+			// If it's reserved.
+			if (!request.getRequestFilled() && request.isReserved()) {
+				lstRequests.getItems().add(request.getDescription());
+				pendingReserved.add(request);
+			// If it's an unfilled non-reserved request.
+			} else if (!request.getRequestFilled()) {
+				pendingRequests.add(request);
+			}
+		}
+	}
+	
+	/**
 	 * Displays the information of a selected request.
 	 */
 	public void displayRequestDetails() {
@@ -104,115 +104,115 @@ public class NewLoanController {
 		
 		txtRequestDate.setText(selectedRequest.getRequestDate());
 		txtUsername.setText(selectedRequest.getUsername());
-        txtRequestID.setText(selectedRequest.getRequestID() + "");
-        txtCopyID.setText(selectedRequest.getCopyID() + "");
-        txtResourceID.setText(selectedRequest.getResourceID() + "");
+		txtRequestID.setText(selectedRequest.getRequestID() + "");
+		txtCopyID.setText(selectedRequest.getCopyID() + "");
+		txtResourceID.setText(selectedRequest.getResourceID() + "");
 	}
-    
-    /**
-     * Handles the method to create a new loan when the button is pressed.
-     */
-    public void handleNewLoanButtonAction() {
-    	// A request should be selected.
-    	int selectedIndex = lstRequests.getSelectionModel()
+	
+	/**
+	 * Handles the method to create a new loan when the button is pressed.
+	 */
+	public void handleNewLoanButtonAction() {
+		// A request should be selected.
+		int selectedIndex = lstRequests.getSelectionModel()
 				.getSelectedIndex();
-    	
+		
 		// Fetch the details from the textfields.
-    	int loanID = getLatestLoanID() + 1;
-    	int copyID = Integer.parseInt(txtCopyID.getText().trim());
-    	int resourceID = Integer.parseInt(txtResourceID.getText().trim());
-    	String username = txtUsername.getText().trim();
-    	int staffID = getStaffID();
-    	LocalDate checkoutDate = LocalDate.now();
-    	LocalTime checkoutTime = LocalTime.now().withNano(0);
-    	String strCheckoutDate = checkoutDate.toString();
-    	String strCheckoutTime = checkoutTime.toString();
-    	ResourceType type = getResourceType(copyID);
-    	int loanDuration = -1; // Isn't actually used. Just initialising it.
-    	
-    	// Create loan object to set due date if necessary.
-    	Loan newLoan = new Loan(loanID, copyID, resourceID, username, staffID, 
-    			strCheckoutDate, strCheckoutTime, "", false, "", "", 0, type);
-    	
-    	// Checks if there's any other requests (non-reserved) for this copy.
-    	boolean othersRequested = checkPendingRequests(copyID, username);
-    	
-    	// If so, get the loan duration of the copy to set the due date.
-    	if (othersRequested) {
-        	for (Copy copy : copies) {
-        		if (copyID == copy.getCopyID()) {
-        			loanDuration = copy.getLoanDuration();
-        			newLoan.setDueDate(loanDuration);
-        			break;
-        		}
-        	}
-    	}
-    	
-    	// Save the loan.
-    	loanList.add(newLoan);
-    	String strNewLoan = newLoan.toStringDetail();
-    	FileHandling.createLoan(strNewLoan);
-    	
-    	// Set request filled to true.    	
-    	Request selectedRequest = pendingReserved.get(selectedIndex);
-    	String oldRequest = selectedRequest.toStringDetail();
-    	selectedRequest.setRequestFilled(true);
-    	String newRequest = selectedRequest.toStringDetail();
-    	FileHandling.editRequest(oldRequest, newRequest);
-    	
-    	// Alert to show that the loan has been created.
-    	Utility.loanCreated();
-    	refreshNewLoan(selectedIndex); // Refresh the request list.    
-    }
-    
-    /**
-     * Fetches the ID of the latest loan.
-     * @return ID of the latest loan.
-     */
-    public int getLatestLoanID() {
-    	int maxIndex = loanList.size() - 1;
-    	
-    	// If there are no loans (at all).
-    	if (loanList.size() == 0) {
-    		return 0;
-    	} 
-    	
-    	int latestLoanID = loanList.get(maxIndex).getLoanID();
-    	return latestLoanID;
-    }
-    
-    /**
-     * Fetches the staff ID of the librarian authorising the loan.
-     * @return Staff ID of the librarian.
-     */
-    public int getStaffID() {
-    	Librarian currentLibrarian = librarians.get(staffUsername);
-    	return currentLibrarian.getStaffID();
-    }
-    
-    /**
-     * Fetches the types of resource that is going to be loaned.
-     * @param copyID The ID of the requested copy.
-     * @return The type of resource.
-     */
-    public ResourceType getResourceType(int copyID) {
-    	for (Copy copy : copies) {
-    		if (copyID == copy.getCopyID()) {
-    			return copy.getResourceType();
-    		}
-    	}
-    	// Shouldn't get to this point.
-    	return null;
-    }
-    
-    /**
-     * Checks if there are any unfilled (non-reserved) requests that are waiting
-     * to borrow this copy as well.
-     * @param copyID The copy of the borrowed resource.
-     * @param username The user's username.
-     * @return True if there are any other requests for the resource.
-     */
-    public boolean checkPendingRequests(int copyID, String username) {
+		int loanID = getLatestLoanID() + 1;
+		int copyID = Integer.parseInt(txtCopyID.getText().trim());
+		int resourceID = Integer.parseInt(txtResourceID.getText().trim());
+		String username = txtUsername.getText().trim();
+		int staffID = getStaffID();
+		LocalDate checkoutDate = LocalDate.now();
+		LocalTime checkoutTime = LocalTime.now().withNano(0);
+		String strCheckoutDate = checkoutDate.toString();
+		String strCheckoutTime = checkoutTime.toString();
+		ResourceType type = getResourceType(copyID);
+		int loanDuration = -1; // Isn't actually used. Just initialising it.
+		
+		// Create loan object to set due date if necessary.
+		Loan newLoan = new Loan(loanID, copyID, resourceID, username, staffID, 
+				strCheckoutDate, strCheckoutTime, "", false, "", "", 0, type);
+		
+		// Checks if there's any other requests (non-reserved) for this copy.
+		boolean othersRequested = checkPendingRequests(copyID, username);
+		
+		// If so, get the loan duration of the copy to set the due date.
+		if (othersRequested) {
+			for (Copy copy : copies) {
+				if (copyID == copy.getCopyID()) {
+					loanDuration = copy.getLoanDuration();
+					newLoan.setDueDate(loanDuration);
+					break;
+				}
+			}
+		}
+		
+		// Save the loan.
+		loanList.add(newLoan);
+		String strNewLoan = newLoan.toStringDetail();
+		FileHandling.createLoan(strNewLoan);
+		
+		// Set request filled to true.
+		Request selectedRequest = pendingReserved.get(selectedIndex);
+		String oldRequest = selectedRequest.toStringDetail();
+		selectedRequest.setRequestFilled(true);
+		String newRequest = selectedRequest.toStringDetail();
+		FileHandling.editRequest(oldRequest, newRequest);
+		
+		// Alert to show that the loan has been created.
+		Utility.loanCreated();
+		refreshNewLoan(selectedIndex); // Refresh the request list.
+	}
+	
+	/**
+	 * Fetches the ID of the latest loan.
+	 * @return ID of the latest loan.
+	 */
+	public int getLatestLoanID() {
+		int maxIndex = loanList.size() - 1;
+		
+		// If there are no loans (at all).
+		if (loanList.size() == 0) {
+			return 0;
+		} 
+		
+		int latestLoanID = loanList.get(maxIndex).getLoanID();
+		return latestLoanID;
+	}
+	
+	/**
+	 * Fetches the staff ID of the librarian authorising the loan.
+	 * @return Staff ID of the librarian.
+	 */
+	public int getStaffID() {
+		Librarian currentLibrarian = librarians.get(staffUsername);
+		return currentLibrarian.getStaffID();
+	}
+	
+	/**
+	 * Fetches the types of resource that is going to be loaned.
+	 * @param copyID The ID of the requested copy.
+	 * @return The type of resource.
+	 */
+	public ResourceType getResourceType(int copyID) {
+		for (Copy copy : copies) {
+			if (copyID == copy.getCopyID()) {
+				return copy.getResourceType();
+			}
+		}
+		// Shouldn't get to this point.
+		return null;
+	}
+	
+	/**
+	 * Checks if there are any unfilled (non-reserved) requests that are waiting
+	 * to borrow this copy as well.
+	 * @param copyID The copy of the borrowed resource.
+	 * @param username The user's username.
+	 * @return True if there are any other requests for the resource.
+	 */
+	public boolean checkPendingRequests(int copyID, String username) {
 		boolean anyRequests = false;
 		
 		for (Request request : pendingRequests) {
@@ -222,26 +222,26 @@ public class NewLoanController {
 			}
 		}
 		return anyRequests;
-    }
-    
-    /**
-     * Refreshes the New Loan page after creating a new loan.
-     * @param selectedIndex The index of the fulfilled request to be removed.
-     */
-    public void refreshNewLoan(int selectedIndex) {
-    	txtRequestDate.clear();
+	}
+	
+	/**
+	 * Refreshes the New Loan page after creating a new loan.
+	 * @param selectedIndex The index of the fulfilled request to be removed.
+	 */
+	public void refreshNewLoan(int selectedIndex) {
+		txtRequestDate.clear();
 		txtUsername.clear();
-        txtRequestID.clear();
-        txtCopyID.clear();
-        txtResourceID.clear();
-    	btnCreateLoan.setDisable(true);
-    	
-    	// Removes the fulfilled request from the array list and list view.
-    	lstRequests.getItems().remove(selectedIndex);
-    	pendingReserved.remove(selectedIndex);
-    }
-    
-    /**
+		txtRequestID.clear();
+		txtCopyID.clear();
+		txtResourceID.clear();
+		btnCreateLoan.setDisable(true);
+		
+		// Removes the fulfilled request from the array list and list view.
+		lstRequests.getItems().remove(selectedIndex);
+		pendingReserved.remove(selectedIndex);
+	}
+	
+	/**
 	 * Closes this page, then goes back to the Staff Dashboard.
 	 */
 	public void handleBackButtonAction() {
@@ -259,9 +259,9 @@ public class NewLoanController {
 			primaryStage.show(); // Displays the new stage.
 		} catch (IOException e) {
 			// Catches an IO exception such as that where the FXML
-            // file is not found.
-            e.printStackTrace();
-            System.exit(-1);
+			// file is not found.
+			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 }
