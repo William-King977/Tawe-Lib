@@ -6,7 +6,6 @@ A library management system with a single person login system. This was original
 
 # Notes About The Implementation
 - Everything is coded in Eclipse IDE.
-- Indents are 4 spaces.
 - The request 'queue' works by a first come first serve basis (for a copy). 
 - Due to the 'no due date set' requirement, it's possible to borrow a resource copy indefinitely as long as no one else requests for the copy.
 - Copies are generated as a new resource is created (set to 5 copies) and the loan duration is randomly picked from 4 options.
