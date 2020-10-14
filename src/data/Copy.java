@@ -52,7 +52,7 @@ public class Copy implements Comparable<Copy> {
 	
 	/**
 	 * Gets the ID of the Copy.
-	* @return The Copy's ID.
+	 * @return The Copy's ID.
 	 */
 	public int getCopyID() {
 		return copyID;
@@ -109,7 +109,7 @@ public class Copy implements Comparable<Copy> {
 	/**
 	 * Gets a short description of the Copy that's suitable to display.
 	 * @return A short description of the Copy.
-	*/
+	 */
 	public String getCopyDescription() {
 		// Used to display true or false value in a user friendly way.
 		// For whether you can borrow the Copy or not.
