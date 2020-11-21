@@ -161,7 +161,7 @@ public class NewLoanController {
 		FileHandling.editRequest(oldRequest, newRequest);
 		
 		// Alert to show that the loan has been created.
-		Utility.loanCreated();
+		Alerts.loanCreated();
 		refreshNewLoan(selectedIndex); // Refresh the request list.
 	}
 	

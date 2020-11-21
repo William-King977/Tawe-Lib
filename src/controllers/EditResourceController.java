@@ -157,16 +157,16 @@ public class EditResourceController {
 		boolean hasLetter = Utility.isAlphaLanguage(language);
 		 
 		if (language.length() == 0) {
-			Utility.languageNotEntered();
+			Alerts.languageNotEntered();
 			return;
 		} else if (!hasLetter) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		}
 		
 		languageExist = currentLangList.contains(language);
 		if (languageExist) {
-			Utility.languageExists();
+			Alerts.languageExists();
 			return;
 		}
 		lstSubLang.getItems().add(language);
@@ -181,10 +181,10 @@ public class EditResourceController {
 		int selectedIndex = lstSubLang.getSelectionModel().getSelectedIndex();
 		
 		if (currentLangList.size() == 0) {
-			Utility.languageListEmpty();
+			Alerts.languageListEmpty();
 			return;
 		} else if (selectedIndex < 0) {
-			Utility.languageNotSelected();
+			Alerts.languageNotSelected();
 			return;
 		}
 		lstSubLang.getItems().remove(selectedIndex);
@@ -224,13 +224,13 @@ public class EditResourceController {
 				genre, language);
 		
 		if (!bookFieldsFilled) {
-			Utility.missingFields();
+			Alerts.missingFields();
 			return;
 		} else if (!isNum) {
-			Utility.nonIntegerError();
+			Alerts.nonIntegerError();
 			return;
 		} else if (!isAlpha) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		}
 		
@@ -243,7 +243,7 @@ public class EditResourceController {
 		
 		// Checks if the entered details match with an existing book.
 		if (bookExists) {
-			Utility.resourceExistsEdit();
+			Alerts.resourceExistsEdit();
 			return;
 		}
 		
@@ -297,16 +297,16 @@ public class EditResourceController {
 		boolean isAlpha = Utility.isAlphaDVD(director, language);
 		
 		if (!dvdFieldsFilled) {
-			Utility.missingFields();
+			Alerts.missingFields();
 			return;
 		} else if (!isNum) {
-			Utility.nonIntegerError();
+			Alerts.nonIntegerError();
 			return;
 		} else if (!isDouble) {
-			Utility.nonDoubleError();
+			Alerts.nonDoubleError();
 			return;
 		} else if (!isAlpha) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		}
 		
@@ -319,7 +319,7 @@ public class EditResourceController {
 		
 		// Checks if the entered details match with an existing DVD.
 		if (dvdExists) {
-			Utility.resourceExistsEdit();
+			Alerts.resourceExistsEdit();
 			return;
 		}
 		
@@ -370,13 +370,13 @@ public class EditResourceController {
 				model, manufacturer);
 		
 		if (!laptopFieldsFilled) {
-			Utility.missingFields();
+			Alerts.missingFields();
 			return;
 		} else if (!isNum) {
-			Utility.nonIntegerError();
+			Alerts.nonIntegerError();
 			return;
 		} else if (!isAlpha) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		}
 		
@@ -388,7 +388,7 @@ public class EditResourceController {
 		
 		// Checks if the entered details match with an existing laptop.
 		if (laptopExists) {
-			Utility.resourceExistsEdit();
+			Alerts.resourceExistsEdit();
 			return;
 		}
 		

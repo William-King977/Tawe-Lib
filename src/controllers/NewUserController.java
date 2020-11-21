@@ -85,16 +85,16 @@ public class NewUserController {
 		
 		// Shows appropriate alerts if validation has not been met.
 		if (!requiredFilled) { 
-			Utility.missingFields();
+			Alerts.missingFields();
 			return;
 		} else if (!hasLetter) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		} else if (!validPostcode) {
-			Utility.invalidPostcode();
+			Alerts.invalidPostcode();
 			return;
 		} else if (usernameExist) {
-			Utility.usernameExists();
+			Alerts.usernameExists();
 			return;
 		}
 		
@@ -151,7 +151,7 @@ public class NewUserController {
 			userList.put(username, newMember);
 		}
 		FileHandling.createUser(newUser, userType);
-		Utility.userCreated();
+		Alerts.userCreated();
 		handleBackButtonAction();
 	}
 	

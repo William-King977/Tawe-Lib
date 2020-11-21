@@ -261,16 +261,16 @@ public class NewResourceController {
 		boolean hasLetter = Utility.isAlphaLanguage(language);
 		 
 		if (language.length() == 0) {
-			Utility.languageNotEntered();
+			Alerts.languageNotEntered();
 			return;
 		} else if (!hasLetter) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		}
 		
 		languageExist = currentLangList.contains(language);
 		if (languageExist) {
-			Utility.languageExists();
+			Alerts.languageExists();
 			return;
 		}
 		lstSubLang.getItems().add(language);
@@ -285,10 +285,10 @@ public class NewResourceController {
 		int selectedIndex = lstSubLang.getSelectionModel().getSelectedIndex();
 		
 		if (currentLangList.size() == 0) {
-			Utility.languageListEmpty();
+			Alerts.languageListEmpty();
 			return;
 		} else if (selectedIndex < 0) {
-			Utility.languageNotSelected();
+			Alerts.languageNotSelected();
 			return;
 		}
 		lstSubLang.getItems().remove(selectedIndex);
@@ -313,7 +313,7 @@ public class NewResourceController {
 		
 		//Sets a new resource image if it has been selected.
 		if (selectedIndex < 0) {
-			Utility.imageNotSelected();
+			Alerts.imageNotSelected();
 			return;
 		} 
 		String imageName = resourceImageList[selectedIndex].getName();
@@ -326,13 +326,13 @@ public class NewResourceController {
 				genre, language);
 		
 		if (!bookFieldsFilled) {
-			Utility.missingFields();
+			Alerts.missingFields();
 			return;
 		} else if (!isNum) {
-			Utility.nonIntegerError();
+			Alerts.nonIntegerError();
 			return;
 		} else if (!isAlpha) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		}
 		
@@ -345,7 +345,7 @@ public class NewResourceController {
 		
 		// Checks if the entered details match with an existing book.
 		if (bookExists) {
-			Utility.resourceExistsCreate();
+			Alerts.resourceExistsCreate();
 			return;
 		}
 		
@@ -361,7 +361,7 @@ public class NewResourceController {
 		resourceList.add(newBook);
 		newResourceType = ResourceType.BOOK;
 		
-		Utility.resourceCreated();
+		Alerts.resourceCreated();
 		handleBackButtonAction();
 	}
 	
@@ -382,7 +382,7 @@ public class NewResourceController {
 		
 		// Sets a new resource image if it has been selected.
 		if (selectedIndex < 0) {
-			Utility.imageNotSelected();
+			Alerts.imageNotSelected();
 			return;
 		} 
 		String imageName = resourceImageList[selectedIndex].getName();
@@ -395,16 +395,16 @@ public class NewResourceController {
 		boolean isAlpha = Utility.isAlphaDVD(director, language);
 		
 		if (!dvdFieldsFilled) {
-			Utility.missingFields();
+			Alerts.missingFields();
 			return;
 		} else if (!isNum) {
-			Utility.nonIntegerError();
+			Alerts.nonIntegerError();
 			return;
 		} else if (!isDouble) {
-			Utility.nonDoubleError();
+			Alerts.nonDoubleError();
 			return;
 		} else if (!isAlpha) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		}
 		
@@ -416,7 +416,7 @@ public class NewResourceController {
 		
 		// Checks if the entered details match with an existing DVD.
 		if (dvdExists) {
-			Utility.resourceExistsCreate();
+			Alerts.resourceExistsCreate();
 			return;
 		}
 		
@@ -432,7 +432,7 @@ public class NewResourceController {
 		resourceList.add(newDVD);
 		newResourceType = ResourceType.DVD;
 		
-		Utility.resourceCreated();
+		Alerts.resourceCreated();
 		handleBackButtonAction();
 	}
 	
@@ -453,7 +453,7 @@ public class NewResourceController {
 		
 		//Sets a new resource image if it has been selected.
 		if (selectedIndex < 0) {
-			Utility.imageNotSelected();
+			Alerts.imageNotSelected();
 			return;
 		} 
 		String imageName = resourceImageList[selectedIndex].getName();
@@ -466,13 +466,13 @@ public class NewResourceController {
 				model, manufacturer);
 		
 		if (!laptopFieldsFilled) {
-			Utility.missingFields();
+			Alerts.missingFields();
 			return;
 		} else if (!isNum) {
-			Utility.nonIntegerError();
+			Alerts.nonIntegerError();
 			return;
 		} else if (!isAlpha) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		}
 		
@@ -484,7 +484,7 @@ public class NewResourceController {
 		
 		// Checks if the entered details match with an existing laptop.
 		if (laptopExists) {
-			Utility.resourceExistsCreate();
+			Alerts.resourceExistsCreate();
 			return;
 		}
 		
@@ -500,7 +500,7 @@ public class NewResourceController {
 		resourceList.add(newLaptop);
 		newResourceType = ResourceType.LAPTOP;
 		
-		Utility.resourceCreated();
+		Alerts.resourceCreated();
 		handleBackButtonAction();
 	}
 	

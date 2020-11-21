@@ -659,7 +659,7 @@ public class FileHandling {
 			System.exit(-1);
 		}
 		
-		Utility.savedResourceChanges();
+		Alerts.savedResourceChanges();
 	}
 	
 	/**

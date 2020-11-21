@@ -60,7 +60,7 @@ public class LoginController {
 		
 		// Carry out appropriate actions based on username existence,
 		if (!userFound) {
-			Utility.userNotExist(username);
+			Alerts.userNotExist(username);
 		} else {
 			// Show dashboard and stores current user.
 			FileHandling.setCurrentUser(username);

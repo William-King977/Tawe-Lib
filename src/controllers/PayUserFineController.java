@@ -94,10 +94,10 @@ public class PayUserFineController {
 		boolean isDouble = Utility.isDouble(strPayment); 
 		
 		if (strPayment.isEmpty()) {
-			Utility.noEnteredPayment();
+			Alerts.noEnteredPayment();
 			return;
 		} else if (!isDouble) {
-			Utility.nonDoubleError();
+			Alerts.nonDoubleError();
 			return;
 		}
 		
@@ -108,10 +108,10 @@ public class PayUserFineController {
 		
 		// If less than 1p.
 		if (payment2DP < 0.01) {
-			Utility.paymentTooLow();
+			Alerts.paymentTooLow();
 			return;
 		} else if (payment2DP > userFine) {
-			Utility.paymentTooHigh();
+			Alerts.paymentTooHigh();
 			return;
 		}
 		
@@ -129,7 +129,7 @@ public class PayUserFineController {
 		
 		FileHandling.editProfile(oldUser, newUser, 2);
 		makePaymentTransaction(username, payment2DP);
-		Utility.paymentMade();
+		Alerts.paymentMade();
 		refreshPayUserFine(selectedIndex, selectedUser); 
 	}
 	

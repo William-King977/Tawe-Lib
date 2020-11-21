@@ -219,13 +219,13 @@ public class EditUserController {
 		
 		// Shows appropriate alerts if validation has not been met.
 		if (!requiredFilled) { 
-			Utility.missingFields();
+			Alerts.missingFields();
 			return;
 		} else if (!hasLetter) {
-			Utility.nonAlphaError();
+			Alerts.nonAlphaError();
 			return;
 		} else if (!validPostcode) {
-			Utility.invalidPostcode();
+			Alerts.invalidPostcode();
 			return;
 		}
 		saveUserEdits(firstName, surname, mobileNumber, address1, address2,
@@ -263,11 +263,11 @@ public class EditUserController {
 		// If the user is a librarian.
 		if (isLibrarian()) {
 			FileHandling.editProfile(oldProfile, newProfile, 1);
-			Utility.savedUserChanges("librarian");
+			Alerts.savedUserChanges("librarian");
 		// If the user is a member.
 		} else {
 			FileHandling.editProfile(oldProfile, newProfile, 2);
-			Utility.savedUserChanges("user");
+			Alerts.savedUserChanges("user");
 		}
 		handleBackButtonAction(); // Closes the window.
 	}

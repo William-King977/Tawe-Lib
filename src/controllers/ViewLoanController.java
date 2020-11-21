@@ -218,7 +218,7 @@ public class ViewLoanController {
 		// Save loan changes.
 		String newLoan = returnedLoan.toStringDetail();
 		FileHandling.editLoan(oldLoan, newLoan);
-		Utility.loanReturned(); // Loan returned alert.
+		Alerts.loanReturned(); // Loan returned alert.
 		refreshViewLoan(selectedIndex, returnedLoan); // Refresh page.
 	}
 	

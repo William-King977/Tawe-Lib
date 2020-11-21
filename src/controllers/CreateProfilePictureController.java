@@ -149,9 +149,9 @@ public class CreateProfilePictureController {
 		String fileName = imageFilename.getText().trim() + ".png";
 		
 		if (fileName.equals(".png")) { 
-			Utility.fileNameEmpty();
+			Alerts.fileNameEmpty();
 		} else if (FileHandling.checkImageExists(fileName)) {
-			Utility.fileNameExists();
+			Alerts.fileNameExists();
 		// Save the image if the filename doesn't already exist.
 		} else if (!FileHandling.checkImageExists(fileName)) { 
 			// Creates the file by concatenating the complete path to the filename. 

@@ -171,11 +171,11 @@ public class ViewResourceController {
 		// Checks if the user has outstanding fines or overdue copies.
 		boolean isOverdue = getOverdue();
 		if (currentUser.getFine() > 0) {
-			Utility.outstandingFines();
+			Alerts.outstandingFines();
 			return;
 		// Checks if the user has overdue (unreturned) copies.
 		} else if (isOverdue) { 
-			Utility.overdueCopies();
+			Alerts.overdueCopies();
 			return;
 		}
 		
@@ -193,7 +193,7 @@ public class ViewResourceController {
 			// Checks if the user has requested to borrow this resource already.
 			boolean requested = isAlreadyRequested(currentUsername, resourceID);
 			if (requested) {
-				Utility.alreadyRequested();
+				Alerts.alreadyRequested();
 				return;
 			} else if (thisCopy.isAvailable()) {
 				copyID = thisCopy.getCopyID();
@@ -353,7 +353,7 @@ public class ViewResourceController {
 	public void setLoanDueDate(boolean isCopyFound, int copyID, int duration) {
 		// If there are available copies, add to 'reserved' (reserved for user).
 		if (isCopyFound) {
-			Utility.requestCreated("Reserved");
+			Alerts.requestCreated("Reserved");
 		// If no available copies.
 		} else {
 			// Set the due date to the current loan of the resource
@@ -371,7 +371,7 @@ public class ViewResourceController {
 					break;
 				}
 			}
-			Utility.requestCreated("Queue");
+			Alerts.requestCreated("Queue");
 		}
 	}
 	
